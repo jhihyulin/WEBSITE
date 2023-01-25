@@ -17,6 +17,8 @@ import 'pages/Status.dart';
 import 'pages/VPN.dart';
 import 'pages/ShortURL.dart';
 import 'pages/LongURL.dart';
+import 'pages/Contact.dart';
+import 'pages/About.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
 
@@ -25,16 +27,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // FirebaseUIAuth.configureProviders([
-  //   GoogleProvider(
-  //       clientId:
-  //           '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com'),
-  //   TwitterProvider(
-  //     apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
-  //     apiSecretKey: 'TWITTER_SECRET',
-  //   ),
-  //   FacebookProvider(clientId: '1230943830699268')
-  // ]);
+  usePathUrlStrategy();
   runApp(MyApp());
 }
 
@@ -57,23 +50,29 @@ class MyApp extends StatelessWidget {
         body: BottomNavigationController(),
       ),
       routes: {
+        '/about': (context) => AboutPage(),
+        '/contact': (context) => ContactPage(),
         '/account': (context) => AccountPage(),
         '/profile': (context) => ProfilePage(),
-        '/home': (context) => HomePage(),
-        '/tool': (context) => ToolPage(),
         '/signin': (context) => SignInPage(),
         '/status': (context) => StatusPage(),
         '/shorturl': (context) => ShortURLPage(),
         '/longurl': (context) => LongURLPage(),
         '/vpn': (context) => VPNPage(),
+        '/tool': (context) => BottomNavigationController(inputIndex: 1),
+        '/home': (context) => BottomNavigationController(inputIndex: 0),
       },
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
+int _currentIndex = 0;
 class BottomNavigationController extends StatefulWidget {
-  BottomNavigationController() : super();
+  final int inputIndex;
+  BottomNavigationController({Key? key, this.inputIndex = 0}) : super(key: key) {
+    _currentIndex = inputIndex;
+  }
 
   @override
   _BottomNavigationControllerState createState() =>
@@ -82,8 +81,6 @@ class BottomNavigationController extends StatefulWidget {
 
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
-  //目前選擇頁索引值
-  int _currentIndex = 0; //預設值
   final pages = [HomePage(), ToolPage()];
 
   @override
@@ -124,14 +121,16 @@ class _BottomNavigationControllerState
                 },
               ),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AccountPage()));
+                Navigator.of(context).pushNamed('/account');
               },
             ),
           )
         ],
       ),
-      body: pages[_currentIndex], //目前選擇頁面(Widget
+      body: IndexedStack(
+        index: _currentIndex,
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -143,13 +142,12 @@ class _BottomNavigationControllerState
             label: 'Tool',
           ),
         ],
-        currentIndex: _currentIndex, //目前選擇頁索引值
+        currentIndex: _currentIndex,
         onTap: _onItemClick,
       ),
     );
   }
 
-  //BottomNavigationBar 按下處理事件，更新設定當下索引值
   void _onItemClick(int index) {
     setState(() {
       _currentIndex = index;

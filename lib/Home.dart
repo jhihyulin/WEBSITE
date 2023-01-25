@@ -37,16 +37,14 @@ class HomePage extends StatelessWidget {
             icon: const Icon(Icons.info),
             label: Text('About'),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AboutPage()));
+              Navigator.of(context).pushNamed('/about');
             },
           ),
           ElevatedButton.icon(
             icon: const Icon(Icons.chat),
             label: Text('Contact'),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ContactPage()));
+              Navigator.of(context).pushNamed('/contact');
             },
           ),
         ]),

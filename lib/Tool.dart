@@ -91,9 +91,7 @@ class ToolPage extends StatelessWidget {
     return Center(
         child: SingleChildScrollView(
             child: Container(
-      constraints: BoxConstraints(
-        maxWidth: 400,
-      ),
+      constraints: BoxConstraints(maxWidth: 400,),
       padding: const EdgeInsets.all(10),
       child: Wrap(
         alignment: WrapAlignment.center,
@@ -104,28 +102,28 @@ class ToolPage extends StatelessWidget {
             icon: const Icon(Icons.monitor_heart_outlined),
             label: Text('Status'),
             onPressed: () {
-              Navigator.pushNamed(context, '/status');
+              Navigator.of(context).pushNamed('/status');
             },
           ),
           ElevatedButton.icon(
             icon: const Icon(Icons.vpn_key),
             label: Text('VPN'),
             onPressed: () {
-              Navigator.pushNamed(context, '/vpn');
+              Navigator.of(context).pushNamed('/vpn');
             },
           ),
           ElevatedButton.icon(
             icon: const Icon(Icons.link),
             label: Text('ShortURL'),
             onPressed: () {
-              Navigator.pushNamed(context, '/shorturl');
+              Navigator.of(context).pushNamed('/shorturl');
             },
           ),
           ElevatedButton.icon(
             icon: const Icon(Icons.link),
             label: Text('LongURL'),
             onPressed: () {
-              Navigator.pushNamed(context, '/longurl');
+              Navigator.of(context).pushNamed('/longurl');
             },
           ),
         ],

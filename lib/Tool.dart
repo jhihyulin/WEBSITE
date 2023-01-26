@@ -91,7 +91,7 @@ class ToolPage extends StatelessWidget {
     return Center(
         child: SingleChildScrollView(
             child: Container(
-      constraints: BoxConstraints(maxWidth: 400,),
+      constraints: BoxConstraints(maxWidth: 500,),
       padding: const EdgeInsets.all(10),
       child: Wrap(
         alignment: WrapAlignment.center,

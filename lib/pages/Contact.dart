@@ -42,8 +42,14 @@ class ContactPage extends StatelessWidget {
                             labelText: 'Email',
                             hintText: 'example@domain.com',
                             prefixIcon: Icon(Icons.email),
+                            border: OutlineInputBorder(
+                              borderRadius:BorderRadius.all(
+                                Radius.circular(16.0)
+                              )
+                            )
                           ),
                         ),
+                        SizedBox(height: 20),
                         TextFormField(
                           controller: ContactMessageController,
                           keyboardType: TextInputType.text,
@@ -53,6 +59,11 @@ class ContactPage extends StatelessWidget {
                             labelText: 'Message',
                             hintText: 'Type your message here',
                             prefixIcon: Icon(Icons.comment),
+                            border: OutlineInputBorder(
+                              borderRadius:BorderRadius.all(
+                                Radius.circular(16.0)
+                              )
+                            )
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -62,8 +73,9 @@ class ContactPage extends StatelessWidget {
                           },
                           onTapOutside: (event) => {
                             _MessageformKey.currentState!.validate(),
-                          }
+                          },
                         ),
+                        SizedBox(height: 20),
                         TextField(
                           controller: ContactSignatureController,
                           keyboardType: TextInputType.text,
@@ -71,6 +83,11 @@ class ContactPage extends StatelessWidget {
                             labelText: 'Signature',
                             hintText: 'Type your signature here',
                             prefixIcon: Icon(Icons.drive_file_rename_outline),
+                            border: OutlineInputBorder(
+                              borderRadius:BorderRadius.all(
+                                Radius.circular(16.0)
+                              )
+                            )
                           ),
                         ),
                         SizedBox(height: 20),

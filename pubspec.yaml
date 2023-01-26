@@ -35,4 +35,7 @@ flutter:
       - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
   - family: Montserrat
     fonts:
-      - asset: fonts/Montserrat-Regular.ttf
+      - asset: assets/fonts/Montserrat-Regular.ttf
+  - family:  Logo
+    fonts:
+      - asset: assets/fonts/Logo.ttf

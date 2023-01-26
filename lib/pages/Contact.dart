@@ -20,6 +20,7 @@ class ContactPage extends StatelessWidget {
         new TextEditingController();
     final TextEditingController ContactSignatureController =
         new TextEditingController();
+    final _MessageformKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Contact'),
@@ -27,69 +28,83 @@ class ContactPage extends StatelessWidget {
       body: Center(
           child: SingleChildScrollView(
               child: Container(
-        padding: EdgeInsets.all(20),
-        constraints: BoxConstraints(maxWidth: 500),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              controller: ContactEmailController,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                hintText: 'example@domain.com',
-                prefixIcon: Icon(Icons.email),
-              ),
-            ),
-            TextField(
-              controller: ContactMessageController,
-              keyboardType: TextInputType.text,
-              minLines: 1,
-              maxLines: 100,
-              decoration: InputDecoration(
-                labelText: 'Message',
-                hintText: 'Type your message here',
-                prefixIcon: Icon(Icons.comment),
-              ),
-            ),
-            TextField(
-              controller: ContactSignatureController,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                labelText: 'Signature',
-                hintText: 'Type your signature here',
-                prefixIcon: Icon(Icons.drive_file_rename_outline),
-              ),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton.icon(
-                  label: Text('Clear'),
-                  icon: Icon(Icons.clear),
-                  onPressed: () {
-                    ContactEmailController.clear();
-                    ContactMessageController.clear();
-                    ContactSignatureController.clear();
-                  },
-                ),
-                SizedBox(width: 20),
-                ElevatedButton.icon(
-                  label: Text('Send'),
-                  icon: Icon(Icons.send),
-                  onPressed: () {
-                    String Email = ContactEmailController.text;
-                    String Message = ContactMessageController.text;
-                    String Signature = ContactSignatureController.text;
-                    SendMessage(Email, Message, Signature, context);
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-      ))),
+                  padding: EdgeInsets.all(20),
+                  constraints: BoxConstraints(maxWidth: 500),
+                  child: Form(
+                    key: _MessageformKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextField(
+                          controller: ContactEmailController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            hintText: 'example@domain.com',
+                            prefixIcon: Icon(Icons.email),
+                          ),
+                        ),
+                        TextFormField(
+                          controller: ContactMessageController,
+                          keyboardType: TextInputType.text,
+                          minLines: 1,
+                          maxLines: 10,
+                          decoration: InputDecoration(
+                            labelText: 'Message',
+                            hintText: 'Type your message here',
+                            prefixIcon: Icon(Icons.comment),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Message Is Required';
+                            }
+                            return null;
+                          },
+                          onTapOutside: (event) => {
+                            _MessageformKey.currentState!.validate(),
+                          }
+                        ),
+                        TextField(
+                          controller: ContactSignatureController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: 'Signature',
+                            hintText: 'Type your signature here',
+                            prefixIcon: Icon(Icons.drive_file_rename_outline),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton.icon(
+                              label: Text('Clear'),
+                              icon: Icon(Icons.clear),
+                              onPressed: () {
+                                ContactEmailController.clear();
+                                ContactMessageController.clear();
+                                ContactSignatureController.clear();
+                              },
+                            ),
+                            SizedBox(width: 20),
+                            ElevatedButton.icon(
+                              label: Text('Send'),
+                              icon: Icon(Icons.send),
+                              onPressed: () {
+                                String Email = ContactEmailController.text;
+                                String Message = ContactMessageController.text;
+                                String Signature =
+                                    ContactSignatureController.text;
+                                if (_MessageformKey.currentState!.validate()) {
+                                  SendMessage(Email, Message, Signature, context);
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )))),
     );
   }
 }

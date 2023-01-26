@@ -21,6 +21,7 @@ dependencies:
   firebase_ui_oauth_twitter: ^1.0.16
   animated_text_kit: ^4.2.2
   url_launcher: ^6.1.8
+  http: ^0.13.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

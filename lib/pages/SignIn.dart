@@ -13,31 +13,32 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Sign In'),
-        ),
-        body: SignInScreen(
-          providers: [
-            EmailAuthProvider(),
-            PhoneAuthProvider(),
-            GoogleProvider(
-                clientId:
-                    '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com'),
-            TwitterProvider(
-              apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
-              apiSecretKey: 'TWITTER_SECRET',
-            ),
-            FacebookProvider(clientId: '1230943830699268')
-          ],
-          actions: [
-            AuthStateChangeAction<SignedIn>((context, state) {
-              if (!state.user!.emailVerified) {
-                Navigator.pushNamed(context, '/verify-email');
-              } else {
-                Navigator.pushReplacementNamed(context, '/profile');
-              }
-            }),
-          ],
-        ));
+      appBar: AppBar(
+        title: Text('Sign In'),
+      ),
+      body: SignInScreen(
+        providers: [
+          EmailAuthProvider(),
+          PhoneAuthProvider(),
+          GoogleProvider(
+              clientId:
+                  '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com'),
+          TwitterProvider(
+            apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
+            apiSecretKey: 'TWITTER_SECRET',
+          ),
+          FacebookProvider(clientId: '1230943830699268')
+        ],
+        actions: [
+          AuthStateChangeAction<SignedIn>((context, state) {
+            if (!state.user!.emailVerified) {
+              Navigator.pushNamed(context, '/verify-email');
+            } else {
+              Navigator.pushReplacementNamed(context, '/profile');
+            }
+          }),
+        ],
+      )
+    );
   }
 }

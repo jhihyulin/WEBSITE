@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
+import '/pages/LogInFirst.dart';
 
 const String VPNSERVER_DOMAIN = 'vpn.jhihyulin.live';
 const String VPNSERVER_URL_1 = '/server_list';
@@ -148,83 +149,89 @@ class _VPNPageState extends State<VPNPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('VPN'),
-        ),
-        body: Center(
-            child: SingleChildScrollView(
-          child: Container(
-              padding: EdgeInsets.all(20),
-              constraints: BoxConstraints(maxWidth: 500),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  DropdownButton(
-                    items: _items,
-                    value: _selectedServerId,
-                    onChanged: (value) {
-                      if (value == _defaultSelect) {
-                        setState(() {
-                          _getResponse = false;
-                          _selectedServerId = value;
-                          _resetValue();
-                        });
-                        return;
-                      } else {
-                        setState(() {
-                          _loading = true;
-                          _getResponse = false;
-                          _selectedServerId = value;
-                          _getKey(value);
-                        });
-                      }
-                    },
-                  ),
-                  Offstage(
-                    offstage: !_loading && _selectedServerId == _defaultSelect,
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20),
-                        ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          child: LinearProgressIndicator(
-                            minHeight: 20,
-                            backgroundColor: Theme.of(context)
-                                .splashColor, //TODO: change low purple
-                            value: _loading ? null : _dataUsedPercentage / 100,
-                          ),
-                        ),
-                      ],
+    if (FirebaseAuth.instance.currentUser == null) {
+      return SignInFirstPage(originPage: '/vpn');
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text('VPN'),
+          ),
+          body: Center(
+              child: SingleChildScrollView(
+            child: Container(
+                padding: EdgeInsets.all(20),
+                constraints: BoxConstraints(maxWidth: 500),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    DropdownButton(
+                      items: _items,
+                      value: _selectedServerId,
+                      onChanged: (value) {
+                        if (value == _defaultSelect) {
+                          setState(() {
+                            _getResponse = false;
+                            _selectedServerId = value;
+                            _resetValue();
+                          });
+                          return;
+                        } else {
+                          setState(() {
+                            _loading = true;
+                            _getResponse = false;
+                            _selectedServerId = value;
+                            _getKey(value);
+                          });
+                        }
+                      },
                     ),
-                  ),
-                  Offstage(
-                    offstage:
-                        _selectedServerId == _defaultSelect || !_getResponse,
-                    child: Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Offstage(
+                      offstage:
+                          !_loading && _selectedServerId == _defaultSelect,
+                      child: Column(
                         children: [
-                          Text('Used: $_usedBytesVisualization'),
-                          Text('Limit: $_useBytesLimitVisualization'),
+                          SizedBox(height: 20),
+                          ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            child: LinearProgressIndicator(
+                              minHeight: 20,
+                              backgroundColor: Theme.of(context)
+                                  .splashColor, //TODO: change low purple
+                              value:
+                                  _loading ? null : _dataUsedPercentage / 100,
+                            ),
+                          ),
                         ],
                       ),
-                      ElevatedButton.icon(
-                        label: Text('Add To APP'),
-                        icon: Icon(Icons.vpn_lock),
-                        onPressed: () async {
-                          final Uri VPN_url = Uri.parse(_accessUrl);
-                          if (!await launchUrl(VPN_url)) {
-                            throw Exception('Could not launch $_accessUrl');
-                          }
-                        },
-                      ),
-                    ]),
-                  )
-                  //TODO: When no server selected, show nothing
-                ],
-              )),
-        )));
+                    ),
+                    Offstage(
+                      offstage:
+                          _selectedServerId == _defaultSelect || !_getResponse,
+                      child: Column(children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Used: $_usedBytesVisualization'),
+                            Text('Limit: $_useBytesLimitVisualization'),
+                          ],
+                        ),
+                        ElevatedButton.icon(
+                          label: Text('Add To APP'),
+                          icon: Icon(Icons.vpn_lock),
+                          onPressed: () async {
+                            final Uri VPN_url = Uri.parse(_accessUrl);
+                            if (!await launchUrl(VPN_url)) {
+                              throw Exception('Could not launch $_accessUrl');
+                            }
+                          },
+                        ),
+                      ]),
+                    )
+                    //TODO: When no server selected, show nothing
+                  ],
+                )),
+          )));
+    }
   }
 }
 

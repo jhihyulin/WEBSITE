@@ -139,54 +139,55 @@ void SendMessage(Email, Message, Signature, context) async {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Message Sent Seccessfully.'),
         showCloseIcon: true,
-        closeIconColor: Colors.green,
         behavior: SnackBarBehavior.floating,
       ));
     }).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error Notifying Admin!'),
           showCloseIcon: true,
-          closeIconColor: Colors.red,
+          closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
           duration: Duration(seconds: 10),
-          action: SnackBarAction(
-            label: 'Report',
-            onPressed: () async {
-              Uri _url = Uri.parse(
-                  'mailto:$REPORT_MAIL?subject=%5BWebsite%5DContact%20Error%20Report&body=%5B2%5DError%20Message%3A%20$error%0D%0AEmail%3A%20$Email%0D%0AMessage%3A%20$Message%0D%0ASignature%3A%20$Signature%0D%0ATimeStamp%3A%20$TimeStamp%0D%0AUID%3A%20$uid');
-              if (!await launchUrl(_url)) {
-                FailToSendReport(error, context);
-              }
-            },
-          )));
+          // action: SnackBarAction(
+          //   label: 'Report',
+          //   onPressed: () async {
+          //     Uri _url = Uri.parse(
+          //         'mailto:$REPORT_MAIL?subject=%5BWebsite%5DContact%20Error%20Report&body=%5B2%5DError%20Message%3A%20$error%0D%0AEmail%3A%20$Email%0D%0AMessage%3A%20$Message%0D%0ASignature%3A%20$Signature%0D%0ATimeStamp%3A%20$TimeStamp%0D%0AUID%3A%20$uid');
+          //     if (!await launchUrl(_url)) {
+          //       FailToSendReport(error, context);
+          //     }
+          //   },
+          // )
+        ));
     });
   }).catchError((error) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error Sending Message!'),
         showCloseIcon: true,
-        closeIconColor: Colors.red,
+        closeIconColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
         duration: Duration(seconds: 10),
-        action: SnackBarAction(
-          label: 'Report',
-          onPressed: () async {
-            Uri _url = Uri.parse(
-                'mailto:$REPORT_MAIL?subject=%5BWebsite%5DContact%20Error%20Report&body=%5B1%5DError%20Message%3A%20$error%0D%0AEmail%3A%20$Email%0D%0AMessage%3A%20$Message%0D%0ASignature%3A%20$Signature%0D%0ATimeStamp%3A%20$TimeStamp%0D%0AUID%3A%20$uid');
-            if (!await launchUrl(_url)) {
-              FailToSendReport(error, context);
-            }
-          },
-        )));
+        // action: SnackBarAction(
+        //   label: 'Report',
+        //   onPressed: () async {
+        //     Uri _url = Uri.parse(
+        //         'mailto:$REPORT_MAIL?subject=%5BWebsite%5DContact%20Error%20Report&body=%5B1%5DError%20Message%3A%20$error%0D%0AEmail%3A%20$Email%0D%0AMessage%3A%20$Message%0D%0ASignature%3A%20$Signature%0D%0ATimeStamp%3A%20$TimeStamp%0D%0AUID%3A%20$uid');
+        //     if (!await launchUrl(_url)) {
+        //       FailToSendReport(error, context);
+        //     }
+        //   },
+        // )
+      ));
   });
 }
 
-void FailToSendReport(error, context) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text(
-        'Fail to send report.\nPleae send Email to $REPORT_MAIL\nAlso don\'t forget to attach a screenshot and this error message:\n$error'),
-    showCloseIcon: true,
-    closeIconColor: Colors.red,
-    behavior: SnackBarBehavior.floating,
-    duration: Duration(seconds: 10),
-  ));
-}
+// void FailToSendReport(error, context) {
+//   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//     content: Text(
+//         'Fail to send report.\nPleae send Email to $REPORT_MAIL\nAlso don\'t forget to attach a screenshot and this error message:\n$error'),
+//     showCloseIcon: true,
+//     closeIconColor: Colors.red,
+//     behavior: SnackBarBehavior.floating,
+//     duration: Duration(seconds: 10),
+//   ));
+// }

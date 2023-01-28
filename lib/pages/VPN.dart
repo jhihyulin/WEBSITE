@@ -96,6 +96,7 @@ class _VPNPageState extends State<VPNPage> {
           content: Text('Error: $error'),
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
           duration: Duration(seconds: 10),
         ),
       );
@@ -138,6 +139,7 @@ class _VPNPageState extends State<VPNPage> {
           content: Text('Error: $error'),
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
           duration: Duration(seconds: 10),
         ),
       );

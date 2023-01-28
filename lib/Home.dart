@@ -17,7 +17,6 @@ class HomePage extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 30.0,
                   fontFamily: 'Montserrat',
-                  color: Colors.white,
                 ),
                 child: AnimatedTextKit(
                   isRepeatingAnimation: false,

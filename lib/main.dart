@@ -22,6 +22,18 @@ import 'pages/About.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
 
+Map<String, Widget Function(BuildContext)> _routes = {
+  '/account': (BuildContext context) => AccountPage(),
+  '/profile': (BuildContext context) => ProfilePage(),
+  '/signin': (BuildContext context) => SignInPage(),
+  '/status': (BuildContext context) => StatusPage(),
+  '/vpn': (BuildContext context) => VPNPage(),
+  '/shorturl': (BuildContext context) => ShortURLPage(),
+  '/longurl': (BuildContext context) => LongURLPage(),
+  '/contact': (BuildContext context) => ContactPage(),
+  '/about': (BuildContext context) => AboutPage(),
+};
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -49,19 +61,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: BottomNavigationController(),
       ),
-      routes: {
-        '/about': (context) => AboutPage(),
-        '/contact': (context) => ContactPage(),
-        '/account': (context) => AccountPage(),
-        '/profile': (context) => ProfilePage(),
-        '/signin': (context) => SignInPage(),
-        '/status': (context) => StatusPage(),
-        '/shorturl': (context) => ShortURLPage(),
-        '/longurl': (context) => LongURLPage(),
-        '/vpn': (context) => VPNPage(),
-        '/tool': (context) => BottomNavigationController(inputIndex: 1),
-        '/home': (context) => BottomNavigationController(inputIndex: 0),
-      },
+      routes: _routes,
       debugShowCheckedModeBanner: false,
     );
   }

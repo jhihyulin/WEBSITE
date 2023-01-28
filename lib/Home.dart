@@ -3,6 +3,9 @@ import 'pages/About.dart';
 import 'pages/Contact.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
+String Text_1 =
+    'Hi~\nWelcome to my website!\nI am a high school student from Taiwan.';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,41 +16,41 @@ class HomePage extends StatelessWidget {
           children: [
             SizedBox(
               width: 1000,
-              child: DefaultTextStyle(
-                style: const TextStyle(
-                  fontSize: 30.0,
-                  fontFamily: 'Montserrat',
-                ),
-                child: AnimatedTextKit(
-                  isRepeatingAnimation: false,
-                  displayFullTextOnTap: true,
-                  animatedTexts: [
-                    TypewriterAnimatedText(
-                      'Hi~\nWelcome to my website!\nI am a high school student from Taiwan.',
-                      textAlign: TextAlign.center,
-                      speed: const Duration(milliseconds: 50),
+              child: AnimatedTextKit(
+                isRepeatingAnimation: false,
+                displayFullTextOnTap: true,
+                animatedTexts: [
+                  TypewriterAnimatedText(
+                    Text_1,
+                    textAlign: TextAlign.center,
+                    speed: const Duration(milliseconds: 50),
+                    textStyle: const TextStyle(
+                      fontSize: 30.0,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 20),
-            Wrap(spacing: 20, children: [
-              ElevatedButton.icon(
-                icon: const Icon(Icons.info),
-                label: Text('About'),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/about');
-                },
-              ),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.chat),
-                label: Text('Contact'),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/contact');
-                },
-              ),
-            ]),
+            Wrap(
+              spacing: 20, 
+              children: [
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.info),
+                  label: Text('About'),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/about');
+                  },
+                ),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.chat),
+                  label: Text('Contact'),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/contact');
+                  },
+                ),
+              ]
+            ),
           ],
         )
       )

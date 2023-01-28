@@ -76,7 +76,7 @@ class ContactPage extends StatelessWidget {
                     decoration: InputDecoration(
                         labelText: 'Signature',
                         hintText: 'Type your signature here',
-                        prefixIcon: Icon(Icons.drive_file_rename_outline),
+                        prefixIcon: Icon(Icons.draw),
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(16.0)))),

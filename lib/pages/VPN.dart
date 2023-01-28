@@ -13,7 +13,7 @@ const String VPNSERVER_URL_2 = '/get_key';
 Uri VPNSERVER_GET_SERVER_LIST = Uri.https(VPNSERVER_DOMAIN, VPNSERVER_URL_1);
 Uri VPNSERVER_GET_VPN_TOKEN = Uri.https(VPNSERVER_DOMAIN, VPNSERVER_URL_2);
 
-var defaultSelect = 'null';
+var _defaultSelect = 'null';
 
 class VPNPage extends StatefulWidget {
   @override
@@ -32,45 +32,75 @@ class _VPNPageState extends State<VPNPage> {
       value: 'null',
     )
   ];
-  String selectedServerId = '';
-  String _selectedServerId = '';
+  String selectedServerId = _defaultSelect;
+  String _selectedServerId = _defaultSelect;
+  bool _getResponse = false;
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _loading = true;
+    });
     _getServerList();
   }
 
   void _resetValue() {
     setState(() {
-      _accessUrl = '';
-      _dataUsedPercentage = 0;
-      _useBytesLimitVisualization = '';
-      _usedBytesVisualization = '';
-      _selectedServerId = '';
+      String _accessUrl = '';
+      double _dataUsedPercentage = 0;
+      String _useBytesLimitVisualization = '';
+      String _usedBytesVisualization = '';
+      List<DropdownMenuItem<dynamic>> items = [];
+      List<DropdownMenuItem<dynamic>> _items = [
+        DropdownMenuItem(
+          child: Text('Please wait...'),
+          value: 'null',
+        )
+      ];
+      String selectedServerId = _defaultSelect;
+      String _selectedServerId = _defaultSelect;
+      bool _getResponse = false;
+      bool _loading = false;
     });
   }
 
   void _getServerList() async {
-    var response = await http.get(VPNSERVER_GET_SERVER_LIST);
-    var data = jsonDecode(response.body);
-    List<DropdownMenuItem> items = [];
-    DropdownMenuItem item = new DropdownMenuItem(
-      child: Text('Please select server'),
-      value: defaultSelect,
-    );
-    items.add(item);
-    for (var i = 0; i < data['server_amount']; i++) {
+    await http.get(VPNSERVER_GET_SERVER_LIST).then((value) {
+      var data = jsonDecode(value.body);
+      List<DropdownMenuItem> items = [];
       DropdownMenuItem item = new DropdownMenuItem(
-        child: Text(data['server_list'][i]['display_name']),
-        value: data['server_list'][i]['server_id'],
+        child: Text('Please select server'),
+        value: _defaultSelect,
       );
       items.add(item);
-      selectedServerId = defaultSelect;
-    }
-    setState(() {
-      _selectedServerId = selectedServerId;
-      _items = items;
+      for (var i = 0; i < data['server_amount']; i++) {
+        DropdownMenuItem item = new DropdownMenuItem(
+          child: Text(data['server_list'][i]['display_name']),
+          value: data['server_list'][i]['server_id'],
+        );
+        items.add(item);
+        selectedServerId = _defaultSelect;
+      }
+      setState(() {
+        _selectedServerId = selectedServerId;
+        _items = items;
+        _loading = false;
+      });
+    }).catchError((error) {
+      setState(() {
+        _getResponse = false;
+        _loading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $error'),
+          showCloseIcon: true,
+          closeIconColor: Theme.of(context).colorScheme.error,
+          duration: Duration(seconds: 10),
+        ),
+      );
     });
   }
 
@@ -79,35 +109,53 @@ class _VPNPageState extends State<VPNPage> {
     User user = await _auth.currentUser!;
     String uid = user.uid;
     String token = await user.getIdToken();
-    print(uid);
-    print(token);
-    print(serverId);
-    var response = await http.post(VPNSERVER_GET_VPN_TOKEN, body: jsonEncode({
+    // print(uid);
+    // print(token);
+    // print(serverId);
+    await http.post(VPNSERVER_GET_VPN_TOKEN,
+      body: jsonEncode({
         'firebase_uid': uid,
         'server_id': serverId,
         'firebase_token': token
-    }),
-    headers: {
+      }),
+      headers: {
         'Content-Type': 'application/json',
-    });
-    var data = jsonDecode(response.body);
-    setState(() {
-      _accessUrl = data['access_url'] + '#' + data['display_name'];
-      _dataUsedPercentage = data['data_used_percentage'];
-      _useBytesLimitVisualization = data['use_bytes_limit_visualization'];
-      _usedBytesVisualization = data['used_bytes_visualization'];
+      }
+    ).then((value) {
+      var data = jsonDecode(value.body);
+      setState(() {
+        _accessUrl = data['access_url'] + '#' + data['display_name'];
+        _dataUsedPercentage = data['data_used_percentage'];
+        _useBytesLimitVisualization = data['use_bytes_limit_visualization'];
+        _usedBytesVisualization = data['used_bytes_visualization'];
+        _getResponse = true;
+        _loading = false;
+      });
+    }).catchError((error) {
+      setState(() {
+        _getResponse = false;
+        _loading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $error'),
+          showCloseIcon: true,
+          closeIconColor: Theme.of(context).colorScheme.error,
+          duration: Duration(seconds: 10),
+        ),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('VPN'),
-        ),
-        body: Center(
-            child: SingleChildScrollView(
-          child: Container(
+      appBar: AppBar(
+        title: Text('VPN'),
+      ),
+      body: Center(
+          child: SingleChildScrollView(
+            child: Container(
               padding: EdgeInsets.all(20),
               constraints: BoxConstraints(maxWidth: 500),
               child: Column(
@@ -115,43 +163,81 @@ class _VPNPageState extends State<VPNPage> {
                 children: <Widget>[
                   DropdownButton(
                     items: _items,
-                    value: defaultSelect,
+                    value: _selectedServerId,
+                    
                     onChanged: (value) {
-                      if (value == defaultSelect) {
-                        _resetValue();
+                      if (value == _defaultSelect) {
+                        setState(() {
+                          _getResponse = false;
+                          _selectedServerId = value;
+                          _resetValue();
+                        });
                         return;
                       } else {
                         setState(() {
+                          _loading = true;
+                          _getResponse = false;
                           _selectedServerId = value;
                           _getKey(value);
                         });
                       }
                     },
                   ),
-                  SizedBox(height: 20),
-                  Text('Data Used: $_usedBytesVisualization'),
-                  SizedBox(height: 20),
-                  Text('Data Limit: $_useBytesLimitVisualization'),
-                  SizedBox(height: 20),
-                  LinearProgressIndicator(
-                    value: _dataUsedPercentage / 100,
-                    backgroundColor: Theme.of(context).splashColor,//TODO: change low purple
+                  Offstage(
+                    offstage: !_loading,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          child: LinearProgressIndicator(
+                            minHeight: 20,
+                            backgroundColor: Theme.of(context)
+                                .splashColor, //TODO: change low purple
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 20),
-                  ElevatedButton.icon(
-                    label: Text('Add To APP'),
-                    icon: Icon(Icons.vpn_lock),
-                    onPressed: () async {
-                      final Uri VPN_url = Uri.parse(_accessUrl);
-                      if (!await launchUrl(VPN_url)) {
-                        throw Exception('Could not launch $_accessUrl');
-                      }
-                    },
-                  ),
+                  Offstage(
+                    offstage: _selectedServerId == _defaultSelect || !_getResponse,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 20),
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          child: LinearProgressIndicator(
+                            minHeight: 20,
+                            value: _dataUsedPercentage / 100,
+                            backgroundColor: Theme.of(context)
+                                .splashColor, //TODO: change low purple
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Used: $_usedBytesVisualization'),
+                            Text('Limit: $_useBytesLimitVisualization'),
+                          ],
+                        ),
+                        ElevatedButton.icon(
+                          label: Text('Add To APP'),
+                          icon: Icon(Icons.vpn_lock),
+                          onPressed: () async {
+                            final Uri VPN_url = Uri.parse(_accessUrl);
+                            if (!await launchUrl(VPN_url)) {
+                              throw Exception('Could not launch $_accessUrl');
+                            }
+                          },
+                        ),
+                      ]
+                    ),
+                  )
                   //TODO: When no server selected, show nothing
                 ],
-              )),
-        )
+              )
+            ),
+          )
       )
     );
   }

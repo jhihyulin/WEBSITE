@@ -99,7 +99,7 @@ class ToolPage extends StatelessWidget {
         runSpacing: 20,
         children: <Widget>[
           ElevatedButton.icon(
-            icon: const Icon(Icons.monitor_heart_outlined),
+            icon: const Icon(Icons.monitor_heart),
             label: Text('Status'),
             onPressed: () {
               Navigator.of(context).pushNamed('/status');

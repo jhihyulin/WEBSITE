@@ -113,15 +113,14 @@ class _VPNPageState extends State<VPNPage> {
     // print(token);
     // print(serverId);
     await http.post(VPNSERVER_GET_VPN_TOKEN,
-      body: jsonEncode({
-        'firebase_uid': uid,
-        'server_id': serverId,
-        'firebase_token': token
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    ).then((value) {
+        body: jsonEncode({
+          'firebase_uid': uid,
+          'server_id': serverId,
+          'firebase_token': token
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        }).then((value) {
       var data = jsonDecode(value.body);
       setState(() {
         _accessUrl = data['access_url'] + '#' + data['display_name'];
@@ -150,12 +149,12 @@ class _VPNPageState extends State<VPNPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('VPN'),
-      ),
-      body: Center(
-          child: SingleChildScrollView(
-            child: Container(
+        appBar: AppBar(
+          title: Text('VPN'),
+        ),
+        body: Center(
+            child: SingleChildScrollView(
+          child: Container(
               padding: EdgeInsets.all(20),
               constraints: BoxConstraints(maxWidth: 500),
               child: Column(
@@ -164,7 +163,6 @@ class _VPNPageState extends State<VPNPage> {
                   DropdownButton(
                     items: _items,
                     value: _selectedServerId,
-                    
                     onChanged: (value) {
                       if (value == _defaultSelect) {
                         setState(() {
@@ -184,7 +182,7 @@ class _VPNPageState extends State<VPNPage> {
                     },
                   ),
                   Offstage(
-                    offstage: !_loading,
+                    offstage: !_loading && _selectedServerId == _defaultSelect,
                     child: Column(
                       children: [
                         SizedBox(height: 20),
@@ -194,52 +192,39 @@ class _VPNPageState extends State<VPNPage> {
                             minHeight: 20,
                             backgroundColor: Theme.of(context)
                                 .splashColor, //TODO: change low purple
+                            value: _loading ? null : _dataUsedPercentage / 100,
                           ),
                         ),
                       ],
                     ),
                   ),
                   Offstage(
-                    offstage: _selectedServerId == _defaultSelect || !_getResponse,
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20),
-                        ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          child: LinearProgressIndicator(
-                            minHeight: 20,
-                            value: _dataUsedPercentage / 100,
-                            backgroundColor: Theme.of(context)
-                                .splashColor, //TODO: change low purple
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Used: $_usedBytesVisualization'),
-                            Text('Limit: $_useBytesLimitVisualization'),
-                          ],
-                        ),
-                        ElevatedButton.icon(
-                          label: Text('Add To APP'),
-                          icon: Icon(Icons.vpn_lock),
-                          onPressed: () async {
-                            final Uri VPN_url = Uri.parse(_accessUrl);
-                            if (!await launchUrl(VPN_url)) {
-                              throw Exception('Could not launch $_accessUrl');
-                            }
-                          },
-                        ),
-                      ]
-                    ),
+                    offstage:
+                        _selectedServerId == _defaultSelect || !_getResponse,
+                    child: Column(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Used: $_usedBytesVisualization'),
+                          Text('Limit: $_useBytesLimitVisualization'),
+                        ],
+                      ),
+                      ElevatedButton.icon(
+                        label: Text('Add To APP'),
+                        icon: Icon(Icons.vpn_lock),
+                        onPressed: () async {
+                          final Uri VPN_url = Uri.parse(_accessUrl);
+                          if (!await launchUrl(VPN_url)) {
+                            throw Exception('Could not launch $_accessUrl');
+                          }
+                        },
+                      ),
+                    ]),
                   )
                   //TODO: When no server selected, show nothing
                 ],
-              )
-            ),
-          )
-      )
-    );
+              )),
+        )));
   }
 }
 

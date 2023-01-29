@@ -50,7 +50,7 @@ class AboutPage extends StatelessWidget {
               //Text(Text_2),
               SizedBox(height: 20),
               Container(
-                  constraints: BoxConstraints(maxWidth: 500),
+                  constraints: BoxConstraints(maxWidth: 700),
                   padding: const EdgeInsets.all(10),
                   child: Wrap(
                     spacing: 10,

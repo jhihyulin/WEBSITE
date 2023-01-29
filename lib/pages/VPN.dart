@@ -160,7 +160,7 @@ class _VPNPageState extends State<VPNPage> {
               child: SingleChildScrollView(
             child: Container(
                 padding: EdgeInsets.all(20),
-                constraints: BoxConstraints(maxWidth: 500),
+                constraints: BoxConstraints(maxWidth: 700),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

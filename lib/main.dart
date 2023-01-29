@@ -68,9 +68,11 @@ class MyApp extends StatelessWidget {
 }
 
 int _currentIndex = 0;
+
 class BottomNavigationController extends StatefulWidget {
   final int inputIndex;
-  BottomNavigationController({Key? key, this.inputIndex = 0}) : super(key: key) {
+  BottomNavigationController({Key? key, this.inputIndex = 0})
+      : super(key: key) {
     _currentIndex = inputIndex;
   }
 
@@ -81,7 +83,41 @@ class BottomNavigationController extends StatefulWidget {
 
 class _BottomNavigationControllerState
     extends State<BottomNavigationController> {
-  final pages = [HomePage(), ToolPage()];
+  Widget _displayPhoto = Icon(Icons.login);
+  Widget _dispayText = Text('Sign In');
+
+  void initState() {
+    super.initState();
+    _FirebasAuthEvent();
+  }
+
+  void _FirebasAuthEvent() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+        setState(() {
+          _displayPhoto = Icon(Icons.login);
+          _dispayText = Text('Sign In');
+        });
+      } else {
+        print('User is signed in!');
+        setState(() {
+          _displayPhoto = user.photoURL == null
+              ? Icon(Icons.person)
+              : CircleAvatar(backgroundImage: NetworkImage(user.photoURL!));
+          _dispayText = user.displayName == null
+              ? user.email == null
+                  ? user.phoneNumber == null
+                      ? Text('Unknown')
+                      : Text(user.phoneNumber!)
+                  : Text(user.email!)
+              : Text(user.displayName!);
+        });
+      }
+    });
+  }
+
+  final List<Widget> pages = [HomePage(), ToolPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -96,30 +132,8 @@ class _BottomNavigationControllerState
           Container(
             padding: const EdgeInsets.all(5),
             child: ElevatedButton.icon(
-              icon: Builder(
-                builder: (context) {
-                  final user = FirebaseAuth.instance.currentUser;
-                  if (user != null) {
-                    return CircleAvatar(
-                      backgroundImage: NetworkImage(user.photoURL ?? ''),
-                    );
-                  } else {
-                    return CircleAvatar(
-                      child: Icon(Icons.person),
-                    );
-                  }
-                },
-              ),
-              label: Builder(
-                builder: (context) {
-                  final user = FirebaseAuth.instance.currentUser;
-                  if (user != null) {
-                    return Text(user.displayName ?? '');
-                  } else {
-                    return Text('Sign In');
-                  }
-                },
-              ),
+              icon: _displayPhoto,
+              label: _dispayText,
               onPressed: () {
                 Navigator.of(context).pushNamed('/account');
               },

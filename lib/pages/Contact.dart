@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,9 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 const String REPORT_MAIL = 'admin@jhihyulin.live';
-const String CONTACT_DOMAIN = 'script.google.com';
-const String CONTACT_URL =
-    '/macros/s/AKfycbyssrqnoDBKjw2KrILRYkhuR_Wd2fYjqUVq0y_W5JvAYiBLtTtt26KWrKn__YSkE3x5SA/exec';
+const String CONTACT_DOMAIN = 'api.jhihyulin.live';
+const String CONTACT_URL = '/contact';
 
 Uri CONTACT = Uri.https(CONTACT_DOMAIN, CONTACT_URL);
 
@@ -47,12 +47,15 @@ class _ContactPageState extends State<ContactPage> {
       'uid': uid,
       'TimeStamp': TimeStamp,
     }).then((documentSnapshot) {
-      var response = http.post(CONTACT, body: {
+      var response = http.post(CONTACT, body: jsonEncode({
         'message': Message,
         'email': Email,
         'signature': Signature,
         'documentID': documentSnapshot.id,
-        'appCheckToken': appCheckToken,
+      }),
+      headers: {
+        'X-Firebase-AppCheck': appCheckToken!,
+        'Content-Type': 'application/json',
       }).then((value) {
         setState(() {
           _loading = false;

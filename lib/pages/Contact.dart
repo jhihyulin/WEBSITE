@@ -47,6 +47,8 @@ class _ContactPageState extends State<ContactPage> {
     }).then((value) {
       var response = http.post(MESSAGEACTION, body: {
         'message': Message,
+        'email': Email,
+        'signature': Signature,
       }).then((value) {
         setState(() {
           _loading = false;

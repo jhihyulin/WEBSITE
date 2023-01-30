@@ -120,8 +120,11 @@ class _LongURLPageState extends State<LongURLPage> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'URL is required';
+                            } else if (!Uri.parse(value).isAbsolute) {
+                              return 'URL is invalid';
+                            } else {
+                              return null;
                             }
-                            return null;
                           },
                           onTapOutside: (event) => {
                             _LURLformKey.currentState!.validate(),

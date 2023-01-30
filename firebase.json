@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "jhihyulin",
     "public": "build/web",
     "ignore": [
       "firebase.json",
@@ -9,11 +10,8 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index",
-        "type": 301
+        "destination": "/index.html"
       }
-    ],
-    "cleanUrls": true,
-    "trailingSlash": false
+    ]
   }
 }

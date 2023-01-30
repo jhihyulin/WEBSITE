@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,6 +22,7 @@ class VPNPage extends StatefulWidget {
 }
 
 class _VPNPageState extends State<VPNPage> {
+  final TextEditingController _accessUrlController = TextEditingController();
   String _accessUrl = '';
   double _dataUsedPercentage = 0;
   String _useBytesLimitVisualization = '';
@@ -123,6 +126,7 @@ class _VPNPageState extends State<VPNPage> {
         }).then((value) {
       var data = jsonDecode(value.body);
       setState(() {
+        _accessUrlController.text = data['access_url'] + '#' + data['display_name'];
         _accessUrl = data['access_url'] + '#' + data['display_name'];
         _dataUsedPercentage = data['data_used_percentage'];
         _useBytesLimitVisualization = data['use_bytes_limit_visualization'];
@@ -145,6 +149,10 @@ class _VPNPageState extends State<VPNPage> {
         ),
       );
     });
+  }
+
+  void _installOutlineVPN() async {
+    print('cc');//TODO: open install link
   }
 
   @override
@@ -215,25 +223,136 @@ class _VPNPageState extends State<VPNPage> {
                             Text('Limit: $_useBytesLimitVisualization'),
                           ],
                         ),
-                        ElevatedButton.icon(
-                          label: Text('Add To APP'),
-                          icon: Icon(Icons.vpn_lock),
-                          onPressed: () async {
-                            final Uri VPN_url = Uri.parse(_accessUrl);
-                            if (!await launchUrl(VPN_url)) {
-                              throw Exception('Could not launch $_accessUrl');
-                            }
-                          },
+                        SizedBox(height: 20),
+                        TextFormField(
+                          controller: _accessUrlController,
+                          decoration: InputDecoration(
+                            labelText: 'Access Key',
+                            prefixIcon: Icon(Icons.key),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                            ),
+                          ),
+                          readOnly: true,
                         ),
+                        SizedBox(height: 20),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton.icon(
+                                label: Text('Add To APP'),
+                                icon: Icon(Icons.vpn_lock),
+                                onPressed: () async {
+                                  final Uri VPN_url = Uri.parse(_accessUrl);
+                                  if (!await launchUrl(VPN_url)) {
+                                    throw Exception(
+                                        'Could not launch $_accessUrl');
+                                  }
+                                },
+                              ),
+                              SizedBox(width: 20),
+                              TextButton(
+                                child: Icon(Icons.copy),
+                                onPressed: () async {
+                                  await Clipboard.setData(
+                                          ClipboardData(text: _accessUrl))
+                                      .then((value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Copied to clipboard'),
+                                        showCloseIcon: true,
+                                        behavior: SnackBarBehavior.floating,
+                                      ),
+                                    );
+                                  }).catchError((error) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Error: Copy failed'),
+                                        showCloseIcon: true,
+                                        closeIconColor: Theme.of(context).colorScheme.error,
+                                        behavior: SnackBarBehavior.floating,
+                                        duration: Duration(seconds: 10),
+                                      ),
+                                    );
+                                  });
+                                },
+                              ),
+                              SizedBox(width: 20),
+                              TextButton(
+                                child: Icon(Icons.help),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title:
+                                              Text('How to use Outline VPN?'),
+                                          content: SingleChildScrollView(
+                                              child: (Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text.rich(TextSpan(children: [
+                                                TextSpan(
+                                                    text:
+                                                        '1. If you don\'t have Outline APP on your device, click '),
+                                                TextSpan(
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                  text:
+                                                      'Install Outline VPN APP',
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () {
+                                                          _installOutlineVPN();
+                                                        },
+                                                ),
+                                                TextSpan(
+                                                    text: ' to install it.'),
+                                              ])),
+                                              const Text(
+                                                  '2. Turn back to this page and click "Add To APP"'),
+                                              const Text(
+                                                  '3. Will open Outline VPN APP, click "ADD SERVER"'),
+                                              const Text(
+                                                  '4. Access key will save in Outline APP'),
+                                              const Text(
+                                                  '5. Click "CONNECT" to connect to VPN server'),
+                                              const Text(
+                                                  '* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
+                                            ],
+                                          ))),
+                                          actions: [
+                                            TextButton(
+                                              child: Text('OK'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        );
+                                      });
+                                },
+                              )
+                            ])
                       ]),
                     )
-                    //TODO: When no server selected, show nothing
                   ],
                 )),
           )));
     }
   }
 }
+
+// TextSpan(text: '1. If you don\'t have Outline APP on your device, click "Install Outline VPN" to install it.'),
+// Text('2. Turn back to this page and click "Add To APP"'),
+// Text('3. Will open Outline VPN APP, click "ADD SERVER"'),
+// Text('4. Access key will save in Outline APP'),
+// Text('5. Click "CONNECT" to connect to VPN server'),
+// Text('* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
 
 
 /*

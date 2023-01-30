@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -126,7 +127,8 @@ class _VPNPageState extends State<VPNPage> {
         }).then((value) {
       var data = jsonDecode(value.body);
       setState(() {
-        _accessUrlController.text = data['access_url'] + '#' + data['display_name'];
+        _accessUrlController.text =
+            data['access_url'] + '#' + data['display_name'];
         _accessUrl = data['access_url'] + '#' + data['display_name'];
         _dataUsedPercentage = data['data_used_percentage'];
         _useBytesLimitVisualization = data['use_bytes_limit_visualization'];
@@ -151,8 +153,58 @@ class _VPNPageState extends State<VPNPage> {
     });
   }
 
+  String getOS() {
+    final userAgent = window.navigator.userAgent.toString().toLowerCase();
+    if (userAgent.contains('android') && userAgent.contains('linux')) {
+      return 'android';
+    } else if (userAgent.contains('iphone') || userAgent.contains('ipad')) {
+      return 'ios';
+    } else if (userAgent.contains('mac') && userAgent.contains('macintosh')) {
+      return 'mac';
+    } else if (userAgent.contains('windows')) {
+      return 'windows';
+    } else if (userAgent.contains('cros') && !userAgent.contains('microsoft')) {
+      return 'chromeos';
+    } else if (userAgent.contains('linux') && !userAgent.contains('android')) {
+      return 'linux';
+    } else {
+      return 'unknown';
+    }
+  }
+
   void _installOutlineVPN() async {
-    print('cc');//TODO: open install link
+    String os = getOS();
+    print(os);
+    switch (os) {
+      case 'android':
+        await launchUrl(Uri.parse(
+            'https://play.google.com/store/apps/details?id=org.outline.android.client'));
+        break;
+      case 'ios':
+        await launchUrl(
+            Uri.parse('https://apps.apple.com/app/outline-vpn/id1356177741'));
+        break;
+      case 'mac':
+        await launchUrl(Uri.parse(
+            'https://itunes.apple.com/app/outline-vpn-client/id1356178125'));
+        break;
+      case 'windows':
+        await launchUrl(Uri.parse(
+            'https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe'));
+        break;
+      case 'chromeos':
+        await launchUrl(Uri.parse(
+            'https://play.google.com/store/apps/details?id=org.outline.android.client'));
+        break;
+      case 'linux':
+        await launchUrl(Uri.parse(
+            'https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage'));
+        break;
+      case 'unknown':
+        await launchUrl(
+            Uri.parse('https://getoutline.org/zh-TW/get-started/#step-3'));
+        break;
+    }
   }
 
   @override
@@ -230,7 +282,8 @@ class _VPNPageState extends State<VPNPage> {
                             labelText: 'Access Key',
                             prefixIcon: Icon(Icons.key),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0)),
                             ),
                           ),
                           readOnly: true,
@@ -269,7 +322,8 @@ class _VPNPageState extends State<VPNPage> {
                                       SnackBar(
                                         content: Text('Error: Copy failed'),
                                         showCloseIcon: true,
-                                        closeIconColor: Theme.of(context).colorScheme.error,
+                                        closeIconColor:
+                                            Theme.of(context).colorScheme.error,
                                         behavior: SnackBarBehavior.floating,
                                         duration: Duration(seconds: 10),
                                       ),

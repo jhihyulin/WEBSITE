@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,11 +7,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 const String REPORT_MAIL = 'admin@jhihyulin.live';
-const String MESSAGEACTION_DOMAIN = 'script.google.com';
-const String MESSAGEACTION_URL =
-    '/macros/s/AKfycbyssrqnoDBKjw2KrILRYkhuR_Wd2fYjqUVq0y_W5JvAYiBLtTtt26KWrKn__YSkE3x5SA/exec';
+const String CONTACT_DOMAIN = 'api.jhihyulin.live';
+const String CONTACT_URL = '/contact';
 
-Uri MESSAGEACTION = Uri.https(MESSAGEACTION_DOMAIN, MESSAGEACTION_URL);
+Uri CONTACT = Uri.https(CONTACT_DOMAIN, CONTACT_URL);
 
 class ContactPage extends StatefulWidget {
   @override
@@ -38,15 +39,23 @@ class _ContactPageState extends State<ContactPage> {
     final User? user = auth.currentUser;
     final String uid = user?.uid ?? '';
     final Timestamp TimeStamp = Timestamp.now();
+    final appCheckToken = await FirebaseAppCheck.instance.getToken();
     FirebaseFirestore.instance.collection('message').add({
       'Email': Email,
       'Message': Message,
       'Signature': Signature,
       'uid': uid,
       'TimeStamp': TimeStamp,
-    }).then((value) {
-      var response = http.post(MESSAGEACTION, body: {
+    }).then((documentSnapshot) {
+      var response = http.post(CONTACT, body: jsonEncode({
         'message': Message,
+        'email': Email,
+        'signature': Signature,
+        'documentID': documentSnapshot.id,
+      }),
+      headers: {
+        'X-Firebase-AppCheck': appCheckToken!,
+        'Content-Type': 'application/json',
       }).then((value) {
         setState(() {
           _loading = false;

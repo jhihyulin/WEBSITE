@@ -11,138 +11,56 @@ const String MESSAGEACTION_URL =
 
 Uri MESSAGEACTION = Uri.https(MESSAGEACTION_DOMAIN, MESSAGEACTION_URL);
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController ContactEmailController =
-        new TextEditingController();
-    final TextEditingController ContactMessageController =
-        new TextEditingController();
-    final TextEditingController ContactSignatureController =
-        new TextEditingController();
-    final _MessageformKey = GlobalKey<FormState>();
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Contact'),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(20),
-            constraints: BoxConstraints(maxWidth: 700),
-            child: Form(
-              key: _MessageformKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextField(
-                    controller: ContactEmailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        labelText: 'Email',
-                        hintText: 'example@domain.com',
-                        prefixIcon: Icon(Icons.email),
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(16.0)))),
-                  ),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    controller: ContactMessageController,
-                    keyboardType: TextInputType.text,
-                    minLines: 1,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                        labelText: 'Message',
-                        hintText: 'Type your message here',
-                        prefixIcon: Icon(Icons.comment),
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(16.0)))),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Message Is Required';
-                      }
-                      return null;
-                    },
-                    onTapOutside: (event) => {
-                      _MessageformKey.currentState!.validate(),
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  TextField(
-                    controller: ContactSignatureController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        labelText: 'Signature',
-                        hintText: 'Type your signature here',
-                        prefixIcon: Icon(Icons.draw),
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(16.0)))),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton.icon(
-                        label: Text('Clear'),
-                        icon: Icon(Icons.clear),
-                        onPressed: () {
-                          ContactEmailController.clear();
-                          ContactMessageController.clear();
-                          ContactSignatureController.clear();
-                        },
-                      ),
-                      SizedBox(width: 20),
-                      ElevatedButton.icon(
-                        label: Text('Send'),
-                        icon: Icon(Icons.send),
-                        onPressed: () {
-                          String Email = ContactEmailController.text;
-                          String Message = ContactMessageController.text;
-                          String Signature =
-                              ContactSignatureController.text;
-                          if (_MessageformKey.currentState!.validate()) {
-                            SendMessage(
-                                Email, Message, Signature, context);
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          )
-        )
-      ),
-    );
-  }
+  _ContactPageState createState() => _ContactPageState();
 }
 
-void SendMessage(Email, Message, Signature, context) async {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final User? user = auth.currentUser;
-  final String uid = user?.uid ?? '';
-  final Timestamp TimeStamp = Timestamp.now();
-  FirebaseFirestore.instance.collection('message').add({
-    'Email': Email,
-    'Message': Message,
-    'Signature': Signature,
-    'uid': uid,
-    'TimeStamp': TimeStamp,
-  }).then((value) {
-    var response = http.post(MESSAGEACTION, body: {
-      'message': Message,
+class _ContactPageState extends State<ContactPage> {
+  final TextEditingController ContactEmailController =
+        new TextEditingController();
+  final TextEditingController ContactMessageController =
+      new TextEditingController();
+  final TextEditingController ContactSignatureController =
+      new TextEditingController();
+  final _MessageformKey = GlobalKey<FormState>();
+  bool _loading = false;
+
+  @override
+  void _sendMessage() async {
+    String Email = ContactEmailController.text;
+    String Message = ContactMessageController.text;
+    String Signature = ContactSignatureController.text;
+    setState(() {
+      _loading = true;
+    });
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final String uid = user?.uid ?? '';
+    final Timestamp TimeStamp = Timestamp.now();
+    FirebaseFirestore.instance.collection('message').add({
+      'Email': Email,
+      'Message': Message,
+      'Signature': Signature,
+      'uid': uid,
+      'TimeStamp': TimeStamp,
     }).then((value) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Message Sent Seccessfully.'),
-        showCloseIcon: true,
-        behavior: SnackBarBehavior.floating,
-      ));
-    }).catchError((error) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      var response = http.post(MESSAGEACTION, body: {
+        'message': Message,
+      }).then((value) {
+        setState(() {
+          _loading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Message Sent Seccessfully.'),
+          showCloseIcon: true,
+          behavior: SnackBarBehavior.floating,
+        ));
+      }).catchError((error) {
+        setState(() {
+          _loading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error Notifying Admin!'),
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
@@ -159,9 +77,12 @@ void SendMessage(Email, Message, Signature, context) async {
           //   },
           // )
         ));
-    });
-  }).catchError((error) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      });
+    }).catchError((error) {
+      setState(() {
+        _loading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Error Sending Message!'),
         showCloseIcon: true,
         closeIconColor: Theme.of(context).colorScheme.error,
@@ -178,7 +99,117 @@ void SendMessage(Email, Message, Signature, context) async {
         //   },
         // )
       ));
-  });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Contact'),
+      ),
+      body: Center(
+          child: SingleChildScrollView(
+              child: Container(
+                  padding: EdgeInsets.all(20),
+                  constraints: BoxConstraints(maxWidth: 700),
+                  child: Form(
+                    key: _MessageformKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextField(
+                          controller: ContactEmailController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                              labelText: 'Email',
+                              hintText: 'example@domain.com',
+                              prefixIcon: Icon(Icons.email),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0)))),
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          controller: ContactMessageController,
+                          keyboardType: TextInputType.text,
+                          minLines: 1,
+                          maxLines: 10,
+                          decoration: InputDecoration(
+                              labelText: 'Message',
+                              hintText: 'Type your message here',
+                              prefixIcon: Icon(Icons.comment),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0)))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Message Is Required';
+                            }
+                            return null;
+                          },
+                          onTapOutside: (event) => {
+                            _MessageformKey.currentState!.validate(),
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        TextField(
+                          controller: ContactSignatureController,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Signature',
+                              hintText: 'Type your signature here',
+                              prefixIcon: Icon(Icons.draw),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0)))),
+                        ),
+                        Offstage(
+                          offstage: !_loading,
+                          child: SizedBox(height: 20),
+                        ),
+                        Offstage(
+                          offstage: !_loading,
+                          child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10)),
+                            child: LinearProgressIndicator(
+                              minHeight: 20,
+                              backgroundColor: Theme.of(context)
+                                  .splashColor, //TODO: change low purple
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton.icon(
+                              label: Text('Clear'),
+                              icon: Icon(Icons.clear),
+                              onPressed: () {
+                                ContactEmailController.clear();
+                                ContactMessageController.clear();
+                                ContactSignatureController.clear();
+                              },
+                            ),
+                            SizedBox(width: 20),
+                            ElevatedButton.icon(
+                              label: Text('Send'),
+                              icon: Icon(Icons.send),
+                              onPressed: () {
+                                if (_MessageformKey.currentState!.validate()) {
+                                  _sendMessage();
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )))),
+    );
+  }
 }
 
 // void FailToSendReport(error, context) {

@@ -10,6 +10,7 @@ import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
 import 'package:firebase_ui_oauth_twitter/firebase_ui_oauth_twitter.dart';
 import 'firebase_options.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'pages/Profile.dart';
 import 'pages/SignIn.dart';
 import 'pages/Account.dart';
@@ -38,6 +39,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: '6LcPhjgkAAAAAAUtPybk3GHCkYZTxDd6w4kVOiQJ',
   );
   usePathUrlStrategy();
   runApp(MyApp());

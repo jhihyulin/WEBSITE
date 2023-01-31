@@ -53,11 +53,11 @@ class _ShortURLPageState extends State<ShortURLPage> {
           .post(SURLSERVER_CREATE,
               body: jsonEncode({
                 'firebase_uid': uid,
-                'original_url': SURLURLController.text,
-                'firebase_token': token,
+                'original_url': SURLURLController.text
               }),
               headers: {
                 'Content-Type': 'application/json',
+                'X-Firebase-AppCheck': token
               })
           .then((value) => {
                 setState(() {

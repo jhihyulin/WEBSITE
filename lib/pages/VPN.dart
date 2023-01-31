@@ -123,11 +123,11 @@ class _VPNPageState extends State<VPNPage> {
     await http.post(VPNSERVER_GET_VPN_TOKEN,
         body: jsonEncode({
           'firebase_uid': uid,
-          'server_id': serverId,
-          'firebase_token': token
+          'server_id': serverId
         }),
         headers: {
           'Content-Type': 'application/json',
+          'X-Firebase-AppCheck': token
         }).then((value) {
       var data = jsonDecode(value.body);
       setState(() {

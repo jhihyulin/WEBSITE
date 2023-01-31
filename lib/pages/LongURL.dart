@@ -56,11 +56,11 @@ class _LongURLPageState extends State<LongURLPage> {
           .post(LURLSERVER_CREATE,
               body: jsonEncode({
                 'firebase_uid': uid,
-                'original_url': LURLURLController.text,
-                'firebase_token': token,
+                'original_url': LURLURLController.text
               }),
               headers: {
                 'Content-Type': 'application/json',
+                'X-Firebase-AppCheck': token
               })
           .then((value) => {
                 setState(() {

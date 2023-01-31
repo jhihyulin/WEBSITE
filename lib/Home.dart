@@ -40,7 +40,11 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Wrap(spacing: 20, children: [
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      alignment: WrapAlignment.center,
+                      children: [
                       ElevatedButton.icon(
                         icon: const Icon(Icons.info),
                         label: Text('About'),

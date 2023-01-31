@@ -103,8 +103,8 @@ class ToolPage extends StatelessWidget {
                   children: [
                     Wrap(
                       alignment: WrapAlignment.center,
-                      spacing: 20,
-                      runSpacing: 20,
+                      spacing: 10,
+                      runSpacing: 10,
                       children: <Widget>[
                         ElevatedButton.icon(
                           icon: const Icon(Icons.monitor_heart),

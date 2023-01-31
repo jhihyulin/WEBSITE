@@ -295,8 +295,10 @@ class _VPNPageState extends State<VPNPage> {
                           readOnly: true,
                         ),
                         SizedBox(height: 20),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        Wrap(
+                          spacing: 10,
+                          runSpacing: 10,
+                            alignment: WrapAlignment.center,
                             children: [
                               ElevatedButton.icon(
                                 label: Text('Add To APP'),
@@ -309,7 +311,6 @@ class _VPNPageState extends State<VPNPage> {
                                   }
                                 },
                               ),
-                              SizedBox(width: 20),
                               TextButton(
                                 child: Icon(Icons.copy),
                                 onPressed: () async {
@@ -337,7 +338,6 @@ class _VPNPageState extends State<VPNPage> {
                                   });
                                 },
                               ),
-                              SizedBox(width: 20),
                               TextButton(
                                 child: Icon(Icons.help),
                                 onPressed: () {

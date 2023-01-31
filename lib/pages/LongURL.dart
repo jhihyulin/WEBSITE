@@ -24,7 +24,8 @@ class _LongURLPageState extends State<LongURLPage> {
   final _LURLformKey = GlobalKey<FormState>();
   bool _loading = false;
   bool _loaded = false;
-  String _surl = '';
+  String _lurl = '';
+  int _LURLLength = 0;
 
   @override
   void initState() {
@@ -61,10 +62,11 @@ class _LongURLPageState extends State<LongURLPage> {
               })
           .then((value) => {
                 setState(() {
-                  _surl = jsonDecode(value.body)['url'];
+                  _lurl = jsonDecode(value.body)['url'];
                   _loading = false;
                   _loaded = true;
-                  LURLlURLController.text = _surl;
+                  LURLlURLController.text = _lurl;
+                  _LURLLength = _lurl.length;
                 }),
               })
           .catchError((error) => {
@@ -177,8 +179,10 @@ class _LongURLPageState extends State<LongURLPage> {
                                   ],
                                 )),
                             SizedBox(height: 20),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                            Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: 10,
+                              runSpacing: 10,
                                 children: [
                                   ElevatedButton.icon(
                                     onPressed: _createURL,
@@ -191,16 +195,12 @@ class _LongURLPageState extends State<LongURLPage> {
                                   ),
                                   Offstage(
                                     offstage: !_loaded,
-                                    child: SizedBox(width: 20),
-                                  ),
-                                  Offstage(
-                                    offstage: !_loaded,
                                     child: ElevatedButton.icon(
                                       label: Text('Copy'),
                                       icon: Icon(Icons.copy),
                                       onPressed: () {
                                         Clipboard.setData(
-                                                ClipboardData(text: _surl))
+                                                ClipboardData(text: _lurl))
                                             .then((value) => {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(SnackBar(

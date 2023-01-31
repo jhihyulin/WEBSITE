@@ -260,9 +260,9 @@ class _LongURLPageState extends State<LongURLPage> {
                                                             leading: Icon(
                                                                 Icons.http),
                                                             title: Text(
-                                                                'HTTP 400'),
+                                                                'HTTP 414'),
                                                             subtitle: Text(
-                                                                'Bad Request'),
+                                                                'Request-URI Too Large'),
                                                             children: [
                                                               Offstage(
                                                                 offstage:
@@ -298,7 +298,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                                                       ),
                                                                       TextSpan(
                                                                         text:
-                                                                            ' characters supported by our CDN provider.',
+                                                                            ' characters supported by our provider.',
                                                                       ),
                                                                       TextSpan(
                                                                           text:

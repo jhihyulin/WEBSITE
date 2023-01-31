@@ -216,11 +216,17 @@ class _VPNPageState extends State<VPNPage> {
           appBar: AppBar(
             title: Text('VPN'),
           ),
-          body: Center(
-              child: SingleChildScrollView(
+          body: SingleChildScrollView(
+              child: Center(
             child: Container(
                 padding: EdgeInsets.all(20),
-                constraints: BoxConstraints(maxWidth: 700),
+                constraints: BoxConstraints(
+                  maxWidth: 700,
+                  minHeight: MediaQuery.of(context).size.height -
+                      AppBar().preferredSize.height -
+                      MediaQuery.of(context).padding.top -
+                      MediaQuery.of(context).padding.bottom,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[

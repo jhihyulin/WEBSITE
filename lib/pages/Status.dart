@@ -48,172 +48,185 @@ class _StatusPageState extends State<StatusPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Status'),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
+        appBar: AppBar(
+          title: Text('Status'),
+        ),
+        body: SingleChildScrollView(
+            child: Center(
           child: Container(
-            padding: EdgeInsets.all(20),
-            constraints: BoxConstraints(maxWidth: 700),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                ExpansionTile(
-                  leading: const Icon(Icons.monitor_heart),
-                  title: const Text('Uptime Robot'),
-                  subtitle: const Text('Update every 5 minutes'),
-                  backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.025),
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: ListTile(
-                        subtitle:
-                          Wrap(spacing: 10, runSpacing: 10, children: [
-                            ElevatedButton(
-                              child: const Text('WebSite'),
+              padding: EdgeInsets.all(20),
+              constraints: BoxConstraints(
+                maxWidth: 700,
+                minHeight: MediaQuery.of(context).size.height -
+                    AppBar().preferredSize.height -
+                    MediaQuery.of(context).padding.top -
+                    MediaQuery.of(context).padding.bottom,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ListView(
+                shrinkWrap: true,
+                children: [
+                  ExpansionTile(
+                    leading: const Icon(Icons.monitor_heart),
+                    title: const Text('Uptime Robot'),
+                    subtitle: const Text('Update every 5 minutes'),
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withOpacity(0.025),
+                    children: [
+                      Container(
+                          padding: EdgeInsets.all(10),
+                          child: ListTile(
+                            subtitle:
+                                Wrap(spacing: 10, runSpacing: 10, children: [
+                              ElevatedButton(
+                                child: const Text('WebSite'),
+                                onPressed: () {
+                                  _launchUrl(_status1['WebSite']);
+                                },
+                              ),
+                              ElevatedButton(
+                                child: const Text('Japan Osaka #1'),
+                                onPressed: () {
+                                  _launchUrl(_status1['Japan Osaka #1']);
+                                },
+                              ),
+                              ElevatedButton(
+                                child: const Text('Japan Osaka #2'),
+                                onPressed: () {
+                                  _launchUrl(_status1['Japan Osaka #2']);
+                                },
+                              ),
+                              ElevatedButton(
+                                child: const Text('Korea Central #1'),
+                                onPressed: () {
+                                  _launchUrl(_status1['Korea Central #1']);
+                                },
+                              ),
+                              ElevatedButton(
+                                child: const Text('Long URL'),
+                                onPressed: () {
+                                  _launchUrl(_status1['Long URL']);
+                                },
+                              ),
+                              ElevatedButton(
+                                child: const Text('Short URL'),
+                                onPressed: () {
+                                  _launchUrl(_status1['Short URL']);
+                                },
+                              ),
+                              ElevatedButton(
+                                child: const Text('VPN Service Manager'),
+                                onPressed: () {
+                                  _launchUrl(_status1['VPN Service Manager']);
+                                },
+                              ),
+                              ElevatedButton(
+                                child: const Text('AList'),
+                                onPressed: () {
+                                  _launchUrl(_status1['AList']);
+                                },
+                              ),
+                            ]),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.open_in_new),
                               onPressed: () {
-                                _launchUrl(_status1['WebSite']);
+                                _launchUrl(_status1['Main']);
                               },
                             ),
-                            ElevatedButton(
-                              child: const Text('Japan Osaka #1'),
+                          )),
+                    ],
+                  ),
+                  ExpansionTile(
+                    leading: const Icon(Icons.monitor_heart),
+                    title: const Text('cron-job.org'),
+                    subtitle: const Text('Update every minute'),
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withOpacity(0.025),
+                    children: [
+                      Container(
+                          padding: EdgeInsets.all(10),
+                          child: ListTile(
+                            subtitle:
+                                Wrap(spacing: 10, runSpacing: 10, children: [
+                              ElevatedButton(
+                                child: const Text('WebSite'),
+                                onPressed: () {},
+                              ),
+                              ElevatedButton(
+                                child: const Text('Long URL'),
+                                onPressed: () {},
+                              ),
+                              ElevatedButton(
+                                child: const Text('Short URL'),
+                                onPressed: () {},
+                              ),
+                              ElevatedButton(
+                                child: const Text('AList'),
+                                onPressed: () {},
+                              ),
+                            ]),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.open_in_new),
                               onPressed: () {
-                                _launchUrl(_status1['Japan Osaka #1']);
+                                _launchUrl(_status2['Main']);
                               },
                             ),
-                            ElevatedButton(
-                              child: const Text('Japan Osaka #2'),
+                          )),
+                    ],
+                  ),
+                  ExpansionTile(
+                    leading: const Icon(Icons.monitor_heart),
+                    title: const Text('cron-job.org'),
+                    subtitle: const Text('Update every minute'),
+                    backgroundColor: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withOpacity(0.025),
+                    children: [
+                      Container(
+                          padding: EdgeInsets.all(10),
+                          child: ListTile(
+                            subtitle:
+                                Wrap(spacing: 10, runSpacing: 10, children: [
+                              ElevatedButton(
+                                child: const Text('VPN Service Manager'),
+                                onPressed: () {},
+                              ),
+                              ElevatedButton(
+                                child: const Text('Japan Osaka #1'),
+                                onPressed: () {},
+                              ),
+                              ElevatedButton(
+                                child: const Text('Japan Osaka #2'),
+                                onPressed: () {},
+                              ),
+                              ElevatedButton(
+                                child: const Text('Korea Central #1'),
+                                onPressed: () {},
+                              ),
+                            ]),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.open_in_new),
                               onPressed: () {
-                                _launchUrl(_status1['Japan Osaka #2']);
+                                _launchUrl(_status3['Main']);
                               },
                             ),
-                            ElevatedButton(
-                              child: const Text('Korea Central #1'),
-                              onPressed: () {
-                                _launchUrl(_status1['Korea Central #1']);
-                              },
-                            ),
-                            ElevatedButton(
-                              child: const Text('Long URL'),
-                              onPressed: () {
-                                _launchUrl(_status1['Long URL']);
-                              },
-                            ),
-                            ElevatedButton(
-                              child: const Text('Short URL'),
-                              onPressed: () {
-                                _launchUrl(_status1['Short URL']);
-                              },
-                            ),
-                            ElevatedButton(
-                              child: const Text('VPN Service Manager'),
-                              onPressed: () {
-                                _launchUrl(_status1['VPN Service Manager']);
-                              },
-                            ),
-                            ElevatedButton(
-                              child: const Text('AList'),
-                              onPressed: () {
-                                _launchUrl(_status1['AList']);
-                              },
-                            ),
-                          ]
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.open_in_new),
-                          onPressed: () {
-                            _launchUrl(_status1['Main']);
-                          },
-                        ),
-                      )
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  leading: const Icon(Icons.monitor_heart),
-                  title: const Text('cron-job.org'),
-                  subtitle: const Text('Update every minute'),
-                  backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.025),
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: ListTile(
-                        subtitle:
-                          Wrap(spacing: 10, runSpacing: 10, children: [
-                            ElevatedButton(
-                              child: const Text('WebSite'),
-                              onPressed: () {},
-                            ),
-                            ElevatedButton(
-                              child: const Text('Long URL'),
-                              onPressed: () {},
-                            ),
-                            ElevatedButton(
-                              child: const Text('Short URL'),
-                              onPressed: () {},
-                            ),
-                            ElevatedButton(
-                              child: const Text('AList'),
-                              onPressed: () {},
-                            ),
-                          ]
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.open_in_new),
-                          onPressed: () {
-                            _launchUrl(_status2['Main']);
-                          },
-                        ),
-                      )
-                    ),
-                  ],
-                ),
-                ExpansionTile(
-                  leading: const Icon(Icons.monitor_heart),
-                  title: const Text('cron-job.org'),
-                  subtitle: const Text('Update every minute'),
-                  backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.025),
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: ListTile(
-                        subtitle:
-                          Wrap(spacing: 10, runSpacing: 10, children: [
-                            ElevatedButton(
-                              child: const Text('VPN Service Manager'),
-                              onPressed: () {},
-                            ),
-                            ElevatedButton(
-                              child: const Text('Japan Osaka #1'),
-                              onPressed: () {},
-                            ),
-                            ElevatedButton(
-                              child: const Text('Japan Osaka #2'),
-                              onPressed: () {},
-                            ),
-                            ElevatedButton(
-                              child: const Text('Korea Central #1'),
-                              onPressed: () {},
-                            ),
-                          ]
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.open_in_new),
-                          onPressed: () {
-                            _launchUrl(_status3['Main']);
-                          },
-                        ),
-                      )
-                    ),
-                  ],
-                ),
-              ],
+                          )),
+                    ],
+                  ),
+                ],
+              ),
+                ]
+              )
             ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }
 

@@ -94,132 +94,141 @@ class _LongURLPageState extends State<LongURLPage> {
       return SignInFirstPage(originPage: '/longurl');
     } else {
       return Scaffold(
-        appBar: AppBar(
-          title: Text('LongURL'),
-        ),
-        body: Center(
-            child: SingleChildScrollView(
-          child: Container(
-              padding: EdgeInsets.all(20),
-              constraints: BoxConstraints(maxWidth: 700),
-              child: Form(
-                  key: _LURLformKey,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        TextFormField(
-                          controller: LURLURLController,
-                          keyboardType: TextInputType.url,
-                          decoration: InputDecoration(
-                              labelText: 'URL',
-                              hintText: 'https://example.com',
-                              prefixIcon: Icon(Icons.link),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)))),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'URL is required';
-                            } else if (!Uri.parse(value).isAbsolute) {
-                              return 'URL is invalid';
-                            } else {
-                              return null;
-                            }
-                          },
-                          onTapOutside: (event) => {
-                            _LURLformKey.currentState!.validate(),
-                          },
-                        ),
-                        Offstage(
-                            offstage: !_loading,
-                            child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  child: LinearProgressIndicator(
-                                    minHeight: 20,
-                                    backgroundColor: Theme.of(context)
-                                        .splashColor, //TODO: change low purple
-                                  ),
-                                ),
-                              ],
-                            )),
-                        Offstage(
-                            offstage: !_loaded,
-                            child: Column(
-                              children: [
-                                SizedBox(height: 20),
-                                TextFormField(
-                                  controller: LURLlURLController,
-                                  minLines: 1,
-                                  maxLines: 20,
-                                  decoration: InputDecoration(
-                                    labelText: 'Long URL',
-                                    prefixIcon: Icon(Icons.link),
-                                    border: OutlineInputBorder(
+          appBar: AppBar(
+            title: Text('LongURL'),
+          ),
+          body: SingleChildScrollView(
+            child: Center(
+              child: Container(
+                  padding: EdgeInsets.all(20),
+                  constraints: BoxConstraints(
+                    maxWidth: 700,
+                    minHeight: MediaQuery.of(context).size.height -
+                        AppBar().preferredSize.height -
+                        MediaQuery.of(context).padding.top -
+                        MediaQuery.of(context).padding.bottom,
+                  ),
+                  child: Form(
+                      key: _LURLformKey,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            TextFormField(
+                              controller: LURLURLController,
+                              keyboardType: TextInputType.url,
+                              decoration: InputDecoration(
+                                  labelText: 'URL',
+                                  hintText: 'https://example.com',
+                                  prefixIcon: Icon(Icons.link),
+                                  border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0)),
+                                          Radius.circular(16.0)))),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'URL is required';
+                                } else if (!Uri.parse(value).isAbsolute) {
+                                  return 'URL is invalid';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onTapOutside: (event) => {
+                                _LURLformKey.currentState!.validate(),
+                              },
+                            ),
+                            Offstage(
+                                offstage: !_loading,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 20),
+                                    ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      child: LinearProgressIndicator(
+                                        minHeight: 20,
+                                        backgroundColor: Theme.of(context)
+                                            .splashColor, //TODO: change low purple
+                                      ),
                                     ),
+                                  ],
+                                )),
+                            Offstage(
+                                offstage: !_loaded,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 20),
+                                    TextFormField(
+                                      controller: LURLlURLController,
+                                      minLines: 1,
+                                      maxLines: 20,
+                                      decoration: InputDecoration(
+                                        labelText: 'Long URL',
+                                        prefixIcon: Icon(Icons.link),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(16.0)),
+                                        ),
+                                      ),
+                                      readOnly: true,
+                                    ),
+                                  ],
+                                )),
+                            SizedBox(height: 20),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton.icon(
+                                    onPressed: _createURL,
+                                    label: Text('Create Long URL'),
+                                    icon: Icon(Icons.add),
                                   ),
-                                  readOnly: true,
-                                ),
-                              ],
-                            )),
-                        SizedBox(height: 20),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton.icon(
-                                onPressed: _createURL,
-                                label: Text('Create Long URL'),
-                                icon: Icon(Icons.add),
-                              ),
-                              Offstage(
-                                offstage: !_loaded,
-                                child: SizedBox(width: 20),
-                              ),
-                              Offstage(
-                                offstage: !_loaded,
-                                child: ElevatedButton.icon(
-                                  label: Text('Copy'),
-                                  icon: Icon(Icons.copy),
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                            ClipboardData(text: _surl))
-                                        .then((value) => {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                content:
-                                                    Text('Copied to clipboard'),
-                                                showCloseIcon: true,
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                duration: Duration(seconds: 10),
-                                              ))
-                                            })
-                                        .catchError((error) => {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                content: Text('Error: $error'),
-                                                showCloseIcon: true,
-                                                closeIconColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .error,
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                duration: Duration(seconds: 10),
-                                              ))
-                                            });
-                                  },
-                                ),
-                              )
-                            ]),
-                      ]))),
-        )),
-      );
+                                  Offstage(
+                                    offstage: !_loaded,
+                                    child: SizedBox(width: 20),
+                                  ),
+                                  Offstage(
+                                    offstage: !_loaded,
+                                    child: ElevatedButton.icon(
+                                      label: Text('Copy'),
+                                      icon: Icon(Icons.copy),
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                                ClipboardData(text: _surl))
+                                            .then((value) => {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        'Copied to clipboard'),
+                                                    showCloseIcon: true,
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    duration:
+                                                        Duration(seconds: 10),
+                                                  ))
+                                                })
+                                            .catchError((error) => {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content:
+                                                        Text('Error: $error'),
+                                                    showCloseIcon: true,
+                                                    closeIconColor:
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .error,
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    duration:
+                                                        Duration(seconds: 10),
+                                                  ))
+                                                });
+                                      },
+                                    ),
+                                  )
+                                ]),
+                          ]))),
+            ),
+          ));
     }
   }
 }

@@ -177,8 +177,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                             children: [
                               ElevatedButton.icon(
                                 onPressed: _createURL,
-                                label: Text('Create Short URL'),
-                                icon: Icon(Icons.add),
+                                label: _loaded
+                                    ? Text('Recreate')
+                                    : Text('Create Short URL'),
+                                icon: _loaded
+                                    ? Icon(Icons.refresh)
+                                    : Icon(Icons.add),
                               ),
                               Offstage(
                                 offstage: !_loaded,

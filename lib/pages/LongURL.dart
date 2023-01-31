@@ -179,8 +179,12 @@ class _LongURLPageState extends State<LongURLPage> {
                                 children: [
                                   ElevatedButton.icon(
                                     onPressed: _createURL,
-                                    label: Text('Create Long URL'),
-                                    icon: Icon(Icons.add),
+                                    label: _loaded
+                                        ? Text('Recreate')
+                                        : Text('Create Long URL'),
+                                    icon: _loaded
+                                        ? Icon(Icons.refresh)
+                                        : Icon(Icons.add),
                                   ),
                                   Offstage(
                                     offstage: !_loaded,

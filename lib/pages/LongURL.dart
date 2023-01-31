@@ -9,7 +9,7 @@ import 'LogInFirst.dart';
 
 const String LURLSERVER_DOMAIN = 'l.jhihyulin.live';
 const String LURLSERVER_URL_1 = '/create';
-const int _LURLSupportLimit = 1000;
+const int _LURLSupportLimit = 8201;
 
 Uri LURLSERVER_CREATE = Uri.https(LURLSERVER_DOMAIN, LURLSERVER_URL_1);
 

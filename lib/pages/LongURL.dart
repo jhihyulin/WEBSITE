@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
@@ -8,6 +9,7 @@ import 'LogInFirst.dart';
 
 const String LURLSERVER_DOMAIN = 'l.jhihyulin.live';
 const String LURLSERVER_URL_1 = '/create';
+const int _LURLSupportLimit = 1000;
 
 Uri LURLSERVER_CREATE = Uri.https(LURLSERVER_DOMAIN, LURLSERVER_URL_1);
 
@@ -180,18 +182,21 @@ class _LongURLPageState extends State<LongURLPage> {
                                 )),
                             SizedBox(height: 20),
                             Wrap(
-                              alignment: WrapAlignment.center,
-                              spacing: 10,
-                              runSpacing: 10,
+                                alignment: WrapAlignment.center,
+                                spacing: 10,
+                                runSpacing: 10,
                                 children: [
-                                  ElevatedButton.icon(
-                                    onPressed: _createURL,
-                                    label: _loaded
-                                        ? Text('Recreate')
-                                        : Text('Create Long URL'),
-                                    icon: _loaded
-                                        ? Icon(Icons.refresh)
-                                        : Icon(Icons.add),
+                                  Offstage(
+                                    offstage: _loading,
+                                    child: ElevatedButton.icon(
+                                      onPressed: _createURL,
+                                      label: _loaded
+                                          ? Text('Recreate')
+                                          : Text('Create Long URL'),
+                                      icon: _loaded
+                                          ? Icon(Icons.refresh)
+                                          : Icon(Icons.add),
+                                    ),
                                   ),
                                   Offstage(
                                     offstage: !_loaded,
@@ -231,7 +236,138 @@ class _LongURLPageState extends State<LongURLPage> {
                                                 });
                                       },
                                     ),
-                                  )
+                                  ),
+                                  Offstage(
+                                      offstage: !_loaded,
+                                      child: TextButton(
+                                        child: Icon(Icons.help),
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title: Text('Not working?'),
+                                                  content: Container(
+                                                    constraints: BoxConstraints(
+                                                      maxWidth: 700,
+                                                      minWidth: 700,
+                                                    ),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: ListBody(
+                                                        children: [
+                                                          ExpansionTile(
+                                                            leading: Icon(
+                                                                Icons.http),
+                                                            title: Text(
+                                                                'HTTP 400'),
+                                                            subtitle: Text(
+                                                                'Bad Request'),
+                                                            children: [
+                                                              Offstage(
+                                                                offstage:
+                                                                    _LURLLength <= _LURLSupportLimit,
+                                                                child:
+                                                                    Text.rich(
+                                                                  TextSpan(
+                                                                    children: [
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'The URL you generated is '),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '$_LURLLength',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            ' characters long, which exceeds the upper limit of ',
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '$_LURLSupportLimit',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            ' characters supported by our CDN provider.',
+                                                                      ),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              '\nYou can use '),
+                                                                      TextSpan(
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color: Theme.of(context)
+                                                                              .colorScheme
+                                                                              .primary,
+                                                                        ),
+                                                                        text:
+                                                                            'Short URL',
+                                                                        recognizer:
+                                                                            TapGestureRecognizer()
+                                                                              ..onTap = () {
+                                                                                Navigator.pushNamed(context, '/shorturl');
+                                                                              },
+                                                                      ),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              ' to shorten the original URL before generating Long URL.'),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Offstage(
+                                                                offstage: _LURLLength > _LURLSupportLimit,
+                                                                child: Text.rich(
+                                                                  TextSpan(
+                                                                    children: [
+                                                                      TextSpan(text: 'This is a unknown error, please contact us at '),
+                                                                      TextSpan(
+                                                                        style: TextStyle(
+                                                                          color: Theme.of(context).colorScheme.primary,
+                                                                        ),
+                                                                        text: 'admin@jhihyulin.live',
+                                                                        recognizer: TapGestureRecognizer()
+                                                                          ..onTap = () {
+                                                                            launchUrl(Uri.parse('mailto:admin@jhihyulin.live?subject=%5BLong%20URL%5D%20Bug%20Report'));
+                                                                          },
+                                                                      ),
+                                                                      TextSpan(text: ' for help.'),
+                                                                      TextSpan(text: '\nDon\'t forget to include the following information:'),
+                                                                      TextSpan(text: '\n1. Original URL'),
+                                                                      TextSpan(text: '\n2. Generated Long URL'),
+                                                                      TextSpan(text: '\n3. Error ScreenShot'),
+                                                                    ]
+                                                                  )
+                                                                )
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Text('OK'))
+                                                  ],
+                                                );
+                                              });
+                                        },
+                                      )),
                                 ]),
                           ]))),
             ),

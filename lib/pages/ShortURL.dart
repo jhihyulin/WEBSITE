@@ -135,6 +135,9 @@ class _ShortURLPageState extends State<ShortURLPage> {
                           onTapOutside: (event) => {
                             _SURLformKey.currentState!.validate(),
                           },
+                          onFieldSubmitted: (event) => {
+                            _createURL(),
+                          },
                         ),
                         Offstage(
                             offstage: !_loading,

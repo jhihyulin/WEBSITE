@@ -29,6 +29,9 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   void _sendMessage() async {
+    if (!_MessageformKey.currentState!.validate()) {
+      return;
+    }
     String Email = ContactEmailController.text;
     String Message = ContactMessageController.text;
     String Signature = ContactSignatureController.text;
@@ -143,6 +146,7 @@ class _ContactPageState extends State<ContactPage> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(16.0)))),
+                          textInputAction: TextInputAction.next,
                         ),
                         SizedBox(height: 20),
                         TextFormField(
@@ -166,6 +170,7 @@ class _ContactPageState extends State<ContactPage> {
                           onTapOutside: (event) => {
                             _MessageformKey.currentState!.validate(),
                           },
+                          textInputAction: TextInputAction.next,
                         ),
                         SizedBox(height: 20),
                         TextField(
@@ -178,6 +183,9 @@ class _ContactPageState extends State<ContactPage> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(16.0)))),
+                          onSubmitted: (value) => {
+                            _sendMessage(),
+                          },
                         ),
                         Offstage(
                           offstage: !_loading,
@@ -213,9 +221,7 @@ class _ContactPageState extends State<ContactPage> {
                               label: Text('Send'),
                               icon: Icon(Icons.send),
                               onPressed: () {
-                                if (_MessageformKey.currentState!.validate()) {
-                                  _sendMessage();
-                                }
+                                _sendMessage();
                               },
                             ),
                           ],

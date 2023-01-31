@@ -135,6 +135,9 @@ class _LongURLPageState extends State<LongURLPage> {
                               onTapOutside: (event) => {
                                 _LURLformKey.currentState!.validate(),
                               },
+                              onFieldSubmitted: (event) => {
+                                _createURL(),
+                              },
                             ),
                             Offstage(
                                 offstage: !_loading,

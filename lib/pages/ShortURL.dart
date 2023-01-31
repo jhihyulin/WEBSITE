@@ -176,18 +176,21 @@ class _ShortURLPageState extends State<ShortURLPage> {
                             )),
                         SizedBox(height: 20),
                         Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
-                          alignment: WrapAlignment.center,
+                            spacing: 10,
+                            runSpacing: 10,
+                            alignment: WrapAlignment.center,
                             children: [
-                              ElevatedButton.icon(
-                                onPressed: _createURL,
-                                label: _loaded
-                                    ? Text('Recreate')
-                                    : Text('Create Short URL'),
-                                icon: _loaded
-                                    ? Icon(Icons.refresh)
-                                    : Icon(Icons.add),
+                              Offstage(
+                                offstage: _loading,
+                                child: ElevatedButton.icon(
+                                  onPressed: _createURL,
+                                  label: _loaded
+                                      ? Text('Recreate')
+                                      : Text('Create Short URL'),
+                                  icon: _loaded
+                                      ? Icon(Icons.refresh)
+                                      : Icon(Icons.add),
+                                ),
                               ),
                               Offstage(
                                 offstage: !_loaded,

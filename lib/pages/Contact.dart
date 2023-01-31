@@ -19,7 +19,7 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   final TextEditingController ContactEmailController =
-        new TextEditingController();
+      new TextEditingController();
   final TextEditingController ContactMessageController =
       new TextEditingController();
   final TextEditingController ContactSignatureController =
@@ -50,16 +50,17 @@ class _ContactPageState extends State<ContactPage> {
       'uid': uid,
       'TimeStamp': TimeStamp,
     }).then((documentSnapshot) {
-      var response = http.post(CONTACT, body: jsonEncode({
-        'message': Message,
-        'email': Email,
-        'signature': Signature,
-        'documentID': documentSnapshot.id,
-      }),
-      headers: {
-        'X-Firebase-AppCheck': appCheckToken!,
-        'Content-Type': 'application/json',
-      }).then((value) {
+      var response = http.post(CONTACT,
+          body: jsonEncode({
+            'message': Message,
+            'email': Email,
+            'signature': Signature,
+            'documentID': documentSnapshot.id,
+          }),
+          headers: {
+            'X-Firebase-AppCheck': appCheckToken!,
+            'Content-Type': 'application/json',
+          }).then((value) {
         setState(() {
           _loading = false;
         });
@@ -194,8 +195,7 @@ class _ContactPageState extends State<ContactPage> {
                         Offstage(
                           offstage: !_loading,
                           child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
                               backgroundColor: Theme.of(context)
@@ -203,28 +203,34 @@ class _ContactPageState extends State<ContactPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton.icon(
-                              label: Text('Clear'),
-                              icon: Icon(Icons.clear),
-                              onPressed: () {
-                                ContactEmailController.clear();
-                                ContactMessageController.clear();
-                                ContactSignatureController.clear();
-                              },
-                            ),
-                            SizedBox(width: 20),
-                            ElevatedButton.icon(
-                              label: Text('Send'),
-                              icon: Icon(Icons.send),
-                              onPressed: () {
-                                _sendMessage();
-                              },
-                            ),
-                          ],
+                        Offstage(
+                          offstage: _loading,
+                          child: SizedBox(height: 20),
+                        ),
+                        Offstage(
+                          offstage: _loading,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton.icon(
+                                label: Text('Clear'),
+                                icon: Icon(Icons.clear),
+                                onPressed: () {
+                                  ContactEmailController.clear();
+                                  ContactMessageController.clear();
+                                  ContactSignatureController.clear();
+                                },
+                              ),
+                              SizedBox(width: 20),
+                              ElevatedButton.icon(
+                                label: Text('Send'),
+                                icon: Icon(Icons.send),
+                                onPressed: () {
+                                  _sendMessage();
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

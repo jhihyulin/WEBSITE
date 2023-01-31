@@ -39,12 +39,14 @@ class _VPNPageState extends State<VPNPage> {
   String _selectedServerId = _defaultSelect;
   bool _getResponse = false;
   bool _loading = false;
+  bool _initing = true;
 
   @override
   void initState() {
     super.initState();
     setState(() {
       _loading = true;
+      _initing = true;
     });
     _getServerList();
   }
@@ -90,11 +92,13 @@ class _VPNPageState extends State<VPNPage> {
         _selectedServerId = selectedServerId;
         _items = items;
         _loading = false;
+        _initing = false;
       });
     }).catchError((error) {
       setState(() {
         _getResponse = false;
         _loading = false;
+        _initing = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -230,33 +234,39 @@ class _VPNPageState extends State<VPNPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    DropdownButton(
-                      items: _items,
-                      value: _selectedServerId,
-                      onChanged: (value) {
-                        if (value == _defaultSelect) {
-                          setState(() {
-                            _getResponse = false;
-                            _selectedServerId = value;
-                            _resetValue();
-                          });
-                          return;
-                        } else {
-                          setState(() {
-                            _loading = true;
-                            _getResponse = false;
-                            _selectedServerId = value;
-                            _getKey(value);
-                          });
-                        }
-                      },
+                    Offstage(
+                      offstage: _initing,
+                      child: DropdownButton(
+                        items: _items,
+                        value: _selectedServerId,
+                        onChanged: (value) {
+                          if (value == _defaultSelect) {
+                            setState(() {
+                              _getResponse = false;
+                              _selectedServerId = value;
+                              _resetValue();
+                            });
+                            return;
+                          } else {
+                            setState(() {
+                              _loading = true;
+                              _getResponse = false;
+                              _selectedServerId = value;
+                              _getKey(value);
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                    Offstage(
+                      offstage: _initing,
+                      child: SizedBox(height: 20),
                     ),
                     Offstage(
                       offstage:
                           !_loading && _selectedServerId == _defaultSelect,
                       child: Column(
                         children: [
-                          SizedBox(height: 20),
                           ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             child: LinearProgressIndicator(
@@ -296,8 +306,8 @@ class _VPNPageState extends State<VPNPage> {
                         ),
                         SizedBox(height: 20),
                         Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
+                            spacing: 10,
+                            runSpacing: 10,
                             alignment: WrapAlignment.center,
                             children: [
                               ElevatedButton.icon(
@@ -347,7 +357,12 @@ class _VPNPageState extends State<VPNPage> {
                                         return AlertDialog(
                                           title:
                                               Text('How to use Outline VPN?'),
-                                          content: SingleChildScrollView(
+                                          content: Container(
+                                            constraints: BoxConstraints(
+                                              maxWidth: 700,
+                                              minWidth: 700,
+                                            ),
+                                            child: SingleChildScrollView(
                                               child: (Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -385,6 +400,7 @@ class _VPNPageState extends State<VPNPage> {
                                                   '* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
                                             ],
                                           ))),
+                                          ),
                                           actions: [
                                             TextButton(
                                               child: Text('OK'),

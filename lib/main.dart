@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'Home.dart';
-import 'Tool.dart';
-import 'pages/Account.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'FirebaseOptions.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+
+import 'Home.dart';
+import 'Tool.dart';
+import 'FirebaseOptions.dart';
+import 'pages/Account.dart';
 import 'pages/Profile.dart';
 import 'pages/SignIn.dart';
 import 'pages/Status.dart';

@@ -7,7 +7,6 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'Home.dart';
 import 'Tool.dart';
 import 'FirebaseOptions.dart';
-import 'pages/Account.dart';
 import 'pages/Profile.dart';
 import 'pages/SignIn.dart';
 import 'pages/Status.dart';
@@ -20,7 +19,6 @@ import 'pages/About.dart';
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
 
 Map<String, Widget Function(BuildContext)> _routes = {
-  '/account': (BuildContext context) => AccountPage(),
   '/profile': (BuildContext context) => ProfilePage(),
   '/signin': (BuildContext context) => SignInPage(),
   '/status': (BuildContext context) => StatusPage(),
@@ -135,7 +133,10 @@ class _BottomNavigationControllerState
               icon: _displayPhoto,
               label: _dispayText,
               onPressed: () {
-                Navigator.of(context).pushNamed('/account');
+                if (FirebaseAuth.instance.currentUser == null)
+                  Navigator.pushNamed(context, '/signin');
+                else
+                  Navigator.pushNamed(context, '/profile');
               },
             ),
           )

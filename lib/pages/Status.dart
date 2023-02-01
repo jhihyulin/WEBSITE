@@ -15,10 +15,18 @@ Map _status1 = {
 
 Map _status2 = {
   'Main': 'https://status.jhihyulin.live',
+  'WebSite': null,
+  'Long URL': null,
+  'Short URL': null,
+  'AList': null,
 };
 
 Map _status3 = {
-  'Main': 'https://status-vpn.jhihyulin.live/',
+  'Main': 'https://status-vpn.jhihyulin.live',
+  'VPN Service Manager': null,
+  'Japan Osaka #1': null,
+  'Japan Osaka #2': null,
+  'Korea Central #1': null,
 };
 
 class StatusPage extends StatefulWidget {
@@ -51,179 +59,133 @@ class _StatusPageState extends State<StatusPage> {
           title: Text('Status'),
         ),
         body: SingleChildScrollView(
-            child: Center(
-          child: Container(
-              padding: EdgeInsets.all(20),
-              constraints: BoxConstraints(
-                maxWidth: 700,
-                minHeight: MediaQuery.of(context).size.height -
-                    AppBar().preferredSize.height -
-                    MediaQuery.of(context).padding.top -
-                    MediaQuery.of(context).padding.bottom,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ListView(
-                shrinkWrap: true,
-                children: [
-                  ExpansionTile(
-                    leading: const Icon(Icons.monitor_heart),
-                    title: const Text('Uptime Robot'),
-                    subtitle: const Text('Update every 5 minutes'),
-                    backgroundColor: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withOpacity(0.025),
+          child: Center(
+            child: Container(
+                padding: EdgeInsets.all(20),
+                constraints: BoxConstraints(
+                  maxWidth: 700,
+                  minHeight: MediaQuery.of(context).size.height -
+                      AppBar().preferredSize.height -
+                      MediaQuery.of(context).padding.top -
+                      MediaQuery.of(context).padding.bottom,
+                ),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                          padding: EdgeInsets.all(10),
-                          child: ListTile(
-                            subtitle:
-                                Wrap(spacing: 10, runSpacing: 10, children: [
-                              ElevatedButton(
-                                child: const Text('WebSite'),
-                                onPressed: () {
-                                  _launchUrl(_status1['WebSite']);
-                                },
-                              ),
-                              ElevatedButton(
-                                child: const Text('Japan Osaka #1'),
-                                onPressed: () {
-                                  _launchUrl(_status1['Japan Osaka #1']);
-                                },
-                              ),
-                              ElevatedButton(
-                                child: const Text('Japan Osaka #2'),
-                                onPressed: () {
-                                  _launchUrl(_status1['Japan Osaka #2']);
-                                },
-                              ),
-                              ElevatedButton(
-                                child: const Text('Korea Central #1'),
-                                onPressed: () {
-                                  _launchUrl(_status1['Korea Central #1']);
-                                },
-                              ),
-                              ElevatedButton(
-                                child: const Text('Long URL'),
-                                onPressed: () {
-                                  _launchUrl(_status1['Long URL']);
-                                },
-                              ),
-                              ElevatedButton(
-                                child: const Text('Short URL'),
-                                onPressed: () {
-                                  _launchUrl(_status1['Short URL']);
-                                },
-                              ),
-                              ElevatedButton(
-                                child: const Text('VPN Service Manager'),
-                                onPressed: () {
-                                  _launchUrl(_status1['VPN Service Manager']);
-                                },
-                              ),
-                              ElevatedButton(
-                                child: const Text('AList'),
-                                onPressed: () {
-                                  _launchUrl(_status1['AList']);
-                                },
-                              ),
-                            ]),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.open_in_new),
-                              onPressed: () {
-                                _launchUrl(_status1['Main']);
-                              },
-                            ),
-                          )),
-                    ],
-                  ),
-                  ExpansionTile(
-                    leading: const Icon(Icons.monitor_heart),
-                    title: const Text('cron-job.org'),
-                    subtitle: const Text('Update every minute'),
-                    backgroundColor: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withOpacity(0.025),
-                    children: [
-                      Container(
-                          padding: EdgeInsets.all(10),
-                          child: ListTile(
-                            subtitle:
-                                Wrap(spacing: 10, runSpacing: 10, children: [
-                              ElevatedButton(
-                                child: const Text('WebSite'),
-                                onPressed: () {},
-                              ),
-                              ElevatedButton(
-                                child: const Text('Long URL'),
-                                onPressed: () {},
-                              ),
-                              ElevatedButton(
-                                child: const Text('Short URL'),
-                                onPressed: () {},
-                              ),
-                              ElevatedButton(
-                                child: const Text('AList'),
-                                onPressed: () {},
-                              ),
-                            ]),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.open_in_new),
-                              onPressed: () {
-                                _launchUrl(_status2['Main']);
-                              },
-                            ),
-                          )),
-                    ],
-                  ),
-                  ExpansionTile(
-                    leading: const Icon(Icons.monitor_heart),
-                    title: const Text('cron-job.org'),
-                    subtitle: const Text('Update every minute'),
-                    backgroundColor: Theme.of(context)
-                        .colorScheme
-                        .primary
-                        .withOpacity(0.025),
-                    children: [
-                      Container(
-                          padding: EdgeInsets.all(10),
-                          child: ListTile(
-                            subtitle:
-                                Wrap(spacing: 10, runSpacing: 10, children: [
-                              ElevatedButton(
-                                child: const Text('VPN Service Manager'),
-                                onPressed: () {},
-                              ),
-                              ElevatedButton(
-                                child: const Text('Japan Osaka #1'),
-                                onPressed: () {},
-                              ),
-                              ElevatedButton(
-                                child: const Text('Japan Osaka #2'),
-                                onPressed: () {},
-                              ),
-                              ElevatedButton(
-                                child: const Text('Korea Central #1'),
-                                onPressed: () {},
-                              ),
-                            ]),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.open_in_new),
-                              onPressed: () {
-                                _launchUrl(_status3['Main']);
-                              },
-                            ),
-                          )),
-                    ],
-                  ),
-                ],
-              ),
-                ]
-              )
-            ),
+                      ListView(
+                        shrinkWrap: true,
+                        children: [
+                          ExpansionTile(
+                            leading: const Icon(Icons.monitor_heart),
+                            title: const Text('Uptime Robot'),
+                            subtitle: const Text('Update every 5 minutes'),
+                            children: [
+                              Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: ListTile(
+                                    subtitle: Wrap(
+                                        spacing: 10,
+                                        runSpacing: 10,
+                                        children: [
+                                          for (var i in _status1.keys)
+                                            if (i != 'Main')
+                                              if (_status1[i] != null)
+                                                ElevatedButton(
+                                                  child: Text(i),
+                                                  onPressed: () {
+                                                    _launchUrl(_status1[i]);
+                                                  }
+                                                )
+                                              else
+                                                ElevatedButton(
+                                                  child: Text(i),
+                                                  onPressed: null
+                                                )
+                                        ]),
+                                    trailing: IconButton(
+                                      icon: const Icon(Icons.open_in_new),
+                                      onPressed: () {
+                                        _launchUrl(_status1['Main']);
+                                      },
+                                    ),
+                                  )),
+                            ],
+                          ),
+                          ExpansionTile(
+                            leading: const Icon(Icons.monitor_heart),
+                            title: const Text('cron-job.org'),
+                            subtitle: const Text('Update every minute'),
+                            children: [
+                              Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: ListTile(
+                                    subtitle: Wrap(
+                                        spacing: 10,
+                                        runSpacing: 10,
+                                        children: [
+                                          for (var i in _status2.keys)
+                                            if (i != 'Main')
+                                              if (_status2[i] != null)
+                                                ElevatedButton(
+                                                  child: Text(i),
+                                                  onPressed: () {
+                                                    _launchUrl(_status2[i]);
+                                                  }
+                                                )
+                                              else
+                                                ElevatedButton(
+                                                  child: Text(i),
+                                                  onPressed: null
+                                                )
+                                        ]),
+                                    trailing: IconButton(
+                                      icon: const Icon(Icons.open_in_new),
+                                      onPressed: () {
+                                        _launchUrl(_status2['Main']);
+                                      },
+                                    ),
+                                  )),
+                            ],
+                          ),
+                          ExpansionTile(
+                            leading: const Icon(Icons.monitor_heart),
+                            title: const Text('cron-job.org'),
+                            subtitle: const Text('Update every minute'),
+                            children: [
+                              Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: ListTile(
+                                    subtitle: Wrap(
+                                        spacing: 10,
+                                        runSpacing: 10,
+                                        children: [
+                                          for (var i in _status3.keys)
+                                            if (i != 'Main')
+                                              if (_status3[i] != null)
+                                                ElevatedButton(
+                                                  child: Text(i),
+                                                  onPressed: () {
+                                                    _launchUrl(_status3[i]);
+                                                  }
+                                                )
+                                              else
+                                                ElevatedButton(
+                                                  child: Text(i),
+                                                  onPressed: null
+                                                )
+                                        ]),
+                                    trailing: IconButton(
+                                      icon: const Icon(Icons.open_in_new),
+                                      onPressed: () {
+                                        _launchUrl(_status3['Main']);
+                                      },
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ])),
           ),
         ));
   }

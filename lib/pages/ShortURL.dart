@@ -208,7 +208,6 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                                 showCloseIcon: true,
                                                 behavior:
                                                     SnackBarBehavior.floating,
-                                                duration: Duration(seconds: 10),
                                               ))
                                             })
                                         .catchError((error) => {

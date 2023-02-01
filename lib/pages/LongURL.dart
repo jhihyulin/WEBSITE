@@ -214,8 +214,6 @@ class _LongURLPageState extends State<LongURLPage> {
                                                     showCloseIcon: true,
                                                     behavior: SnackBarBehavior
                                                         .floating,
-                                                    duration:
-                                                        Duration(seconds: 10),
                                                   ))
                                                 })
                                             .catchError((error) => {

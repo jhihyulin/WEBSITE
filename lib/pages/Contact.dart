@@ -195,7 +195,7 @@ class _ContactPageState extends State<ContactPage> {
                         Offstage(
                           offstage: !_loading,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
                               backgroundColor: Theme.of(context)

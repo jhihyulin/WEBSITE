@@ -147,7 +147,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                 SizedBox(height: 20),
                                 ClipRRect(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                      BorderRadius.all(Radius.circular(16.0)),
                                   child: LinearProgressIndicator(
                                     minHeight: 20,
                                     backgroundColor: Theme.of(context)

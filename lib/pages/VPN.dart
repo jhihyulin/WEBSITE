@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'logInFirst.dart';
+import 'LogInFirst.dart';
 
 const String VPNSERVER_DOMAIN = 'vpn.jhihyulin.live';
 const String VPNSERVER_URL_1 = '/server_list';

@@ -70,6 +70,7 @@ class _StatusPageState extends State<StatusPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return Scaffold(
         appBar: AppBar(
           title: Text('Status'),
@@ -96,34 +97,44 @@ class _StatusPageState extends State<StatusPage> {
                           shrinkWrap: true,
                           children: [
                             for (var status in _status)
-                              ExpansionTile(
-                                title: Text(status['name']),
-                                subtitle: Text(status['update']),
-                                children: [
-                                  Container(
-                                      padding: EdgeInsets.all(10),
-                                      child: ListTile(
-                                        subtitle: Wrap(
-                                          spacing: 10,
-                                          runSpacing: 10,
-                                          children: [
-                                            for (var item
-                                                in status['status'].entries)
-                                              ElevatedButton(
-                                                child: Text(item.key),
-                                                onPressed: () => _launchUrl(
-                                                    item.value.toString()),
-                                              ),
-                                          ],
-                                        ),
-                                        trailing: IconButton(
-                                            icon: const Icon(Icons.open_in_new),
-                                            onPressed: () {
-                                              _launchUrl(status['url']);
-                                            }),
-                                      ))
-                                ],
-                              ),
+                              Theme(
+                                data: theme,
+                                child: ExpansionTile(
+                                  title: Text(status['name']),
+                                  subtitle: Text(status['update']),
+                                  children: [
+                                    Container(
+                                        padding: EdgeInsets.all(10),
+                                        child: ListTile(
+                                          subtitle: Wrap(
+                                            spacing: 10,
+                                            runSpacing: 10,
+                                            children: [
+                                              for (var item
+                                                  in status['status'].entries)
+                                                if (item.key != 'Main')
+                                                  ElevatedButton(
+                                                    child: Text(item.key),
+                                                    onPressed:
+                                                        item.value == null
+                                                            ? null
+                                                            : () {
+                                                                _launchUrl(
+                                                                    item.value);
+                                                              },
+                                                  ),
+                                            ],
+                                          ),
+                                          trailing: IconButton(
+                                              icon:
+                                                  const Icon(Icons.open_in_new),
+                                              onPressed: () {
+                                                _launchUrl(status['url']);
+                                              }),
+                                        ))
+                                  ],
+                                ),
+                              )
                           ],
                         ),
                       )

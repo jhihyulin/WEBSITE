@@ -1,7 +1,7 @@
 import 'dart:convert';
+
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +19,7 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   final TextEditingController ContactEmailController =
-        new TextEditingController();
+      new TextEditingController();
   final TextEditingController ContactMessageController =
       new TextEditingController();
   final TextEditingController ContactSignatureController =
@@ -29,6 +29,9 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   void _sendMessage() async {
+    if (!_MessageformKey.currentState!.validate()) {
+      return;
+    }
     String Email = ContactEmailController.text;
     String Message = ContactMessageController.text;
     String Signature = ContactSignatureController.text;
@@ -47,16 +50,17 @@ class _ContactPageState extends State<ContactPage> {
       'uid': uid,
       'TimeStamp': TimeStamp,
     }).then((documentSnapshot) {
-      var response = http.post(CONTACT, body: jsonEncode({
-        'message': Message,
-        'email': Email,
-        'signature': Signature,
-        'documentID': documentSnapshot.id,
-      }),
-      headers: {
-        'X-Firebase-AppCheck': appCheckToken!,
-        'Content-Type': 'application/json',
-      }).then((value) {
+      var response = http.post(CONTACT,
+          body: jsonEncode({
+            'message': Message,
+            'email': Email,
+            'signature': Signature,
+            'documentID': documentSnapshot.id,
+          }),
+          headers: {
+            'X-Firebase-AppCheck': appCheckToken!,
+            'Content-Type': 'application/json',
+          }).then((value) {
         setState(() {
           _loading = false;
         });
@@ -117,11 +121,17 @@ class _ContactPageState extends State<ContactPage> {
       appBar: AppBar(
         title: Text('Contact'),
       ),
-      body: Center(
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+          child: Center(
               child: Container(
                   padding: EdgeInsets.all(20),
-                  constraints: BoxConstraints(maxWidth: 700),
+                  constraints: BoxConstraints(
+                    maxWidth: 700,
+                    minHeight: MediaQuery.of(context).size.height -
+                        AppBar().preferredSize.height -
+                        MediaQuery.of(context).padding.top -
+                        MediaQuery.of(context).padding.bottom,
+                  ),
                   child: Form(
                     key: _MessageformKey,
                     child: Column(
@@ -137,6 +147,7 @@ class _ContactPageState extends State<ContactPage> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(16.0)))),
+                          textInputAction: TextInputAction.next,
                         ),
                         SizedBox(height: 20),
                         TextFormField(
@@ -160,6 +171,7 @@ class _ContactPageState extends State<ContactPage> {
                           onTapOutside: (event) => {
                             _MessageformKey.currentState!.validate(),
                           },
+                          textInputAction: TextInputAction.next,
                         ),
                         SizedBox(height: 20),
                         TextField(
@@ -172,6 +184,9 @@ class _ContactPageState extends State<ContactPage> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(16.0)))),
+                          onSubmitted: (value) => {
+                            _sendMessage(),
+                          },
                         ),
                         Offstage(
                           offstage: !_loading,
@@ -180,8 +195,7 @@ class _ContactPageState extends State<ContactPage> {
                         Offstage(
                           offstage: !_loading,
                           child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10)),
+                            borderRadius: BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
                               backgroundColor: Theme.of(context)
@@ -189,30 +203,34 @@ class _ContactPageState extends State<ContactPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton.icon(
-                              label: Text('Clear'),
-                              icon: Icon(Icons.clear),
-                              onPressed: () {
-                                ContactEmailController.clear();
-                                ContactMessageController.clear();
-                                ContactSignatureController.clear();
-                              },
-                            ),
-                            SizedBox(width: 20),
-                            ElevatedButton.icon(
-                              label: Text('Send'),
-                              icon: Icon(Icons.send),
-                              onPressed: () {
-                                if (_MessageformKey.currentState!.validate()) {
+                        Offstage(
+                          offstage: _loading,
+                          child: SizedBox(height: 20),
+                        ),
+                        Offstage(
+                          offstage: _loading,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton.icon(
+                                label: Text('Clear'),
+                                icon: Icon(Icons.clear),
+                                onPressed: () {
+                                  ContactEmailController.clear();
+                                  ContactMessageController.clear();
+                                  ContactSignatureController.clear();
+                                },
+                              ),
+                              SizedBox(width: 20),
+                              ElevatedButton.icon(
+                                label: Text('Send'),
+                                icon: Icon(Icons.send),
+                                onPressed: () {
                                   _sendMessage();
-                                }
-                              },
-                            ),
-                          ],
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

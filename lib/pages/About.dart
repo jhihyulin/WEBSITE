@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'plugins/logo_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+
+import 'plugins/logo_icons.dart';
 
 const String Text_1 = 'Not yet written.';
 const String Text_2 = '';
@@ -76,8 +77,17 @@ class AboutPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('About'),
       ),
-      body: Center(
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+          child: Center(
+              child: Container(
+        padding: EdgeInsets.all(20),
+        constraints: BoxConstraints(
+          maxWidth: 700,
+          minHeight: MediaQuery.of(context).size.height -
+              AppBar().preferredSize.height -
+              MediaQuery.of(context).padding.top -
+              MediaQuery.of(context).padding.bottom,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -104,8 +114,8 @@ class AboutPage extends StatelessWidget {
                   children: [
                     for (var key in SocialMedia.keys)
                       ElevatedButton.icon(
-                        onPressed: () => _launchUrl(Uri.parse(
-                            SocialMedia[key]!['url'] as String)),
+                        onPressed: () => _launchUrl(
+                            Uri.parse(SocialMedia[key]!['url'] as String)),
                         icon: Icon(SocialMedia[key]!['icon'] as IconData),
                         label: Text(key),
                       ),
@@ -113,7 +123,7 @@ class AboutPage extends StatelessWidget {
                 ))
           ],
         ),
-      )),
+      ))),
     );
   }
 }

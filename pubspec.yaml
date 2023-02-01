@@ -38,6 +38,6 @@ flutter:
   - family: Montserrat
     fonts:
       - asset: assets/fonts/Montserrat-Regular.ttf
-  - family:  Logo
+  - family: Logo
     fonts:
       - asset: assets/fonts/Logo.ttf

@@ -1,10 +1,11 @@
 import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
-import 'LogInFirst.dart';
+
+import 'SignIn.dart';
 
 const String SURLSERVER_DOMAIN = 's.jhihyulin.live';
 const String SURLSERVER_URL_1 = '/create';
@@ -53,11 +54,11 @@ class _ShortURLPageState extends State<ShortURLPage> {
           .post(SURLSERVER_CREATE,
               body: jsonEncode({
                 'firebase_uid': uid,
-                'original_url': SURLURLController.text,
-                'firebase_token': token,
+                'original_url': SURLURLController.text
               }),
               headers: {
                 'Content-Type': 'application/json',
+                'X-Firebase-AppCheck': token
               })
           .then((value) => {
                 setState(() {
@@ -91,17 +92,23 @@ class _ShortURLPageState extends State<ShortURLPage> {
   @override
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser == null) {
-      return SignInFirstPage(originPage: '/shorturl');
+      return SignInPage(redirectPage: '/shorturl');
     } else {
       return Scaffold(
         appBar: AppBar(
           title: Text('ShortURL'),
         ),
-        body: Center(
-            child: SingleChildScrollView(
+        body: SingleChildScrollView(
+            child: Center(
           child: Container(
               padding: EdgeInsets.all(20),
-              constraints: BoxConstraints(maxWidth: 700),
+              constraints: BoxConstraints(
+                maxWidth: 700,
+                minHeight: MediaQuery.of(context).size.height -
+                    AppBar().preferredSize.height -
+                    MediaQuery.of(context).padding.top -
+                    MediaQuery.of(context).padding.bottom,
+              ),
               child: Form(
                   key: _SURLformKey,
                   child: Column(
@@ -120,11 +127,17 @@ class _ShortURLPageState extends State<ShortURLPage> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'URL is required';
+                            } else if (!Uri.parse(value).isAbsolute) {
+                              return 'URL is invalid';
+                            } else {
+                              return null;
                             }
-                            return null;
                           },
                           onTapOutside: (event) => {
                             _SURLformKey.currentState!.validate(),
+                          },
+                          onFieldSubmitted: (event) => {
+                            _createURL(),
                           },
                         ),
                         Offstage(
@@ -134,7 +147,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                 SizedBox(height: 20),
                                 ClipRRect(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                      BorderRadius.all(Radius.circular(16.0)),
                                   child: LinearProgressIndicator(
                                     minHeight: 20,
                                     backgroundColor: Theme.of(context)
@@ -163,17 +176,22 @@ class _ShortURLPageState extends State<ShortURLPage> {
                               ],
                             )),
                         SizedBox(height: 20),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            alignment: WrapAlignment.center,
                             children: [
-                              ElevatedButton.icon(
-                                onPressed: _createURL,
-                                label: Text('Create Short URL'),
-                                icon: Icon(Icons.add),
-                              ),
                               Offstage(
-                                offstage: !_loaded,
-                                child: SizedBox(width: 20),
+                                offstage: _loading,
+                                child: ElevatedButton.icon(
+                                  onPressed: _createURL,
+                                  label: _loaded
+                                      ? Text('Recreate')
+                                      : Text('Create Short URL'),
+                                  icon: _loaded
+                                      ? Icon(Icons.refresh)
+                                      : Icon(Icons.add),
+                                ),
                               ),
                               Offstage(
                                 offstage: !_loaded,
@@ -191,7 +209,6 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                                 showCloseIcon: true,
                                                 behavior:
                                                     SnackBarBehavior.floating,
-                                                duration: Duration(seconds: 10),
                                               ))
                                             })
                                         .catchError((error) => {

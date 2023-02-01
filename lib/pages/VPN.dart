@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:html';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
-import '/pages/LogInFirst.dart';
+
+import 'SignIn.dart';
 
 const String VPNSERVER_DOMAIN = 'vpn.jhihyulin.live';
 const String VPNSERVER_URL_1 = '/server_list';
@@ -39,12 +41,14 @@ class _VPNPageState extends State<VPNPage> {
   String _selectedServerId = _defaultSelect;
   bool _getResponse = false;
   bool _loading = false;
+  bool _initing = true;
 
   @override
   void initState() {
     super.initState();
     setState(() {
       _loading = true;
+      _initing = true;
     });
     _getServerList();
   }
@@ -90,11 +94,13 @@ class _VPNPageState extends State<VPNPage> {
         _selectedServerId = selectedServerId;
         _items = items;
         _loading = false;
+        _initing = false;
       });
     }).catchError((error) {
       setState(() {
         _getResponse = false;
         _loading = false;
+        _initing = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -119,11 +125,11 @@ class _VPNPageState extends State<VPNPage> {
     await http.post(VPNSERVER_GET_VPN_TOKEN,
         body: jsonEncode({
           'firebase_uid': uid,
-          'server_id': serverId,
-          'firebase_token': token
+          'server_id': serverId
         }),
         headers: {
           'Content-Type': 'application/json',
+          'X-Firebase-AppCheck': token
         }).then((value) {
       var data = jsonDecode(value.body);
       setState(() {
@@ -210,49 +216,61 @@ class _VPNPageState extends State<VPNPage> {
   @override
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser == null) {
-      return SignInFirstPage(originPage: '/vpn');
+      return SignInPage(redirectPage: '/vpn');
     } else {
       return Scaffold(
           appBar: AppBar(
             title: Text('VPN'),
           ),
-          body: Center(
-              child: SingleChildScrollView(
+          body: SingleChildScrollView(
+              child: Center(
             child: Container(
                 padding: EdgeInsets.all(20),
-                constraints: BoxConstraints(maxWidth: 700),
+                constraints: BoxConstraints(
+                  maxWidth: 700,
+                  minHeight: MediaQuery.of(context).size.height -
+                      AppBar().preferredSize.height -
+                      MediaQuery.of(context).padding.top -
+                      MediaQuery.of(context).padding.bottom,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    DropdownButton(
-                      items: _items,
-                      value: _selectedServerId,
-                      onChanged: (value) {
-                        if (value == _defaultSelect) {
-                          setState(() {
-                            _getResponse = false;
-                            _selectedServerId = value;
-                            _resetValue();
-                          });
-                          return;
-                        } else {
-                          setState(() {
-                            _loading = true;
-                            _getResponse = false;
-                            _selectedServerId = value;
-                            _getKey(value);
-                          });
-                        }
-                      },
+                    Offstage(
+                      offstage: _initing,
+                      child: DropdownButton(
+                        items: _items,
+                        value: _selectedServerId,
+                        onChanged: (value) {
+                          if (value == _defaultSelect) {
+                            setState(() {
+                              _getResponse = false;
+                              _selectedServerId = value;
+                              _resetValue();
+                            });
+                            return;
+                          } else {
+                            setState(() {
+                              _loading = true;
+                              _getResponse = false;
+                              _selectedServerId = value;
+                              _getKey(value);
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                    Offstage(
+                      offstage: _initing,
+                      child: SizedBox(height: 20),
                     ),
                     Offstage(
                       offstage:
                           !_loading && _selectedServerId == _defaultSelect,
                       child: Column(
                         children: [
-                          SizedBox(height: 20),
                           ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius: BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
                               backgroundColor: Theme.of(context)
@@ -289,8 +307,10 @@ class _VPNPageState extends State<VPNPage> {
                           readOnly: true,
                         ),
                         SizedBox(height: 20),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            alignment: WrapAlignment.center,
                             children: [
                               ElevatedButton.icon(
                                 label: Text('Add To APP'),
@@ -303,7 +323,6 @@ class _VPNPageState extends State<VPNPage> {
                                   }
                                 },
                               ),
-                              SizedBox(width: 20),
                               TextButton(
                                 child: Icon(Icons.copy),
                                 onPressed: () async {
@@ -331,7 +350,6 @@ class _VPNPageState extends State<VPNPage> {
                                   });
                                 },
                               ),
-                              SizedBox(width: 20),
                               TextButton(
                                 child: Icon(Icons.help),
                                 onPressed: () {
@@ -341,7 +359,12 @@ class _VPNPageState extends State<VPNPage> {
                                         return AlertDialog(
                                           title:
                                               Text('How to use Outline VPN?'),
-                                          content: SingleChildScrollView(
+                                          content: Container(
+                                            constraints: BoxConstraints(
+                                              maxWidth: 700,
+                                              minWidth: 700,
+                                            ),
+                                            child: SingleChildScrollView(
                                               child: (Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -379,6 +402,7 @@ class _VPNPageState extends State<VPNPage> {
                                                   '* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
                                             ],
                                           ))),
+                                          ),
                                           actions: [
                                             TextButton(
                                               child: Text('OK'),

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -8,9 +7,12 @@ import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
 import 'package:firebase_ui_oauth_twitter/firebase_ui_oauth_twitter.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+String _redirectPage = '/profile';
 
+class SignInPage extends StatefulWidget {
+  SignInPage({Key? key, String redirectPage = '/profile'}): super(key: key) {
+    _redirectPage = redirectPage;
+  }
   @override
   _SignInPageState createState() => _SignInPageState();
 }
@@ -77,7 +79,9 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sign In'),
+          title: _redirectPage == '/profile'
+              ? Text('Sign In')
+              : Text('Sign In to Continue'),
         ),
         body: SignInScreen(
           providers: [
@@ -98,7 +102,7 @@ class _SignInPageState extends State<SignInPage> {
               if (!state.user!.emailVerified) {
                 Navigator.pushNamed(context, '/verify-email');
               } else {
-                Navigator.pushReplacementNamed(context, '/profile');
+                Navigator.pushReplacementNamed(context, _redirectPage);
               }
             }),
           ],

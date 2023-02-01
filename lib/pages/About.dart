@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Plugins/LogoIcons.dart';
+import 'plugins/LogoIcons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 

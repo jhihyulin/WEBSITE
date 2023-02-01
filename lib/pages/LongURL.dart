@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
-import 'LogInFirst.dart';
+import 'SignIn.dart';
 
 const String LURLSERVER_DOMAIN = 'l.jhihyulin.live';
 const String LURLSERVER_URL_1 = '/create';
@@ -97,7 +97,7 @@ class _LongURLPageState extends State<LongURLPage> {
   @override
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser == null) {
-      return SignInFirstPage(originPage: '/longurl');
+      return SignInPage(redirectPage: '/longurl');
     } else {
       return Scaffold(
           appBar: AppBar(

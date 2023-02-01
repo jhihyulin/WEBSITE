@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
-import 'LogInFirst.dart';
+import 'SignIn.dart';
 
 const String SURLSERVER_DOMAIN = 's.jhihyulin.live';
 const String SURLSERVER_URL_1 = '/create';
@@ -92,7 +92,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
   @override
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser == null) {
-      return SignInFirstPage(originPage: '/shorturl');
+      return SignInPage(redirectPage: '/shorturl');
     } else {
       return Scaffold(
         appBar: AppBar(

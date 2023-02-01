@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'LogInFirst.dart';
+import 'SignIn.dart';
 
 const String VPNSERVER_DOMAIN = 'vpn.jhihyulin.live';
 const String VPNSERVER_URL_1 = '/server_list';
@@ -216,7 +216,7 @@ class _VPNPageState extends State<VPNPage> {
   @override
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser == null) {
-      return SignInFirstPage(originPage: '/vpn');
+      return SignInPage(redirectPage: '/vpn');
     } else {
       return Scaffold(
           appBar: AppBar(

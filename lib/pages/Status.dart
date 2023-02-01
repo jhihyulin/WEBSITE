@@ -1,32 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Map _status1 = {
-  'Main': 'https://stats.uptimerobot.com/plWPBU9LQz',
-  'WebSite': 'https://stats.uptimerobot.com/plWPBU9LQz/793129119',
-  'Japan Osaka #1': 'https://stats.uptimerobot.com/plWPBU9LQz/793129203',
-  'Japan Osaka #2': 'https://stats.uptimerobot.com/plWPBU9LQz/793129204',
-  'Korea Central #1': 'https://stats.uptimerobot.com/plWPBU9LQz/793129191',
-  'Long URL': 'https://stats.uptimerobot.com/plWPBU9LQz/793129221',
-  'Short URL': 'https://stats.uptimerobot.com/plWPBU9LQz/793129225',
-  'VPN Service Manager': 'https://stats.uptimerobot.com/plWPBU9LQz/793144839',
-  'AList': 'https://stats.uptimerobot.com/plWPBU9LQz/793436931',
-};
-
-Map _status2 = {
-  'Main': 'https://status.jhihyulin.live',
-  'WebSite': null,
-  'Long URL': null,
-  'Short URL': null,
-  'AList': null,
-};
-
-Map _status3 = {
-  'Main': 'https://status-vpn.jhihyulin.live',
-  'VPN Service Manager': null,
-  'Japan Osaka #1': null,
-  'Japan Osaka #2': null,
-  'Korea Central #1': null,
+Set<Map<String, dynamic>> _status = {
+  {
+    'name': 'Uptime Robot',
+    'url': 'https://stats.uptimerobot.com/plWPBU9LQz',
+    'update': 'Update every 5 minutes',
+    'status': {
+      'Main': 'https://stats.uptimerobot.com/plWPBU9LQz',
+      'WebSite': 'https://stats.uptimerobot.com/plWPBU9LQz/793129119',
+      'Japan Osaka #1': 'https://stats.uptimerobot.com/plWPBU9LQz/793129203',
+      'Japan Osaka #2': 'https://stats.uptimerobot.com/plWPBU9LQz/793129204',
+      'Korea Central #1': 'https://stats.uptimerobot.com/plWPBU9LQz/793129191',
+      'Long URL': 'https://stats.uptimerobot.com/plWPBU9LQz/793129221',
+      'Short URL': 'https://stats.uptimerobot.com/plWPBU9LQz/793129225',
+      'VPN Service Manager':
+          'https://stats.uptimerobot.com/plWPBU9LQz/793144839',
+      'AList': 'https://stats.uptimerobot.com/plWPBU9LQz/793436931',
+    },
+  },
+  {
+    'name': 'cron-job.org',
+    'url': 'https://status.jhihyulin.live',
+    'update': 'Update every minute',
+    'status': {
+      'Main': 'https://status.jhihyulin.live',
+      'WebSite': null,
+      'Long URL': null,
+      'Short URL': null,
+      'AList': null,
+    },
+  },
+  {
+    'name': 'VPN Service Manager',
+    'url': 'https://status-vpn.jhihyulin.live',
+    'update': 'Update every minute',
+    'status': {
+      'Main': 'https://status-vpn.jhihyulin.live',
+      'VPN Service Manager': null,
+      'Japan Osaka #1': null,
+      'Japan Osaka #2': null,
+      'Korea Central #1': null,
+    },
+  }
 };
 
 class StatusPage extends StatefulWidget {
@@ -72,119 +88,45 @@ class _StatusPageState extends State<StatusPage> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ListView(
-                        shrinkWrap: true,
-                        children: [
-                          ExpansionTile(
-                            leading: const Icon(Icons.monitor_heart),
-                            title: const Text('Uptime Robot'),
-                            subtitle: const Text('Update every 5 minutes'),
-                            children: [
-                              Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: ListTile(
-                                    subtitle: Wrap(
-                                        spacing: 10,
-                                        runSpacing: 10,
-                                        children: [
-                                          for (var i in _status1.keys)
-                                            if (i != 'Main')
-                                              if (_status1[i] != null)
-                                                ElevatedButton(
-                                                  child: Text(i),
-                                                  onPressed: () {
-                                                    _launchUrl(_status1[i]);
-                                                  }
-                                                )
-                                              else
-                                                ElevatedButton(
-                                                  child: Text(i),
-                                                  onPressed: null
-                                                )
-                                        ]),
-                                    trailing: IconButton(
-                                      icon: const Icon(Icons.open_in_new),
-                                      onPressed: () {
-                                        _launchUrl(_status1['Main']);
-                                      },
-                                    ),
-                                  )),
-                            ],
-                          ),
-                          ExpansionTile(
-                            leading: const Icon(Icons.monitor_heart),
-                            title: const Text('cron-job.org'),
-                            subtitle: const Text('Update every minute'),
-                            children: [
-                              Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: ListTile(
-                                    subtitle: Wrap(
-                                        spacing: 10,
-                                        runSpacing: 10,
-                                        children: [
-                                          for (var i in _status2.keys)
-                                            if (i != 'Main')
-                                              if (_status2[i] != null)
-                                                ElevatedButton(
-                                                  child: Text(i),
-                                                  onPressed: () {
-                                                    _launchUrl(_status2[i]);
-                                                  }
-                                                )
-                                              else
-                                                ElevatedButton(
-                                                  child: Text(i),
-                                                  onPressed: null
-                                                )
-                                        ]),
-                                    trailing: IconButton(
-                                      icon: const Icon(Icons.open_in_new),
-                                      onPressed: () {
-                                        _launchUrl(_status2['Main']);
-                                      },
-                                    ),
-                                  )),
-                            ],
-                          ),
-                          ExpansionTile(
-                            leading: const Icon(Icons.monitor_heart),
-                            title: const Text('cron-job.org'),
-                            subtitle: const Text('Update every minute'),
-                            children: [
-                              Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: ListTile(
-                                    subtitle: Wrap(
-                                        spacing: 10,
-                                        runSpacing: 10,
-                                        children: [
-                                          for (var i in _status3.keys)
-                                            if (i != 'Main')
-                                              if (_status3[i] != null)
-                                                ElevatedButton(
-                                                  child: Text(i),
-                                                  onPressed: () {
-                                                    _launchUrl(_status3[i]);
-                                                  }
-                                                )
-                                              else
-                                                ElevatedButton(
-                                                  child: Text(i),
-                                                  onPressed: null
-                                                )
-                                        ]),
-                                    trailing: IconButton(
-                                      icon: const Icon(Icons.open_in_new),
-                                      onPressed: () {
-                                        _launchUrl(_status3['Main']);
-                                      },
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ],
-                      ),
+                      Card(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.0))),
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: [
+                            for (var status in _status)
+                              ExpansionTile(
+                                title: Text(status['name']),
+                                subtitle: Text(status['update']),
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.all(10),
+                                      child: ListTile(
+                                        subtitle: Wrap(
+                                          spacing: 10,
+                                          runSpacing: 10,
+                                          children: [
+                                            for (var item
+                                                in status['status'].entries)
+                                              ElevatedButton(
+                                                child: Text(item.key),
+                                                onPressed: () => _launchUrl(
+                                                    item.value.toString()),
+                                              ),
+                                          ],
+                                        ),
+                                        trailing: IconButton(
+                                            icon: const Icon(Icons.open_in_new),
+                                            onPressed: () {
+                                              _launchUrl(status['url']);
+                                            }),
+                                      ))
+                                ],
+                              ),
+                          ],
+                        ),
+                      )
                     ])),
           ),
         ));

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'pages/About.dart';
-import 'pages/Contact.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 String Text_1 =

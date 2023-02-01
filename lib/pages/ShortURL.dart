@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
-import 'LogInFirst.dart';
+import 'logInFirst.dart';
 
 const String SURLSERVER_DOMAIN = 's.jhihyulin.live';
 const String SURLSERVER_URL_1 = '/create';

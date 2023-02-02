@@ -1,6 +1,29 @@
 import 'package:flutter/material.dart';
 
 class ToolPage extends StatelessWidget {
+  final Map<String, Map<String, dynamic>> _tools = {
+    'status': {
+      'title': 'Status',
+      'icon': Icons.monitor_heart,
+      'route': '/status',
+    },
+    'vpn': {
+      'title': 'VPN',
+      'icon': Icons.vpn_key,
+      'route': '/vpn',
+    },
+    'shorturl': {
+      'title': 'Short URL',
+      'icon': Icons.link,
+      'route': '/shorturl',
+    },
+    'longurl': {
+      'title': 'Long URL',
+      'icon': Icons.link,
+      'route': '/longurl',
+    },
+  };
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -17,38 +40,18 @@ class ToolPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Wrap(
-                      alignment: WrapAlignment.center,
+                      alignment: WrapAlignment.spaceEvenly,
                       spacing: 10,
                       runSpacing: 10,
                       children: <Widget>[
-                        ElevatedButton.icon(
-                          icon: const Icon(Icons.monitor_heart),
-                          label: Text('Status'),
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/status');
-                          },
-                        ),
-                        ElevatedButton.icon(
-                          icon: const Icon(Icons.vpn_key),
-                          label: Text('VPN'),
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/vpn');
-                          },
-                        ),
-                        ElevatedButton.icon(
-                          icon: const Icon(Icons.link),
-                          label: Text('ShortURL'),
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/shorturl');
-                          },
-                        ),
-                        ElevatedButton.icon(
-                          icon: const Icon(Icons.link),
-                          label: Text('LongURL'),
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('/longurl');
-                          },
-                        ),
+                        for (var tool in _tools.entries)
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.pushNamed(context, tool.value['route']);
+                            },
+                            icon: Icon(tool.value['icon']),
+                            label: Text(tool.value['title'])
+                          )
                       ],
                     ),
                   ],

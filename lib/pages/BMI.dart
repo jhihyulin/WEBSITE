@@ -70,8 +70,9 @@ class _BMIPageState extends State<BMIPage> {
             constraints: BoxConstraints(
               maxWidth: 700,
               minHeight: MediaQuery.of(context).size.height -
-                  AppBar().preferredSize.height -
-                  58, //BottomNavigationBar Height
+                      AppBar().preferredSize.height -
+                      MediaQuery.of(context).padding.top -
+                      MediaQuery.of(context).padding.bottom,
             ),
             padding: const EdgeInsets.all(10),
             child: Column(

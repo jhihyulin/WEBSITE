@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
@@ -19,6 +20,7 @@ import 'pages/BMI.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
 final DesktopModeWidth = 640;
+Color _seedColor = Colors.blueGrey;
 
 Map<String, Widget Function(BuildContext)> _routes = {
   '/profile': (BuildContext context) => ProfilePage(),
@@ -44,23 +46,38 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     ThemeMode themeMode = ThemeMode.system;
     return MaterialApp(
       title: WEBSITE_NAME,
       theme: ThemeData(
-          useMaterial3: true,
-          fontFamily: 'Montserrat',
-          colorScheme: const ColorScheme.light()),
+        useMaterial3: true,
+        fontFamily: 'Montserrat',
+        brightness: Brightness.light,
+        colorSchemeSeed: _seedColor,
+        // colorScheme: ColorScheme.light(),
+        // navigationRailTheme: NavigationRailThemeData(
+        //   backgroundColor: Colors.white,
+        //   selectedIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+        //   unselectedIconTheme: IconThemeData(color: Theme.of(context).disabledColor),
+        // ),
+      ),
       darkTheme: ThemeData(
-          useMaterial3: true,
-          fontFamily: 'Montserrat',
-          colorScheme: const ColorScheme.dark()),
+        useMaterial3: true,
+        fontFamily: 'Montserrat',
+        brightness: Brightness.dark,
+        colorSchemeSeed: _seedColor,
+      ),
       themeMode: themeMode,
       home: Scaffold(
-        body: BottomNavigationController(),
+        body: NavigationController(),
       ),
       routes: _routes,
       debugShowCheckedModeBanner: false,
@@ -70,20 +87,20 @@ class MyApp extends StatelessWidget {
 
 int _currentIndex = 0;
 
-class BottomNavigationController extends StatefulWidget {
+class NavigationController extends StatefulWidget {
   final int inputIndex;
-  BottomNavigationController({Key? key, this.inputIndex = 0})
+  NavigationController({Key? key, this.inputIndex = 0})
       : super(key: key) {
     _currentIndex = inputIndex;
   }
 
   @override
-  _BottomNavigationControllerState createState() =>
-      _BottomNavigationControllerState();
+  _NavigationControllerState createState() =>
+      _NavigationControllerState();
 }
 
-class _BottomNavigationControllerState
-    extends State<BottomNavigationController> {
+class _NavigationControllerState
+    extends State<NavigationController> {
   Widget _displayPhoto = Icon(Icons.login);
   Widget _dispayText = Text('Sign In');
 
@@ -156,6 +173,47 @@ class _BottomNavigationControllerState
                     child: NavigationRail(
                       labelType: NavigationRailLabelType.none,
                       selectedIndex: _currentIndex,
+                      // Not working>>>
+                      // leading: GestureDetector(
+                      //   onTap: () {
+                      //     showDialog(
+                      //       context: context,
+                      //       builder: (context) => AlertDialog(
+                      //         title: Text('Change Color'),
+                      //         content: SingleChildScrollView(
+                      //           child: ColorPicker(
+                      //             pickerColor: _seedColor,
+                      //             onColorChanged: (color) {
+                      //               setState(() {
+                      //                 _seedColor = color;
+                      //               });
+                      //             },
+                      //           ),
+                      //         ),
+                      //         actions: [
+                      //           TextButton(
+                      //             child: Text('OK'),
+                      //             onPressed: () {
+                      //               Navigator.of(context).pop();
+                      //             },
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Container(
+                      //     width: 48,
+                      //     height: 48,
+                      //     decoration: BoxDecoration(
+                      //       color: _seedColor,
+                      //       shape: BoxShape.circle,
+                      //     ),
+                      //     child: Center(
+                      //       child: Icon(Icons.colorize,
+                      //           color: Theme.of(context).colorScheme.onPrimary),
+                      //     ),
+                      //   ),
+                      // ),
                       destinations: [
                         NavigationRailDestination(
                           icon: Icon(Icons.home_outlined),

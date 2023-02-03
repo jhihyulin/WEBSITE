@@ -158,11 +158,13 @@ class _BottomNavigationControllerState
                       selectedIndex: _currentIndex,
                       destinations: [
                         NavigationRailDestination(
-                          icon: Icon(Icons.home),
+                          icon: Icon(Icons.home_outlined),
+                          selectedIcon: Icon(Icons.home),
                           label: Text('Home'),
                         ),
                         NavigationRailDestination(
-                          icon: Icon(Icons.construction),
+                          icon: Icon(Icons.build_outlined),
+                          selectedIcon: Icon(Icons.build),
                           label: Text('Tool'),
                         ),
                         NavigationRailDestination(
@@ -196,13 +198,17 @@ class _BottomNavigationControllerState
             ),
       bottomNavigationBar: MediaQuery.of(context).size.width < DesktopModeWidth
           ? BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
+              items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
+                  icon: _currentIndex == 0
+                      ? Icon(Icons.home)
+                      : Icon(Icons.home_outlined),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.construction),
+                  icon: _currentIndex == 1
+                      ? Icon(Icons.build)
+                      : Icon(Icons.build_outlined),
                   label: 'Tool',
                 ),
               ],

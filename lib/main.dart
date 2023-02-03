@@ -18,6 +18,7 @@ import 'pages/About.dart';
 import 'pages/BMI.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
+final DesktopModeWidth = 640;
 
 Map<String, Widget Function(BuildContext)> _routes = {
   '/profile': (BuildContext context) => ProfilePage(),
@@ -119,6 +120,8 @@ class _BottomNavigationControllerState
 
   final List<Widget> pages = [HomePage(), ToolPage()];
 
+  bool _extended = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,24 +147,69 @@ class _BottomNavigationControllerState
           )
         ],
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: pages,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.construction),
-            label: 'Tool',
-          ),
-        ],
-        currentIndex: _currentIndex,
-        onTap: _onItemClick,
-      ),
+      body: MediaQuery.of(context).size.width < DesktopModeWidth
+          ? IndexedStack(index: _currentIndex, children: pages)
+          : Row(
+              children: [
+                SafeArea(
+                  child: IntrinsicWidth(
+                    child: NavigationRail(
+                      labelType: NavigationRailLabelType.none,
+                      selectedIndex: _currentIndex,
+                      destinations: [
+                        NavigationRailDestination(
+                          icon: Icon(Icons.home),
+                          label: Text('Home'),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(Icons.construction),
+                          label: Text('Tool'),
+                        ),
+                        NavigationRailDestination(
+                          icon: TextButton(
+                              onPressed: () {
+                                setState(() => _extended = !_extended);
+                              },
+                              child: Icon(_extended
+                                  ? Icons.arrow_left
+                                  : Icons.arrow_right)),
+                          label: _extended ? Text('Close') : Text(''),
+                        ),
+                      ],
+                      extended: _extended,
+                      onDestinationSelected: (int index) {
+                        setState(() {
+                          if (index == 2) {
+                            setState(() => _extended = !_extended);
+                          } else {
+                            _currentIndex = index;
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: IndexedStack(index: _currentIndex, children: pages),
+                ),
+              ],
+            ),
+      bottomNavigationBar: MediaQuery.of(context).size.width < DesktopModeWidth
+          ? BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.construction),
+                  label: 'Tool',
+                ),
+              ],
+              currentIndex: _currentIndex,
+              onTap: _onItemClick,
+            )
+          : null,
     );
   }
 

@@ -15,6 +15,7 @@ import 'pages/ShortURL.dart';
 import 'pages/LongURL.dart';
 import 'pages/Contact.dart';
 import 'pages/About.dart';
+import 'pages/BMI.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
 
@@ -27,6 +28,7 @@ Map<String, Widget Function(BuildContext)> _routes = {
   '/longurl': (BuildContext context) => LongURLPage(),
   '/contact': (BuildContext context) => ContactPage(),
   '/about': (BuildContext context) => AboutPage(),
+  '/bmi': (BuildContext context) => BMIPage(),
 };
 
 void main() async {

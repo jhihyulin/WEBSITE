@@ -22,6 +22,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.link,
       'route': '/longurl',
     },
+    'bmi': {
+      'title': 'BMI',
+      'icon': Icons.accessibility,
+      'route': '/bmi',
+    },
   };
 
   @override

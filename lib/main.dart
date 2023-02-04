@@ -33,7 +33,7 @@ Map<String, Widget Function(BuildContext)> _routes = {
   '/contact': (BuildContext context) => ContactPage(),
   '/about': (BuildContext context) => AboutPage(),
   '/bmi': (BuildContext context) => BMIPage(),
-  '/home': (BuildContext context) => NavigationController(inputIndex: 0),
+  '': (BuildContext context) => NavigationController(inputIndex: 0),
   '/tool': (BuildContext context) => NavigationController(inputIndex: 1),
   '/setting': (BuildContext context) => NavigationController(inputIndex: 2),
 };
@@ -71,17 +71,15 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp(
               title: WEBSITE_NAME,
               theme: ThemeData(
-                useMaterial3: true,
-                fontFamily: 'Montserrat',
-                brightness: Brightness.light,
-                colorSchemeSeed: _themeColor
-              ),
+                  useMaterial3: true,
+                  fontFamily: 'Montserrat',
+                  brightness: Brightness.light,
+                  colorSchemeSeed: _themeColor),
               darkTheme: ThemeData(
-                useMaterial3: true,
-                fontFamily: 'Montserrat',
-                brightness: Brightness.dark,
-                colorSchemeSeed: _themeColor
-              ),
+                  useMaterial3: true,
+                  fontFamily: 'Montserrat',
+                  brightness: Brightness.dark,
+                  colorSchemeSeed: _themeColor),
               themeMode: _themeMode,
               home: Scaffold(
                 body: NavigationController(),
@@ -142,7 +140,7 @@ class _NavigationControllerState extends State<NavigationController> {
   }
 
   final List<Widget> pages = [HomePage(), ToolPage(), SettingPage()];
-  final List pagesRoute = ['home', '/tool', '/setting'];
+  final List pagesRoute = ['', '/tool', '/setting'];
 
   bool _extended = false;
 
@@ -180,47 +178,6 @@ class _NavigationControllerState extends State<NavigationController> {
                     child: NavigationRail(
                       labelType: NavigationRailLabelType.none,
                       selectedIndex: _currentIndex,
-                      // Not working>>>
-                      // leading: GestureDetector(
-                      //   onTap: () {
-                      //     showDialog(
-                      //       context: context,
-                      //       builder: (context) => AlertDialog(
-                      //         title: Text('Change Color'),
-                      //         content: SingleChildScrollView(
-                      //           child: ColorPicker(
-                      //             pickerColor: _seedColor,
-                      //             onColorChanged: (color) {
-                      //               setState(() {
-                      //                 _seedColor = color;
-                      //               });
-                      //             },
-                      //           ),
-                      //         ),
-                      //         actions: [
-                      //           TextButton(
-                      //             child: Text('OK'),
-                      //             onPressed: () {
-                      //               Navigator.of(context).pop();
-                      //             },
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     );
-                      //   },
-                      //   child: Container(
-                      //     width: 48,
-                      //     height: 48,
-                      //     decoration: BoxDecoration(
-                      //       color: _seedColor,
-                      //       shape: BoxShape.circle,
-                      //     ),
-                      //     child: Center(
-                      //       child: Icon(Icons.colorize,
-                      //           color: Theme.of(context).colorScheme.onPrimary),
-                      //     ),
-                      //   ),
-                      // ),
                       destinations: [
                         NavigationRailDestination(
                           icon: Icon(Icons.home_outlined),
@@ -298,6 +255,7 @@ class _NavigationControllerState extends State<NavigationController> {
   void _onItemClick(int index) {
     setState(() {
       _currentIndex = index;
+      Navigator.pushReplacementNamed(context, pagesRoute[index]);
     });
   }
 }

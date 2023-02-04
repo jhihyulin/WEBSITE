@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppInfoProvider with ChangeNotifier {
+class ThemeProvider with ChangeNotifier {
   Color _themeColor = Colors.blueGrey;
   ThemeMode _themeMode = ThemeMode.system;
 
   Color get themeColor => _themeColor;
 
   setThemeColor(Color themeColor) {
-    _themeColor = themeColor as Color;
+    _themeColor = themeColor;
     notifyListeners();
   }
 

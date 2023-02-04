@@ -4,8 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:provider/provider.dart';
 
 import 'Home.dart';
+import 'Provider.dart';
 import 'Tool.dart';
 import 'FirebaseOptions.dart';
 import 'pages/Profile.dart';
@@ -20,7 +22,6 @@ import 'pages/BMI.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
 final DesktopModeWidth = 640;
-Color _seedColor = Colors.blueGrey;
 
 Map<String, Widget Function(BuildContext)> _routes = {
   '/profile': (BuildContext context) => ProfilePage(),
@@ -47,36 +48,50 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  late Color _themeColor;
+  late ThemeMode _themeMode;
+
   @override
   Widget build(BuildContext context) {
-    ThemeMode themeMode = ThemeMode.system;
-    return MaterialApp(
-      title: WEBSITE_NAME,
-      theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Montserrat',
-        brightness: Brightness.light,
-        colorSchemeSeed: _seedColor,
-        // colorScheme: ColorScheme.light(),
-        // navigationRailTheme: NavigationRailThemeData(
-        //   backgroundColor: Colors.white,
-        //   selectedIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        //   unselectedIconTheme: IconThemeData(color: Theme.of(context).disabledColor),
-        // ),
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Montserrat',
-        brightness: Brightness.dark,
-        colorSchemeSeed: _seedColor,
-      ),
-      themeMode: themeMode,
-      home: Scaffold(
-        body: NavigationController(),
-      ),
-      routes: _routes,
-      debugShowCheckedModeBanner: false,
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AppInfoProvider>(
+            create: (context) => AppInfoProvider(),
+          ),
+        ],
+        child: Consumer<AppInfoProvider>(
+          builder: (context, appInfo, child) {
+            _themeColor = appInfo.themeColor;
+            _themeMode = appInfo.themeMode;
+            return MaterialApp(
+              title: WEBSITE_NAME,
+              theme: ThemeData(
+                useMaterial3: true,
+                fontFamily: 'Montserrat',
+                brightness: Brightness.light,
+                colorSchemeSeed: _themeColor,
+                // colorScheme: ColorScheme.light(),
+                // navigationRailTheme: NavigationRailThemeData(
+                //   backgroundColor: Colors.white,
+                //   selectedIconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+                //   unselectedIconTheme: IconThemeData(color: Theme.of(context).disabledColor),
+                // ),
+              ),
+              darkTheme: ThemeData(
+                useMaterial3: true,
+                fontFamily: 'Montserrat',
+                brightness: Brightness.dark,
+                colorSchemeSeed: _themeColor,
+              ),
+              themeMode: _themeMode,
+              home: Scaffold(
+                body: NavigationController(),
+              ),
+              routes: _routes,
+              debugShowCheckedModeBanner: false,
+            );
+          },
+        ));
   }
 }
 
@@ -84,18 +99,15 @@ int _currentIndex = 0;
 
 class NavigationController extends StatefulWidget {
   final int inputIndex;
-  NavigationController({Key? key, this.inputIndex = 0})
-      : super(key: key) {
+  NavigationController({Key? key, this.inputIndex = 0}) : super(key: key) {
     _currentIndex = inputIndex;
   }
 
   @override
-  _NavigationControllerState createState() =>
-      _NavigationControllerState();
+  _NavigationControllerState createState() => _NavigationControllerState();
 }
 
-class _NavigationControllerState
-    extends State<NavigationController> {
+class _NavigationControllerState extends State<NavigationController> {
   Widget _displayPhoto = Icon(Icons.login);
   Widget _dispayText = Text('Sign In');
 

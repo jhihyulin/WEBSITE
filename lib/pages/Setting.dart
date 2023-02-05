@@ -109,42 +109,41 @@ class _SettingPageState extends State<SettingPage> {
                                               builder: (context) {
                                                 return AlertDialog(
                                                     title: Text('Theme Color'),
-                                                    
-                                                    content: Container(
-                                                      constraints:
-                                                          BoxConstraints(
-                                                        maxWidth: 700,
-                                                        minWidth: 700,
-                                                      ),
-                                                      child:
-                                                          SingleChildScrollView(
-                                                        child: ColorPicker(
-                                                          pickerColor:
-                                                              _themeColor,
-                                                          onColorChanged:
-                                                              (color) {
-                                                            setState(() {
-                                                              _themeColor =
-                                                                  color;
-                                                            });
-                                                          },
-                                                          pickerAreaHeightPercent:
-                                                              0.8,
-                                                          enableAlpha: false,
-                                                        ),
+                                                    content:
+                                                        SingleChildScrollView(
+                                                      child: ColorPicker(
+                                                        pickerColor:
+                                                            _themeColor,
+                                                        onColorChanged:
+                                                            (color) {
+                                                          setState(() {
+                                                            _themeColor = color;
+                                                          });
+                                                        },
+                                                        pickerAreaHeightPercent:
+                                                            0.8,
+                                                        enableAlpha: false,
                                                       ),
                                                     ),
                                                     actions: [
                                                       TextButton(
                                                           onPressed: () {
                                                             setState(() {
-                                                              _themeColor = Provider.of<ThemeProvider>(context, listen: false).defaultThemeColor;
-                                                              Provider.of<ThemeProvider>(context, listen: false).setThemeColor(_themeColor);
+                                                              _themeColor = Provider.of<
+                                                                          ThemeProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .defaultThemeColor;
+                                                              Provider.of<ThemeProvider>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .setThemeColor(
+                                                                      _themeColor);
                                                             });
                                                           },
-                                                          child:
-                                                              Text('Reset')
-                                                      ),
+                                                          child: Text('Reset')),
                                                       TextButton(
                                                           onPressed: () {
                                                             Navigator.of(

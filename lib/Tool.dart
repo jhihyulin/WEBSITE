@@ -45,7 +45,7 @@ class ToolPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Wrap(
-                      alignment: WrapAlignment.spaceEvenly,
+                      alignment: WrapAlignment.center,
                       spacing: 10,
                       runSpacing: 10,
                       children: <Widget>[

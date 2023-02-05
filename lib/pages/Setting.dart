@@ -91,6 +91,8 @@ class _SettingPageState extends State<SettingPage> {
                                         .replaceAll('Color(0xff', '')
                                         .replaceAll(
                                             'MaterialColor(primary value: ', '')
+                                        .replaceAll('ColorSwatch(primary value: ',
+                                            '')
                                         .replaceAll(')', '')),
                                     trailing: InkWell(
                                         borderRadius: BorderRadius.circular(16),

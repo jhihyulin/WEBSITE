@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
         child: Consumer<ThemeProvider>(
           builder: (context, themeProvider, child) {
             Color _themeColor = themeProvider.themeColor;
-            ThemeMode _themeMode = themeProvider.themeMode;
+            int _themeMode = themeProvider.themeMode;
             return MaterialApp(
               title: WEBSITE_NAME,
               theme: ThemeData(
@@ -80,7 +80,11 @@ class _MyAppState extends State<MyApp> {
                   fontFamily: 'Montserrat',
                   brightness: Brightness.dark,
                   colorSchemeSeed: _themeColor),
-              themeMode: _themeMode,
+              themeMode: _themeMode == 0
+                  ? ThemeMode.system
+                  : _themeMode == 1
+                      ? ThemeMode.light
+                      : ThemeMode.dark,
               home: Scaffold(
                 body: NavigationController(),
               ),
@@ -255,7 +259,9 @@ class _NavigationControllerState extends State<NavigationController> {
   void _onItemClick(int index) {
     setState(() {
       _currentIndex = index;
-      Navigator.pushReplacementNamed(context, pagesRoute[index]);
+      Navigator.pushReplacementNamed(context, pagesRoute[index], arguments: {
+        'inputIndex': index,
+      });
     });
   }
 }

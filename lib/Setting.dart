@@ -9,7 +9,8 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  ThemeMode _themeMode = ThemeProvider().themeMode;
+  int _themeMode = 1;
+  List<bool> _themeModeIsSelected = List.generate(3, (_themeMode) => true);
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +37,9 @@ class _SettingPageState extends State<SettingPage> {
                             children: [
                               ListTile(
                                 title: Text('Theme Mode'),
-                                subtitle: _themeMode == ThemeMode.system
+                                subtitle: _themeMode == 0
                                     ? Text('System')
-                                    : _themeMode == ThemeMode.light
+                                    : _themeMode == 1
                                         ? Text('Light')
                                         : Text('Dark'),
                                 trailing: ToggleButtons(
@@ -48,14 +49,22 @@ class _SettingPageState extends State<SettingPage> {
                                     Icon(Icons.light_mode),
                                     Icon(Icons.dark_mode),
                                   ],
-                                  isSelected: [
-                                    _themeMode == ThemeMode.system,
-                                    _themeMode == ThemeMode.light,
-                                    _themeMode == ThemeMode.dark,
-                                  ],
-                                  onPressed: (index) {
+                                  isSelected: _themeModeIsSelected,
+                                  onPressed: (int index) {
                                     setState(() {
-                                      _themeMode = ThemeMode.values[index];
+                                      for (int buttonIndex = 0;
+                                          buttonIndex <
+                                              _themeModeIsSelected.length;
+                                          buttonIndex++) {
+                                        if (buttonIndex == index) {
+                                          _themeModeIsSelected[buttonIndex] =
+                                              true;
+                                          _themeMode = buttonIndex;
+                                        } else {
+                                          _themeModeIsSelected[buttonIndex] =
+                                              false;
+                                        }
+                                      }
                                       Provider.of<ThemeProvider>(context,
                                               listen: false)
                                           .setThemeMode(_themeMode);

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class ThemeProvider with ChangeNotifier {
   Color _themeColor = Colors.blueGrey;
-  ThemeMode _themeMode = ThemeMode.system;
+  int _themeMode = 0;
+  // 0: System 1: Light 2: Dark
 
   Color get themeColor => _themeColor;
 
@@ -11,9 +12,9 @@ class ThemeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  ThemeMode get themeMode => _themeMode;
+  int get themeMode => _themeMode;
 
-  setThemeMode(ThemeMode themeMode) {
+  setThemeMode(int themeMode) {
     _themeMode = themeMode;
     notifyListeners();
   }

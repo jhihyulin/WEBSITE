@@ -141,6 +141,7 @@ class _SettingPageState extends State<SettingPage> {
                                                                           false)
                                                                   .setThemeColor(
                                                                       _themeColor);
+                                                              Navigator.of(context).pop();
                                                             });
                                                           },
                                                           child: Text('Reset')),

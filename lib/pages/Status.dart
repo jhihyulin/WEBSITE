@@ -93,8 +93,7 @@ class _StatusPageState extends State<StatusPage> {
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(16.0))),
-                        child: ListView(
-                          shrinkWrap: true,
+                        child: Column(
                           children: [
                             for (var status in _status)
                               Theme(

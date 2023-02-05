@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:provider/provider.dart';
 
 import 'Home.dart';
+import 'provider/Theme.dart';
 import 'Tool.dart';
+import 'pages/Setting.dart';
 import 'FirebaseOptions.dart';
 import 'pages/Profile.dart';
 import 'pages/SignIn.dart';
@@ -15,8 +18,10 @@ import 'pages/ShortURL.dart';
 import 'pages/LongURL.dart';
 import 'pages/Contact.dart';
 import 'pages/About.dart';
+import 'pages/BMI.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
+final DesktopModeWidth = 640;
 
 Map<String, Widget Function(BuildContext)> _routes = {
   '/profile': (BuildContext context) => ProfilePage(),
@@ -27,6 +32,10 @@ Map<String, Widget Function(BuildContext)> _routes = {
   '/longurl': (BuildContext context) => LongURLPage(),
   '/contact': (BuildContext context) => ContactPage(),
   '/about': (BuildContext context) => AboutPage(),
+  '/bmi': (BuildContext context) => BMIPage(),
+  '/setting': (BuildContext context) => SettingPage(),
+  '': (BuildContext context) => NavigationController(inputIndex: 0),
+  '/tool': (BuildContext context) => NavigationController(inputIndex: 1),
 };
 
 void main() async {
@@ -41,46 +50,71 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    ThemeMode themeMode = ThemeMode.system;
-    return MaterialApp(
-      title: WEBSITE_NAME,
-      theme: ThemeData(
-          useMaterial3: true,
-          fontFamily: 'Montserrat',
-          colorScheme: const ColorScheme.light()),
-      darkTheme: ThemeData(
-          useMaterial3: true,
-          fontFamily: 'Montserrat',
-          colorScheme: const ColorScheme.dark()),
-      themeMode: themeMode,
-      home: Scaffold(
-        body: BottomNavigationController(),
-      ),
-      routes: _routes,
-      debugShowCheckedModeBanner: false,
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ThemeProvider>(
+            create: (context) => ThemeProvider(),
+          ),
+        ],
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            Color _themeColor = themeProvider.themeColor;
+            int _themeMode = themeProvider.themeMode;
+            return MaterialApp(
+              title: WEBSITE_NAME,
+              theme: ThemeData(
+                  useMaterial3: true,
+                  fontFamily: 'Montserrat',
+                  brightness: Brightness.light,
+                  colorSchemeSeed: _themeColor),
+              darkTheme: ThemeData(
+                  useMaterial3: true,
+                  fontFamily: 'Montserrat',
+                  brightness: Brightness.dark,
+                  colorSchemeSeed: _themeColor),
+              themeMode: _themeMode == 0
+                  ? ThemeMode.system
+                  : _themeMode == 1
+                      ? ThemeMode.light
+                      : ThemeMode.dark,
+              home: Scaffold(
+                body: NavigationController(),
+              ),
+              routes: _routes,
+              onGenerateRoute: (RouteSettings settings) {
+                String? name = settings.name;
+                WidgetBuilder? builder = _routes[name];
+                return MaterialPageRoute(
+                    builder: (context) => builder!(context));
+              },
+              debugShowCheckedModeBanner: false,
+            );
+          },
+        ));
   }
 }
 
 int _currentIndex = 0;
 
-class BottomNavigationController extends StatefulWidget {
+class NavigationController extends StatefulWidget {
   final int inputIndex;
-  BottomNavigationController({Key? key, this.inputIndex = 0})
-      : super(key: key) {
+  NavigationController({Key? key, this.inputIndex = 0}) : super(key: key) {
     _currentIndex = inputIndex;
   }
 
   @override
-  _BottomNavigationControllerState createState() =>
-      _BottomNavigationControllerState();
+  _NavigationControllerState createState() => _NavigationControllerState();
 }
 
-class _BottomNavigationControllerState
-    extends State<BottomNavigationController> {
+class _NavigationControllerState extends State<NavigationController> {
   Widget _displayPhoto = Icon(Icons.login);
   Widget _dispayText = Text('Sign In');
 
@@ -115,7 +149,10 @@ class _BottomNavigationControllerState
     });
   }
 
-  final List<Widget> pages = [HomePage(), ToolPage()];
+  final List<Widget> pages = [HomePage(), ToolPage(), SettingPage()];
+  final List pagesRoute = ['', '/tool'];
+
+  bool _extended = false;
 
   @override
   Widget build(BuildContext context) {
@@ -139,27 +176,103 @@ class _BottomNavigationControllerState
                   Navigator.pushNamed(context, '/profile');
               },
             ),
+          ),
+          Offstage(
+            offstage: MediaQuery.of(context).size.width >= DesktopModeWidth,
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              child: IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/setting');
+                },
+              ),
+            ),
           )
         ],
       ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: pages,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.construction),
-            label: 'Tool',
-          ),
-        ],
-        currentIndex: _currentIndex,
-        onTap: _onItemClick,
-      ),
+      body: MediaQuery.of(context).size.width < DesktopModeWidth
+          ? IndexedStack(index: _currentIndex, children: pages)
+          : Row(
+              children: [
+                SafeArea(
+                  child: IntrinsicWidth(
+                    child: NavigationRail(
+                        labelType: NavigationRailLabelType.none,
+                        selectedIndex: _currentIndex,
+                        destinations: [
+                          NavigationRailDestination(
+                            icon: Icon(Icons.home_outlined),
+                            selectedIcon: Icon(Icons.home),
+                            label: Text('Home'),
+                          ),
+                          NavigationRailDestination(
+                            icon: Icon(Icons.build_outlined),
+                            selectedIcon: Icon(Icons.build),
+                            label: Text('Tool'),
+                          ),
+                          NavigationRailDestination(
+                            icon: TextButton(
+                                onPressed: () {
+                                  setState(() => _extended = !_extended);
+                                },
+                                child: Icon(_extended
+                                    ? Icons.arrow_left
+                                    : Icons.arrow_right)),
+                            label: _extended ? Text('Close') : Text(''),
+                          ),
+                        ],
+                        extended: _extended,
+                        onDestinationSelected: (int index) {
+                          setState(() {
+                            if (index == 2) {
+                              setState(() => _extended = !_extended);
+                            } else {
+                              _onItemClick(index);
+                            }
+                          });
+                        },
+                        trailing: _extended
+                            ? ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/setting');
+                                },
+                                icon: Icon(Icons.settings),
+                                label: Text('Setting'),
+                              )
+                            : TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/setting');
+                                },
+                                child: Icon(Icons.settings),
+                              )),
+                  ),
+                ),
+                Expanded(
+                  child: IndexedStack(index: _currentIndex, children: pages),
+                ),
+              ],
+            ),
+      bottomNavigationBar: MediaQuery.of(context).size.width < DesktopModeWidth
+          ? BottomNavigationBar(
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: _currentIndex == 0
+                      ? Icon(Icons.home)
+                      : Icon(Icons.home_outlined),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: _currentIndex == 1
+                      ? Icon(Icons.build)
+                      : Icon(Icons.build_outlined),
+                  label: 'Tool',
+                ),
+              ],
+              currentIndex: _currentIndex,
+              onTap: _onItemClick,
+            )
+          : null,
     );
   }
 

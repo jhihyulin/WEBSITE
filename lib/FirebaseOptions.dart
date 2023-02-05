@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
     appId: '1:897798864282:web:4ee8989435b61290f10e23',
     messagingSenderId: '897798864282',
     projectId: 'webpage-349c7',
-    authDomain: 'webpage-349c7.firebaseapp.com',
+    authDomain: 'auth.jhihyulin.live',
     databaseURL: 'https://webpage-349c7-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'webpage-349c7.appspot.com',
     measurementId: 'G-JDZTQWRMLT',

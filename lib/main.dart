@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'Home.dart';
 import 'provider/Theme.dart';
 import 'Tool.dart';
-import 'Setting.dart';
+import 'pages/Setting.dart';
 import 'FirebaseOptions.dart';
 import 'pages/Profile.dart';
 import 'pages/SignIn.dart';
@@ -33,9 +33,9 @@ Map<String, Widget Function(BuildContext)> _routes = {
   '/contact': (BuildContext context) => ContactPage(),
   '/about': (BuildContext context) => AboutPage(),
   '/bmi': (BuildContext context) => BMIPage(),
+  '/setting': (BuildContext context) => SettingPage(),
   '': (BuildContext context) => NavigationController(inputIndex: 0),
   '/tool': (BuildContext context) => NavigationController(inputIndex: 1),
-  '/setting': (BuildContext context) => NavigationController(inputIndex: 2),
 };
 
 void main() async {
@@ -89,6 +89,12 @@ class _MyAppState extends State<MyApp> {
                 body: NavigationController(),
               ),
               routes: _routes,
+              onGenerateRoute: (RouteSettings settings) {
+                String? name = settings.name;
+                WidgetBuilder? builder = _routes[name];
+                return MaterialPageRoute(
+                    builder: (context) => builder!(context));
+              },
               debugShowCheckedModeBanner: false,
             );
           },
@@ -144,7 +150,7 @@ class _NavigationControllerState extends State<NavigationController> {
   }
 
   final List<Widget> pages = [HomePage(), ToolPage(), SettingPage()];
-  final List pagesRoute = ['', '/tool', '/setting'];
+  final List pagesRoute = ['', '/tool'];
 
   bool _extended = false;
 
@@ -170,6 +176,18 @@ class _NavigationControllerState extends State<NavigationController> {
                   Navigator.pushNamed(context, '/profile');
               },
             ),
+          ),
+          Offstage(
+            offstage: MediaQuery.of(context).size.width >= DesktopModeWidth,
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              child: IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/setting');
+                },
+              ),
+            ),
           )
         ],
       ),
@@ -180,46 +198,54 @@ class _NavigationControllerState extends State<NavigationController> {
                 SafeArea(
                   child: IntrinsicWidth(
                     child: NavigationRail(
-                      labelType: NavigationRailLabelType.none,
-                      selectedIndex: _currentIndex,
-                      destinations: [
-                        NavigationRailDestination(
-                          icon: Icon(Icons.home_outlined),
-                          selectedIcon: Icon(Icons.home),
-                          label: Text('Home'),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(Icons.build_outlined),
-                          selectedIcon: Icon(Icons.build),
-                          label: Text('Tool'),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(Icons.settings_outlined),
-                          selectedIcon: Icon(Icons.settings),
-                          label: Text('Setting'),
-                        ),
-                        NavigationRailDestination(
-                          icon: TextButton(
-                              onPressed: () {
-                                setState(() => _extended = !_extended);
-                              },
-                              child: Icon(_extended
-                                  ? Icons.arrow_left
-                                  : Icons.arrow_right)),
-                          label: _extended ? Text('Close') : Text(''),
-                        ),
-                      ],
-                      extended: _extended,
-                      onDestinationSelected: (int index) {
-                        setState(() {
-                          if (index == 3) {
-                            setState(() => _extended = !_extended);
-                          } else {
-                            _onItemClick(index);
-                          }
-                        });
-                      },
-                    ),
+                        labelType: NavigationRailLabelType.none,
+                        selectedIndex: _currentIndex,
+                        destinations: [
+                          NavigationRailDestination(
+                            icon: Icon(Icons.home_outlined),
+                            selectedIcon: Icon(Icons.home),
+                            label: Text('Home'),
+                          ),
+                          NavigationRailDestination(
+                            icon: Icon(Icons.build_outlined),
+                            selectedIcon: Icon(Icons.build),
+                            label: Text('Tool'),
+                          ),
+                          NavigationRailDestination(
+                            icon: TextButton(
+                                onPressed: () {
+                                  setState(() => _extended = !_extended);
+                                },
+                                child: Icon(_extended
+                                    ? Icons.arrow_left
+                                    : Icons.arrow_right)),
+                            label: _extended ? Text('Close') : Text(''),
+                          ),
+                        ],
+                        extended: _extended,
+                        onDestinationSelected: (int index) {
+                          setState(() {
+                            if (index == 2) {
+                              setState(() => _extended = !_extended);
+                            } else {
+                              _onItemClick(index);
+                            }
+                          });
+                        },
+                        trailing: _extended
+                            ? ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/setting');
+                                },
+                                icon: Icon(Icons.settings),
+                                label: Text('Setting'),
+                              )
+                            : TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/setting');
+                                },
+                                child: Icon(Icons.settings),
+                              )),
                   ),
                 ),
                 Expanded(
@@ -242,12 +268,6 @@ class _NavigationControllerState extends State<NavigationController> {
                       : Icon(Icons.build_outlined),
                   label: 'Tool',
                 ),
-                BottomNavigationBarItem(
-                  icon: _currentIndex == 2
-                      ? Icon(Icons.settings)
-                      : Icon(Icons.settings_outlined),
-                  label: 'Setting',
-                ),
               ],
               currentIndex: _currentIndex,
               onTap: _onItemClick,
@@ -259,9 +279,6 @@ class _NavigationControllerState extends State<NavigationController> {
   void _onItemClick(int index) {
     setState(() {
       _currentIndex = index;
-      Navigator.pushReplacementNamed(context, pagesRoute[index], arguments: {
-        'inputIndex': index,
-      });
     });
   }
 }

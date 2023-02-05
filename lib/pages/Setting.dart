@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -22,6 +25,9 @@ class _SettingPageState extends State<SettingPage> {
     });
     Color _themeColor =
         Provider.of<ThemeProvider>(context, listen: false).themeColor;
+    bool _syncSelect = true;
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final User? user = _auth.currentUser;
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return Scaffold(
         appBar: AppBar(
@@ -48,6 +54,22 @@ class _SettingPageState extends State<SettingPage> {
                                 title: Text('General'),
                                 children: [
                                   ListTile(
+                                    leading: user != null
+                                        ? Icon(Icons.sync)
+                                        : Icon(Icons.sync_disabled),
+                                    title: user != null
+                                        ? Text('Logged in')
+                                        : Text('Logged out'),
+                                    subtitle: user != null
+                                        ? Text('Settings will sync to your account.')
+                                        : Text('Login to sync settings to your account.'),
+                                  ),
+                                  ListTile(
+                                    leading: _themeMode == 0
+                                        ? Icon(Icons.brightness_auto)
+                                        : _themeMode == 1
+                                            ? Icon(Icons.light_mode)
+                                            : Icon(Icons.dark_mode),
                                     title: Text('Theme Mode'),
                                     subtitle: _themeMode == 0
                                         ? Text('System')
@@ -85,14 +107,15 @@ class _SettingPageState extends State<SettingPage> {
                                     ),
                                   ),
                                   ListTile(
+                                    leading: Icon(Icons.color_lens),
                                     title: Text('Theme Color'),
                                     subtitle: Text(_themeColor
                                         .toString()
                                         .replaceAll('Color(0xff', '')
                                         .replaceAll(
                                             'MaterialColor(primary value: ', '')
-                                        .replaceAll('ColorSwatch(primary value: ',
-                                            '')
+                                        .replaceAll(
+                                            'ColorSwatch(primary value: ', '')
                                         .replaceAll(')', '')),
                                     trailing: InkWell(
                                         borderRadius: BorderRadius.circular(16),
@@ -143,7 +166,9 @@ class _SettingPageState extends State<SettingPage> {
                                                                           false)
                                                                   .setThemeColor(
                                                                       _themeColor);
-                                                              Navigator.of(context).pop();
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
                                                             });
                                                           },
                                                           child: Text('Reset')),

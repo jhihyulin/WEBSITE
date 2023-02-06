@@ -3,9 +3,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 Set<Map<String, dynamic>> _status = {
   {
-    'name': 'Uptime Robot',
+    'name': 'All Service',
+    'provider': 'UptimeRobot',
     'url': 'https://stats.uptimerobot.com/plWPBU9LQz',
     'update': 'Update every 5 minutes',
+    'leading': Icons.cloud,
     'status': {
       'Main': 'https://stats.uptimerobot.com/plWPBU9LQz',
       'WebSite': 'https://stats.uptimerobot.com/plWPBU9LQz/793129119',
@@ -20,9 +22,11 @@ Set<Map<String, dynamic>> _status = {
     },
   },
   {
-    'name': 'cron-job.org',
+    'name': 'Main Service',
+    'provider': 'cron-job.org',
     'url': 'https://status.jhihyulin.live',
     'update': 'Update every minute',
+    'leading': Icons.cloud,
     'status': {
       'Main': 'https://status.jhihyulin.live',
       'WebSite': null,
@@ -32,9 +36,11 @@ Set<Map<String, dynamic>> _status = {
     },
   },
   {
-    'name': 'VPN Service Manager',
+    'name': 'VPN Service',
+    'provider': 'cron-job.org',
     'url': 'https://status-vpn.jhihyulin.live',
     'update': 'Update every minute',
+    'leading': Icons.vpn_lock,
     'status': {
       'Main': 'https://status-vpn.jhihyulin.live',
       'VPN Service Manager': null,
@@ -101,6 +107,7 @@ class _StatusPageState extends State<StatusPage> {
                                 child: ExpansionTile(
                                   title: Text(status['name']),
                                   subtitle: Text(status['update']),
+                                  leading: Icon(status['leading']),
                                   children: [
                                     Container(
                                         padding: EdgeInsets.all(10),
@@ -109,6 +116,9 @@ class _StatusPageState extends State<StatusPage> {
                                             spacing: 10,
                                             runSpacing: 10,
                                             children: [
+                                              Chip(
+                                                label: Text(status['provider']),
+                                              ),
                                               for (var item
                                                   in status['status'].entries)
                                                 if (item.key != 'Main')

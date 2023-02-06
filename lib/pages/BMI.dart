@@ -83,8 +83,10 @@ class _BMIPageState extends State<BMIPage> {
                   child: Column(
                     children: [
                       TextFormField(
+                        
                         controller: _heightController,
                         decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.height),
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16.0))),
@@ -126,6 +128,7 @@ class _BMIPageState extends State<BMIPage> {
                       TextFormField(
                         controller: _weightController,
                         decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.scale),
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16.0))),

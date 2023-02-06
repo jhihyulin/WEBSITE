@@ -19,8 +19,8 @@ class ThemeProvider with ChangeNotifier {
             .doc(user.uid)
             .get()
             .then((value) => {
-                  _themeColor = Color(value['themeColor']),
-                  _themeMode = value['themeMode'],
+                  _themeColor = Color(value['preferance']['themeColor']),
+                  _themeMode = value['preferance']['themeMode'],
                   notifyListeners()
                 });
       } else {
@@ -38,12 +38,7 @@ class ThemeProvider with ChangeNotifier {
 
   setThemeColor(Color themeColor) {
     _themeColor = themeColor;
-    if (user != null) {
-      FirebaseFirestore.instance
-          .collection('user')
-          .doc(user!.uid)
-          .update({'themeColor': themeColor.value});
-    }
+    syncToFirebase();
     notifyListeners();
   }
 
@@ -53,12 +48,19 @@ class ThemeProvider with ChangeNotifier {
 
   setThemeMode(int themeMode) {
     _themeMode = themeMode;
+    syncToFirebase();
+    notifyListeners();
+  }
+
+  void syncToFirebase() {
     if (user != null) {
       FirebaseFirestore.instance
           .collection('user')
           .doc(user!.uid)
-          .update({'themeMode': themeMode});
+          .update({'preferance': {
+            'themeColor': themeColor.value,
+            'themeMode': themeMode
+          }});
     }
-    notifyListeners();
   }
 }

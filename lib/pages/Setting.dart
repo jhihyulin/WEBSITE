@@ -48,6 +48,7 @@ class _SettingPageState extends State<SettingPage> {
                           child: Theme(
                               data: theme,
                               child: ExpansionTile(
+                                leading: Icon(Icons.tune),
                                 initiallyExpanded: true,
                                 title: Text('General'),
                                 children: [

@@ -1,3 +1,3 @@
 # WEBSITE
 
-[https://jhihyulin.live](https://jhihyulin.live)
+[jhihyulin.live](https://jhihyulin.live)

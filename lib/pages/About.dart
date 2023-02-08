@@ -68,6 +68,34 @@ Map<String, Map<String, Object>> SocialMedia = {
     'url': 'https://soundcloud.com/jhihyulin',
     'icon': Logo.soundcloud,
   },
+  'Pinterest': {
+    'url': 'https://pinterest.com/jhih_yu_lin',
+    'icon': Logo.pinterest,
+  },
+  'Discord': {
+    'url': 'https://discord.com/users/561051528065187862',
+    'icon': Logo.discord,
+  },
+  'Tumblr': {
+    'url': 'https://tumblr.com/jhihyulin',
+    'icon': Logo.tumblr,
+  },
+  'Reddit': {
+    'url': 'https://reddit.com/user/Economy_Scene_3191',
+    'icon': Logo.reddit,
+  },
+  'Steam': {
+    'url': 'https://steamcommunity.com/id/SageT5678',
+    'icon': Logo.steam,
+  },
+  'Snapchat': {
+    'url': 'https://snapchat.com/add/jhihyul',
+    'icon': Logo.snapchat,
+  },
+  'Slack': {
+    'url': 'https://jhihyulin.slack.com',
+    'icon': Logo.slack,
+  },
 };
 
 class AboutPage extends StatelessWidget {

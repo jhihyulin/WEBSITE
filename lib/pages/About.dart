@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-import 'plugins/logo_icons.dart';
+import '../plugins/LogoIcons.dart';
 
 const String Text_1 = 'Not yet written.';
 const String Text_2 = '';
@@ -67,6 +67,34 @@ Map<String, Map<String, Object>> SocialMedia = {
   'SoundCloud': {
     'url': 'https://soundcloud.com/jhihyulin',
     'icon': Logo.soundcloud,
+  },
+  'Pinterest': {
+    'url': 'https://pinterest.com/jhih_yu_lin',
+    'icon': Logo.pinterest,
+  },
+  'Discord': {
+    'url': 'https://discord.com/users/561051528065187862',
+    'icon': Logo.discord,
+  },
+  'Tumblr': {
+    'url': 'https://tumblr.com/jhihyulin',
+    'icon': Logo.tumblr,
+  },
+  'Reddit': {
+    'url': 'https://reddit.com/user/Economy_Scene_3191',
+    'icon': Logo.reddit,
+  },
+  'Steam': {
+    'url': 'https://steamcommunity.com/id/SageT5678',
+    'icon': Logo.steam,
+  },
+  'Snapchat': {
+    'url': 'https://snapchat.com/add/jhihyul',
+    'icon': Logo.snapchat,
+  },
+  'Slack': {
+    'url': 'https://jhihyulin.slack.com',
+    'icon': Logo.slack,
   },
 };
 

@@ -185,6 +185,7 @@ class Logo {
   static const IconData glide_g = IconData(0xf2a6, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData viadeo = IconData(0xf2a9, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData viadeo_square = IconData(0xf2aa, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData snapchat = IconData(0xf2ab, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData snapchat_ghost = IconData(0xf2ac, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData snapchat_square = IconData(0xf2ad, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData pied_piper = IconData(0xf2ae, fontFamily: _kFontFam, fontPackage: _kFontPkg);

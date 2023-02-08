@@ -27,6 +27,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.accessibility,
       'route': '/bmi',
     },
+    'timer': {
+      'title': 'Timer',
+      'icon': Icons.timer,
+      'route': '/timer',
+    },
   };
 
   @override

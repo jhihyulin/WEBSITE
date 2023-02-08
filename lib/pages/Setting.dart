@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../provider/Theme.dart';
+import '../plugins/LogoIcons.dart';
 
 class SettingPage extends StatefulWidget {
   @override
@@ -50,6 +51,7 @@ class _SettingPageState extends State<SettingPage> {
                           child: Theme(
                               data: theme,
                               child: ExpansionTile(
+                                leading: Icon(Icons.tune),
                                 initiallyExpanded: true,
                                 title: Text('General'),
                                 children: [
@@ -61,8 +63,10 @@ class _SettingPageState extends State<SettingPage> {
                                         ? Text('Logged in')
                                         : Text('Logged out'),
                                     subtitle: user != null
-                                        ? Text('Settings will sync to your account.')
-                                        : Text('Login to sync settings to your account.'),
+                                        ? Text(
+                                            'Settings will sync to your account.')
+                                        : Text(
+                                            'Login to sync settings to your account.'),
                                   ),
                                   ListTile(
                                     leading: _themeMode == 0
@@ -200,6 +204,93 @@ class _SettingPageState extends State<SettingPage> {
                                 ],
                               )),
                         ),
+                        Card(
+                            child: Theme(
+                          data: theme,
+                          child: ExpansionTile(
+                            leading: Icon(Icons.info),
+                            initiallyExpanded: false,
+                            title: Text('About'),
+                            children: [
+                              ListTile(
+                                  leading: Icon(Icons.handyman),
+                                  title: Wrap(
+                                      alignment: WrapAlignment.start,
+                                      runAlignment: WrapAlignment.center,
+                                      children: [
+                                        InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            child: Container(
+                                              padding: EdgeInsets.all(15),
+                                              child: Image(
+                                                  image: AssetImage(
+                                                      'assets/images/BuiltWithFlutter.png'),
+                                                  height: 30),
+                                            ),
+                                            onTap: () {
+                                              launchUrl(Uri.parse(
+                                                  'https://flutter.dev'));
+                                            }),
+                                        InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            child: Container(
+                                              child: Image(
+                                                  image: AssetImage(
+                                                      'assets/images/BuiltWithFirebaseLightRemoveBackground.png'),
+                                                  height: 60),
+                                            ),
+                                            onTap: () {
+                                              launchUrl(Uri.parse(
+                                                  'https://firebase.google.com'));
+                                            }),
+                                      ])),
+                              ListTile(
+                                  leading: Icon(Icons.code),
+                                  title: Text('License'),
+                                  subtitle: Text('MIT License'),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.open_in_new),
+                                    onPressed: () {
+                                      launchUrl(Uri.parse(
+                                          'https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE'));
+                                    },
+                                  )),
+                              ListTile(
+                                  leading: Icon(Logo.github),
+                                  title: Text('Repository'),
+                                  subtitle: Text('jhihyulin/WEBSITE'),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.open_in_new),
+                                    onPressed: () {
+                                      launchUrl(Uri.parse(
+                                          'https://github.com/jhihyulin/WEBSITE'));
+                                    },
+                                  )),
+                              ListTile(
+                                  leading: Icon(Icons.email),
+                                  title: Text('Contact'),
+                                  subtitle: Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: SelectionArea(
+                                      child: Text('JY@jhihyulin.live'),
+                                    )
+                                  ),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.open_in_new),
+                                    onPressed: () {
+                                      launchUrl(Uri.parse(
+                                          'mailto:JY@jhihyulin.live'));
+                                    },
+                                  )),
+                              Text('ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 12)),
+                            ],
+                          ),
+                        ))
                       ],
                     )))));
   }

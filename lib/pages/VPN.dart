@@ -123,10 +123,7 @@ class _VPNPageState extends State<VPNPage> {
     // print(token);
     // print(serverId);
     await http.post(VPNSERVER_GET_VPN_TOKEN,
-        body: jsonEncode({
-          'firebase_uid': uid,
-          'server_id': serverId
-        }),
+        body: jsonEncode({'firebase_uid': uid, 'server_id': serverId}),
         headers: {
           'Content-Type': 'application/json',
           'X-Firebase-AppCheck': token
@@ -237,29 +234,41 @@ class _VPNPageState extends State<VPNPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Offstage(
-                      offstage: _initing,
-                      child: DropdownButton(
-                        items: _items,
-                        value: _selectedServerId,
-                        onChanged: (value) {
-                          if (value == _defaultSelect) {
-                            setState(() {
-                              _getResponse = false;
-                              _selectedServerId = value;
-                              _resetValue();
-                            });
-                            return;
-                          } else {
-                            setState(() {
-                              _loading = true;
-                              _getResponse = false;
-                              _selectedServerId = value;
-                              _getKey(value);
-                            });
-                          }
-                        },
-                      ),
-                    ),
+                        offstage: _initing,
+                        child: InputDecorator(
+                            decoration: InputDecoration(
+                              labelText: 'VPN Server',
+                              prefixIcon: Icon(Icons.dns),
+                              labelStyle: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                items: _items,
+                                value: _selectedServerId,
+                                onChanged: (value) {
+                                  if (value == _defaultSelect) {
+                                    setState(() {
+                                      _getResponse = false;
+                                      _selectedServerId = value;
+                                      _resetValue();
+                                    });
+                                    return;
+                                  } else {
+                                    setState(() {
+                                      _loading = true;
+                                      _getResponse = false;
+                                      _selectedServerId = value;
+                                      _getKey(value);
+                                    });
+                                  }
+                                },
+                              ),
+                            ))),
                     Offstage(
                       offstage: _initing,
                       child: SizedBox(height: 20),
@@ -270,7 +279,8 @@ class _VPNPageState extends State<VPNPage> {
                       child: Column(
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
                               backgroundColor: Theme.of(context)
@@ -365,43 +375,43 @@ class _VPNPageState extends State<VPNPage> {
                                               minWidth: 700,
                                             ),
                                             child: SingleChildScrollView(
-                                              child: (Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text.rich(TextSpan(children: [
-                                                TextSpan(
+                                                child: (Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text.rich(TextSpan(children: [
+                                                  TextSpan(
+                                                      text:
+                                                          '1. If you don\'t have Outline APP on your device, click '),
+                                                  TextSpan(
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary,
+                                                    ),
                                                     text:
-                                                        '1. If you don\'t have Outline APP on your device, click '),
-                                                TextSpan(
-                                                  style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
+                                                        'Install Outline VPN APP',
+                                                    recognizer:
+                                                        TapGestureRecognizer()
+                                                          ..onTap = () {
+                                                            _installOutlineVPN();
+                                                          },
                                                   ),
-                                                  text:
-                                                      'Install Outline VPN APP',
-                                                  recognizer:
-                                                      TapGestureRecognizer()
-                                                        ..onTap = () {
-                                                          _installOutlineVPN();
-                                                        },
-                                                ),
-                                                TextSpan(
-                                                    text: ' to install it.'),
-                                              ])),
-                                              const Text(
-                                                  '2. Turn back to this page and click "Add To APP"'),
-                                              const Text(
-                                                  '3. Will open Outline VPN APP, click "ADD SERVER"'),
-                                              const Text(
-                                                  '4. Access key will save in Outline APP'),
-                                              const Text(
-                                                  '5. Click "CONNECT" to connect to VPN server'),
-                                              const Text(
-                                                  '* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
-                                            ],
-                                          ))),
+                                                  TextSpan(
+                                                      text: ' to install it.'),
+                                                ])),
+                                                const Text(
+                                                    '2. Turn back to this page and click "Add To APP"'),
+                                                const Text(
+                                                    '3. Will open Outline VPN APP, click "ADD SERVER"'),
+                                                const Text(
+                                                    '4. Access key will save in Outline APP'),
+                                                const Text(
+                                                    '5. Click "CONNECT" to connect to VPN server'),
+                                                const Text(
+                                                    '* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
+                                              ],
+                                            ))),
                                           ),
                                           actions: [
                                             TextButton(

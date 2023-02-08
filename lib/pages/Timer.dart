@@ -36,6 +36,28 @@ class _TimerPageState extends State<TimerPage> {
             _isRunning = false;
             _timer.cancel();
           }
+          if (_counterSeconds <= 0 && _counterMinutes <= 0 && _counterHours <= 0) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Stopwatch'),
+                  content: Text('Stopwatch has reached its limit.'),
+                  actions: [
+                    TextButton(
+                      child: Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              }
+            );
+            _isRunning = false;
+            _timer.cancel();
+          }
+          _counterSeconds < 0 ? _counterSeconds = 0.00 : _counterSeconds;
         });
       });
     } else if (mode == 'stopwatch') {
@@ -54,8 +76,6 @@ class _TimerPageState extends State<TimerPage> {
             _isRunning = false;
             _timer.cancel();
           }
-          _counterSeconds<0 ? _counterSeconds = 0 : _counterSeconds;
-          _counterSeconds==-0.00 ? _counterSeconds = 0 : _counterSeconds;
         });
       });
     }

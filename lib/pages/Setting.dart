@@ -209,7 +209,7 @@ class _SettingPageState extends State<SettingPage> {
                           data: theme,
                           child: ExpansionTile(
                             leading: Icon(Icons.info),
-                            initiallyExpanded: true,
+                            initiallyExpanded: false,
                             title: Text('About'),
                             children: [
                               ListTile(

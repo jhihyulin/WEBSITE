@@ -26,10 +26,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
       );
       return;
     }
-    if (await launchUrl(Uri.parse(url))) {
-      print('URL Launched');
-      return;
-    } else {
+    if (!await launchUrl(Uri.parse(url))) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('URL Launch Failed'),
@@ -71,6 +68,9 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                             borderRadius: BorderRadius.circular(16),
                           ),
                         ),
+                        onSubmitted: (value) {
+                          _launchURL();
+                        },
                       ),
                       SizedBox(
                         height: 20,

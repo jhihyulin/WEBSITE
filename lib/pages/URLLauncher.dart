@@ -102,7 +102,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                                             child: Column(
                                           children: [
                                             Text(
-                                                'Enter a URL and click on Open URL button to open the URL in the browser or your device\'s default app for the URL.'),
+                                                'Enter a URL and click Launch URL button to open the URL in the browser or your device\'s default app for the URL.'),
                                           ],
                                         )),
                                       ),

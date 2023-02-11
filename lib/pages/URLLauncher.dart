@@ -75,10 +75,50 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                       SizedBox(
                         height: 20,
                       ),
-                      ElevatedButton.icon(
-                        icon: Icon(Icons.rocket_launch),
-                        label: Text('Open URL'),
-                        onPressed: _launchURL,
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          ElevatedButton.icon(
+                            icon: Icon(Icons.rocket_launch),
+                            label: Text('Launch URL'),
+                            onPressed: _launchURL,
+                          ),
+                          TextButton(
+                            child: Icon(Icons.help),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('What\'s the use?'),
+                                      content: Container(
+                                        constraints: BoxConstraints(
+                                          maxWidth: 700,
+                                          minWidth: 700,
+                                        ),
+                                        child: SingleChildScrollView(
+                                            child: Column(
+                                          children: [
+                                            Text(
+                                                'Enter a URL and click on Open URL button to open the URL in the browser or your device\'s default app for the URL.'),
+                                          ],
+                                        )),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          child: Text('OK'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  });
+                            },
+                          )
+                        ],
                       )
                     ],
                   ))),

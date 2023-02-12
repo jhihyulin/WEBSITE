@@ -3,11 +3,13 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:html' as html;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class QRGeneratorPage extends StatefulWidget {
   @override
@@ -110,125 +112,215 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                             children: [
                               ListTile(
                                   title: Text('Version'),
-                                  trailing: DropdownButtonHideUnderline(
-                                      child: DropdownButton(
-                                          value: _versionSelect,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _version = value as int;
-                                              _versionSelect = value as int;
-                                              _generate();
-                                            });
-                                          },
-                                          items: [
-                                        DropdownMenuItem(
-                                          child: Text('Auto'),
-                                          value: QrVersions.auto,
-                                        ),
-                                        for (var i = 1; i <= 40; i++)
-                                          DropdownMenuItem(
-                                            child: Text('$i'),
-                                            value: i,
-                                          ),
-                                      ]))),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                          icon: Icon(Icons.help),
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                      title: Text(
+                                                          'What about version?'),
+                                                      content: Container(
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            maxWidth: 700,
+                                                            minWidth: 700,
+                                                          ),
+                                                          child:
+                                                              SingleChildScrollView(
+                                                            child: Text.rich(
+                                                                TextSpan(
+                                                                    children: [
+                                                                  TextSpan(
+                                                                      text:
+                                                                          'The symbol versions of QR Code range from Version 1 to Version 40. Each version has a different module configuration or number of modules. (The module refers to the black and white dots that make up QR Code.)"Module configuration" refers to the number of modules contained in a symbol, commencing with Version 1 (21 × 21 modules) up to Version 40 (177 × 177 modules). Each higher version number comprises 4 additional modules per side.\nSource: '),
+                                                                  TextSpan(
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .colorScheme
+                                                                          .primary,
+                                                                    ),
+                                                                    text:
+                                                                        'https://www.qrcode.com/en/about/version.html',
+                                                                    recognizer:
+                                                                        TapGestureRecognizer()
+                                                                          ..onTap =
+                                                                              () {
+                                                                            launchUrl(Uri.parse('https://www.qrcode.com/en/about/version.html'));
+                                                                          },
+                                                                  )
+                                                                ])),
+                                                          )),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: Text('OK'))
+                                                      ]);
+                                                });
+                                          }),
+                                      DropdownButtonHideUnderline(
+                                          child: DropdownButton(
+                                              value: _versionSelect,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _version = value as int;
+                                                  _versionSelect = value as int;
+                                                  _generate();
+                                                });
+                                              },
+                                              items: [
+                                            DropdownMenuItem(
+                                              child: Text('Auto'),
+                                              value: QrVersions.auto,
+                                            ),
+                                            for (var i = 1; i <= 40; i++)
+                                              DropdownMenuItem(
+                                                child: Text('$i'),
+                                                value: i,
+                                              ),
+                                          ]))
+                                    ],
+                                  )),
                               ListTile(
                                   title: Text('Background Color'),
-                                  subtitle: Text('Defaults to transparent'),
-                                  trailing: InkWell(
-                                      borderRadius: BorderRadius.circular(16),
-                                      child: Container(
-                                        width: 40,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          color: _backgroundColor,
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                          icon: Icon(Icons.refresh),
+                                          onPressed: () {
+                                            setState(() {
+                                              _backgroundColor = Colors.white;
+                                              _generate();
+                                            });
+                                          }),
+                                      InkWell(
                                           borderRadius:
                                               BorderRadius.circular(16),
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                  title:
-                                                      Text('Background Color'),
-                                                  content:
-                                                      SingleChildScrollView(
-                                                    child: ColorPicker(
-                                                      pickerColor:
-                                                          _backgroundColor,
-                                                      onColorChanged: (color) {
-                                                        setState(() {
-                                                          _backgroundColor =
-                                                              color;
-                                                        });
-                                                      },
-                                                      pickerAreaHeightPercent:
-                                                          0.8,
-                                                      enableAlpha: true,
-                                                    ),
-                                                  ),
-                                                  actions: [
-                                                    TextButton(
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            _generate();
-                                                          });
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Text('OK'))
-                                                  ]);
-                                            });
-                                      })),
+                                          child: Container(
+                                            width: 40,
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              color: _backgroundColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                      title: Text(
+                                                          'Background Color'),
+                                                      content:
+                                                          SingleChildScrollView(
+                                                        child: ColorPicker(
+                                                          pickerColor:
+                                                              _backgroundColor,
+                                                          onColorChanged:
+                                                              (color) {
+                                                            setState(() {
+                                                              _backgroundColor =
+                                                                  color;
+                                                            });
+                                                          },
+                                                          pickerAreaHeightPercent:
+                                                              0.8,
+                                                          enableAlpha: true,
+                                                        ),
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                _generate();
+                                                              });
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: Text('OK'))
+                                                      ]);
+                                                });
+                                          })
+                                    ],
+                                  )),
                               ListTile(
-                                title: Text('Foreground Color'),
-                                subtitle: Text('Defaults to black'),
-                                trailing: InkWell(
-                                    borderRadius: BorderRadius.circular(16),
-                                    child: Container(
-                                      width: 40,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        color: _foregroundColor,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                                title: Text('Foreground Color'),
-                                                content: SingleChildScrollView(
-                                                  child: ColorPicker(
-                                                    pickerColor:
-                                                        _foregroundColor,
-                                                    onColorChanged: (color) {
-                                                      setState(() {
-                                                        _foregroundColor =
-                                                            color;
-                                                      });
-                                                    },
-                                                    pickerAreaHeightPercent:
-                                                        0.8,
-                                                    enableAlpha: false,
-                                                  ),
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          _generate();
-                                                        });
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Text('OK'))
-                                                ]);
-                                          });
-                                    }),
-                              ),
+                                  title: Text('Foreground Color'),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                          icon: Icon(Icons.refresh),
+                                          onPressed: () {
+                                            setState(() {
+                                              _foregroundColor = Colors.black;
+                                              _generate();
+                                            });
+                                          }),
+                                      InkWell(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          child: Container(
+                                            width: 40,
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                              color: _foregroundColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                      title: Text(
+                                                          'Foreground Color'),
+                                                      content:
+                                                          SingleChildScrollView(
+                                                        child: ColorPicker(
+                                                          pickerColor:
+                                                              _foregroundColor,
+                                                          onColorChanged:
+                                                              (color) {
+                                                            setState(() {
+                                                              _foregroundColor =
+                                                                  color;
+                                                            });
+                                                          },
+                                                          pickerAreaHeightPercent:
+                                                              0.8,
+                                                          enableAlpha: false,
+                                                        ),
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                _generate();
+                                                              });
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: Text('OK'))
+                                                      ]);
+                                                });
+                                          }),
+                                    ],
+                                  )),
                               ListTile(
                                   title: Text('Gapless'),
                                   subtitle: Text(
@@ -362,21 +454,36 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                 offstage: !_useEmbeddedImage,
                                 child: ListTile(
                                     title: Text('Embedded Image'),
-                                    trailing: ElevatedButton.icon(
-                                        icon: Icon(Icons.image),
-                                        label: Text('Select Image'),
-                                        onPressed: () async {
-                                          var pickedFile =
-                                              await _imagePicker.pickImage(
-                                                  source: ImageSource.gallery);
-                                          if (pickedFile != null) {
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          icon: Icon(Icons.refresh),
+                                          onPressed: () {
                                             setState(() {
-                                              _embeddedImage =
-                                                  NetworkImage(pickedFile.path);
+                                              _embeddedImage = null;
                                               _generate();
                                             });
-                                          }
-                                        })),
+                                          },
+                                        ),
+                                        ElevatedButton.icon(
+                                            icon: Icon(Icons.image),
+                                            label: Text('Select Image'),
+                                            onPressed: () async {
+                                              var pickedFile =
+                                                  await _imagePicker.pickImage(
+                                                      source:
+                                                          ImageSource.gallery);
+                                              if (pickedFile != null) {
+                                                setState(() {
+                                                  _embeddedImage = NetworkImage(
+                                                      pickedFile.path);
+                                                  _generate();
+                                                });
+                                              }
+                                            })
+                                      ],
+                                    )),
                               )
                             ],
                           ),

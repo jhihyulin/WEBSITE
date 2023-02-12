@@ -1,6 +1,10 @@
-import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -16,12 +20,13 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
   int _version = QrVersions.auto;
   int _versionSelect = QrVersions.auto;
   bool _gapless = true;
-  Color _backgroundColor = Colors.transparent;
+  Color _backgroundColor = Colors.white;
   Color _foregroundColor = Colors.black;
   int _padding = 10;
   bool _useEmbeddedImage = false;
   ImagePicker _imagePicker = ImagePicker();
   var _embeddedImage = null;
+  final GlobalKey globalKey = GlobalKey();
   QrEmbeddedImageStyle _embeddedImageSize = QrEmbeddedImageStyle(
     size: Size(30, 30),
   );
@@ -40,6 +45,20 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
         _generated = true;
       });
     }
+  }
+
+  void _createImageFromRenderKey() async {
+    var renderKey = globalKey;
+    final RenderRepaintBoundary boundary =
+        renderKey.currentContext?.findRenderObject()! as RenderRepaintBoundary;
+    final ui.Image image = await boundary.toImage(pixelRatio: 3);
+    final ByteData? byteData =
+        await image.toByteData(format: ui.ImageByteFormat.png);
+    final anchor = html.AnchorElement(
+        href:
+            'data:image/png;base64,${base64Encode(byteData!.buffer.asUint8List())}');
+    anchor.download = 'QRCode.png';
+    anchor.click();
   }
 
   @override
@@ -263,7 +282,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                     ],
                                   )),
                               ListTile(
-                                  title: Text('Embedded Image'),
+                                  title: Text('Use Embedded Image'),
                                   trailing: Switch(
                                     value: _useEmbeddedImage,
                                     onChanged: (value) {
@@ -347,13 +366,13 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                         icon: Icon(Icons.image),
                                         label: Text('Select Image'),
                                         onPressed: () async {
-                                          final pickedFile =
+                                          var pickedFile =
                                               await _imagePicker.pickImage(
                                                   source: ImageSource.gallery);
                                           if (pickedFile != null) {
                                             setState(() {
-                                              _embeddedImage = FileImage(
-                                                  pickedFile.path as File);
+                                              _embeddedImage =
+                                                  NetworkImage(pickedFile.path);
                                               _generate();
                                             });
                                           }
@@ -363,12 +382,11 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                           ),
                         ),
                         SizedBox(height: 20),
-                        if (_generated)
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.white,
-                            ),
+                        Offstage(
+                          offstage: _data.isEmpty,
+                          child: Container(
+                              child: RepaintBoundary(
+                            key: globalKey,
                             child: QrImage(
                               data: _data,
                               version: _version,
@@ -400,7 +418,21 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                               },
                               embeddedImageEmitsError: true,
                             ),
+                          )),
+                        ),
+                        Offstage(
+                          offstage: _data.isEmpty,
+                          child: Container(
+                            child: SizedBox(height: 20),
                           ),
+                        ),
+                        Offstage(
+                            offstage: _data.isEmpty,
+                            child: ElevatedButton.icon(
+                              label: Text('Save QR Code'),
+                              icon: Icon(Icons.save),
+                              onPressed: _createImageFromRenderKey,
+                            ))
                       ],
                     )))));
   }

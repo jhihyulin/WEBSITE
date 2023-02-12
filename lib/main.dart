@@ -20,6 +20,7 @@ import 'pages/Contact.dart';
 import 'pages/About.dart';
 import 'pages/BMI.dart';
 import 'pages/Timer.dart';
+import 'pages/URLLauncher.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
 final DesktopModeWidth = 640;
@@ -35,6 +36,7 @@ Map<String, Widget Function(BuildContext)> _routes = {
   '/about': (BuildContext context) => AboutPage(),
   '/bmi': (BuildContext context) => BMIPage(),
   '/timer': (BuildContext context) => TimerPage(),
+  '/urllauncher': (BuildContext context) => URLLauncherPage(),
   '/setting': (BuildContext context) => SettingPage(),
   '': (BuildContext context) => NavigationController(inputIndex: 0),
   '/tool': (BuildContext context) => NavigationController(inputIndex: 1),

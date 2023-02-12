@@ -32,6 +32,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.timer,
       'route': '/timer',
     },
+    'urllauncher': {
+      'title': 'URL Launcher',
+      'icon': Icons.rocket_launch,
+      'route': '/urllauncher',
+    },
   };
 
   @override

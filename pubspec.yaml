@@ -25,6 +25,8 @@ dependencies:
   firebase_app_check: ^0.1.1+8
   flutter_colorpicker: ^1.0.3
   provider: ^6.0.5
+  qr_flutter: ^4.0.0
+  image_picker: ^0.8.6+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

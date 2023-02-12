@@ -37,6 +37,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.rocket_launch,
       'route': '/urllauncher',
     },
+    'qr': {
+      'title': 'QR Generator',
+      'icon': Icons.qr_code,
+      'route': '/qrgenerator',
+    },
   };
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -19,7 +21,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
   int _padding = 10;
   bool _useEmbeddedImage = false;
   ImagePicker _imagePicker = ImagePicker();
-  AssetImage _embeddedImage = AssetImage('assets/images/logo-512x512.png');
+  var _embeddedImage = null;
   QrEmbeddedImageStyle _embeddedImageSize = QrEmbeddedImageStyle(
     size: Size(30, 30),
   );
@@ -345,11 +347,13 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                         icon: Icon(Icons.image),
                                         label: Text('Select Image'),
                                         onPressed: () async {
-                                          final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
+                                          final pickedFile =
+                                              await _imagePicker.pickImage(
+                                                  source: ImageSource.gallery);
                                           if (pickedFile != null) {
                                             setState(() {
-                                              _embeddedImage =
-                                                  AssetImage(pickedFile.path);
+                                              _embeddedImage = FileImage(
+                                                  pickedFile.path as File);
                                               _generate();
                                             });
                                           }
@@ -373,8 +377,12 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                               backgroundColor: _backgroundColor,
                               foregroundColor: _foregroundColor,
                               padding: EdgeInsets.all(_padding.toDouble()),
-                              embeddedImage:
-                                  _useEmbeddedImage ? _embeddedImage : null,
+                              embeddedImage: _useEmbeddedImage
+                                  ? _embeddedImage != null
+                                      ? _embeddedImage
+                                      : AssetImage(
+                                          'assets/images/logo-512x512.png')
+                                  : null,
                               embeddedImageStyle:
                                   _useEmbeddedImage ? _embeddedImageSize : null,
                               errorStateBuilder: (cxt, err) {

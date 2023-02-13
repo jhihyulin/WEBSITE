@@ -42,6 +42,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.qr_code,
       'route': '/qrgenerator',
     },
+    'clock': {
+      'title': 'Clock',
+      'icon': Icons.access_time,
+      'route': '/clock',
+    },
   };
 
   @override

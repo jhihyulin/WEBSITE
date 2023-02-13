@@ -22,6 +22,7 @@ import 'pages/BMI.dart';
 import 'pages/Timer.dart';
 import 'pages/URLLauncher.dart';
 import 'pages/QRGenerator.dart';
+import 'pages/Clock.dart';
 
 final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
 final DesktopModeWidth = 640;
@@ -39,6 +40,7 @@ Map<String, Widget Function(BuildContext)> _routes = {
   '/timer': (BuildContext context) => TimerPage(),
   '/urllauncher': (BuildContext context) => URLLauncherPage(),
   '/qrgenerator': (BuildContext context) => QRGeneratorPage(),
+  '/clock': (BuildContext context) => ClockPage(),
   '/setting': (BuildContext context) => SettingPage(),
   '': (BuildContext context) => NavigationController(inputIndex: 0),
   '/tool': (BuildContext context) => NavigationController(inputIndex: 1),

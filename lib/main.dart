@@ -155,8 +155,7 @@ class _NavigationControllerState extends State<NavigationController> {
     });
   }
 
-  final List<Widget> pages = [HomePage(), ToolPage(), SettingPage()];
-  final List pagesRoute = ['', '/tool'];
+  final List<Widget> pages = [HomePage(), ToolPage()];
 
   bool _extended = false;
 
@@ -166,7 +165,7 @@ class _NavigationControllerState extends State<NavigationController> {
       appBar: AppBar(
         leading: Container(
           padding: const EdgeInsets.all(5),
-          child: Image.asset('assets/images/logo-64x64.png'),
+          child: Image.asset('assets/images/logo-180x180.png'),
         ),
         title: Text(WEBSITE_NAME),
         actions: [

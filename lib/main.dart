@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -24,8 +25,8 @@ import 'pages/URLLauncher.dart';
 import 'pages/QRGenerator.dart';
 import 'pages/Clock.dart';
 
-final WEBSITE_NAME = 'JHIHYU\'S WEBSITE';
-final DesktopModeWidth = 640;
+const websiteName = 'JHIHYU\'S WEBSITE';
+const desktopModeWidth = 640;
 
 Map<String, Widget Function(BuildContext)> _routes = {
   '/profile': (BuildContext context) => ProfilePage(),
@@ -59,6 +60,8 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -74,23 +77,23 @@ class _MyAppState extends State<MyApp> {
         ],
         child: Consumer<ThemeProvider>(
           builder: (context, themeProvider, child) {
-            Color _themeColor = themeProvider.themeColor;
-            int _themeMode = themeProvider.themeMode;
+            Color themeColor = themeProvider.themeColor;
+            int themeMode = themeProvider.themeMode;
             return MaterialApp(
-              title: WEBSITE_NAME,
+              title: websiteName,
               theme: ThemeData(
                   useMaterial3: true,
                   fontFamily: 'Montserrat',
                   brightness: Brightness.light,
-                  colorSchemeSeed: _themeColor),
+                  colorSchemeSeed: themeColor),
               darkTheme: ThemeData(
                   useMaterial3: true,
                   fontFamily: 'Montserrat',
                   brightness: Brightness.dark,
-                  colorSchemeSeed: _themeColor),
-              themeMode: _themeMode == 0
+                  colorSchemeSeed: themeColor),
+              themeMode: themeMode == 0
                   ? ThemeMode.system
-                  : _themeMode == 1
+                  : themeMode == 1
                       ? ThemeMode.light
                       : ThemeMode.dark,
               home: Scaffold(
@@ -123,32 +126,37 @@ class NavigationController extends StatefulWidget {
 }
 
 class _NavigationControllerState extends State<NavigationController> {
-  Widget _displayPhoto = Icon(Icons.login);
-  Widget _dispayText = Text('Sign In');
+  Widget _displayPhoto = const Icon(Icons.login);
+  Widget _dispayText = const Text('Sign In');
 
+  @override
   void initState() {
     super.initState();
-    _FirebasAuthEvent();
+    _firebasAuthEvent();
   }
 
-  void _FirebasAuthEvent() {
+  void _firebasAuthEvent() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('User is currently signed out!');
+        if (kDebugMode) {
+          print('User is currently signed out!');
+        }
         setState(() {
-          _displayPhoto = Icon(Icons.login);
-          _dispayText = Text('Sign In');
+          _displayPhoto = const Icon(Icons.login);
+          _dispayText = const Text('Sign In');
         });
       } else {
-        print('User is signed in!');
+        if (kDebugMode) {
+          print('User is signed in!');
+        }
         setState(() {
           _displayPhoto = user.photoURL == null
-              ? Icon(Icons.person)
+              ? const Icon(Icons.person)
               : CircleAvatar(backgroundImage: NetworkImage(user.photoURL!));
           _dispayText = user.displayName == null
               ? user.email == null
                   ? user.phoneNumber == null
-                      ? Text('Unknown')
+                      ? const Text('Unknown')
                       : Text(user.phoneNumber!)
                   : Text(user.email!)
               : Text(user.displayName!);
@@ -169,7 +177,7 @@ class _NavigationControllerState extends State<NavigationController> {
           padding: const EdgeInsets.all(5),
           child: Image.asset('assets/images/logo-180x180.png'),
         ),
-        title: Text(WEBSITE_NAME),
+        title: const Text(websiteName),
         actions: [
           Container(
             padding: const EdgeInsets.all(5),
@@ -177,19 +185,20 @@ class _NavigationControllerState extends State<NavigationController> {
               icon: _displayPhoto,
               label: _dispayText,
               onPressed: () {
-                if (FirebaseAuth.instance.currentUser == null)
+                if (FirebaseAuth.instance.currentUser == null) {
                   Navigator.pushNamed(context, '/signin');
-                else
+                } else {
                   Navigator.pushNamed(context, '/profile');
+                }
               },
             ),
           ),
           Offstage(
-            offstage: MediaQuery.of(context).size.width >= DesktopModeWidth,
+            offstage: MediaQuery.of(context).size.width >= desktopModeWidth,
             child: Container(
               padding: const EdgeInsets.all(5),
               child: IconButton(
-                icon: Icon(Icons.settings),
+                icon: const Icon(Icons.settings),
                 onPressed: () {
                   Navigator.pushNamed(context, '/setting');
                 },
@@ -198,7 +207,7 @@ class _NavigationControllerState extends State<NavigationController> {
           )
         ],
       ),
-      body: MediaQuery.of(context).size.width < DesktopModeWidth
+      body: MediaQuery.of(context).size.width < desktopModeWidth
           ? IndexedStack(index: _currentIndex, children: pages)
           : Row(
               children: [
@@ -208,12 +217,12 @@ class _NavigationControllerState extends State<NavigationController> {
                         labelType: NavigationRailLabelType.none,
                         selectedIndex: _currentIndex,
                         destinations: [
-                          NavigationRailDestination(
+                          const NavigationRailDestination(
                             icon: Icon(Icons.home_outlined),
                             selectedIcon: Icon(Icons.home),
                             label: Text('Home'),
                           ),
-                          NavigationRailDestination(
+                          const NavigationRailDestination(
                             icon: Icon(Icons.build_outlined),
                             selectedIcon: Icon(Icons.build),
                             label: Text('Tool'),
@@ -226,7 +235,7 @@ class _NavigationControllerState extends State<NavigationController> {
                                 child: Icon(_extended
                                     ? Icons.arrow_left
                                     : Icons.arrow_right)),
-                            label: _extended ? Text('Close') : Text(''),
+                            label: _extended ? const Text('Close') : const Text(''),
                           ),
                         ],
                         extended: _extended,
@@ -244,14 +253,14 @@ class _NavigationControllerState extends State<NavigationController> {
                                 onPressed: () {
                                   Navigator.pushNamed(context, '/setting');
                                 },
-                                icon: Icon(Icons.settings),
-                                label: Text('Setting'),
+                                icon: const Icon(Icons.settings),
+                                label: const Text('Setting'),
                               )
                             : TextButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, '/setting');
                                 },
-                                child: Icon(Icons.settings),
+                                child: const Icon(Icons.settings),
                               )),
                   ),
                 ),
@@ -260,19 +269,19 @@ class _NavigationControllerState extends State<NavigationController> {
                 ),
               ],
             ),
-      bottomNavigationBar: MediaQuery.of(context).size.width < DesktopModeWidth
+      bottomNavigationBar: MediaQuery.of(context).size.width < desktopModeWidth
           ? BottomNavigationBar(
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: _currentIndex == 0
-                      ? Icon(Icons.home)
-                      : Icon(Icons.home_outlined),
+                      ? const Icon(Icons.home)
+                      : const Icon(Icons.home_outlined),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
                   icon: _currentIndex == 1
-                      ? Icon(Icons.build)
-                      : Icon(Icons.build_outlined),
+                      ? const Icon(Icons.build)
+                      : const Icon(Icons.build_outlined),
                   label: 'Tool',
                 ),
               ],

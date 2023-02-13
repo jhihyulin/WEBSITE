@@ -155,8 +155,7 @@ class _NavigationControllerState extends State<NavigationController> {
     });
   }
 
-  final List<Widget> pages = [HomePage(), ToolPage(), SettingPage()];
-  final List pagesRoute = ['', '/tool'];
+  final List<Widget> pages = [HomePage(), ToolPage()];
 
   bool _extended = false;
 

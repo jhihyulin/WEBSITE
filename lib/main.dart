@@ -6,30 +6,30 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
 
-import 'Home.dart';
-import 'provider/Theme.dart';
-import 'Tool.dart';
-import 'pages/Setting.dart';
-import 'FirebaseOptions.dart';
-import 'pages/Profile.dart';
-import 'pages/SignIn.dart';
-import 'pages/Status.dart';
-import 'pages/VPN.dart';
-import 'pages/ShortURL.dart';
-import 'pages/LongURL.dart';
-import 'pages/Contact.dart';
-import 'pages/About.dart';
-import 'pages/BMI.dart';
-import 'pages/Timer.dart';
-import 'pages/URLLauncher.dart';
-import 'pages/QRGenerator.dart';
-import 'pages/Clock.dart';
+import 'home.dart';
+import 'provider/theme.dart';
+import 'tool.dart';
+import 'pages/setting.dart';
+import 'firebase_options.dart';
+import 'pages/profile.dart';
+import 'pages/sign_in.dart';
+import 'pages/status.dart';
+import 'pages/vpn.dart';
+import 'pages/short_url.dart';
+import 'pages/long_url.dart';
+import 'pages/contact.dart';
+import 'pages/about.dart';
+import 'pages/bmi.dart';
+import 'pages/timer.dart';
+import 'pages/url_launcher.dart';
+import 'pages/qr_generator.dart';
+import 'pages/clock.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
 
 Map<String, Widget Function(BuildContext)> _routes = {
-  '/profile': (BuildContext context) => ProfilePage(),
+  '/profile': (BuildContext context) => const ProfilePage(),
   '/signin': (BuildContext context) => SignInPage(),
   '/status': (BuildContext context) => StatusPage(),
   '/vpn': (BuildContext context) => VPNPage(),
@@ -56,7 +56,7 @@ void main() async {
     webRecaptchaSiteKey: '6LcPhjgkAAAAAAUtPybk3GHCkYZTxDd6w4kVOiQJ',
   );
   usePathUrlStrategy();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {

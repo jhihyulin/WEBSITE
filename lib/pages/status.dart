@@ -54,6 +54,8 @@ Set<Map<String, dynamic>> _status = {
 };
 
 class StatusPage extends StatefulWidget {
+  const StatusPage({super.key});
+
   @override
   _StatusPageState createState() => _StatusPageState();
 }
@@ -70,7 +72,7 @@ class _StatusPageState extends State<StatusPage> {
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 10),
+          duration: const Duration(seconds: 10),
         ),
       );
     }
@@ -81,12 +83,12 @@ class _StatusPageState extends State<StatusPage> {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return Scaffold(
         appBar: AppBar(
-          title: Text('Status'),
+          title: const Text('Status'),
         ),
         body: SingleChildScrollView(
           child: Center(
             child: Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 constraints: BoxConstraints(
                   maxWidth: 700,
                   minHeight: MediaQuery.of(context).size.height -
@@ -112,7 +114,7 @@ class _StatusPageState extends State<StatusPage> {
                                   leading: Icon(status['leading']),
                                   children: [
                                     Container(
-                                        padding: EdgeInsets.all(10),
+                                        padding: const EdgeInsets.all(10),
                                         child: ListTile(
                                           subtitle: Wrap(
                                             spacing: 10,
@@ -125,7 +127,6 @@ class _StatusPageState extends State<StatusPage> {
                                                   in status['status'].entries)
                                                 if (item.key != 'Main')
                                                   ElevatedButton(
-                                                    child: Text(item.key),
                                                     onPressed:
                                                         item.value == null
                                                             ? null
@@ -133,6 +134,7 @@ class _StatusPageState extends State<StatusPage> {
                                                                 _launchUrl(
                                                                     item.value);
                                                               },
+                                                    child: Text(item.key),
                                                   ),
                                             ],
                                           ),

@@ -4,6 +4,8 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 
 class ClockPage extends StatefulWidget {
+  const ClockPage({super.key});
+
   @override
   _ClockPageState createState() => _ClockPageState();
 }
@@ -19,7 +21,7 @@ class _ClockPageState extends State<ClockPage> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       DateTime now = DateTime.now();
       setState(() {
         _blink = !_blink;
@@ -43,7 +45,7 @@ class _ClockPageState extends State<ClockPage> {
       appBar: _fullscreen
           ? null
           : AppBar(
-              title: Text('Clock'),
+              title: const Text('Clock'),
             ),
       body: _fullscreen
           ? Clock(
@@ -56,7 +58,7 @@ class _ClockPageState extends State<ClockPage> {
           : SingleChildScrollView(
               child: Center(
               child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   constraints: BoxConstraints(
                     maxWidth: 700,
                     minHeight: MediaQuery.of(context).size.height -
@@ -119,63 +121,63 @@ class Clock extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 100,
                 maxHeight: 100,
               ),
               child: Card(
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Text(
                     hour.toString(),
-                    style: TextStyle(fontSize: 30),
+                    style: const TextStyle(fontSize: 30),
                   ),
                 ),
               ),
             ),
             Opacity(
               opacity: blink ? 1 : 0,
-              child: Text(
+              child: const Text(
                 ':',
                 style: TextStyle(fontSize: 30),
               ),
             ),
             Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 100,
                 maxHeight: 100,
               ),
               child: Card(
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Text(
                     minute.toString(),
-                    style: TextStyle(fontSize: 30),
+                    style: const TextStyle(fontSize: 30),
                   ),
                 ),
               ),
             ),
             Opacity(
               opacity: blink ? 1 : 0,
-              child: Text(
+              child: const Text(
                 ':',
                 style: TextStyle(fontSize: 30),
               ),
             ),
             Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 100,
                 maxHeight: 100,
               ),
               child: Card(
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Text(
                     second.toString(),
-                    style: TextStyle(fontSize: 30),
+                    style: const TextStyle(fontSize: 30),
                   ),
                 ),
               ),

@@ -6,55 +6,55 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
-const String REPORT_MAIL = 'admin@jhihyulin.live';
-const String CONTACT_DOMAIN = 'api.jhihyulin.live';
-const String CONTACT_URL = '/contact';
+const String contactDomain = 'api.jhihyulin.live';
+const String contactURL = '/contact';
 
-Uri CONTACT = Uri.https(CONTACT_DOMAIN, CONTACT_URL);
+Uri contact = Uri.https(contactDomain, contactURL);
 
 class ContactPage extends StatefulWidget {
+  const ContactPage({super.key});
+
   @override
   _ContactPageState createState() => _ContactPageState();
 }
 
 class _ContactPageState extends State<ContactPage> {
-  final TextEditingController ContactEmailController =
-      new TextEditingController();
-  final TextEditingController ContactMessageController =
-      new TextEditingController();
-  final TextEditingController ContactSignatureController =
-      new TextEditingController();
-  final _MessageformKey = GlobalKey<FormState>();
+  final TextEditingController contactEmailController =
+      TextEditingController();
+  final TextEditingController contactMessageController =
+      TextEditingController();
+  final TextEditingController contactSignatureController =
+      TextEditingController();
+  final _messageFormKey = GlobalKey<FormState>();
   bool _loading = false;
 
-  @override
   void _sendMessage() async {
-    if (!_MessageformKey.currentState!.validate()) {
+    if (!_messageFormKey.currentState!.validate()) {
       return;
     }
-    String Email = ContactEmailController.text;
-    String Message = ContactMessageController.text;
-    String Signature = ContactSignatureController.text;
+    String email = contactEmailController.text;
+    String message = contactMessageController.text;
+    String signature = contactSignatureController.text;
     setState(() {
       _loading = true;
     });
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     final String uid = user?.uid ?? '';
-    final Timestamp TimeStamp = Timestamp.now();
+    final Timestamp timeStamp = Timestamp.now();
     final appCheckToken = await FirebaseAppCheck.instance.getToken();
     FirebaseFirestore.instance.collection('message').add({
-      'Email': Email,
-      'Message': Message,
-      'Signature': Signature,
+      'Email': email,
+      'Message': message,
+      'Signature': signature,
       'uid': uid,
-      'TimeStamp': TimeStamp,
+      'TimeStamp': timeStamp,
     }).then((documentSnapshot) {
-      var response = http.post(CONTACT,
+      http.post(contact,
           body: jsonEncode({
-            'message': Message,
-            'email': Email,
-            'signature': Signature,
+            'message': message,
+            'email': email,
+            'signature': signature,
             'documentID': documentSnapshot.id,
           }),
           headers: {
@@ -64,7 +64,7 @@ class _ContactPageState extends State<ContactPage> {
         setState(() {
           _loading = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Message Sent Seccessfully.'),
           showCloseIcon: true,
           behavior: SnackBarBehavior.floating,
@@ -74,21 +74,11 @@ class _ContactPageState extends State<ContactPage> {
           _loading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Error Notifying Admin!'),
+          content: const Text('Error Notifying Admin!'),
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 10),
-          // action: SnackBarAction(
-          //   label: 'Report',
-          //   onPressed: () async {
-          //     Uri _url = Uri.parse(
-          //         'mailto:$REPORT_MAIL?subject=%5BWebsite%5DContact%20Error%20Report&body=%5B2%5DError%20Message%3A%20$error%0D%0AEmail%3A%20$Email%0D%0AMessage%3A%20$Message%0D%0ASignature%3A%20$Signature%0D%0ATimeStamp%3A%20$TimeStamp%0D%0AUID%3A%20$uid');
-          //     if (!await launchUrl(_url)) {
-          //       FailToSendReport(error, context);
-          //     }
-          //   },
-          // )
+          duration: const Duration(seconds: 10),
         ));
       });
     }).catchError((error) {
@@ -96,21 +86,11 @@ class _ContactPageState extends State<ContactPage> {
         _loading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error Sending Message!'),
+        content: const Text('Error Sending Message!'),
         showCloseIcon: true,
         closeIconColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 10),
-        // action: SnackBarAction(
-        //   label: 'Report',
-        //   onPressed: () async {
-        //     Uri _url = Uri.parse(
-        //         'mailto:$REPORT_MAIL?subject=%5BWebsite%5DContact%20Error%20Report&body=%5B1%5DError%20Message%3A%20$error%0D%0AEmail%3A%20$Email%0D%0AMessage%3A%20$Message%0D%0ASignature%3A%20$Signature%0D%0ATimeStamp%3A%20$TimeStamp%0D%0AUID%3A%20$uid');
-        //     if (!await launchUrl(_url)) {
-        //       FailToSendReport(error, context);
-        //     }
-        //   },
-        // )
+        duration: const Duration(seconds: 10),
       ));
     });
   }
@@ -119,12 +99,12 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contact'),
+        title: const Text('Contact'),
       ),
       body: SingleChildScrollView(
           child: Center(
               child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   constraints: BoxConstraints(
                     maxWidth: 700,
                     minHeight: MediaQuery.of(context).size.height -
@@ -133,14 +113,14 @@ class _ContactPageState extends State<ContactPage> {
                         MediaQuery.of(context).padding.bottom,
                   ),
                   child: Form(
-                    key: _MessageformKey,
+                    key: _messageFormKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         TextField(
-                          controller: ContactEmailController,
+                          controller: contactEmailController,
                           keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               labelText: 'Email',
                               hintText: 'example@domain.com',
                               prefixIcon: Icon(Icons.email),
@@ -149,13 +129,13 @@ class _ContactPageState extends State<ContactPage> {
                                       BorderRadius.all(Radius.circular(16.0)))),
                           textInputAction: TextInputAction.next,
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         TextFormField(
-                          controller: ContactMessageController,
+                          controller: contactMessageController,
                           keyboardType: TextInputType.text,
                           minLines: 1,
                           maxLines: 10,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               labelText: 'Message',
                               hintText: 'Type your message here',
                               prefixIcon: Icon(Icons.comment),
@@ -169,15 +149,15 @@ class _ContactPageState extends State<ContactPage> {
                             return null;
                           },
                           onTapOutside: (event) => {
-                            _MessageformKey.currentState!.validate(),
+                            _messageFormKey.currentState!.validate(),
                           },
                           textInputAction: TextInputAction.next,
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         TextField(
-                          controller: ContactSignatureController,
+                          controller: contactSignatureController,
                           keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               labelText: 'Signature',
                               hintText: 'Type your signature here',
                               prefixIcon: Icon(Icons.draw),
@@ -190,22 +170,22 @@ class _ContactPageState extends State<ContactPage> {
                         ),
                         Offstage(
                           offstage: !_loading,
-                          child: SizedBox(height: 20),
+                          child: const SizedBox(height: 20),
                         ),
                         Offstage(
                           offstage: !_loading,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
                               backgroundColor: Theme.of(context)
-                                  .splashColor, //TODO: change low purple
+                                  .splashColor,
                             ),
                           ),
                         ),
                         Offstage(
                           offstage: _loading,
-                          child: SizedBox(height: 20),
+                          child: const SizedBox(height: 20),
                         ),
                         Offstage(
                           offstage: _loading,
@@ -213,18 +193,18 @@ class _ContactPageState extends State<ContactPage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               ElevatedButton.icon(
-                                label: Text('Clear'),
-                                icon: Icon(Icons.clear),
+                                label: const Text('Clear'),
+                                icon: const Icon(Icons.clear),
                                 onPressed: () {
-                                  ContactEmailController.clear();
-                                  ContactMessageController.clear();
-                                  ContactSignatureController.clear();
+                                  contactEmailController.clear();
+                                  contactMessageController.clear();
+                                  contactSignatureController.clear();
                                 },
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               ElevatedButton.icon(
-                                label: Text('Send'),
-                                icon: Icon(Icons.send),
+                                label: const Text('Send'),
+                                icon: const Icon(Icons.send),
                                 onPressed: () {
                                   _sendMessage();
                                 },
@@ -238,14 +218,3 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 }
-
-// void FailToSendReport(error, context) {
-//   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//     content: Text(
-//         'Fail to send report.\nPleae send Email to $REPORT_MAIL\nAlso don\'t forget to attach a screenshot and this error message:\n$error'),
-//     showCloseIcon: true,
-//     closeIconColor: Colors.red,
-//     behavior: SnackBarBehavior.floating,
-//     duration: Duration(seconds: 10),
-//   ));
-// }

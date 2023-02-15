@@ -4,24 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class URLLauncherPage extends StatefulWidget {
+  const URLLauncherPage({super.key});
+
   @override
   _URLLauncherPageState createState() => _URLLauncherPageState();
 }
 
 class _URLLauncherPageState extends State<URLLauncherPage> {
-  @override
-  final TextEditingController URLInputController = new TextEditingController();
+  final TextEditingController launchURLInputController = TextEditingController();
 
   _launchURL() async {
-    String url = URLInputController.text;
+    String url = launchURLInputController.text;
     if (url.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('URL is Empty'),
+          content: const Text('URL is Empty'),
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 10),
+          duration: const Duration(seconds: 10),
         ),
       );
       return;
@@ -29,11 +30,11 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
     if (!await launchUrl(Uri.parse(url))) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('URL Launch Failed'),
+          content: const Text('URL Launch Failed'),
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 10),
+          duration: const Duration(seconds: 10),
         ),
       );
       return;
@@ -44,12 +45,12 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('URL Launcher'),
+          title: const Text('URL Launcher'),
         ),
         body: SingleChildScrollView(
           child: Center(
               child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   constraints: BoxConstraints(
                     maxWidth: 700,
                     minHeight: MediaQuery.of(context).size.height -
@@ -61,7 +62,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextField(
-                        controller: URLInputController,
+                        controller: launchURLInputController,
                         decoration: InputDecoration(
                           labelText: 'Enter URL',
                           border: OutlineInputBorder(
@@ -72,7 +73,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                           _launchURL();
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Wrap(
@@ -81,26 +82,26 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                         runSpacing: 10,
                         children: [
                           ElevatedButton.icon(
-                            icon: Icon(Icons.rocket_launch),
-                            label: Text('Launch URL'),
+                            icon: const Icon(Icons.rocket_launch),
+                            label: const Text('Launch URL'),
                             onPressed: _launchURL,
                           ),
                           TextButton(
-                            child: Icon(Icons.help),
+                            child: const Icon(Icons.help),
                             onPressed: () {
                               showDialog(
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      title: Text('What\'s the use?'),
+                                      title: const Text('What\'s the use?'),
                                       content: Container(
-                                        constraints: BoxConstraints(
+                                        constraints: const BoxConstraints(
                                           maxWidth: 700,
                                           minWidth: 700,
                                         ),
                                         child: SingleChildScrollView(
                                             child: Column(
-                                          children: [
+                                          children: const [
                                             Text(
                                                 'Enter a URL and click Launch URL button to open the URL in the browser or your device\'s default app for the URL.'),
                                           ],
@@ -108,7 +109,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                                       ),
                                       actions: [
                                         TextButton(
-                                          child: Text('OK'),
+                                          child: const Text('OK'),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },

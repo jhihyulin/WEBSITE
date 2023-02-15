@@ -31,18 +31,18 @@ const desktopModeWidth = 640;
 Map<String, Widget Function(BuildContext)> _routes = {
   '/profile': (BuildContext context) => const ProfilePage(),
   '/signin': (BuildContext context) => SignInPage(),
-  '/status': (BuildContext context) => StatusPage(),
-  '/vpn': (BuildContext context) => VPNPage(),
-  '/shorturl': (BuildContext context) => ShortURLPage(),
-  '/longurl': (BuildContext context) => LongURLPage(),
-  '/contact': (BuildContext context) => ContactPage(),
-  '/about': (BuildContext context) => AboutPage(),
-  '/bmi': (BuildContext context) => BMIPage(),
-  '/timer': (BuildContext context) => TimerPage(),
-  '/urllauncher': (BuildContext context) => URLLauncherPage(),
-  '/qrgenerator': (BuildContext context) => QRGeneratorPage(),
-  '/clock': (BuildContext context) => ClockPage(),
-  '/setting': (BuildContext context) => SettingPage(),
+  '/status': (BuildContext context) => const StatusPage(),
+  '/vpn': (BuildContext context) => const VPNPage(),
+  '/shorturl': (BuildContext context) => const ShortURLPage(),
+  '/longurl': (BuildContext context) => const LongURLPage(),
+  '/contact': (BuildContext context) => const ContactPage(),
+  '/about': (BuildContext context) => const AboutPage(),
+  '/bmi': (BuildContext context) => const BMIPage(),
+  '/timer': (BuildContext context) => const TimerPage(),
+  '/urllauncher': (BuildContext context) => const URLLauncherPage(),
+  '/qrgenerator': (BuildContext context) => const QRGeneratorPage(),
+  '/clock': (BuildContext context) => const ClockPage(),
+  '/setting': (BuildContext context) => const SettingPage(),
   '': (BuildContext context) => NavigationController(inputIndex: 0),
   '/tool': (BuildContext context) => NavigationController(inputIndex: 1),
 };
@@ -165,7 +165,7 @@ class _NavigationControllerState extends State<NavigationController> {
     });
   }
 
-  final List<Widget> pages = [HomePage(), ToolPage()];
+  final List<Widget> pages = [const HomePage(), ToolPage()];
 
   bool _extended = false;
 

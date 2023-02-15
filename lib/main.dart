@@ -6,24 +6,24 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
 
-import 'home.dart';
-import 'provider/theme.dart';
-import 'tool.dart';
-import 'pages/setting.dart';
-import 'firebase_options.dart';
-import 'pages/profile.dart';
-import 'pages/sign_in.dart';
-import 'pages/status.dart';
-import 'pages/vpn.dart';
-import 'pages/short_url.dart';
-import 'pages/long_url.dart';
-import 'pages/contact.dart';
-import 'pages/about.dart';
-import 'pages/bmi.dart';
-import 'pages/timer.dart';
-import 'pages/url_launcher.dart';
-import 'pages/qr_generator.dart';
-import 'pages/clock.dart';
+import 'package:website/home.dart';
+import 'package:website/provider/theme.dart';
+import 'package:website/tool.dart';
+import 'package:website/pages/setting.dart';
+import 'package:website/firebase_options.dart';
+import 'package:website/pages/profile.dart';
+import 'package:website/pages/sign_in.dart';
+import 'package:website/pages/status.dart';
+import 'package:website/pages/vpn.dart';
+import 'package:website/pages/short_url.dart';
+import 'package:website/pages/long_url.dart';
+import 'package:website/pages/contact.dart';
+import 'package:website/pages/about.dart';
+import 'package:website/pages/bmi.dart';
+import 'package:website/pages/timer.dart';
+import 'package:website/pages/url_launcher.dart';
+import 'package:website/pages/qr_generator.dart';
+import 'package:website/pages/clock.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
@@ -235,7 +235,9 @@ class _NavigationControllerState extends State<NavigationController> {
                                 child: Icon(_extended
                                     ? Icons.arrow_left
                                     : Icons.arrow_right)),
-                            label: _extended ? const Text('Close') : const Text(''),
+                            label: _extended
+                                ? const Text('Close')
+                                : const Text(''),
                           ),
                         ],
                         extended: _extended,

@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../provider/theme.dart';
-import '../plugins/logo_icons.dart';
+import 'package:website/provider/theme.dart';
+import 'package:website/plugins/logo_icons.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});

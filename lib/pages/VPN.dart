@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'sign_in.dart';
+import 'package:website/pages/sign_in.dart';
 
 const String serverDomain = 'vpn.jhihyulin.live';
 const String serverURLList = '/server_list';

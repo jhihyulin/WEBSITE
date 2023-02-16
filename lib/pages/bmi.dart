@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class BMIPage extends StatefulWidget {
-  const BMIPage({super.key});
-
   @override
   _BMIPageState createState() => _BMIPageState();
 }
@@ -32,6 +30,7 @@ class _BMIPageState extends State<BMIPage> {
     super.dispose();
   }
 
+  @override
   void caculateBMI() {
     double height = double.parse(_heightController.text);
     double weight = double.parse(_weightController.text);
@@ -63,7 +62,7 @@ class _BMIPageState extends State<BMIPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BMI'),
+        title: Text('BMI'),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -87,13 +86,17 @@ class _BMIPageState extends State<BMIPage> {
                         
                         controller: _heightController,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.height),
-                          border: const OutlineInputBorder(
+                          prefixIcon: Icon(Icons.height),
+                          border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16.0))),
                           labelText: 'Height',
                           suffixIcon: ToggleButtons(
                             borderRadius: BorderRadius.circular(16),
+                            children: <Widget>[
+                              Text('cm'),
+                              Text('in'),
+                            ],
                             isSelected: [
                               _heightUnit == 'cm',
                               _heightUnit == 'in'
@@ -108,10 +111,6 @@ class _BMIPageState extends State<BMIPage> {
                               });
                               caculateBMI();
                             },
-                            children: const <Widget>[
-                              Text('cm'),
-                              Text('in'),
-                            ],
                           ),
                         ),
                         keyboardType: TextInputType.number,
@@ -123,19 +122,23 @@ class _BMIPageState extends State<BMIPage> {
                           }
                         },
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 20,
                       ),
                       TextFormField(
                         controller: _weightController,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.scale),
-                          border: const OutlineInputBorder(
+                          prefixIcon: Icon(Icons.scale),
+                          border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16.0))),
                           labelText: 'Weight',
                           suffixIcon: ToggleButtons(
                             borderRadius: BorderRadius.circular(16),
+                            children: <Widget>[
+                              Text('kg'),
+                              Text('lb'),
+                            ],
                             isSelected: [
                               _weightUnit == 'kg',
                               _weightUnit == 'lb'
@@ -150,10 +153,6 @@ class _BMIPageState extends State<BMIPage> {
                               });
                               caculateBMI();
                             },
-                            children: const <Widget>[
-                              Text('kg'),
-                              Text('lb'),
-                            ],
                           ),
                         ),
                         keyboardType: TextInputType.number,
@@ -168,7 +167,7 @@ class _BMIPageState extends State<BMIPage> {
                       Offstage(
                         offstage: _weightController.text == '' ||
                             _heightController.text == '',
-                        child: const SizedBox(
+                        child: SizedBox(
                           height: 10,
                         ),
                       ),

@@ -7,29 +7,29 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
-import 'package:website/pages/sign_in.dart';
+import 'SignIn.dart';
 
-const String lURLServerDomain = 'l.jhihyulin.live';
-const String lURLServerURLCreate = '/create';
-const int _lURLSupportLimit = 8201;
+const String LURLSERVER_DOMAIN = 'l.jhihyulin.live';
+const String LURLSERVER_URL_1 = '/create';
+const int _LURLSupportLimit = 8201;
 
-Uri lURLServerCreate = Uri.https(lURLServerDomain, lURLServerURLCreate);
+Uri LURLSERVER_CREATE = Uri.https(LURLSERVER_DOMAIN, LURLSERVER_URL_1);
 
 class LongURLPage extends StatefulWidget {
-  const LongURLPage({Key? key}) : super(key: key);
+  LongURLPage({Key? key}) : super(key: key);
 
   @override
   _LongURLPageState createState() => _LongURLPageState();
 }
 
 class _LongURLPageState extends State<LongURLPage> {
-  final TextEditingController lURLURLController = new TextEditingController();
-  final TextEditingController lURLlURLController = new TextEditingController();
-  final _lURLFormKey = GlobalKey<FormState>();
+  final TextEditingController LURLURLController = new TextEditingController();
+  final TextEditingController LURLlURLController = new TextEditingController();
+  final _LURLformKey = GlobalKey<FormState>();
   bool _loading = false;
   bool _loaded = false;
   String _lurl = '';
-  int _lURLLength = 0;
+  int _LURLLength = 0;
 
   @override
   void initState() {
@@ -45,20 +45,20 @@ class _LongURLPageState extends State<LongURLPage> {
       _loading = true;
       _loaded = false;
     });
-    if (_lURLFormKey.currentState!.validate()) {
+    if (_LURLformKey.currentState!.validate()) {
       setState(() {
         _loading = true;
         _loaded = false;
       });
-      FirebaseAuth auth = FirebaseAuth.instance;
-      User user = auth.currentUser!;
+      FirebaseAuth _auth = FirebaseAuth.instance;
+      User user = await _auth.currentUser!;
       String uid = user.uid;
       String token = await user.getIdToken();
       await http
-          .post(lURLServerCreate,
+          .post(LURLSERVER_CREATE,
               body: jsonEncode({
                 'firebase_uid': uid,
-                'original_url': lURLURLController.text
+                'original_url': LURLURLController.text
               }),
               headers: {
                 'Content-Type': 'application/json',
@@ -69,8 +69,8 @@ class _LongURLPageState extends State<LongURLPage> {
                   _lurl = jsonDecode(value.body)['url'];
                   _loading = false;
                   _loaded = true;
-                  lURLlURLController.text = _lurl;
-                  _lURLLength = _lurl.length;
+                  LURLlURLController.text = _lurl;
+                  _LURLLength = _lurl.length;
                 }),
               })
           .catchError((error) => {
@@ -83,7 +83,7 @@ class _LongURLPageState extends State<LongURLPage> {
                   showCloseIcon: true,
                   closeIconColor: Theme.of(context).colorScheme.error,
                   behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 10),
+                  duration: Duration(seconds: 10),
                 )),
               });
     } else {
@@ -101,12 +101,12 @@ class _LongURLPageState extends State<LongURLPage> {
     } else {
       return Scaffold(
           appBar: AppBar(
-            title: const Text('LongURL'),
+            title: Text('LongURL'),
           ),
           body: SingleChildScrollView(
             child: Center(
               child: Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(20),
                   constraints: BoxConstraints(
                     maxWidth: 700,
                     minHeight: MediaQuery.of(context).size.height -
@@ -115,14 +115,14 @@ class _LongURLPageState extends State<LongURLPage> {
                         MediaQuery.of(context).padding.bottom,
                   ),
                   child: Form(
-                      key: _lURLFormKey,
+                      key: _LURLformKey,
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             TextFormField(
-                              controller: lURLURLController,
+                              controller: LURLURLController,
                               keyboardType: TextInputType.url,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                   labelText: 'URL',
                                   hintText: 'https://example.com',
                                   prefixIcon: Icon(Icons.link),
@@ -139,7 +139,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                 }
                               },
                               onTapOutside: (event) => {
-                                _lURLFormKey.currentState!.validate(),
+                                _LURLformKey.currentState!.validate(),
                               },
                               onFieldSubmitted: (event) => {
                                 _createURL(),
@@ -149,14 +149,14 @@ class _LongURLPageState extends State<LongURLPage> {
                                 offstage: !_loading,
                                 child: Column(
                                   children: [
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: 20),
                                     ClipRRect(
                                       borderRadius:
-                                          const BorderRadius.all(Radius.circular(16.0)),
+                                          BorderRadius.all(Radius.circular(16.0)),
                                       child: LinearProgressIndicator(
                                         minHeight: 20,
                                         backgroundColor: Theme.of(context)
-                                            .splashColor,
+                                            .splashColor, //TODO: change low purple
                                       ),
                                     ),
                                   ],
@@ -165,12 +165,12 @@ class _LongURLPageState extends State<LongURLPage> {
                                 offstage: !_loaded,
                                 child: Column(
                                   children: [
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: 20),
                                     TextFormField(
-                                      controller: lURLlURLController,
+                                      controller: LURLlURLController,
                                       minLines: 1,
                                       maxLines: 20,
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                         labelText: 'Long URL',
                                         prefixIcon: Icon(Icons.link),
                                         border: OutlineInputBorder(
@@ -182,7 +182,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                     ),
                                   ],
                                 )),
-                            const SizedBox(height: 20),
+                            SizedBox(height: 20),
                             Wrap(
                                 alignment: WrapAlignment.center,
                                 spacing: 10,
@@ -193,24 +193,24 @@ class _LongURLPageState extends State<LongURLPage> {
                                     child: ElevatedButton.icon(
                                       onPressed: _createURL,
                                       label: _loaded
-                                          ? const Text('Recreate')
-                                          : const Text('Create Long URL'),
+                                          ? Text('Recreate')
+                                          : Text('Create Long URL'),
                                       icon: _loaded
-                                          ? const Icon(Icons.refresh)
-                                          : const Icon(Icons.add),
+                                          ? Icon(Icons.refresh)
+                                          : Icon(Icons.add),
                                     ),
                                   ),
                                   Offstage(
                                     offstage: !_loaded,
                                     child: ElevatedButton.icon(
-                                      label: const Text('Copy'),
-                                      icon: const Icon(Icons.copy),
+                                      label: Text('Copy'),
+                                      icon: Icon(Icons.copy),
                                       onPressed: () {
                                         Clipboard.setData(
                                                 ClipboardData(text: _lurl))
                                             .then((value) => {
                                                   ScaffoldMessenger.of(context)
-                                                      .showSnackBar(const SnackBar(
+                                                      .showSnackBar(SnackBar(
                                                     content: Text(
                                                         'Copied to clipboard'),
                                                     showCloseIcon: true,
@@ -231,7 +231,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                                     behavior: SnackBarBehavior
                                                         .floating,
                                                     duration:
-                                                        const Duration(seconds: 10),
+                                                        Duration(seconds: 10),
                                                   ))
                                                 });
                                       },
@@ -240,15 +240,15 @@ class _LongURLPageState extends State<LongURLPage> {
                                   Offstage(
                                       offstage: !_loaded,
                                       child: TextButton(
-                                        child: const Icon(Icons.help),
+                                        child: Icon(Icons.help),
                                         onPressed: () {
                                           showDialog(
                                               context: context,
                                               builder: (context) {
                                                 return AlertDialog(
-                                                  title: const Text('Not working?'),
+                                                  title: Text('Not working?'),
                                                   content: Container(
-                                                    constraints: const BoxConstraints(
+                                                    constraints: BoxConstraints(
                                                       maxWidth: 700,
                                                       minWidth: 700,
                                                     ),
@@ -257,50 +257,50 @@ class _LongURLPageState extends State<LongURLPage> {
                                                       child: ListBody(
                                                         children: [
                                                           ExpansionTile(
-                                                            leading: const Icon(
+                                                            leading: Icon(
                                                                 Icons.http),
-                                                            title: const Text(
+                                                            title: Text(
                                                                 'HTTP 414'),
-                                                            subtitle: const Text(
+                                                            subtitle: Text(
                                                                 'Request-URI Too Large'),
                                                             children: [
                                                               Offstage(
                                                                 offstage:
-                                                                    _lURLLength <= _lURLSupportLimit,
+                                                                    _LURLLength <= _LURLSupportLimit,
                                                                 child:
                                                                     Text.rich(
                                                                   TextSpan(
                                                                     children: [
-                                                                      const TextSpan(
+                                                                      TextSpan(
                                                                           text:
                                                                               'The URL you generated is '),
                                                                       TextSpan(
                                                                         text:
-                                                                            '$_lURLLength',
-                                                                        style:
-                                                                            const TextStyle(
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                        ),
-                                                                      ),
-                                                                      const TextSpan(
-                                                                        text:
-                                                                            ' characters long, which exceeds the upper limit of ',
-                                                                      ),
-                                                                      const TextSpan(
-                                                                        text:
-                                                                            '$_lURLSupportLimit',
+                                                                            '$_LURLLength',
                                                                         style:
                                                                             TextStyle(
                                                                           fontWeight:
                                                                               FontWeight.bold,
                                                                         ),
                                                                       ),
-                                                                      const TextSpan(
+                                                                      TextSpan(
+                                                                        text:
+                                                                            ' characters long, which exceeds the upper limit of ',
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            '$_LURLSupportLimit',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                      TextSpan(
                                                                         text:
                                                                             ' characters supported by our provider.',
                                                                       ),
-                                                                      const TextSpan(
+                                                                      TextSpan(
                                                                           text:
                                                                               '\nYou can use '),
                                                                       TextSpan(
@@ -318,7 +318,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                                                                 Navigator.pushNamed(context, '/shorturl');
                                                                               },
                                                                       ),
-                                                                      const TextSpan(
+                                                                      TextSpan(
                                                                           text:
                                                                               ' to shorten the original URL before generating Long URL.'),
                                                                     ],
@@ -326,11 +326,11 @@ class _LongURLPageState extends State<LongURLPage> {
                                                                 ),
                                                               ),
                                                               Offstage(
-                                                                offstage: _lURLLength > _lURLSupportLimit,
+                                                                offstage: _LURLLength > _LURLSupportLimit,
                                                                 child: Text.rich(
                                                                   TextSpan(
                                                                     children: [
-                                                                      const TextSpan(text: 'This is a unknown error, please contact us at '),
+                                                                      TextSpan(text: 'This is a unknown error, please contact us at '),
                                                                       TextSpan(
                                                                         style: TextStyle(
                                                                           color: Theme.of(context).colorScheme.primary,
@@ -341,11 +341,11 @@ class _LongURLPageState extends State<LongURLPage> {
                                                                             launchUrl(Uri.parse('mailto:admin@jhihyulin.live?subject=%5BLong%20URL%5D%20Bug%20Report'));
                                                                           },
                                                                       ),
-                                                                      const TextSpan(text: ' for help.'),
-                                                                      const TextSpan(text: '\nDon\'t forget to include the following information:'),
-                                                                      const TextSpan(text: '\n1. Original URL'),
-                                                                      const TextSpan(text: '\n2. Generated Long URL'),
-                                                                      const TextSpan(text: '\n3. Error ScreenShot'),
+                                                                      TextSpan(text: ' for help.'),
+                                                                      TextSpan(text: '\nDon\'t forget to include the following information:'),
+                                                                      TextSpan(text: '\n1. Original URL'),
+                                                                      TextSpan(text: '\n2. Generated Long URL'),
+                                                                      TextSpan(text: '\n3. Error ScreenShot'),
                                                                     ]
                                                                   )
                                                                 )
@@ -362,7 +362,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                                           Navigator.pop(
                                                               context);
                                                         },
-                                                        child: const Text('OK'))
+                                                        child: Text('OK'))
                                                   ],
                                                 );
                                               });

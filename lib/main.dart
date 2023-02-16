@@ -6,43 +6,43 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
 
-import 'package:website/home.dart';
-import 'package:website/provider/theme.dart';
-import 'package:website/tool.dart';
-import 'package:website/pages/setting.dart';
-import 'package:website/firebase_options.dart';
-import 'package:website/pages/profile.dart';
-import 'package:website/pages/sign_in.dart';
-import 'package:website/pages/status.dart';
-import 'package:website/pages/vpn.dart';
-import 'package:website/pages/short_url.dart';
-import 'package:website/pages/long_url.dart';
-import 'package:website/pages/contact.dart';
-import 'package:website/pages/about.dart';
-import 'package:website/pages/bmi.dart';
-import 'package:website/pages/timer.dart';
-import 'package:website/pages/url_launcher.dart';
-import 'package:website/pages/qr_generator.dart';
-import 'package:website/pages/clock.dart';
+import 'Home.dart';
+import 'provider/Theme.dart';
+import 'Tool.dart';
+import 'pages/Setting.dart';
+import 'FirebaseOptions.dart';
+import 'pages/Profile.dart';
+import 'pages/SignIn.dart';
+import 'pages/Status.dart';
+import 'pages/VPN.dart';
+import 'pages/ShortURL.dart';
+import 'pages/LongURL.dart';
+import 'pages/Contact.dart';
+import 'pages/About.dart';
+import 'pages/BMI.dart';
+import 'pages/Timer.dart';
+import 'pages/URLLauncher.dart';
+import 'pages/QRGenerator.dart';
+import 'pages/Clock.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
 
 Map<String, Widget Function(BuildContext)> _routes = {
-  '/profile': (BuildContext context) => const ProfilePage(),
+  '/profile': (BuildContext context) => ProfilePage(),
   '/signin': (BuildContext context) => SignInPage(),
-  '/status': (BuildContext context) => const StatusPage(),
-  '/vpn': (BuildContext context) => const VPNPage(),
-  '/shorturl': (BuildContext context) => const ShortURLPage(),
-  '/longurl': (BuildContext context) => const LongURLPage(),
-  '/contact': (BuildContext context) => const ContactPage(),
-  '/about': (BuildContext context) => const AboutPage(),
-  '/bmi': (BuildContext context) => const BMIPage(),
-  '/timer': (BuildContext context) => const TimerPage(),
-  '/urllauncher': (BuildContext context) => const URLLauncherPage(),
-  '/qrgenerator': (BuildContext context) => const QRGeneratorPage(),
-  '/clock': (BuildContext context) => const ClockPage(),
-  '/setting': (BuildContext context) => const SettingPage(),
+  '/status': (BuildContext context) => StatusPage(),
+  '/vpn': (BuildContext context) => VPNPage(),
+  '/shorturl': (BuildContext context) => ShortURLPage(),
+  '/longurl': (BuildContext context) => LongURLPage(),
+  '/contact': (BuildContext context) => ContactPage(),
+  '/about': (BuildContext context) => AboutPage(),
+  '/bmi': (BuildContext context) => BMIPage(),
+  '/timer': (BuildContext context) => TimerPage(),
+  '/urllauncher': (BuildContext context) => URLLauncherPage(),
+  '/qrgenerator': (BuildContext context) => QRGeneratorPage(),
+  '/clock': (BuildContext context) => ClockPage(),
+  '/setting': (BuildContext context) => SettingPage(),
   '': (BuildContext context) => NavigationController(inputIndex: 0),
   '/tool': (BuildContext context) => NavigationController(inputIndex: 1),
 };
@@ -56,7 +56,7 @@ void main() async {
     webRecaptchaSiteKey: '6LcPhjgkAAAAAAUtPybk3GHCkYZTxDd6w4kVOiQJ',
   );
   usePathUrlStrategy();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -165,7 +165,7 @@ class _NavigationControllerState extends State<NavigationController> {
     });
   }
 
-  final List<Widget> pages = [const HomePage(), ToolPage()];
+  final List<Widget> pages = [HomePage(), ToolPage()];
 
   bool _extended = false;
 
@@ -235,9 +235,7 @@ class _NavigationControllerState extends State<NavigationController> {
                                 child: Icon(_extended
                                     ? Icons.arrow_left
                                     : Icons.arrow_right)),
-                            label: _extended
-                                ? const Text('Close')
-                                : const Text(''),
+                            label: _extended ? const Text('Close') : const Text(''),
                           ),
                         ],
                         extended: _extended,

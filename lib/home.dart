@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-String text1 =
+String Text_1 =
     'Hi~\nWelcome to my website!\nI am a high school student from Taiwan.';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Center(
             child: Container(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
                 constraints: BoxConstraints(
                   maxWidth: 700,
                   minHeight: MediaQuery.of(context).size.height -
@@ -29,7 +27,7 @@ class HomePage extends StatelessWidget {
                         displayFullTextOnTap: true,
                         animatedTexts: [
                           TypewriterAnimatedText(
-                            text1,
+                            Text_1,
                             textAlign: TextAlign.center,
                             speed: const Duration(milliseconds: 50),
                             textStyle: const TextStyle(
@@ -47,14 +45,14 @@ class HomePage extends StatelessWidget {
                       children: [
                       ElevatedButton.icon(
                         icon: const Icon(Icons.info),
-                        label: const Text('About'),
+                        label: Text('About'),
                         onPressed: () {
                           Navigator.of(context).pushNamed('/about');
                         },
                       ),
                       ElevatedButton.icon(
                         icon: const Icon(Icons.chat),
-                        label: const Text('Contact'),
+                        label: Text('Contact'),
                         onPressed: () {
                           Navigator.of(context).pushNamed('/contact');
                         },

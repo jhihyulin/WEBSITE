@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ThemeProvider with ChangeNotifier {
-  static const Color defaultColor = Colors.blueGrey;
-  static const int defaultMode = 0; // 0: System 1: Light 2: Dark
-  Color _themeColor = defaultColor;
-  int _themeMode = defaultMode;
+  static const Color DefaultThemeColor = Colors.blueGrey;
+  static const int DefaultThemeMode = 0;
+  Color _themeColor = DefaultThemeColor;
+  int _themeMode = 0; // 0: System 1: Light 2: Dark
 
   User? user;
 
@@ -24,8 +24,8 @@ class ThemeProvider with ChangeNotifier {
                   notifyListeners()
                 });
       } else {
-        _themeColor = defaultColor;
-        _themeMode = defaultMode;
+        _themeColor = DefaultThemeColor;
+        _themeMode = DefaultThemeMode;
         user = null;
         notifyListeners();
       }
@@ -34,7 +34,7 @@ class ThemeProvider with ChangeNotifier {
 
   Color get themeColor => _themeColor;
 
-  Color get defaultThemeColor => defaultColor;
+  Color get defaultThemeColor => DefaultThemeColor;
 
   setThemeColor(Color themeColor) {
     _themeColor = themeColor;
@@ -44,7 +44,7 @@ class ThemeProvider with ChangeNotifier {
 
   int get themeMode => _themeMode;
 
-  int get defaultThemeMode => defaultMode;
+  int get defaultThemeMode => DefaultThemeMode;
 
   setThemeMode(int themeMode) {
     _themeMode = themeMode;

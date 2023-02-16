@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-import 'package:website/plugins/logo_icons.dart';
+import '../plugins/logo_icons.dart';
 
-const String text1 = 'Not yet written.';
-const String text2 = '';
+const String Text_1 = 'Not yet written.';
+const String Text_2 = '';
 
-Map<String, Map<String, Object>> socialMedia = {
+Map<String, Map<String, Object>> SocialMedia = {
   'GitHub': {
     'url': 'https://github.com/jhihyulin',
     'icon': Logo.github,
@@ -99,18 +99,16 @@ Map<String, Map<String, Object>> socialMedia = {
 };
 
 class AboutPage extends StatelessWidget {
-  const AboutPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About'),
+        title: Text('About'),
       ),
       body: SingleChildScrollView(
           child: Center(
               child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         constraints: BoxConstraints(
           maxWidth: 700,
           minHeight: MediaQuery.of(context).size.height -
@@ -126,27 +124,27 @@ class AboutPage extends StatelessWidget {
               displayFullTextOnTap: true,
               animatedTexts: [
                 TypewriterAnimatedText(
-                  text1,
+                  Text_1,
                   textAlign: TextAlign.center,
                   speed: const Duration(milliseconds: 50),
                 ),
               ],
             ),
-            //Text(text2),
-            const SizedBox(height: 20),
+            //Text(Text_2),
+            SizedBox(height: 20),
             Container(
-                constraints: const BoxConstraints(maxWidth: 700),
+                constraints: BoxConstraints(maxWidth: 700),
                 padding: const EdgeInsets.all(10),
                 child: Wrap(
                   spacing: 10,
                   runSpacing: 10,
                   alignment: WrapAlignment.center,
                   children: [
-                    for (var key in socialMedia.keys)
+                    for (var key in SocialMedia.keys)
                       ElevatedButton.icon(
                         onPressed: () => _launchUrl(
-                            Uri.parse(socialMedia[key]!['url'] as String)),
-                        icon: Icon(socialMedia[key]!['icon'] as IconData),
+                            Uri.parse(SocialMedia[key]!['url'] as String)),
+                        icon: Icon(SocialMedia[key]!['icon'] as IconData),
                         label: Text(key),
                       ),
                   ],
@@ -158,8 +156,8 @@ class AboutPage extends StatelessWidget {
   }
 }
 
-Future<void> _launchUrl(Uri url) async {
-  if (!await launchUrl(url)) {
-    throw Exception('Could not launch $url');
+Future<void> _launchUrl(Uri _url) async {
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
   }
 }

@@ -6,7 +6,7 @@ import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
 import 'package:firebase_ui_oauth_twitter/firebase_ui_oauth_twitter.dart';
 
-import 'package:website/pages/sign_in.dart';
+import 'sign_in.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -23,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Profile'),
+          title: Text('Profile'),
         ),
         body: ProfileScreen(
           providers: [

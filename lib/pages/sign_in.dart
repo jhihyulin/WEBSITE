@@ -50,7 +50,9 @@ class _SignInPageState extends State<SignInPage> {
               user.metadata.lastSignInTime?.millisecondsSinceEpoch,
           'providerData': providerData,
         })
+        .then((value) => {print('User Data Updated')})
         .catchError((error) => {
+              print('Failed to update user data, will try to create: $error'),
               ref
                   .set({
                     'email': user.email,
@@ -67,6 +69,9 @@ class _SignInPageState extends State<SignInPage> {
                         user.metadata.lastSignInTime?.microsecondsSinceEpoch,
                     'providerData': providerData,
                   })
+                  .then((value) => {print('User Data Created')})
+                  .catchError((error) =>
+                      {print('Failed to set and update user data: $error')})
             });
   }
 
@@ -75,8 +80,8 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
         appBar: AppBar(
           title: _redirectPage == '/profile'
-              ? const Text('Sign In')
-              : const Text('Sign In to Continue'),
+              ? Text('Sign In')
+              : Text('Sign In to Continue'),
         ),
         body: SignInScreen(
           providers: [

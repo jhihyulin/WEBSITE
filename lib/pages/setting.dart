@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../provider/Theme.dart';
-import '../plugins/LogoIcons.dart';
+import '../plugins/logo_icons.dart';
 
 class SettingPage extends StatefulWidget {
   @override

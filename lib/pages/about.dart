@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-import '../plugins/LogoIcons.dart';
+import '../plugins/logo_icons.dart';
 
 const String Text_1 = 'Not yet written.';
 const String Text_2 = '';

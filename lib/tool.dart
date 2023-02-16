@@ -47,6 +47,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.access_time,
       'route': '/clock',
     },
+    'zhsh3dmap': {
+      'title': 'ZHSH 3D Map',
+      'icon': Icons.map,
+      'route': '/zhsh3dmap',
+    },
   };
 
   @override

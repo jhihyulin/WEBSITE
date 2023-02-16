@@ -24,6 +24,7 @@ import 'pages/timer.dart';
 import 'pages/url_launcher.dart';
 import 'pages/qr_generator.dart';
 import 'pages/clock.dart';
+import 'pages/zhsh_3d_map.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
@@ -42,6 +43,7 @@ Map<String, Widget Function(BuildContext)> _routes = {
   '/urllauncher': (BuildContext context) => URLLauncherPage(),
   '/qrgenerator': (BuildContext context) => QRGeneratorPage(),
   '/clock': (BuildContext context) => ClockPage(),
+  '/zhsh3dmap': (BuildContext context) => ZHSH3DMapPage(),
   '/setting': (BuildContext context) => SettingPage(),
   '': (BuildContext context) => NavigationController(inputIndex: 0),
   '/tool': (BuildContext context) => NavigationController(inputIndex: 1),

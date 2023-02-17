@@ -1,9 +1,82 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:ditredi/ditredi.dart';
-import 'package:vector_math/vector_math_64.dart';
+import 'package:flutter_gl/flutter_gl.dart';
+import 'package:three_dart/three3d/math/vector3.dart';
+import 'package:three_dart/three3d/three.dart' as three_dart;
+import 'package:three_dart/three_dart.dart' as three;
+import 'package:three_dart_jsm/three_dart_jsm.dart' as three_jsm;
+
+// bool kIsWeb = true;
+// bool kDebugMode = false;
+
+const int deskopModeWidth = 640;
+
+const Map settingData = {
+  "camera": {
+    "x": 100,
+    "y": 100,
+    "z": 100,
+    "focusX": 0,
+    "focusY": 0,
+    "focusZ": 0,
+  },
+  "controls": {"enabled": true, "autoRotate": false, "autoRotateSpeed": 2.0},
+  "lights": {
+    "ambient": {"color": 0x666666},
+    "directional": {
+      "color": 0xdfebff,
+      "x": 50,
+      "y": 200,
+      "z": 100,
+    }
+  },
+  "buildings": {
+    "color": 0xaaaaaa,
+    "focusColor": 0xff0000,
+  },
+  "ground": {
+    "color": 0x96ad82,
+    "width": 200,
+    "length": 250,
+  },
+  "background": {
+    "color": 0x000000,// 'system'
+  },
+};
+
+const Map<String, Map<String, dynamic>> mapData = {
+  'class1': {
+    'name': 'class1',
+    'build': 'build1',
+    'floor': 1,
+    'x': 0,
+    'y': 0,
+    'z': 0,
+    'height': 30,
+    'width': 10,
+    'length': 10,
+    'category': 'class',
+    'description': 'class 1 description',
+    'color': '0x00ff00'
+  },
+  'class2': {
+    'name': 'class2',
+    'build': 'build1',
+    'floor': 1,
+    'x': 100,
+    'y': 0,
+    'z': 100,
+    'height': 30,
+    'width': 10,
+    'length': 10,
+    'category': 'class',
+    'description': 'class 2 description',
+    'color': '0x0000ff'
+  },
+};
 
 class ZHSH3DMapPage extends StatefulWidget {
   @override
@@ -11,53 +84,378 @@ class ZHSH3DMapPage extends StatefulWidget {
 }
 
 class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
-  late DiTreDiController controller;
-  double _zoomVariable = 1.0;
-  bool _zoomMode = true;
+  late FlutterGlPlugin three3dRender;
+  three.WebGLRenderer? renderer;
+
+  int? fboId;
+  late double width;
+  late double height;
+
+  String selectedLocation = '';
+
+  Size? screenSize;
+
+  late three.Scene scene;
+  late three.Camera camera;
+  late three.Mesh mesh;
+
+  double dpr = 1.0;
+
+  var amount = 4;
+
+  bool verbose = true;
+  bool disposed = false;
+
+  late three.WebGLRenderTarget renderTarget;
+
+  dynamic sourceTexture;
+
+  final GlobalKey<three_jsm.DomLikeListenableState> _globalKey =
+      GlobalKey<three_jsm.DomLikeListenableState>();
+
+  late three_jsm.MapControls controls;
 
   @override
   void initState() {
     super.initState();
-    controller = DiTreDiController();
-    Timer.periodic(Duration(milliseconds: 100), (timer) {
-      if (_zoomMode) {
-        _zoomVariable += 0.1;
-        if (_zoomVariable >= 2) {
-          setState(() {
-            _zoomMode = false;
-          });
-        }
-      } else {
-        _zoomVariable -= 0.1;
-        if (_zoomVariable <= 1) {
-          setState(() {
-            _zoomMode = true;
-          });
-        }
-      }
-      setState(() {
-        _zoomVariable = _zoomVariable;
-      });
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    if (MediaQuery.of(context).size.width > deskopModeWidth) {
+      width = MediaQuery.of(context).size.width / 3 * 2;
+      height =
+          MediaQuery.of(context).size.height - AppBar().preferredSize.height;
+    } else {
+      width = MediaQuery.of(context).size.width;
+      height =
+          MediaQuery.of(context).size.height - AppBar().preferredSize.height;
+    }
+
+    three3dRender = FlutterGlPlugin();
+
+    Map<String, dynamic> options = {
+      "antialias": true,
+      "alpha": false,
+      "width": width.toInt(),
+      "height": height.toInt(),
+      "dpr": dpr
+    };
+
+    await three3dRender.initialize(options: options);
+
+    setState(() {});
+
+    Future.delayed(const Duration(milliseconds: 100), () async {
+      await three3dRender.prepareContext();
+
+      initScene();
     });
+  }
+
+  initSize(BuildContext context) {
+    if (screenSize != null) {
+      return;
+    }
+
+    final mqd = MediaQuery.of(context);
+
+    screenSize = mqd.size;
+    dpr = mqd.devicePixelRatio;
+
+    initPlatformState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('ZHSH 3D Map'),
-        ),
-        body: DiTreDiDraggable(
-          controller: controller,
-          child: DiTreDi(
-            figures: [
-              for (var i = 0; i < 10; i++)
-                for (var j = 0; j < 10; j++)
-                  for (var k = 0; k < 10; k++)
-                    Cube3D(1, Vector3(i * _zoomVariable, j * _zoomVariable, k * _zoomVariable)),
-            ],
-            controller: controller,
-          ),
-        ));
+      appBar: AppBar(
+        title: Text('3D Map'),
+      ),
+      body: Builder(
+        builder: (BuildContext context) {
+          initSize(context);
+          return MediaQuery.of(context).size.width > deskopModeWidth
+              ? _buildDesktop(context)
+              : _buildMobile(context);
+        },
+      ),
+    );
+  }
+
+  Widget _buildDesktop(BuildContext context) {
+    return Row(
+      children: [
+        three_jsm.DomLikeListenable(
+            key: _globalKey,
+            builder: (BuildContext context) {
+              return Container(
+                  width: width,
+                  height: height,
+                  child: Builder(builder: (BuildContext context) {
+                    return three3dRender.isInitialized
+                        ? HtmlElementView(
+                            viewType: three3dRender.textureId!.toString())
+                        : Center(child: CircularProgressIndicator());
+                  }));
+            }),
+        Container(
+          width: MediaQuery.of(context).size.width / 3,
+          padding: EdgeInsets.all(16.0),
+          child: Column(children: [
+            InputDecorator(
+              decoration: InputDecoration(
+                labelText: 'Please select a location',
+                prefixIcon: Icon(Icons.pin_drop),
+                labelStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+              ),
+              child: Autocomplete(
+                optionsBuilder: (TextEditingValue textEditingValue) {
+                  if (textEditingValue.text == '') {
+                    return const Iterable<String>.empty();
+                  }
+                  return mapData.keys.where((String option) {
+                    return option.contains(textEditingValue.text.toLowerCase());
+                  });
+                },
+                onSelected: (String selection) {
+                  print('You just selected $selection');
+                  search(selection);
+                },
+              ),
+            ),
+            Text('Selected Location: $selectedLocation'),
+          ]),
+        )
+      ],
+    );
+  }
+
+  Widget _buildMobile(BuildContext context) {
+    return Column(
+      children: [
+        three_jsm.DomLikeListenable(
+            key: _globalKey,
+            builder: (BuildContext context) {
+              return Container(
+                  width: width,
+                  height: height,
+                  child: Builder(builder: (BuildContext context) {
+                    return three3dRender.isInitialized
+                        ? HtmlElementView(
+                            viewType: three3dRender.textureId!.toString())
+                        : Center(
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0)),
+                              child: LinearProgressIndicator(
+                                minHeight: 20,
+                                backgroundColor: Theme.of(context).splashColor,
+                                value: null,
+                              ),
+                            ),
+                          );
+                  }));
+            }),
+      ],
+    );
+  }
+
+  render() {
+    int t = DateTime.now().millisecondsSinceEpoch;
+    final gl = three3dRender.gl;
+    controls.update();
+    renderer!.render(scene, camera);
+    int t1 = DateTime.now().millisecondsSinceEpoch;
+    if (verbose) {
+      print("render cost: ${t1 - t} ");
+      print(renderer!.info.memory);
+      print(renderer!.info.render);
+    }
+    // 重要 更新纹理之前一定要调用 确保gl程序执行完毕
+    gl.flush();
+    // var pixels = _gl.readCurrentPixels(0, 0, 10, 10);
+    // print(" --------------pixels............. ");
+    // print(pixels);
+    if (verbose) print(" render: sourceTexture: $sourceTexture ");
+    if (!kIsWeb) {
+      three3dRender.updateTexture(sourceTexture);
+    }
+  }
+
+  search(String location) {
+    setState(() {
+      selectedLocation = location;
+    });
+    focusWithAnimation(location);
+  }
+
+  initRenderer() {
+    Map<String, dynamic> options = {
+      "width": width,
+      "height": height,
+      "gl": three3dRender.gl,
+      "antialias": true,
+      "canvas": three3dRender.element
+    };
+    renderer = three.WebGLRenderer(options);
+    renderer!.setPixelRatio(dpr);
+    renderer!.setSize(width, height, false);
+    renderer!.shadowMap.enabled = false;
+  }
+
+  initScene() {
+    initRenderer();
+    initPage();
+  }
+
+  initPage() {
+    scene = three.Scene();
+    scene.background = three.Color(settingData['background']['color'] == 'system'
+    ? Theme.of(context).colorScheme.background.value
+    : settingData['background']['color']
+    );
+    scene.fog = three.FogExp2(0xcccccc, 0.002);
+
+    camera = three.PerspectiveCamera(60, width / height, 1, 1000);
+    camera.position.set(settingData['camera']['x'], settingData['camera']['y'],
+        settingData['camera']['z']);
+    camera.lookAt(Vector3(settingData['camera']['focusX'],
+        settingData['camera']['focusY'], settingData['camera']['focusZ']));
+
+    // controls
+
+    controls = three_jsm.MapControls(camera, _globalKey);
+
+    controls.enableDamping =
+        true; // an animation loop is required when either damping or auto-rotation are enabled
+    controls.dampingFactor = 0.05;
+
+    controls.screenSpacePanning = false;
+
+    controls.minDistance = 1;
+    controls.maxDistance = 500;
+
+    controls.maxPolarAngle = three.Math.pi / 2;
+
+    // world
+    var geometry = three.BoxGeometry(1, 1, 1);
+    geometry.translate(0, 0.5, 0);
+    var material = three.MeshPhongMaterial({'flatShading': true});
+
+    // for (var i = 0; i < 500; i++) {
+    //   var mesh = three.Mesh(geometry, material);
+    //   mesh.position.x = three.Math.random() * 1600 - 800;
+    //   mesh.position.y = 0;
+    //   mesh.position.z = three.Math.random() * 1600 - 800;
+    //   mesh.scale.x = 20;
+    //   mesh.scale.y = three.Math.random() * 80 + 10;
+    //   mesh.scale.z = 20;
+    //   mesh.updateMatrix();
+    //   mesh.matrixAutoUpdate = false;
+    //   scene.add(mesh);
+    // }
+
+    // helper
+    if (kDebugMode) {
+      var grid = three.GridHelper(1000, 1000, 0xff0000, 0xffff);
+      scene.add(grid);
+      var cameraHelper = three.CameraHelper(camera);
+      scene.add(cameraHelper);
+      var axesHelper = three_dart.AxesHelper(3);
+      scene.add(axesHelper);
+    }
+
+    // ground
+    if (!kDebugMode) {
+      var mesh = three.Mesh(
+          three.PlaneGeometry(
+              settingData['ground']['width'], settingData['ground']['length']),
+          three.MeshPhongMaterial(
+              {'color': settingData['ground']['color'], 'depthWrite': false}));
+      mesh.rotation.x = -three.Math.pi / 2;
+      mesh.receiveShadow = true;
+      scene.add(mesh);
+    }
+
+    // buildings
+    for (var i in mapData.keys) {
+      var mesh = three.Mesh(geometry, material);
+      mesh.position.x = mapData[i]!["x"];
+      mesh.position.y = mapData[i]!["y"];
+      mesh.position.z = mapData[i]!["z"];
+      mesh.scale.x = mapData[i]!["length"];
+      mesh.scale.y = mapData[i]!["height"];
+      mesh.scale.z = mapData[i]!["width"];
+      mesh.updateMatrix();
+      mesh.matrixAutoUpdate = false;
+      scene.add(mesh);
+      if (kDebugMode) {
+        print("mesh: $mesh");
+      }
+    }
+
+    // lights
+
+    var dirLight =
+        three.DirectionalLight(settingData['lights']['directional']['color']);
+    dirLight.position.set(
+        settingData['lights']['directional']['x'],
+        settingData['lights']['directional']['y'],
+        settingData['lights']['directional']['z']);
+    scene.add(dirLight);
+
+    var ambientLight =
+        three.AmbientLight(settingData['lights']['ambient']['color']);
+    scene.add(ambientLight);
+
+    animate();
+  }
+
+  animate() {
+    if (!mounted || disposed) {
+      return;
+    }
+
+    render();
+
+    Future.delayed(const Duration(milliseconds: 40), () {
+      animate();
+    });
+  }
+
+  focusWithAnimation(String buildingName) {
+    var x = mapData[buildingName]!["x"];
+    var y = mapData[buildingName]!["y"];
+    var z = mapData[buildingName]!["z"];
+    var tarCameraPosition = three.Vector3(x, y + 100, z);
+    Timer.periodic(Duration(milliseconds: 10), (timer) {
+      if (!mounted || disposed) {
+        timer.cancel();
+        return;
+      }
+      var cameraPosition = camera.position;
+      var distance = cameraPosition.distanceTo(tarCameraPosition);
+      if (distance < 1) {
+        timer.cancel();
+        return;
+      } else {
+        cameraPosition.lerp(tarCameraPosition, 0.1);
+      }
+      camera.lookAt(Vector3(x, y, z));
+    });
+  }
+
+  @override
+  void dispose() {
+    disposed = true;
+    three3dRender.dispose();
+
+    super.dispose();
   }
 }

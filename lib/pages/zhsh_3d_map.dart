@@ -116,6 +116,9 @@ class ZHSH3DMapPage extends StatefulWidget {
 }
 
 class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
+  Map<String, String> dNameToName = {};
+  Map<String, String> nameToDName = {};
+
   late FlutterGlPlugin three3dRender;
   three.WebGLRenderer? renderer;
 
@@ -178,7 +181,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     await three3dRender.initialize(options: options);
 
-    setState(() {});
+    setState(() {
+      dNameToName = {for (var i in mapData.keys) mapData[i]!['name']: i};
+      nameToDName = {for (var i in mapData.keys) i: mapData[i]!['name']};
+    });
 
     Future.delayed(const Duration(milliseconds: 100), () async {
       await three3dRender.prepareContext();
@@ -302,13 +308,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             if (textEditingValue.text == '') {
               return const Iterable<String>.empty();
             }
-            return mapData.keys.where((String option) {
+            return dNameToName.keys.where((String option) {
               return option.contains(textEditingValue.text.toLowerCase());
             });
           },
           onSelected: (String selection) {
-            print('You just selected $selection');
-            search(selection);
+            var name = dNameToName[selection];
+            print('You just selected Display Name: $selection, Name: $name');
+            search(name!);
           },
         ),
       ),

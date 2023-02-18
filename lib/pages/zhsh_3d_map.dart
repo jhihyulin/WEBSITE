@@ -10,11 +10,9 @@ import 'package:three_dart/three3d/three.dart' as three_dart;
 import 'package:three_dart/three_dart.dart' as three;
 import 'package:three_dart_jsm/three_dart_jsm.dart' as three_jsm;
 
-// bool kIsWeb = true;
-// bool kDebugMode = false;
-
 const int deskopModeWidth = 640;
 
+// TODO: Load from web
 const Map settingData = {
   "camera": {
     "x": 100,
@@ -66,6 +64,7 @@ const Map settingData = {
   },
 };
 
+// TODO: Load from web
 const Map<String, Map<String, dynamic>> mapData = {
   'class1': {
     'name': 'class1name',
@@ -349,7 +348,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       selectedLocation = location;
       selectedLocationName = nameToDName[location]!;
     });
-    focusWithAnimation(location);
+    focus(location);
   }
 
   initRenderer() {
@@ -525,7 +524,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     });
   }
 
-  focusWithAnimation(String buildingName) {
+  focus(String buildingName) {
     var x = mapData[buildingName]!["x"];
     var y = mapData[buildingName]!["y"];
     var z = mapData[buildingName]!["z"];
@@ -541,6 +540,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         timer.cancel();
         return;
       } else {
+        // TODO: Best route
         cameraPosition.lerp(tarCameraPosition, 0.1);
       }
       controls.target.set(x, y, z);

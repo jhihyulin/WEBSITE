@@ -25,15 +25,35 @@ const Map settingData = {
     "focusZ": 0,
   },
   "controls": {"enabled": true, "autoRotate": false, "autoRotateSpeed": 2.0},
-  "lights": {
-    "ambient": {"color": 0x666666},
-    "directional": {
-      "color": 0xdfebff,
-      "x": 50,
-      "y": 200,
-      "z": 100,
+  "lights": [
+    {
+      "type": "ambient",
+      "color": 0xffffff,
+      "intensity": 0.5,
+    },
+    {
+      "type": "directional",
+      "color": 0xffffff,
+      "intensity": 0.5,
+      "position": {"x": 0, "y": 100, "z": 0},
+      "target": {"x": 0, "y": 0, "z": 0},
+      "shadow": {
+        "enabled": true,
+        "camera": {
+          "left": -100,
+          "right": 100,
+          "top": 100,
+          "bottom": -100,
+          "near": 0.1,
+          "far": 1000,
+        },
+        "mapSize": {"width": 1024, "height": 1024}
+      }
+    },
+    {
+      "type": ""
     }
-  },
+  ],
   "buildings": {
     "color": 0xaaaaaa,
     "focusColor": 0xff0000,
@@ -77,7 +97,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'description': 'class 2 description',
     'color': 0x0000ff
   },
-  
   'class3': {
     'name': 'class3',
     'build': 'build3',
@@ -421,18 +440,49 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     }
 
     // lights
+    // var light = three.DirectionalLight(0xffffff);
+    // light.position.set(1, 1, 1);
+    // scene.add(light);
+    // var dirLight =
+    //     three.DirectionalLight(settingData['lights']['directional']['color']);
+    // dirLight.position.set(
+    //     settingData['lights']['directional']['x'],
+    //     settingData['lights']['directional']['y'],
+    //     settingData['lights']['directional']['z']);
+    // scene.add(dirLight);
+    // var ambientLight =
+    //     three.AmbientLight(settingData['lights']['ambient']['color']);
+    // scene.add(ambientLight);
 
-    var dirLight =
-        three.DirectionalLight(settingData['lights']['directional']['color']);
-    dirLight.position.set(
-        settingData['lights']['directional']['x'],
-        settingData['lights']['directional']['y'],
-        settingData['lights']['directional']['z']);
-    scene.add(dirLight);
-
-    var ambientLight =
-        three.AmbientLight(settingData['lights']['ambient']['color']);
-    scene.add(ambientLight);
+    for (var i in settingData['lights']) {
+      if (i['type'] == 'ambient') {
+        var ambientLight = three.AmbientLight(i['color']);
+        ambientLight.intensity = i['intensity'];
+        scene.add(ambientLight);
+      } else if (i['type'] == 'point') {
+        var pointLight = three.PointLight(i['color']);
+        pointLight.position.set(i['x'], i['y'], i['z']);
+        scene.add(pointLight);
+      } else if (i['type'] == 'spot') {
+        var spotLight = three.SpotLight(i['color']);
+        spotLight.position.set(i['x'], i['y'], i['z']);
+        scene.add(spotLight);
+      } else if (i['type'] == 'hemisphere') {
+        var hemisphereLight = three.HemisphereLight(i['skyColor'], i['groundColor'], i['intensity']);
+        hemisphereLight.position.set(i['x'], i['y'], i['z']);
+        scene.add(hemisphereLight);
+      } else if (i['type'] == 'rectArea') {
+        var rectAreaLight = three.RectAreaLight(i['color'], i['intensity'], i['width'], i['height']);
+        rectAreaLight.position.set(i['x'], i['y'], i['z']);
+        scene.add(rectAreaLight);
+      } else if (i['type'] == 'directional') {
+        var dirLight = three.DirectionalLight(i['color']);
+        dirLight.position.set(i['position']['x'], i['position']['y'], i['position']['z']);
+        dirLight.intensity = i['intensity'];
+        dirLight.castShadow = i['shadow']['enabled'] ?? false;
+        scene.add(dirLight);
+      }
+    }
 
     animate();
   }

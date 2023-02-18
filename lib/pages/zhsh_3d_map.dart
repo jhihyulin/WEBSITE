@@ -127,6 +127,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   late double height;
 
   String selectedLocation = '';
+  String selectedLocationName = '';
 
   Size? screenSize;
 
@@ -319,7 +320,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           },
         ),
       ),
-      Text('Selected Location: $selectedLocation'),
+      Text('Selected Location Display Name: $selectedLocationName'),
+      Text('Selected Location Name: $selectedLocation'),
     ]);
   }
 
@@ -345,6 +347,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   search(String location) {
     setState(() {
       selectedLocation = location;
+      selectedLocationName = nameToDName[location]!;
     });
     focusWithAnimation(location);
   }

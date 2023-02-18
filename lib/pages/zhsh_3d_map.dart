@@ -50,9 +50,7 @@ const Map settingData = {
         "mapSize": {"width": 1024, "height": 1024}
       }
     },
-    {
-      "type": ""
-    }
+    {"type": ""}
   ],
   "buildings": {
     "color": 0xaaaaaa,
@@ -70,7 +68,7 @@ const Map settingData = {
 
 const Map<String, Map<String, dynamic>> mapData = {
   'class1': {
-    'name': 'class1',
+    'name': 'class1name',
     'build': 'build1',
     'floor': 1,
     'x': 0,
@@ -84,7 +82,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'color': 0x00ff00
   },
   'class2': {
-    'name': 'class2',
+    'name': 'class2name',
     'build': 'build2',
     'floor': 1,
     'x': 100,
@@ -98,7 +96,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'color': 0x0000ff
   },
   'class3': {
-    'name': 'class3',
+    'name': 'class3name',
     'build': 'build3',
     'floor': 1,
     'x': -100,
@@ -163,7 +161,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     } else {
       width = MediaQuery.of(context).size.width;
       height =
-          MediaQuery.of(context).size.height - AppBar().preferredSize.height;
+          (MediaQuery.of(context).size.height - AppBar().preferredSize.height) *
+              2 /
+              3;
     }
 
     three3dRender = FlutterGlPlugin();
@@ -214,6 +214,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               : _buildMobile(context);
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          resetCamera();
+        },
+        tooltip: 'reset location',
+        child: Icon(Icons.home),
+      ),
     );
   }
 
@@ -236,42 +243,15 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         Container(
           width: MediaQuery.of(context).size.width / 3,
           padding: EdgeInsets.all(16.0),
-          child: Column(children: [
-            InputDecorator(
-              decoration: InputDecoration(
-                labelText: 'Please select a location',
-                prefixIcon: Icon(Icons.pin_drop),
-                labelStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-              ),
-              child: Autocomplete(
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text == '') {
-                    return const Iterable<String>.empty();
-                  }
-                  return mapData.keys.where((String option) {
-                    return option.contains(textEditingValue.text.toLowerCase());
-                  });
-                },
-                onSelected: (String selection) {
-                  print('You just selected $selection');
-                  search(selection);
-                },
-              ),
-            ),
-            Text('Selected Location: $selectedLocation'),
-          ]),
-        )
+          child: _contentWidget(),
+        ),
       ],
     );
   }
 
   Widget _buildMobile(BuildContext context) {
-    return Column(
+    return SingleChildScrollView(
+        child: Column(
       children: [
         three_jsm.DomLikeListenable(
             key: _globalKey,
@@ -296,8 +276,44 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                           );
                   }));
             }),
+        Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.all(16.0),
+            child: _contentWidget())
       ],
-    );
+    ));
+  }
+
+  Widget _contentWidget() {
+    return Column(children: [
+      InputDecorator(
+        decoration: InputDecoration(
+          labelText: 'Please select a location',
+          prefixIcon: Icon(Icons.pin_drop),
+          labelStyle: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+        ),
+        child: Autocomplete(
+          optionsBuilder: (TextEditingValue textEditingValue) {
+            if (textEditingValue.text == '') {
+              return const Iterable<String>.empty();
+            }
+            return mapData.keys.where((String option) {
+              return option.contains(textEditingValue.text.toLowerCase());
+            });
+          },
+          onSelected: (String selection) {
+            print('You just selected $selection');
+            search(selection);
+          },
+        ),
+      ),
+      Text('Selected Location: $selectedLocation'),
+    ]);
   }
 
   render() {
@@ -317,9 +333,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     // print(" --------------pixels............. ");
     // print(pixels);
     if (verbose) print(" render: sourceTexture: $sourceTexture ");
-    if (!kIsWeb) {
-      three3dRender.updateTexture(sourceTexture);
-    }
   }
 
   search(String location) {
@@ -363,19 +376,17 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         settingData['camera']['focusY'], settingData['camera']['focusZ']));
 
     // controls
-
     controls = three_jsm.MapControls(camera, _globalKey);
-
     controls.enableDamping =
         true; // an animation loop is required when either damping or auto-rotation are enabled
     controls.dampingFactor = 0.05;
-
     controls.screenSpacePanning = false;
-
     controls.minDistance = 1;
     controls.maxDistance = 500;
-
     controls.maxPolarAngle = three.Math.pi / 2;
+
+    controls.target.set(settingData['camera']['focusX'],
+        settingData['camera']['focusY'], settingData['camera']['focusZ']);
 
     // world
     var geometry = three.BoxGeometry(1, 1, 1);
@@ -414,6 +425,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               {'color': settingData['ground']['color'], 'depthWrite': false}));
       mesh.rotation.x = -three.Math.pi / 2;
       mesh.receiveShadow = true;
+      mesh.name = "ground";
       scene.add(mesh);
     }
 
@@ -431,6 +443,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       mesh.scale.x = mapData[i]!["length"];
       mesh.scale.y = mapData[i]!["height"];
       mesh.scale.z = mapData[i]!["width"];
+      mesh.name = i;
       mesh.updateMatrix();
       mesh.matrixAutoUpdate = false;
       scene.add(mesh);
@@ -468,16 +481,19 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         spotLight.position.set(i['x'], i['y'], i['z']);
         scene.add(spotLight);
       } else if (i['type'] == 'hemisphere') {
-        var hemisphereLight = three.HemisphereLight(i['skyColor'], i['groundColor'], i['intensity']);
+        var hemisphereLight = three.HemisphereLight(
+            i['skyColor'], i['groundColor'], i['intensity']);
         hemisphereLight.position.set(i['x'], i['y'], i['z']);
         scene.add(hemisphereLight);
       } else if (i['type'] == 'rectArea') {
-        var rectAreaLight = three.RectAreaLight(i['color'], i['intensity'], i['width'], i['height']);
+        var rectAreaLight = three.RectAreaLight(
+            i['color'], i['intensity'], i['width'], i['height']);
         rectAreaLight.position.set(i['x'], i['y'], i['z']);
         scene.add(rectAreaLight);
       } else if (i['type'] == 'directional') {
         var dirLight = three.DirectionalLight(i['color']);
-        dirLight.position.set(i['position']['x'], i['position']['y'], i['position']['z']);
+        dirLight.position
+            .set(i['position']['x'], i['position']['y'], i['position']['z']);
         dirLight.intensity = i['intensity'];
         dirLight.castShadow = i['shadow']['enabled'] ?? false;
         scene.add(dirLight);
@@ -503,8 +519,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     var x = mapData[buildingName]!["x"];
     var y = mapData[buildingName]!["y"];
     var z = mapData[buildingName]!["z"];
-    var tarCameraPosition = three.Vector3(x, y + 100, z);
-    Timer.periodic(Duration(milliseconds: 10), (timer) {
+    var tarCameraPosition = three.Vector3(x + 50, y + 25, z + 50);
+    Timer.periodic(Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {
         timer.cancel();
         return;
@@ -517,8 +533,18 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       } else {
         cameraPosition.lerp(tarCameraPosition, 0.1);
       }
-      camera.lookAt(Vector3(x, y, z));
+      controls.target.set(x, y, z);
     });
+  }
+
+  resetCamera() {
+    // reset camera focus
+    controls.target.set(settingData['camera']['focusX'],
+        settingData['camera']['focusY'], settingData['camera']['focusZ']);
+    // reset camera position
+    camera.position.set(settingData['camera']['x'], settingData['camera']['y'],
+        settingData['camera']['z']);
+    // TODO: Animation
   }
 
   @override

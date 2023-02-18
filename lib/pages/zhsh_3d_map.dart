@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ const Map settingData = {
     "length": 250,
   },
   "background": {
-    "color": 0x000000,// 'system'
+    "color": 'system', // 'system' or 0x000000
   },
 };
 
@@ -58,13 +59,13 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 30,
     'width': 10,
     'length': 10,
-    'category': 'class',
+    'type': 'class',
     'description': 'class 1 description',
-    'color': '0x00ff00'
+    'color': 0x00ff00
   },
   'class2': {
     'name': 'class2',
-    'build': 'build1',
+    'build': 'build2',
     'floor': 1,
     'x': 100,
     'y': 0,
@@ -72,9 +73,23 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 30,
     'width': 10,
     'length': 10,
-    'category': 'class',
+    'type': 'class',
     'description': 'class 2 description',
-    'color': '0x0000ff'
+    'color': 0x0000ff
+  },
+  
+  'class3': {
+    'name': 'class3',
+    'build': 'build3',
+    'floor': 1,
+    'x': -100,
+    'y': 0,
+    'z': -100,
+    'height': 30,
+    'width': 10,
+    'length': 10,
+    'type': 'class',
+    'description': 'class 3 description'
   },
 };
 
@@ -316,10 +331,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   initPage() {
     scene = three.Scene();
-    scene.background = three.Color(settingData['background']['color'] == 'system'
-    ? Theme.of(context).colorScheme.background.value
-    : settingData['background']['color']
-    );
+    scene.background = three.Color(
+        settingData['background']['color'] == 'system'
+            ? Theme.of(context).colorScheme.background.value
+            : settingData['background']['color']);
     scene.fog = three.FogExp2(0xcccccc, 0.002);
 
     camera = three.PerspectiveCamera(60, width / height, 1, 1000);
@@ -385,6 +400,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     // buildings
     for (var i in mapData.keys) {
+      material = three.MeshPhongMaterial({
+        'color': mapData[i]!["color"] ?? settingData['buildings']['color'],
+        'flatShading': true,
+      });
+
       var mesh = three.Mesh(geometry, material);
       mesh.position.x = mapData[i]!["x"];
       mesh.position.y = mapData[i]!["y"];

@@ -51,7 +51,7 @@ const Map settingData = {
   ],
   "buildings": {
     "color": 0xaaaaaa,
-    "selectColor": 0xff0000,
+    "focusColor": 0xff0000,
   },
   "ground": {
     "color": 0x96ad82,
@@ -280,6 +280,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           _navigatorTimer.cancel();
           resetCamera();
           resetLayout();
+          resetBuilgingColor();
         },
         tooltip: 'reset location',
         child: Icon(Icons.home),
@@ -612,16 +613,34 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       }
       controls.target.set(x, height / 2 + y, z);
     });
+    for (var i in scene.children) {
+      if (i is three.Mesh) {
+        if (i.name == buildingName) {
+          i.material = three.MeshPhongMaterial({
+            'color': settingData['buildings']['focusColor'],
+            'flatShading': true,
+            'opacity': 1,
+            'transparent': false,
+          });
+        } else {
+          i.material = three.MeshPhongMaterial({
+            'color':
+                mapData[i.name]!["color"] ?? settingData['buildings']['color'],
+            'flatShading': true,
+            'opacity': 0.5,
+            'transparent': true,
+          });
+        }
+      }
+    }
   }
 
   resetCamera() {
     var x = settingData['camera']['focusX'];
     var y = settingData['camera']['focusY'];
     var z = settingData['camera']['focusZ'];
-    var tarCameraPosition = three.Vector3(
-        settingData['camera']['x'],
-        settingData['camera']['y'],
-        settingData['camera']['z']);
+    var tarCameraPosition = three.Vector3(settingData['camera']['x'],
+        settingData['camera']['y'], settingData['camera']['z']);
     _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {
         timer.cancel();
@@ -645,6 +664,20 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       _selectedLocation = '';
       _selectedLocationName = '';
     });
+  }
+
+  resetBuilgingColor() {
+    for (var i in scene.children) {
+      if (i is three.Mesh) {
+        i.material = three.MeshPhongMaterial({
+          'color':
+              mapData[i.name]!["color"] ?? settingData['buildings']['color'],
+          'flatShading': true,
+          'opacity': 1,
+          'transparent': false,
+        });
+      }
+    }
   }
 
   @override

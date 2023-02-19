@@ -132,6 +132,19 @@ const Map<String, Map<String, dynamic>> mapData = {
     'type': 'room',
     'description': '二樓測試描述',
     'color': 0xff0000
+  },
+  'single#1': {
+    'name': 'single#1name',
+    'build': 'build1',
+    'floor': 1,
+    'x': 100,
+    'y': 0,
+    'z': 50,
+    'height': 12,
+    'width': 25,
+    'length': 15,
+    'type': 'single',
+    'description': 'single#1 description'
   }
 };
 

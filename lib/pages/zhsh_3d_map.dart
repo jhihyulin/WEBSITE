@@ -121,6 +121,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   late FlutterGlPlugin three3dRender;
   three.WebGLRenderer? renderer;
 
+  late Timer _navigatorTimer;
+
   int? fboId;
   late double width;
   late double height;
@@ -224,6 +226,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         onPressed: () {
           resetCamera();
           resetLayout();
+          _navigatorTimer.cancel();
         },
         tooltip: 'reset location',
         child: Icon(Icons.home),
@@ -530,7 +533,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     var y = mapData[buildingName]!["y"];
     var z = mapData[buildingName]!["z"];
     var tarCameraPosition = three.Vector3(x + 50, y + 25, z + 50);
-    Timer.periodic(Duration(milliseconds: 50), (timer) {
+    _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {
         timer.cancel();
         return;

@@ -617,6 +617,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     });
     for (var i in scene.children) {
       if (i is three.Mesh) {
+        if (i.name == "ground") {
+          continue;
+        }
         if (i.name == buildingName) {
           i.material = three.MeshPhongMaterial({
             'color': settingData['buildings']['focusColor'],
@@ -670,6 +673,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   resetBuilgingColor() {
     for (var i in scene.children) {
+      if (i.name == "ground") {
+        continue;
+      }
       if (i is three.Mesh) {
         i.material = three.MeshPhongMaterial({
           'color':

@@ -560,7 +560,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         // TODO: Best route
         cameraPosition.lerp(tarCameraPosition, 0.1);
       }
-      controls.target.set(x, y, z);
+      controls.target.set(x, mapData[buildingName]!["height"] / 2 + y, z);
     });
     //TODO: Change object color
   }

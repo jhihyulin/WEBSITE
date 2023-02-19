@@ -546,6 +546,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       }
       controls.target.set(x, y, z);
     });
+    //TODO: Change object color
   }
 
   resetCamera() {

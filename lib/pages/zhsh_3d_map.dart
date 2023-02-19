@@ -145,6 +145,20 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 15,
     'type': 'single',
     'description': 'single#1 description'
+  },
+  'noRender#1': {
+    'name': 'noRender#1name',
+    'build': 'build3',
+    'floor': 1,
+    'x': -100,
+    'y': 0,
+    'z': 50,
+    'height': 12,
+    'width': 25,
+    'length': 15,
+    'type': 'single',
+    'description': 'noRender#1 description',
+    'render': false
   }
 };
 
@@ -364,7 +378,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       ),
       Text('Selected Location Display Name: $_selectedLocationName'),
       Text('Selected Location Name: $_selectedLocation'),
-      Text('Description: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['description']}'),
+      Text(
+          'Description: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['description']}'),
     ]);
   }
 
@@ -484,11 +499,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     // buildings
     for (var i in mapData.keys) {
+      // for import obj file
+      if (mapData[i]!['render'] == false) {
+        continue;
+      }
       material = three.MeshPhongMaterial({
         'color': mapData[i]!["color"] ?? settingData['buildings']['color'],
         'flatShading': true,
       });
-
       var mesh = three.Mesh(geometry, material);
       mesh.position.x = mapData[i]!["x"];
       mesh.position.y = mapData[i]!["y"];

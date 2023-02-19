@@ -51,7 +51,7 @@ const Map settingData = {
   ],
   "buildings": {
     "color": 0xaaaaaa,
-    "focusColor": 0xff0000,
+    "selectColor": 0xff0000,
   },
   "ground": {
     "color": 0x96ad82,
@@ -277,9 +277,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          _navigatorTimer.cancel();
           resetCamera();
           resetLayout();
-          _navigatorTimer.cancel();
         },
         tooltip: 'reset location',
         child: Icon(Icons.home),
@@ -593,6 +593,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     var height = mapData[buildingName]!["height"];
     var length = mapData[buildingName]!["length"];
     var width = mapData[buildingName]!["width"];
+    var object = scene.getObjectByName(buildingName);
     var tarCameraPosition = three.Vector3(
         x + length * 2, y + height * 2, z + width * 2); // TODO: Best position
     _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
@@ -611,17 +612,32 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       }
       controls.target.set(x, height / 2 + y, z);
     });
-    //TODO: Change object color
   }
 
   resetCamera() {
-    // reset camera focus
-    controls.target.set(settingData['camera']['focusX'],
-        settingData['camera']['focusY'], settingData['camera']['focusZ']);
-    // reset camera position
-    camera.position.set(settingData['camera']['x'], settingData['camera']['y'],
+    var x = settingData['camera']['focusX'];
+    var y = settingData['camera']['focusY'];
+    var z = settingData['camera']['focusZ'];
+    var tarCameraPosition = three.Vector3(
+        settingData['camera']['x'],
+        settingData['camera']['y'],
         settingData['camera']['z']);
-    // TODO: Animation
+    _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+      if (!mounted || disposed) {
+        timer.cancel();
+        return;
+      }
+      var cameraPosition = camera.position;
+      var distance = cameraPosition.distanceTo(tarCameraPosition);
+      if (distance < 1) {
+        timer.cancel();
+        return;
+      } else {
+        // TODO: Best route
+        cameraPosition.lerp(tarCameraPosition, 0.1);
+      }
+      controls.target.set(x, y, z);
+    });
   }
 
   resetLayout() {

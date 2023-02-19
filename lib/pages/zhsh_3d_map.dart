@@ -64,6 +64,7 @@ const Map settingData = {
 };
 
 // TODO: Load from web
+// name, build, floor, x, y, z, height, width, length, type, description, color, render
 const Map<String, Map<String, dynamic>> mapData = {
   'class1': {
     'name': 'class1name',
@@ -487,6 +488,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     // ground
     if (!kDebugMode) {
+    // if (true) {
       var mesh = three.Mesh(
           three.PlaneGeometry(
               settingData['ground']['width'], settingData['ground']['length']),

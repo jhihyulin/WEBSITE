@@ -107,6 +107,19 @@ const Map<String, Map<String, dynamic>> mapData = {
     'type': 'class',
     'description': 'class 3 description'
   },
+  'room#1': {
+    'name': '中文測試名稱',
+    'build': 'build1',
+    'floor': 1,
+    'x': 10,
+    'y': 0,
+    'z': 20,
+    'height': 3,
+    'width': 10,
+    'length': 10,
+    'type': 'room',
+    'description': '中文測試'
+  }
 };
 
 class ZHSH3DMapPage extends StatefulWidget {

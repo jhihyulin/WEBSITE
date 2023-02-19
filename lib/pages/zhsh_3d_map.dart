@@ -559,7 +559,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     var x = mapData[buildingName]!["x"];
     var y = mapData[buildingName]!["y"];
     var z = mapData[buildingName]!["z"];
-    var tarCameraPosition = three.Vector3(x + 50, y + 25, z + 50);
+    var height = mapData[buildingName]!["height"];
+    var length = mapData[buildingName]!["length"];
+    var width = mapData[buildingName]!["width"];
+    var tarCameraPosition = three.Vector3(
+        x + length * 2, y + height * 2, z + width * 2); // TODO: Best position
     _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {
         timer.cancel();
@@ -574,7 +578,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         // TODO: Best route
         cameraPosition.lerp(tarCameraPosition, 0.1);
       }
-      controls.target.set(x, mapData[buildingName]!["height"] / 2 + y, z);
+      controls.target.set(x, height / 2 + y, z);
     });
     //TODO: Change object color
   }

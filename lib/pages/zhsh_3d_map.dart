@@ -125,8 +125,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   late double width;
   late double height;
 
-  String selectedLocation = '';
-  String selectedLocationName = '';
+  String _selectedLocation = '';
+  String _selectedLocationName = '';
 
   Size? screenSize;
 
@@ -223,6 +223,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           resetCamera();
+          resetLayout();
         },
         tooltip: 'reset location',
         child: Icon(Icons.home),
@@ -319,8 +320,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           },
         ),
       ),
-      Text('Selected Location Display Name: $selectedLocationName'),
-      Text('Selected Location Name: $selectedLocation'),
+      Text('Selected Location Display Name: $_selectedLocationName'),
+      Text('Selected Location Name: $_selectedLocation'),
     ]);
   }
 
@@ -345,8 +346,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   search(String location) {
     setState(() {
-      selectedLocation = location;
-      selectedLocationName = nameToDName[location]!;
+      _selectedLocation = location;
+      _selectedLocationName = nameToDName[location]!;
     });
     focus(location);
   }
@@ -555,6 +556,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     camera.position.set(settingData['camera']['x'], settingData['camera']['y'],
         settingData['camera']['z']);
     // TODO: Animation
+  }
+
+  resetLayout() {
+    setState(() {
+      _selectedLocation = '';
+      _selectedLocationName = '';
+    });
   }
 
   @override

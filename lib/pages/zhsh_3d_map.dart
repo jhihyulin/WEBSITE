@@ -48,7 +48,6 @@ const Map settingData = {
         "mapSize": {"width": 1024, "height": 1024}
       }
     },
-    {"type": ""}
   ],
   "buildings": {
     "color": 0xaaaaaa,
@@ -118,7 +117,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 10,
     'length': 10,
     'type': 'room',
-    'description': '中文測試'
+    'description': '中文測試描述'
   }
 };
 
@@ -338,6 +337,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       ),
       Text('Selected Location Display Name: $_selectedLocationName'),
       Text('Selected Location Name: $_selectedLocation'),
+      Text('Description: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['description']}'),
     ]);
   }
 

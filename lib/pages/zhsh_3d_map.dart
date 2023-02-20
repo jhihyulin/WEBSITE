@@ -60,7 +60,7 @@ const Map settingData = {
 };
 
 // TODO: Load from web
-// name, build, floor, x, y, z, rotate, height, width, length, description, color, render
+// name, build, floor, x, y, z, rotate, height, width, length, description, color, render, searchable
 const Map<String, Map<String, dynamic>> mapData = {
   'class1': {
     'name': 'class1name',
@@ -166,7 +166,20 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 25,
     'length': 15,
     'description': 'noRender#1 description'
-  }
+  },
+  'noSearch#1': {
+    'name': 'noSearch#1name',
+    'build': 'build5',
+    'floor': 1,
+    'x': -20,
+    'y': 0,
+    'z': 0,
+    'height': 20,
+    'width': 25,
+    'length': 15,
+    'description': 'noSearch#1 description',
+    'searchable': false,
+  },
 };
 
 class ZHSH3DMapPage extends StatefulWidget {
@@ -244,8 +257,16 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     await three3dRender.initialize(options: options);
 
     setState(() {
-      dNameToName = {for (var i in mapData.keys) mapData[i]!['name']: i};
-      nameToDName = {for (var i in mapData.keys) i: mapData[i]!['name']};
+      dNameToName = {
+        for (var i in mapData.keys) mapData[i]!['searchable'] == false
+            ? ''
+            : mapData[i]!['name']: i
+      };
+      nameToDName = {
+        for (var i in mapData.keys) mapData[i]!['searchable'] == false
+            ? ''
+            : i: mapData[i]!['name']
+      };
     });
 
     Future.delayed(const Duration(milliseconds: 100), () async {

@@ -22,7 +22,11 @@ const Map settingData = {
     "focusY": 0,
     "focusZ": 0,
   },
-  "controls": {"enabled": true, "autoRotate": false, "autoRotateSpeed": 2.0},
+  "controls": {
+    "enabled": true,
+    "autoRotate": true,
+    "autoRotateSpeed": 2.0
+  },
   "lights": [
     {
       "type": "ambient",
@@ -449,6 +453,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     controls = three_jsm.OrbitControls(camera, _globalKey);
     controls.enableDamping =
         true; // an animation loop is required when either damping or auto-rotation are enabled
+    controls.autoRotate = settingData['controls']['autoRotate'];
+    controls.autoRotateSpeed = settingData['controls']['autoRotateSpeed'];
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = false;
     controls.minDistance = 1;
@@ -607,6 +613,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   }
 
   focus(String buildingName) {
+    if (controls.autoRotate) {
+      controls.autoRotate = false;
+    }
     var x = mapData[buildingName]!["x"];
     var y = mapData[buildingName]!["y"];
     var z = mapData[buildingName]!["z"];
@@ -625,6 +634,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       var distance = cameraPosition.distanceTo(tarCameraPosition);
       if (distance < 1) {
         timer.cancel();
+        controls.autoRotate = settingData['controls']['autoRotate'];
         return;
       } else {
         // TODO: Best route
@@ -658,6 +668,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   }
 
   resetCamera() {
+    if (controls.autoRotate) {
+      controls.autoRotate = false;
+    }
     var x = settingData['camera']['focusX'];
     var y = settingData['camera']['focusY'];
     var z = settingData['camera']['focusZ'];
@@ -672,6 +685,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       var distance = cameraPosition.distanceTo(tarCameraPosition);
       if (distance < 1) {
         timer.cancel();
+        controls.autoRotate = settingData['controls']['autoRotate'];
         return;
       } else {
         // TODO: Best route

@@ -175,7 +175,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   late FlutterGlPlugin three3dRender;
   three.WebGLRenderer? renderer;
 
-  late Timer _navigatorTimer;
+  Timer? _navigatorTimer;
 
   int? fboId;
   late double width;
@@ -278,7 +278,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _navigatorTimer.cancel();
+          _navigatorTimer?.cancel();
           resetCamera();
           resetLayout();
           resetBuilgingColor();

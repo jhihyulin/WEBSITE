@@ -373,7 +373,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           },
           onSelected: (String selection) {
             var name = dNameToName[selection];
-            print('You just selected Display Name: $selection, Name: $name');
+            if (kDebugMode) {
+              print('You just selected Display Name: $selection, Name: $name');
+            }
             search(name!);
           },
         ),
@@ -392,16 +394,22 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     renderer!.render(scene, camera);
     int t1 = DateTime.now().millisecondsSinceEpoch;
     if (verbose) {
-      print("render cost: ${t1 - t} ");
-      print(renderer!.info.memory);
-      print(renderer!.info.render);
+      if (kDebugMode) {
+        print("render cost: ${t1 - t} ");
+        print(renderer!.info.memory);
+        print(renderer!.info.render);
+      }
     }
     // 重要 更新纹理之前一定要调用 确保gl程序执行完毕
     gl.flush();
     // var pixels = _gl.readCurrentPixels(0, 0, 10, 10);
     // print(" --------------pixels............. ");
     // print(pixels);
-    if (verbose) print(" render: sourceTexture: $sourceTexture ");
+    if (verbose) {
+      if (kDebugMode) {
+        print(" render: sourceTexture: $sourceTexture ");
+      }
+    }
   }
 
   search(String location) {
@@ -488,7 +496,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     // ground
     if (!kDebugMode) {
-    // if (true) {
+      // if (true) {
       var mesh = three.Mesh(
           three.PlaneGeometry(
               settingData['ground']['width'], settingData['ground']['length']),

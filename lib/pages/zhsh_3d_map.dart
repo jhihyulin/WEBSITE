@@ -559,15 +559,28 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         var pointLight = three.PointLight(i['color']);
         pointLight.position.set(i['x'], i['y'], i['z']);
         scene.add(pointLight);
+        if (kDebugMode) {
+          var sphereSize = 1;
+          var pointLightHelper = three.PointLightHelper(pointLight, sphereSize, 0xff0000 as three_dart.Color);
+          scene.add(pointLightHelper);
+        }
       } else if (i['type'] == 'spot') {
         var spotLight = three.SpotLight(i['color']);
         spotLight.position.set(i['x'], i['y'], i['z']);
         scene.add(spotLight);
+        if (kDebugMode) {
+          var spotLightHelper = three.SpotLightHelper(spotLight, 0xff0000 as three_dart.Color);
+          scene.add(spotLightHelper);
+        }
       } else if (i['type'] == 'hemisphere') {
         var hemisphereLight = three.HemisphereLight(
             i['skyColor'], i['groundColor'], i['intensity']);
         hemisphereLight.position.set(i['x'], i['y'], i['z']);
         scene.add(hemisphereLight);
+        if (kDebugMode) {
+          var hemisphereLightHelper = three.HemisphereLightHelper(hemisphereLight, 10, 0xff0000 as three_dart.Color);
+          scene.add(hemisphereLightHelper);
+        }
       } else if (i['type'] == 'rectArea') {
         var rectAreaLight = three.RectAreaLight(
             i['color'], i['intensity'], i['width'], i['height']);
@@ -580,6 +593,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         dirLight.intensity = i['intensity'];
         dirLight.castShadow = i['shadow']['enabled'] ?? false;
         scene.add(dirLight);
+        if (kDebugMode) {
+          var dirLightHelper = three.DirectionalLightHelper(dirLight, 5);
+          scene.add(dirLightHelper);
+        }
       }
     }
 

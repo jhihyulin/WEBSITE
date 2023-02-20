@@ -60,7 +60,7 @@ const Map settingData = {
 };
 
 // TODO: Load from web
-// name, build, floor, x, y, z, height, width, length, type, description, color, render
+// name, build, floor, x, y, z, rotate, height, width, length, description, color, render
 const Map<String, Map<String, dynamic>> mapData = {
   'class1': {
     'name': 'class1name',
@@ -72,7 +72,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 30,
     'width': 10,
     'length': 10,
-    'type': 'class',
     'description': 'class 1 description',
     'color': 0x00ff00
   },
@@ -86,7 +85,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 30,
     'width': 10,
     'length': 10,
-    'type': 'class',
     'description': 'class 2 description',
     'color': 0x0000ff
   },
@@ -100,7 +98,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 30,
     'width': 10,
     'length': 10,
-    'type': 'class',
     'description': 'class 3 description'
   },
   'room#1': {
@@ -113,7 +110,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 10,
     'length': 10,
-    'type': 'room',
     'description': '中文測試描述'
   },
   'room#2': {
@@ -126,7 +122,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 10,
     'length': 10,
-    'type': 'room',
     'description': '二樓測試描述',
     'color': 0xff0000
   },
@@ -140,7 +135,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 12,
     'width': 25,
     'length': 15,
-    'type': 'single',
     'description': 'single#1 description'
   },
   'noRender#1': {
@@ -153,9 +147,25 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 12,
     'width': 25,
     'length': 15,
-    'type': 'single',
     'description': 'noRender#1 description',
     'render': false
+  },
+  'rotate#1': {
+    'name': 'rotate#1name',
+    'build': 'build4',
+    'floor': 1,
+    'x': 100,
+    'y': 0,
+    'z': -50,
+    'rotate': {
+      'x': 10,
+      'y': 20,
+      'z': 30,
+    },
+    'height': 12,
+    'width': 25,
+    'length': 15,
+    'description': 'noRender#1 description'
   }
 };
 
@@ -523,6 +533,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       mesh.scale.x = mapData[i]!["length"];
       mesh.scale.y = mapData[i]!["height"];
       mesh.scale.z = mapData[i]!["width"];
+      if (mapData[i]!["rotate"] != null) {
+        mesh.rotateX(mapData[i]!["rotate"]!["x"]);
+        mesh.rotateY(mapData[i]!["rotate"]!["y"]);
+        mesh.rotateZ(mapData[i]!["rotate"]!["z"]);
+      }
       mesh.name = i;
       mesh.updateMatrix();
       mesh.matrixAutoUpdate = false;

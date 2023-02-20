@@ -27,25 +27,16 @@ const Map settingData = {
     {
       "type": "ambient",
       "color": 0xffffff,
-      "intensity": 0.5,
+      "intensity": 0.25,
     },
     {
       "type": "directional",
       "color": 0xffffff,
-      "intensity": 0.5,
-      "position": {"x": 0, "y": 100, "z": 0},
+      "intensity": 0.75,
+      "position": {"x": 100, "y": 100, "z": 100},
       "target": {"x": 0, "y": 0, "z": 0},
       "shadow": {
         "enabled": true,
-        "camera": {
-          "left": -100,
-          "right": 100,
-          "top": 100,
-          "bottom": -100,
-          "near": 0.1,
-          "far": 1000,
-        },
-        "mapSize": {"width": 1024, "height": 1024}
       }
     },
   ],

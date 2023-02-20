@@ -52,6 +52,7 @@ const Map settingData = {
   "buildings": {
     "color": 0xaaaaaa,
     "focusColor": 0xff0000,
+    "focusOpacity": 0.5,
   },
   "ground": {
     "color": 0x96ad82,
@@ -640,7 +641,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             'color':
                 mapData[i.name]!["color"] ?? settingData['buildings']['color'],
             'flatShading': true,
-            'opacity': 0.5,
+            'opacity': settingData['buildings']['focusOpacity'],
             'transparent': true,
           });
         }

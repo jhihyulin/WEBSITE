@@ -700,6 +700,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   void dispose() {
     disposed = true;
     three3dRender.dispose();
+    _navigatorTimer?.cancel();
 
     super.dispose();
   }

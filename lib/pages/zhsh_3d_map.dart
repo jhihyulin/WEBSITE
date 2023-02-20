@@ -204,7 +204,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   final GlobalKey<three_jsm.DomLikeListenableState> _globalKey =
       GlobalKey<three_jsm.DomLikeListenableState>();
 
-  late three_jsm.MapControls controls;
+  late three_jsm.OrbitControls controls;
 
   @override
   void initState() {
@@ -446,7 +446,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         settingData['camera']['focusY'], settingData['camera']['focusZ']));
 
     // controls
-    controls = three_jsm.MapControls(camera, _globalKey);
+    controls = three_jsm.OrbitControls(camera, _globalKey);
     controls.enableDamping =
         true; // an animation loop is required when either damping or auto-rotation are enabled
     controls.dampingFactor = 0.05;

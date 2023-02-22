@@ -80,6 +80,7 @@ const Map settingData = {
   },
 };
 
+// build, floor, x, y, z, height, width, length, color, render, rotate, searchable
 const Map<String, Map<String, dynamic>> mapData = {
   'class1': {
     'build': 'build1',

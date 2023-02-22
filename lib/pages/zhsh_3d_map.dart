@@ -48,6 +48,15 @@ const Map settingData = {
     "color": 0xaaaaaa,
     "focusColor": 0xff0000,
     "focusOpacity": 0.5,
+    "name": {
+      "build1": "建築1",
+      "build2": "建築2",
+      "build3": "建築3",
+      "build4": "建築4",
+      "build5": "建築5",
+      "build6": "建築6",
+      "build7": "建築7",
+    }
   },
   "ground": {
     "color": 0x96ad82,
@@ -59,7 +68,6 @@ const Map settingData = {
   },
 };
 
-// TODO: Load from web
 // name, build, floor, x, y, z, rotate, height, width, length, description, color, render, searchable
 const Map<String, Map<String, dynamic>> mapData = {
   'class1': {
@@ -411,6 +419,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Text('Selected Location Name: $_selectedLocation'),
       Text(
           'Description: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['description']}'),
+      Text(
+          'Floor: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['floor']}'),
+      Text('BuildingName: ${_selectedLocation == '' ? "" : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}'),
     ]);
   }
 

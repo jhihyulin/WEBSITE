@@ -63,6 +63,12 @@ const Map settingData = {
     'focusOpacity': 0.5,
     'set': {
       'build_1f': {'name': ''},
+      'build_2f': {'name': ''},
+      'build_3f': {'name': ''},
+      'build_4f': {'name': ''},
+      'build_5f': {'name': ''},
+      'build_6f': {'name': ''},
+      'build_7f': {'name': ''},
       'build_stair': {'name': '樓梯'},
       'build1_b1_room1': {'name': '行政大樓地下室'},
       'build1_stair': {'name': '行政大樓樓梯'},
@@ -95,7 +101,61 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 13,
     'y': 1,
     'z': 51.5,
-    'height': 5,
+    'height': 4,
+    'width': 13,
+    'length': 5,
+    'searchable': false,
+  },
+  'build_2f': {
+    'x': 13,
+    'y': 5,
+    'z': 51.5,
+    'height': 3,
+    'width': 13,
+    'length': 5,
+    'searchable': false,
+  },
+  'build_3f': {
+    'x': 13,
+    'y': 8,
+    'z': 51.5,
+    'height': 3,
+    'width': 13,
+    'length': 5,
+    'searchable': false,
+  },
+  'build_4f': {
+    'x': 13,
+    'y': 11,
+    'z': 51.5,
+    'height': 3,
+    'width': 13,
+    'length': 5,
+    'searchable': false,
+  },
+  'build_5f': {
+    'x': 13,
+    'y': 14,
+    'z': 51.5,
+    'height': 3,
+    'width': 13,
+    'length': 5,
+    'searchable': false,
+  },
+  'build_6f': {
+    'x': 13,
+    'y': 17,
+    'z': 51.5,
+    'height': 3,
+    'width': 13,
+    'length': 5,
+    'searchable': false,
+  },
+  'build_7f': {
+    'x': 13,
+    'y': 20,
+    'z': 51.5,
+    'height': 3,
     'width': 13,
     'length': 5,
     'searchable': false,
@@ -138,7 +198,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_1f_room1': {
     'build': 'build2',
-    'x': 24.5,
+    'x': 25,
     'y': 1,
     'z': 51.5,
     'height': 3,
@@ -147,7 +207,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_2f_room1': {
     'build': 'build2',
-    'x': 24.5,
+    'x': 25,
     'y': 4,
     'z': 51.5,
     'height': 3,
@@ -156,7 +216,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_3f_room1': {
     'build': 'build2',
-    'x': 24.5,
+    'x': 25,
     'y': 7,
     'z': 51.5,
     'height': 3,
@@ -165,7 +225,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_4f_room1': {
     'build': 'build2',
-    'x': 24.5,
+    'x': 25,
     'y': 10,
     'z': 51.5,
     'height': 3,
@@ -174,7 +234,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_5f_room1': {
     'build': 'build2',
-    'x': 24.5,
+    'x': 25,
     'y': 13,
     'z': 51.5,
     'height': 3,
@@ -183,7 +243,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_1f_toilet1': {
     'build': 'build2',
-    'x': 37.5,
+    'x': 38,
     'y': 1,
     'z': 51.5,
     'height': 3,
@@ -192,7 +252,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_2f_toilet1': {
     'build': 'build2',
-    'x': 37.5,
+    'x': 38,
     'y': 4,
     'z': 51.5,
     'height': 3,
@@ -201,7 +261,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_3f_toilet1': {
     'build': 'build2',
-    'x': 37.5,
+    'x': 38,
     'y': 7,
     'z': 51.5,
     'height': 3,
@@ -210,7 +270,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_4f_toilet1': {
     'build': 'build2',
-    'x': 37.5,
+    'x': 38,
     'y': 10,
     'z': 51.5,
     'height': 3,
@@ -219,7 +279,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build2_5f_toilet1': {
     'build': 'build2',
-    'x': 37.5,
+    'x': 38,
     'y': 13,
     'z': 51.5,
     'height': 3,
@@ -801,8 +861,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       }
       if (i is three.Mesh) {
         i.material = three.MeshPhongMaterial({
-          'color':
-              mapData[i.name]!['color'] ?? settingData['buildings']['color'],
+          'color': settingData['buildings']['randomColor'] == true
+            ? (three.Math.random() * 0xffffff).toInt()
+            : mapData[i]!['color'] ?? settingData['buildings']['color'],
           'flatShading': true,
           'opacity': 1,
           'transparent': false,

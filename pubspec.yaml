@@ -29,6 +29,7 @@ dependencies:
   image_picker: ^0.8.6+1
   three_dart: ^0.0.16
   three_dart_jsm: ^0.0.10
+  flutter_gl: ^0.0.21
 dev_dependencies:
   flutter_test:
     sdk: flutter

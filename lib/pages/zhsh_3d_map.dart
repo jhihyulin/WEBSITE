@@ -14,69 +14,69 @@ const int deskopModeWidth = 640;
 
 // TODO: Load from web
 const Map settingData = {
-  "camera": {
-    "x": 100,
-    "y": 100,
-    "z": 100,
-    "focusX": 0,
-    "focusY": 0,
-    "focusZ": 0,
+  'camera': {
+    'x': 100,
+    'y': 100,
+    'z': 100,
+    'focusX': 0,
+    'focusY': 0,
+    'focusZ': 0,
   },
-  "controls": {"enabled": true, "autoRotate": true, "autoRotateSpeed": 2.0},
-  "lights": [
+  'controls': {'enabled': true, 'autoRotate': true, 'autoRotateSpeed': 2.0},
+  'lights': [
     {
-      "type": "ambient",
-      "color": 0xffffff,
-      "intensity": 0.5,
+      'type': 'ambient',
+      'color': 0xffffff,
+      'intensity': 0.5,
     },
     {
-      "type": "directional",
-      "color": 0xffffff,
-      "intensity": 0.5,
-      "position": {"x": 100, "y": 100, "z": 100},
-      "target": {"x": 0, "y": 0, "z": 0},
-      "shadow": {
-        "enabled": true,
+      'type': 'directional',
+      'color': 0xffffff,
+      'intensity': 0.5,
+      'position': {'x': 100, 'y': 100, 'z': 100},
+      'target': {'x': 0, 'y': 0, 'z': 0},
+      'shadow': {
+        'enabled': true,
       }
     },
   ],
-  "buildings": {
-    "color": 0xaaaaaa,
-    "focusColor": 0xff0000,
-    "focusOpacity": 0.5,
-    "name": {
-      "build1": "建築1",
-      "build2": "建築2",
-      "build3": "建築3",
-      "build4": "建築4",
-      "build5": "建築5",
-      "build6": "建築6",
-      "build7": "建築7",
+  'buildings': {
+    'color': 0xaaaaaa,
+    'focusColor': 0xff0000,
+    'focusOpacity': 0.5,
+    'name': {
+      'build1': '建築1',
+      'build2': '建築2',
+      'build3': '建築3',
+      'build4': '建築4',
+      'build5': '建築5',
+      'build6': '建築6',
+      'build7': '建築7',
     }
   },
-  "object": {
-    "color": 0xaaaaaa,
-    "focusColor": 0xff0000,
-    "focusOpacity": 0.5,
-    "set": {
-      "class1": {"name": "教室1", "description": "教室1描述"},
-      "class2": {"name": "教室2", "description": "教室2描述"},
-      "class3": {"name": "教室3", "description": "教室3描述"},
-      "room#1": {"name": "間1", "description": "間1描述"},
-      "room#2": {"name": "間2", "description": "間2描述"},
-      "single#1": {"name": "單1", "description": "單1描述"},
-      "noRender#1": {"name": "無渲染1", "description": "無渲染1描述"},
-      "rotate#1": {"name": "旋轉1", "description": "旋轉1描述"},
-      "noSearch#1": {"name": "無搜尋1", "description": "無搜尋1描述"},
+  'object': {
+    'color': 0xaaaaaa,
+    'focusColor': 0xff0000,
+    'focusOpacity': 0.5,
+    'set': {
+      'class1': {'name': '教室1', 'description': '教室1描述'},
+      'class2': {'name': '教室2', 'description': '教室2描述'},
+      'class3': {'name': '教室3', 'description': '教室3描述'},
+      'room#1': {'name': '間1', 'description': '間1描述'},
+      'room#2': {'name': '間2', 'description': '間2描述'},
+      'single#1': {'name': '單1', 'description': '單1描述'},
+      'noRender#1': {'name': '無渲染1', 'description': '無渲染1描述'},
+      'rotate#1': {'name': '旋轉1', 'description': '旋轉1描述'},
+      'noSearch#1': {'name': '無搜尋1', 'description': '無搜尋1描述'},
     }
   },
-  "ground": {
-    "color": 0x96ad82,
-    "width": 200,
-    "length": 250,
+  'ground': {
+    'color': 0x96ad82,
+    'width': 200,
+    'length': 250,
   },
-  "background": {
-    "color": 'system', // 'system' or 0x000000
+  'background': {
+    'color': 'system', // 'system' or 0x000000
   },
 };
 
@@ -248,11 +248,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     three3dRender = FlutterGlPlugin();
 
     Map<String, dynamic> options = {
-      "antialias": true,
-      "alpha": false,
-      "width": width.toInt(),
-      "height": height.toInt(),
-      "dpr": dpr
+      'antialias': true,
+      'alpha': false,
+      'width': width.toInt(),
+      'height': height.toInt(),
+      'dpr': dpr
     };
 
     await three3dRender.initialize(options: options);
@@ -412,11 +412,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Text('Selected Location Display Name: $_selectedLocationName'),
       Text('Selected Location Name: $_selectedLocation'),
       Text(
-          'Description: ${_selectedLocation == '' ? "" : settingData['object']!['set'][_selectedLocation]['description']}'),
+          'Description: ${_selectedLocation == '' ? '' : settingData['object']!['set'][_selectedLocation]['description']}'),
       Text(
-          'Floor: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['floor']}'),
+          'Floor: ${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor']}'),
       Text(
-          'BuildingName: ${_selectedLocation == '' ? "" : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}'),
+          'BuildingName: ${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}'),
     ]);
   }
 
@@ -428,7 +428,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     int t1 = DateTime.now().millisecondsSinceEpoch;
     if (verbose) {
       if (kDebugMode) {
-        print("render cost: ${t1 - t} ");
+        print('render cost: ${t1 - t} ');
         print(renderer!.info.memory);
         print(renderer!.info.render);
       }
@@ -436,11 +436,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     // 重要 更新纹理之前一定要调用 确保gl程序执行完毕
     gl.flush();
     // var pixels = _gl.readCurrentPixels(0, 0, 10, 10);
-    // print(" --------------pixels............. ");
+    // print(' --------------pixels............. ');
     // print(pixels);
     if (verbose) {
       if (kDebugMode) {
-        print(" render: sourceTexture: $sourceTexture ");
+        print(' render: sourceTexture: $sourceTexture ');
       }
     }
   }
@@ -455,11 +455,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   initRenderer() {
     Map<String, dynamic> options = {
-      "width": width,
-      "height": height,
-      "gl": three3dRender.gl,
-      "antialias": true,
-      "canvas": three3dRender.element
+      'width': width,
+      'height': height,
+      'gl': three3dRender.gl,
+      'antialias': true,
+      'canvas': three3dRender.element
     };
     renderer = three.WebGLRenderer(options);
     renderer!.setPixelRatio(dpr);
@@ -539,7 +539,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               {'color': settingData['ground']['color'], 'depthWrite': false}));
       mesh.rotation.x = -three.Math.pi / 2;
       mesh.receiveShadow = true;
-      mesh.name = "ground";
+      mesh.name = 'ground';
       scene.add(mesh);
     }
 
@@ -550,27 +550,27 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         continue;
       }
       material = three.MeshPhongMaterial({
-        'color': mapData[i]!["color"] ?? settingData['buildings']['color'],
+        'color': mapData[i]!['color'] ?? settingData['buildings']['color'],
         'flatShading': true,
       });
       var mesh = three.Mesh(geometry, material);
-      mesh.position.x = mapData[i]!["x"];
-      mesh.position.y = mapData[i]!["y"];
-      mesh.position.z = mapData[i]!["z"];
-      mesh.scale.x = mapData[i]!["length"];
-      mesh.scale.y = mapData[i]!["height"];
-      mesh.scale.z = mapData[i]!["width"];
-      if (mapData[i]!["rotate"] != null) {
-        mesh.rotateX(mapData[i]!["rotate"]!["x"]);
-        mesh.rotateY(mapData[i]!["rotate"]!["y"]);
-        mesh.rotateZ(mapData[i]!["rotate"]!["z"]);
+      mesh.position.x = mapData[i]!['x'];
+      mesh.position.y = mapData[i]!['y'];
+      mesh.position.z = mapData[i]!['z'];
+      mesh.scale.x = mapData[i]!['length'];
+      mesh.scale.y = mapData[i]!['height'];
+      mesh.scale.z = mapData[i]!['width'];
+      if (mapData[i]!['rotate'] != null) {
+        mesh.rotateX(mapData[i]!['rotate']!['x']);
+        mesh.rotateY(mapData[i]!['rotate']!['y']);
+        mesh.rotateZ(mapData[i]!['rotate']!['z']);
       }
       mesh.name = i;
       mesh.updateMatrix();
       mesh.matrixAutoUpdate = false;
       scene.add(mesh);
       if (kDebugMode) {
-        print("mesh: $mesh");
+        print('mesh: $mesh');
       }
     }
 
@@ -661,12 +661,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     if (controls.autoRotate) {
       controls.autoRotate = false;
     }
-    var x = mapData[buildingName]!["x"];
-    var y = mapData[buildingName]!["y"];
-    var z = mapData[buildingName]!["z"];
-    var height = mapData[buildingName]!["height"];
-    var length = mapData[buildingName]!["length"];
-    var width = mapData[buildingName]!["width"];
+    var x = mapData[buildingName]!['x'];
+    var y = mapData[buildingName]!['y'];
+    var z = mapData[buildingName]!['z'];
+    var height = mapData[buildingName]!['height'];
+    var length = mapData[buildingName]!['length'];
+    var width = mapData[buildingName]!['width'];
     var object = scene.getObjectByName(buildingName);
     var tarCameraPosition = three.Vector3(
         x + length * 2, y + height * 2, z + width * 2); // TODO: Best position
@@ -689,7 +689,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     });
     for (var i in scene.children) {
       if (i is three.Mesh) {
-        if (i.name == "ground") {
+        if (i.name == 'ground') {
           continue;
         }
         if (i.name == buildingName) {
@@ -702,7 +702,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         } else {
           i.material = three.MeshPhongMaterial({
             'color':
-                mapData[i.name]!["color"] ?? settingData['buildings']['color'],
+                mapData[i.name]!['color'] ?? settingData['buildings']['color'],
             'flatShading': true,
             'opacity': settingData['buildings']['focusOpacity'],
             'transparent': true,
@@ -749,13 +749,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   resetBuilgingColor() {
     for (var i in scene.children) {
-      if (i.name == "ground") {
+      if (i.name == 'ground') {
         continue;
       }
       if (i is three.Mesh) {
         i.material = three.MeshPhongMaterial({
           'color':
-              mapData[i.name]!["color"] ?? settingData['buildings']['color'],
+              mapData[i.name]!['color'] ?? settingData['buildings']['color'],
           'flatShading': true,
           'opacity': 1,
           'transparent': false,

@@ -22,7 +22,7 @@ const Map settingData = {
     'focusY': 0,
     'focusZ': 0,
   },
-  'controls': {'enabled': true, 'autoRotate': true, 'autoRotateSpeed': 2.0},
+  'controls': {'enabled': true, 'autoRotate': false, 'autoRotateSpeed': 2.0},
   'lights': [
     {
       'type': 'ambient',
@@ -41,17 +41,14 @@ const Map settingData = {
     },
   ],
   'buildings': {
+    'randomColor': true,
     'color': 0xaaaaaa,
     'focusColor': 0xff0000,
     'focusOpacity': 0.5,
     'name': {
-      'build1': '建築1',
-      'build2': '建築2',
-      'build3': '建築3',
-      'build4': '建築4',
-      'build5': '建築5',
-      'build6': '建築6',
-      'build7': '建築7',
+      'build': '行政大樓==通達樓',
+      'build1': '行政大樓',
+      'build2': '通達樓'
     }
   },
   'object': {
@@ -59,15 +56,11 @@ const Map settingData = {
     'focusColor': 0xff0000,
     'focusOpacity': 0.5,
     'set': {
-      'class1': {'name': '教室1', 'description': '教室1描述'},
-      'class2': {'name': '教室2', 'description': '教室2描述'},
-      'class3': {'name': '教室3', 'description': '教室3描述'},
-      'room#1': {'name': '間1', 'description': '間1描述'},
-      'room#2': {'name': '間2', 'description': '間2描述'},
-      'single#1': {'name': '單1', 'description': '單1描述'},
-      'noRender#1': {'name': '無渲染1', 'description': '無渲染1描述'},
-      'rotate#1': {'name': '旋轉1', 'description': '旋轉1描述'},
-      'noSearch#1': {'name': '無搜尋1', 'description': '無搜尋1描述'},
+      'build1_b1_room1': {'name': '行政大樓地下室'},
+      'build1_stair': {'name': '行政大樓樓梯'},
+      'build1_elevator': {'name': '行政大樓電梯'},
+      'build2_1f_room1': {'name': '通達樓地下室'},
+      'build_1f': {'name': ''},
     }
   },
   'ground': {
@@ -82,105 +75,51 @@ const Map settingData = {
 
 // build, floor, x, y, z, height, width, length, color, render, rotate, searchable
 const Map<String, Map<String, dynamic>> mapData = {
-  'class1': {
-    'build': 'build1',
-    'floor': 1,
-    'x': 0,
-    'y': 0,
-    'z': 0,
-    'height': 30,
-    'width': 10,
-    'length': 10,
-    'color': 0x00ff00
+  'build_1f': {
+    'x': 13,
+    'y': 1,
+    'z': 51.5,
+    'height': 5,
+    'width': 13,
+    'length': 5,
+    'searchable': false,
   },
-  'class2': {
+  'build1_b1_room1': {
+    'build': 'build1',
+    'x': -2,
+    'y': -3,
+    'z': 60,
+    'height': 4,
+    'width': 30,
+    'length': 25,
+    'floor': 'b1',
+  },
+  'build1_stair': {
+    'build': 'build1',
+    'x': -10,
+    'y': -3,
+    'z': 42.5,
+    'height': 40,
+    'width': 5,
+    'length': 9
+  },
+  'build1_elevator': {
+    'build': 'build1',
+    'x': -4,
+    'y': -3,
+    'z': 42.5,
+    'height': 40,
+    'width': 5,
+    'length': 3
+  },
+  'build2_1f_room1': {
     'build': 'build2',
-    'floor': 1,
-    'x': 100,
-    'y': 0,
-    'z': 100,
-    'height': 30,
-    'width': 10,
-    'length': 10,
-    'color': 0x0000ff
-  },
-  'class3': {
-    'build': 'build3',
-    'floor': 1,
-    'x': -100,
-    'y': 0,
-    'z': -100,
-    'height': 30,
-    'width': 10,
-    'length': 10
-  },
-  'room#1': {
-    'build': 'build1',
-    'floor': 1,
-    'x': 10,
-    'y': 0,
-    'z': 20,
+    'x': 28.5,
+    'y': 1,
+    'z': 52.5,
     'height': 3,
-    'width': 10,
-    'length': 10
-  },
-  'room#2': {
-    'build': 'build1',
-    'floor': 2,
-    'x': 10,
-    'y': 3,
-    'z': 20,
-    'height': 3,
-    'width': 10,
-    'length': 10,
-    'color': 0xff0000
-  },
-  'single#1': {
-    'build': 'build1',
-    'floor': 1,
-    'x': 100,
-    'y': 0,
-    'z': 50,
-    'height': 12,
-    'width': 25,
-    'length': 15
-  },
-  'noRender#1': {
-    'build': 'build3',
-    'floor': 1,
-    'x': -100,
-    'y': 0,
-    'z': 50,
-    'height': 12,
-    'width': 25,
-    'length': 15,
-    'render': false
-  },
-  'rotate#1': {
-    'build': 'build4',
-    'floor': 1,
-    'x': 100,
-    'y': 0,
-    'z': -50,
-    'rotate': {
-      'x': 10,
-      'y': 20,
-      'z': 30,
-    },
-    'height': 12,
-    'width': 25,
-    'length': 15
-  },
-  'noSearch#1': {
-    'build': 'build5',
-    'floor': 1,
-    'x': -20,
-    'y': 0,
-    'z': 0,
-    'height': 20,
-    'width': 25,
-    'length': 15,
-    'searchable': false
+    'width': 11,
+    'length': 26
   },
 };
 
@@ -551,7 +490,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         continue;
       }
       material = three.MeshPhongMaterial({
-        'color': mapData[i]!['color'] ?? settingData['buildings']['color'],
+        'color': settingData['buildings']['randomColor'] == true
+            ? (three.Math.random() * 0xffffff).toInt()
+            : mapData[i]!['color'] ?? settingData['buildings']['color'],
         'flatShading': true,
       });
       var mesh = three.Mesh(geometry, material);

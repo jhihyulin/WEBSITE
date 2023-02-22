@@ -63,42 +63,15 @@ const Map settingData = {
     "focusColor": 0xff0000,
     "focusOpacity": 0.5,
     "set": {
-      "class1": {
-        "name": "教室1",
-        "description": "教室1描述"
-      },
-      "class2": {
-        "name": "教室2",
-        "description": "教室2描述"
-      },
-      "class3": {
-        "name": "教室3",
-        "description": "教室3描述"
-      },
-      "room#1": {
-        "name": "間1",
-        "description": "間1描述"
-      },
-      "room#2": {
-        "name": "間2",
-        "description": "間2描述"
-      },
-      "single#1": {
-        "name": "單1",
-        "description": "單1描述"
-      },
-      "noRender#1": {
-        "name": "無渲染1",
-        "description": "無渲染1描述"
-      },
-      "rotate#1": {
-        "name": "旋轉1",
-        "description": "旋轉1描述"
-      },
-      "noSearch#1": {
-        "name": "無搜尋1",
-        "description": "無搜尋1描述"
-      },
+      "class1": {"name": "教室1", "description": "教室1描述"},
+      "class2": {"name": "教室2", "description": "教室2描述"},
+      "class3": {"name": "教室3", "description": "教室3描述"},
+      "room#1": {"name": "間1", "description": "間1描述"},
+      "room#2": {"name": "間2", "description": "間2描述"},
+      "single#1": {"name": "單1", "description": "單1描述"},
+      "noRender#1": {"name": "無渲染1", "description": "無渲染1描述"},
+      "rotate#1": {"name": "旋轉1", "description": "旋轉1描述"},
+      "noSearch#1": {"name": "無搜尋1", "description": "無搜尋1描述"},
     }
   },
   "ground": {
@@ -290,14 +263,15 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     setState(() {
       dNameToName = {
-        for (var i in mapData.keys) mapData[i]!['searchable'] == false
-            ? ''
-            : settingData['object']['set'][i]['name']: i
+        for (var i in mapData.keys)
+          mapData[i]!['searchable'] == false
+              ? ''
+              : settingData['object']['set'][i]['name']: i
       };
       nameToDName = {
-        for (var i in mapData.keys) mapData[i]!['searchable'] == false
-            ? ''
-            : i: settingData['object']['set'][i]['name']
+        for (var i in mapData.keys)
+          mapData[i]!['searchable'] == false ? '' : i: settingData['object']
+              ['set'][i]['name']
       };
     });
 
@@ -445,7 +419,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           'Description: ${_selectedLocation == '' ? "" : settingData['object']!['set'][_selectedLocation]['description']}'),
       Text(
           'Floor: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['floor']}'),
-      Text('BuildingName: ${_selectedLocation == '' ? "" : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}'),
+      Text(
+          'BuildingName: ${_selectedLocation == '' ? "" : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}'),
     ]);
   }
 
@@ -516,19 +491,20 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         settingData['camera']['focusY'], settingData['camera']['focusZ']));
 
     // controls
-    controls = three_jsm.OrbitControls(camera, _globalKey);
-    controls.enableDamping =
-        true; // an animation loop is required when either damping or auto-rotation are enabled
-    controls.autoRotate = settingData['controls']['autoRotate'];
-    controls.autoRotateSpeed = settingData['controls']['autoRotateSpeed'];
-    controls.dampingFactor = 0.05;
-    controls.screenSpacePanning = false;
-    controls.minDistance = 1;
-    controls.maxDistance = 500;
-    controls.maxPolarAngle = three.Math.pi / 2;
-
-    controls.target.set(settingData['camera']['focusX'],
-        settingData['camera']['focusY'], settingData['camera']['focusZ']);
+    if (settingData['controls']['enabled'] == true) {
+      controls = three_jsm.OrbitControls(camera, _globalKey);
+      controls.enableDamping =
+          true; // an animation loop is required when either damping or auto-rotation are enabled
+      controls.autoRotate = settingData['controls']['autoRotate'];
+      controls.autoRotateSpeed = settingData['controls']['autoRotateSpeed'];
+      controls.dampingFactor = 0.05;
+      controls.screenSpacePanning = false;
+      controls.minDistance = 1;
+      controls.maxDistance = 500;
+      controls.maxPolarAngle = three.Math.pi / 2;
+      controls.target.set(settingData['camera']['focusX'],
+          settingData['camera']['focusY'], settingData['camera']['focusZ']);
+    }
 
     // world
     var geometry = three.BoxGeometry(1, 1, 1);
@@ -629,7 +605,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         scene.add(pointLight);
         if (kDebugMode) {
           var sphereSize = 1;
-          var pointLightHelper = three.PointLightHelper(pointLight, sphereSize, 0xff0000 as three_dart.Color);
+          var pointLightHelper = three.PointLightHelper(
+              pointLight, sphereSize, 0xff0000 as three_dart.Color);
           scene.add(pointLightHelper);
         }
       } else if (i['type'] == 'spot') {
@@ -637,7 +614,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         spotLight.position.set(i['x'], i['y'], i['z']);
         scene.add(spotLight);
         if (kDebugMode) {
-          var spotLightHelper = three.SpotLightHelper(spotLight, 0xff0000 as three_dart.Color);
+          var spotLightHelper =
+              three.SpotLightHelper(spotLight, 0xff0000 as three_dart.Color);
           scene.add(spotLightHelper);
         }
       } else if (i['type'] == 'hemisphere') {
@@ -646,7 +624,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         hemisphereLight.position.set(i['x'], i['y'], i['z']);
         scene.add(hemisphereLight);
         if (kDebugMode) {
-          var hemisphereLightHelper = three.HemisphereLightHelper(hemisphereLight, 10, 0xff0000 as three_dart.Color);
+          var hemisphereLightHelper = three.HemisphereLightHelper(
+              hemisphereLight, 10, 0xff0000 as three_dart.Color);
           scene.add(hemisphereLightHelper);
         }
       } else if (i['type'] == 'rectArea') {

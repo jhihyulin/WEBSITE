@@ -22,11 +22,7 @@ const Map settingData = {
     "focusY": 0,
     "focusZ": 0,
   },
-  "controls": {
-    "enabled": true,
-    "autoRotate": true,
-    "autoRotateSpeed": 2.0
-  },
+  "controls": {"enabled": true, "autoRotate": true, "autoRotateSpeed": 2.0},
   "lights": [
     {
       "type": "ambient",
@@ -491,20 +487,19 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         settingData['camera']['focusY'], settingData['camera']['focusZ']));
 
     // controls
-    if (settingData['controls']['enabled'] == true) {
-      controls = three_jsm.OrbitControls(camera, _globalKey);
-      controls.enableDamping =
-          true; // an animation loop is required when either damping or auto-rotation are enabled
-      controls.autoRotate = settingData['controls']['autoRotate'];
-      controls.autoRotateSpeed = settingData['controls']['autoRotateSpeed'];
-      controls.dampingFactor = 0.05;
-      controls.screenSpacePanning = false;
-      controls.minDistance = 1;
-      controls.maxDistance = 500;
-      controls.maxPolarAngle = three.Math.pi / 2;
-      controls.target.set(settingData['camera']['focusX'],
-          settingData['camera']['focusY'], settingData['camera']['focusZ']);
-    }
+    controls = three_jsm.OrbitControls(camera, _globalKey);
+    controls.enabled = settingData['controls']['enabled'];
+    controls.enableDamping =
+        true; // an animation loop is required when either damping or auto-rotation are enabled
+    controls.autoRotate = settingData['controls']['autoRotate'];
+    controls.autoRotateSpeed = settingData['controls']['autoRotateSpeed'];
+    controls.dampingFactor = 0.05;
+    controls.screenSpacePanning = false;
+    controls.minDistance = 1;
+    controls.maxDistance = 500;
+    controls.maxPolarAngle = three.Math.pi / 2;
+    controls.target.set(settingData['camera']['focusX'],
+        settingData['camera']['focusY'], settingData['camera']['focusZ']);
 
     // world
     var geometry = three.BoxGeometry(1, 1, 1);

@@ -58,6 +58,49 @@ const Map settingData = {
       "build7": "建築7",
     }
   },
+  "object": {
+    "color": 0xaaaaaa,
+    "focusColor": 0xff0000,
+    "focusOpacity": 0.5,
+    "set": {
+      "class1": {
+        "name": "教室1",
+        "description": "教室1描述"
+      },
+      "class2": {
+        "name": "教室2",
+        "description": "教室2描述"
+      },
+      "class3": {
+        "name": "教室3",
+        "description": "教室3描述"
+      },
+      "room#1": {
+        "name": "間1",
+        "description": "間1描述"
+      },
+      "room#2": {
+        "name": "間2",
+        "description": "間2描述"
+      },
+      "single#1": {
+        "name": "單1",
+        "description": "單1描述"
+      },
+      "noRender#1": {
+        "name": "無渲染1",
+        "description": "無渲染1描述"
+      },
+      "rotate#1": {
+        "name": "旋轉1",
+        "description": "旋轉1描述"
+      },
+      "noSearch#1": {
+        "name": "無搜尋1",
+        "description": "無搜尋1描述"
+      },
+    }
+  },
   "ground": {
     "color": 0x96ad82,
     "width": 200,
@@ -68,10 +111,8 @@ const Map settingData = {
   },
 };
 
-// name, build, floor, x, y, z, rotate, height, width, length, description, color, render, searchable
 const Map<String, Map<String, dynamic>> mapData = {
   'class1': {
-    'name': 'class1name',
     'build': 'build1',
     'floor': 1,
     'x': 0,
@@ -80,11 +121,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 30,
     'width': 10,
     'length': 10,
-    'description': 'class 1 description',
     'color': 0x00ff00
   },
   'class2': {
-    'name': 'class2name',
     'build': 'build2',
     'floor': 1,
     'x': 100,
@@ -93,11 +132,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 30,
     'width': 10,
     'length': 10,
-    'description': 'class 2 description',
     'color': 0x0000ff
   },
   'class3': {
-    'name': 'class3name',
     'build': 'build3',
     'floor': 1,
     'x': -100,
@@ -105,11 +142,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': -100,
     'height': 30,
     'width': 10,
-    'length': 10,
-    'description': 'class 3 description'
+    'length': 10
   },
   'room#1': {
-    'name': '中文測試名稱',
     'build': 'build1',
     'floor': 1,
     'x': 10,
@@ -117,11 +152,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 20,
     'height': 3,
     'width': 10,
-    'length': 10,
-    'description': '中文測試描述'
+    'length': 10
   },
   'room#2': {
-    'name': '二樓測試',
     'build': 'build1',
     'floor': 2,
     'x': 10,
@@ -130,11 +163,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 10,
     'length': 10,
-    'description': '二樓測試描述',
     'color': 0xff0000
   },
   'single#1': {
-    'name': 'single#1name',
     'build': 'build1',
     'floor': 1,
     'x': 100,
@@ -142,11 +173,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 50,
     'height': 12,
     'width': 25,
-    'length': 15,
-    'description': 'single#1 description'
+    'length': 15
   },
   'noRender#1': {
-    'name': 'noRender#1name',
     'build': 'build3',
     'floor': 1,
     'x': -100,
@@ -155,11 +184,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 12,
     'width': 25,
     'length': 15,
-    'description': 'noRender#1 description',
     'render': false
   },
   'rotate#1': {
-    'name': 'rotate#1name',
     'build': 'build4',
     'floor': 1,
     'x': 100,
@@ -172,11 +199,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     },
     'height': 12,
     'width': 25,
-    'length': 15,
-    'description': 'noRender#1 description'
+    'length': 15
   },
   'noSearch#1': {
-    'name': 'noSearch#1name',
     'build': 'build5',
     'floor': 1,
     'x': -20,
@@ -185,8 +210,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 20,
     'width': 25,
     'length': 15,
-    'description': 'noSearch#1 description',
-    'searchable': false,
+    'searchable': false
   },
 };
 
@@ -268,12 +292,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       dNameToName = {
         for (var i in mapData.keys) mapData[i]!['searchable'] == false
             ? ''
-            : mapData[i]!['name']: i
+            : settingData['object']['set'][i]['name']: i
       };
       nameToDName = {
         for (var i in mapData.keys) mapData[i]!['searchable'] == false
             ? ''
-            : i: mapData[i]!['name']
+            : i: settingData['object']['set'][i]['name']
       };
     });
 
@@ -418,7 +442,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Text('Selected Location Display Name: $_selectedLocationName'),
       Text('Selected Location Name: $_selectedLocation'),
       Text(
-          'Description: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['description']}'),
+          'Description: ${_selectedLocation == '' ? "" : settingData['object']!['set'][_selectedLocation]['description']}'),
       Text(
           'Floor: ${_selectedLocation == '' ? "" : mapData[_selectedLocation]!['floor']}'),
       Text('BuildingName: ${_selectedLocation == '' ? "" : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}'),

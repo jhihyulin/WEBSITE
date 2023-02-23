@@ -620,7 +620,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 7
   },
   // build3
-  // build3_1f
   'build3_stair1': {
     'build': 'build3',
     'x': 45,
@@ -639,6 +638,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 16,
     'length': 4,
   },
+  'build3_stair3': {
+    'build': 'build3',
+    'x': 48.5,
+    'y': -2,
+    'z': -22,
+    'height': 29,
+    'width': 4,
+    'length': 14
+  },
+  // build3_1f
   'build3_1f_room1': {
     'build': 'build3',
     'x': 40,
@@ -712,15 +721,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 9,
     'length': 16
   },
-  'build3_stair3': {
-    'build': 'build3',
-    'x': 48.5,
-    'y': -2,
-    'z': -22,
-    'height': 29,
-    'width': 4,
-    'length': 14
-  },
   'build3_1f_toilet2': {
     'build': 'build3',
     'x': 48.5,
@@ -731,6 +731,15 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 14
   },
   // build4
+  'build4_stair1': {
+    'build': 'build4',
+    'x': -22,
+    'y': -2,
+    'z': -19.5,
+    'height': 29,
+    'width': 10,
+    'length': 10
+  },
   // build4_1f
   'build4_1f_room1': {
     'build': 'build4',
@@ -803,15 +812,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 11.5,
     'length': 4.5
-  },
-  'build4_stair1': {
-    'build': 'build4',
-    'x': -22,
-    'y': -2,
-    'z': -19.5,
-    'height': 29,
-    'width': 10,
-    'length': 10
   },
 };
 

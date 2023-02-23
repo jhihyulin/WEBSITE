@@ -62,6 +62,8 @@ const Map settingData = {
     'focusColor': 0xff0000,
     'focusOpacity': 0.5,
     'set': {
+      'build_base1': {'name': '基1'},
+      'build_base2': {'name': '基2'},
       'build_1f': {'name': ''},
       'build_2f': {'name': ''},
       'build_3f': {'name': ''},
@@ -72,6 +74,7 @@ const Map settingData = {
       'build_stair': {'name': '樓梯'},
 
       'build1_b1_room1': {'name': '行政大樓B1'},
+      'build1_b1_room2': {'name': '行政大樓B1未知空間'},
       'build1_1f_room1': {'name': '學務處'},
       'build1_1f_room2': {'name': '健康中心'},
       'build1_1f_facility1': {'name': 'ATM'},
@@ -102,6 +105,7 @@ const Map settingData = {
       'build1_stair': {'name': '行政大樓樓梯'},
       'build1_elevator': {'name': '行政大樓電梯'},
 
+      'build2_base1': {'name': '通達樓基1'},
       'build2_1f_room1': {'name': '通達樓1F會議室'},
       'build2_2f_room1': {'name': '生物實驗室1'},
       'build2_3f_room1': {'name': '化學實驗室2'},
@@ -116,6 +120,9 @@ const Map settingData = {
       'build3_stair1': {'name': '中和樓樓梯#1'},
       'build3_stair2': {'name': '中和樓樓梯#2'},
       'build3_stair3': {'name': '中和樓樓梯#3'},
+      'build3_base1': {'name': '中和樓基1'},
+      'build3_base2': {'name': '中和樓基2'},
+      'build3_base3': {'name': '中和樓基3'},
       'build3_b1_aisle1': {'name': '早餐店'},
       'build3_b1_room1': {'name': '店1'},
       'build3_b1_room2': {'name': '店2'},
@@ -170,6 +177,24 @@ const Map settingData = {
 // build, floor, x, y, z, height, width, length, color, render, rotate, searchable
 const Map<String, Map<String, dynamic>> mapData = {
   // build
+  'build_base1': {
+    'x': 13,
+    'y': 0,
+    'z': 51.5,
+    'height': 1,
+    'width': 13,
+    'length': 5,
+    'searchable': false,
+  },
+  'build_base2': {
+    'x': 13,
+    'y': 0,
+    'z': 61,
+    'height': 1,
+    'width': 6,
+    'length': 5,
+    'searchable': false,
+  },
   'build_1f': {
     'x': 13,
     'y': 1,
@@ -252,6 +277,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 30,
     'length': 25,
+    'floor': -1,
+  },
+  'build1_b1_room2': {
+    'build': 'build1',
+    'x': 4,
+    'y': -2,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 13,
     'floor': -1,
   },
   // build1_1f
@@ -551,6 +586,15 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 
   // build2
+  'build2_base1': {
+    'build': 'build2',
+    'x': 28.5,
+    'y': 0,
+    'z': 51.5,
+    'height': 1,
+    'width': 13,
+    'length': 26
+  },
   'build2_1f_room1': {
     'build': 'build2',
     'x': 25,
@@ -724,6 +768,35 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 16,
     'length': 6
+  },
+  'build3_base1': {
+    'build': 'build3',
+    'x': 40,
+    'y': 0,
+    'z': 66.5,
+    'height': 1,
+    'width': 17,
+    'length': 11,
+    'searchable': false
+  },
+  'build3_base2': {
+    'build': 'build3',
+    'x': 47.5,
+    'y': 0,
+    'z': 40.5,
+    'height': 1,
+    'width': 17,
+    'length': 12,
+    'searchable': false
+  },
+  'build3_base3': {
+    'build': 'build3',
+    'x': 45,
+    'y': 0,
+    'z': 53.5,
+    'height': 1,
+    'width': 9,
+    'length': 7,
   },
   // build3_1f
   'build3_1f_room1': {

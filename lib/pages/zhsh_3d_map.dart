@@ -83,6 +83,8 @@ const Map settingData = {
       'build1_4f_room1': {'name': '教師辦公室'},
       'build1_4f_room2': {'name': '家長接待室'},
       'build1_5f_room1': {'name': '自主學習空間'},
+      'build1_6f_room1': {'name': '暫'},
+      'build1_7f_room1': {'name': '暫'},
 
       'build1_1f_room': {'name': '行政大樓1F未知空間'},
       'build1_2f_room': {'name': '行政大樓2F油印室'},
@@ -239,6 +241,26 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 10,
     'floor': 1,
   },
+  'build1_1f_facility1': {
+    'build': 'build1',
+    'x': 9.5,
+    'y': 1,
+    'z': 55.5,
+    'height': 4,
+    'width': 9,
+    'length': 2,
+    'floor': 1,
+  },
+  'build1_1f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 1,
+    'z': 42.5,
+    'height': 4,
+    'width': 5,
+    'length': 10,
+    'floor': 1,
+  },
   // build1_2f
   'build1_2f_room': {
     'build': 'build1',
@@ -363,6 +385,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 25,
     'floor': 5,
   },
+  // build1_6f
   'build1_6f_room': {
     'build': 'build1',
     'x': -1,
@@ -373,6 +396,17 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 3,
     'floor': 6,
   },
+  'build1_6f_room1': {
+    'build': 'build1',
+    'x': -2,
+    'y': 17,
+    'z': 60,
+    'height': 3,
+    'width': 30,
+    'length': 25,
+    'floor': 5,
+  },
+  // build1_7f
   'build1_7f_room': {
     'build': 'build1',
     'x': -1,
@@ -383,25 +417,15 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 3,
     'floor': 7,
   },
-  'build1_1f_facility1': {
+  'build1_7f_room1': {
     'build': 'build1',
-    'x': 9.5,
-    'y': 1,
-    'z': 55.5,
-    'height': 4,
-    'width': 9,
-    'length': 2,
-    'floor': 1,
-  },
-  'build1_1f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 1,
-    'z': 42.5,
-    'height': 4,
-    'width': 5,
-    'length': 10,
-    'floor': 1,
+    'x': -2,
+    'y': 20,
+    'z': 60,
+    'height': 3,
+    'width': 30,
+    'length': 25,
+    'floor': 5,
   },
   'build1_2f_toilet1': {
     'build': 'build1',

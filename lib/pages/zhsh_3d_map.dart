@@ -126,6 +126,16 @@ const Map settingData = {
       'build3_1f_room6': {'name': '205教室'},
       'build3_1f_toilet2': {'name': '中和樓1F廁所#2'},
       'build3_stair3': {'name': '中和樓樓梯#3'},
+
+      'build4_1f_room1': {'name': '體育辦公室'},
+      'build4_1f_room2': {'name': '體育器材室'},
+      'build4_1f_aisle1': {'name': '至誠樓穿堂'},
+      'build4_1f_room3': {'name': '教官室'},
+      'build4_1f_room4': {'name': '健護教室'},
+      'build4_1f_room5': {'name': '社團教室'},
+      'build4_1f_room6': {'name': '儲藏室'},
+      'build4_1f_aisle2': {'name': '至誠樓側郎'},
+      'build4_stair1': {'name': '至誠樓樓梯#1'},
     }
   },
   'ground': {
@@ -623,9 +633,9 @@ const Map<String, Map<String, dynamic>> mapData = {
   'build3_stair2': {
     'build': 'build3',
     'x': 49.5,
-    'y': 1,
+    'y': -2,
     'z': 24,
-    'height': 26,
+    'height': 29,
     'width': 16,
     'length': 4,
   },
@@ -705,9 +715,9 @@ const Map<String, Map<String, dynamic>> mapData = {
   'build3_stair3': {
     'build': 'build3',
     'x': 48.5,
-    'y': 1,
+    'y': -2,
     'z': -22,
-    'height': 3,
+    'height': 29,
     'width': 4,
     'length': 14
   },
@@ -719,6 +729,89 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 12,
     'length': 14
+  },
+  // build4
+  // build4_1f
+  'build4_1f_room1': {
+    'build': 'build4',
+    'x': 37,
+    'y': 1,
+    'z': -28,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build4_1f_room2': {
+    'build': 'build4',
+    'x': 28,
+    'y': 1,
+    'z': -28,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build4_1f_aisle1': {
+    'build': 'build4',
+    'x': 21.25,
+    'y': 1,
+    'z': -28,
+    'height': 3,
+    'width': 16,
+    'length': 4.5
+  },
+  'build4_1f_room3': {
+    'build': 'build4',
+    'x': 14.5,
+    'y': 1,
+    'z': -28,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build4_1f_room4': {
+    'build': 'build4',
+    'x': 5.5,
+    'y': 1,
+    'z': -28,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build4_1f_room5': {
+    'build': 'build4',
+    'x': -3.5,
+    'y': 1,
+    'z': -28,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build4_1f_room6': {
+    'build': 'build4',
+    'x': -12.5,
+    'y': 1,
+    'z': -28,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build4_1f_aisle2': {
+    'build': 'build4',
+    'x': -19.25,
+    'y': 1,
+    'z': -30.25,
+    'height': 3,
+    'width': 11.5,
+    'length': 4.5
+  },
+  'build4_stair1': {
+    'build': 'build4',
+    'x': -22,
+    'y': -2,
+    'z': -19.5,
+    'height': 29,
+    'width': 10,
+    'length': 10
   },
 };
 

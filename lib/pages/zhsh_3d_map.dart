@@ -80,6 +80,8 @@ const Map settingData = {
       'build1_3f_room1': {'name': '總務處'},
       'build1_3f_room2': {'name': '校長室'},
       'build1_3f_room3': {'name': '會議室'},
+      'build1_4f_room1': {'name': '教師辦公室'},
+      'build1_4f_room2': {'name': '家長接待室'},
 
       'build1_1f_room': {'name': '行政大樓1F未知空間'},
       'build1_2f_room': {'name': '行政大樓2F油印室'},
@@ -194,17 +196,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 6,
     'length': 5,
   },
-  // build1
-  'build1_1f_room': {
-    'build': 'build1',
-    'x': -1,
-    'y': 1,
-    'z': 42.5,
-    'height': 4,
-    'width': 5,
-    'length': 3,
-    'floor': 1,
-  },
+  // build1_b1
   'build1_b1_room1': {
     'build': 'build1',
     'x': -2,
@@ -214,6 +206,17 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 30,
     'length': 25,
     'floor': -1,
+  },
+  // build1_1f
+  'build1_1f_room': {
+    'build': 'build1',
+    'x': -1,
+    'y': 1,
+    'z': 42.5,
+    'height': 4,
+    'width': 5,
+    'length': 3,
+    'floor': 1,
   },
   'build1_1f_room1': {
     'build': 'build1',
@@ -235,6 +238,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 10,
     'floor': 1,
   },
+  // build1_2f
   'build1_2f_room': {
     'build': 'build1',
     'x': -1,
@@ -265,6 +269,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5,
     'floor': 2,
   },
+  // build1_3f
   'build1_3f_room': {
     'build': 'build1',
     'x': -1,
@@ -279,9 +284,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build1',
     'x': 4.25,
     'y': 8,
-    'z': 60,
+    'z': 61.5,
     'height': 3,
-    'width': 30,
+    'width': 27,
     'length': 12.5,
     'floor': 3,
   },
@@ -305,6 +310,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5,
     'floor': 3,
   },
+  // build1_4f
   'build1_4f_room': {
     'build': 'build1',
     'x': -1,
@@ -313,6 +319,26 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 5,
     'length': 3,
+    'floor': 4,
+  },
+  'build1_4f_room1': {
+    'build': 'build1',
+    'x': -2,
+    'y': 11,
+    'z': 61.5,
+    'height': 3,
+    'width': 27,
+    'length': 25,
+    'floor': 4,
+  },
+  'build1_4f_room2': {
+    'build': 'build1',
+    'x': -12,
+    'y': 11,
+    'z': 46.5,
+    'height': 3,
+    'width': 3,
+    'length': 5,
     'floor': 4,
   },
   'build1_5f_room': {

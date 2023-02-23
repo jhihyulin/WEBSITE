@@ -70,7 +70,6 @@ const Map settingData = {
       'build_6f': {'name': ''},
       'build_7f': {'name': ''},
       'build_stair': {'name': '樓梯'},
-
       'build1_b1_room1': {'name': '行政大樓地下室'},
       'build1_1f_room1': {'name': '學務處'},
       'build1_1f_room2': {'name': '健康中心'},
@@ -85,7 +84,6 @@ const Map settingData = {
       'build1_5f_room1': {'name': '自主學習空間'},
       'build1_6f_room1': {'name': '暫'},
       'build1_7f_room1': {'name': '暫'},
-
       'build1_1f_room': {'name': '行政大樓1F未知空間'},
       'build1_2f_room': {'name': '行政大樓2F油印室'},
       'build1_3f_room': {'name': '行政大樓3F未知空間'},
@@ -102,7 +100,6 @@ const Map settingData = {
       'build1_7f_toilet1': {'name': '行政大樓7F廁所'},
       'build1_stair': {'name': '行政大樓樓梯'},
       'build1_elevator': {'name': '行政大樓電梯'},
-
       'build2_1f_room1': {'name': '通達樓1F會議室'},
       'build2_2f_room1': {'name': '生物實驗室1'},
       'build2_3f_room1': {'name': '化學實驗室2'},
@@ -113,7 +110,6 @@ const Map settingData = {
       'build2_3f_toilet1': {'name': '通達樓3F廁所'},
       'build2_4f_toilet1': {'name': '通達樓4F廁所'},
       'build2_5f_toilet1': {'name': '通達樓5F廁所'},
-
       'build3_stair1': {'name': '中和樓樓梯#1'},
       'build3_stair2': {'name': '中和樓樓梯#2'},
       'build3_1f_room1': {'name': '潛能教室'},
@@ -126,7 +122,6 @@ const Map settingData = {
       'build3_1f_room6': {'name': '205教室'},
       'build3_1f_toilet2': {'name': '中和樓1F廁所#2'},
       'build3_stair3': {'name': '中和樓樓梯#3'},
-
       'build4_1f_room1': {'name': '體育辦公室'},
       'build4_1f_room2': {'name': '體育器材室'},
       'build4_1f_aisle1': {'name': '至誠樓穿堂'},
@@ -136,6 +131,15 @@ const Map settingData = {
       'build4_1f_room6': {'name': '儲藏室'},
       'build4_1f_aisle2': {'name': '至誠樓側郎'},
       'build4_stair1': {'name': '至誠樓樓梯#1'},
+      'build5_1f_room1': {'name': '306教室'},
+      'build5_1f_room2': {'name': '305教室'},
+      'build5_1f_aisle1': {'name': '謙融樓穿堂'},
+      'build5_1f_room3': {'name': '304教室'},
+      'build5_1f_room4': {'name': '303教室'},
+      'build5_1f_room5': {'name': '302教室'},
+      'build5_1f_room6': {'name': '301教室'},
+      'build5_1f_aisle2': {'name': '謙融樓側郎'},
+      'build5_stair1': {'name': '謙融樓樓梯#1'},
     }
   },
   'ground': {
@@ -222,6 +226,8 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 6,
     'length': 5,
   },
+
+  // build1
   // build1_b1
   'build1_b1_room1': {
     'build': 'build1',
@@ -528,6 +534,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 5,
     'length': 3
   },
+
   // build2
   'build2_1f_room1': {
     'build': 'build2',
@@ -619,6 +626,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 13,
     'length': 7
   },
+
   // build3
   'build3_stair1': {
     'build': 'build3',
@@ -730,6 +738,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 12,
     'length': 14
   },
+
   // build4
   'build4_stair1': {
     'build': 'build4',
@@ -809,6 +818,90 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -19.25,
     'y': 1,
     'z': -30.25,
+    'height': 3,
+    'width': 11.5,
+    'length': 4.5
+  },
+
+  // build5
+  'build5_stair1': {
+    'build': 'build5',
+    'x': -22,
+    'y': -2,
+    'z': 15.5,
+    'height': 29,
+    'width': 10,
+    'length': 10
+  },
+  // build5_1f
+  'build5_1f_room1': {
+    'build': 'build5',
+    'x': 37,
+    'y': 1,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_1f_room2': {
+    'build': 'build5',
+    'x': 28,
+    'y': 1,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_1f_aisle1': {
+    'build': 'build5',
+    'x': 21.25,
+    'y': 1,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 4.5
+  },
+  'build5_1f_room3': {
+    'build': 'build5',
+    'x': 14.5,
+    'y': 1,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_1f_room4': {
+    'build': 'build5',
+    'x': 5.5,
+    'y': 1,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_1f_room5': {
+    'build': 'build5',
+    'x': -3.5,
+    'y': 1,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_1f_room6': {
+    'build': 'build5',
+    'x': -12.5,
+    'y': 1,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_1f_aisle2': {
+    'build': 'build5',
+    'x': -19.25,
+    'y': 1,
+    'z': 26.25,
     'height': 3,
     'width': 11.5,
     'length': 4.5
@@ -1389,8 +1482,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       if (i is three.Mesh) {
         i.material = three.MeshPhongMaterial({
           'color': settingData['buildings']['randomColor'] == true
-            ? (three.Math.random() * 0xffffff).toInt()
-            : mapData[i]!['color'] ?? settingData['buildings']['color'],
+              ? (three.Math.random() * 0xffffff).toInt()
+              : mapData[i]!['color'] ?? settingData['buildings']['color'],
           'flatShading': true,
           'opacity': 1,
           'transparent': false,

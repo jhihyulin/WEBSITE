@@ -125,6 +125,7 @@ const Map settingData = {
       'build3_1f_room5': {'name': '101教室'},
       'build3_1f_room6': {'name': '205教室'},
       'build3_1f_toilet2': {'name': '中和樓1F廁所#2'},
+      'build3_stair3': {'name': '中和樓樓梯#3'},
     }
   },
   'ground': {
@@ -701,13 +702,22 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 9,
     'length': 16
   },
+  'build3_stair3': {
+    'build': 'build3',
+    'x': 48.5,
+    'y': 1,
+    'z': -22,
+    'height': 3,
+    'width': 4,
+    'length': 14
+  },
   'build3_1f_toilet2': {
     'build': 'build3',
     'x': 48.5,
     'y': 1,
-    'z': -28,
+    'z': -30,
     'height': 3,
-    'width': 16,
+    'width': 12,
     'length': 14
   },
 };

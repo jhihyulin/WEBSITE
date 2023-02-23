@@ -82,6 +82,7 @@ const Map settingData = {
       'build1_3f_room3': {'name': '會議室'},
       'build1_4f_room1': {'name': '教師辦公室'},
       'build1_4f_room2': {'name': '家長接待室'},
+      'build1_5f_room1': {'name': '自主學習空間'},
 
       'build1_1f_room': {'name': '行政大樓1F未知空間'},
       'build1_2f_room': {'name': '行政大樓2F油印室'},
@@ -341,6 +342,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5,
     'floor': 4,
   },
+  // build1_5f
   'build1_5f_room': {
     'build': 'build1',
     'x': -1,
@@ -349,6 +351,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 5,
     'length': 3,
+    'floor': 5,
+  },
+  'build1_5f_room1': {
+    'build': 'build1',
+    'x': -2,
+    'y': 14,
+    'z': 60,
+    'height': 3,
+    'width': 30,
+    'length': 25,
     'floor': 5,
   },
   'build1_6f_room': {

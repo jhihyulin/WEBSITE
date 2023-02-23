@@ -1244,6 +1244,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     //   scene.add(mesh);
     // }
 
+    // var kDebugMode = false;
     // helper
     if (kDebugMode) {
       var grid = three.GridHelper(1000, 1000, 0xff0000, 0xffff);
@@ -1256,12 +1257,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     // ground
     if (!kDebugMode) {
-      // if (true) {
       var mesh = three.Mesh(
           three.PlaneGeometry(
               settingData['ground']['width'], settingData['ground']['length']),
           three.MeshPhongMaterial(
-              {'color': settingData['ground']['color'], 'depthWrite': false}));
+              {'color': settingData['ground']['color']}));
       mesh.rotation.x = -three.Math.pi / 2;
       mesh.receiveShadow = true;
       mesh.name = 'ground';

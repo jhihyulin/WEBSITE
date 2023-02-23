@@ -70,7 +70,8 @@ const Map settingData = {
       'build_6f': {'name': ''},
       'build_7f': {'name': ''},
       'build_stair': {'name': '樓梯'},
-      'build1_b1_room1': {'name': '行政大樓地下室'},
+
+      'build1_b1_room1': {'name': '行政大樓B1'},
       'build1_1f_room1': {'name': '學務處'},
       'build1_1f_room2': {'name': '健康中心'},
       'build1_1f_facility1': {'name': 'ATM'},
@@ -100,6 +101,7 @@ const Map settingData = {
       'build1_7f_toilet1': {'name': '行政大樓7F廁所'},
       'build1_stair': {'name': '行政大樓樓梯'},
       'build1_elevator': {'name': '行政大樓電梯'},
+
       'build2_1f_room1': {'name': '通達樓1F會議室'},
       'build2_2f_room1': {'name': '生物實驗室1'},
       'build2_3f_room1': {'name': '化學實驗室2'},
@@ -110,8 +112,16 @@ const Map settingData = {
       'build2_3f_toilet1': {'name': '通達樓3F廁所'},
       'build2_4f_toilet1': {'name': '通達樓4F廁所'},
       'build2_5f_toilet1': {'name': '通達樓5F廁所'},
+
       'build3_stair1': {'name': '中和樓樓梯#1'},
       'build3_stair2': {'name': '中和樓樓梯#2'},
+      'build3_stair3': {'name': '中和樓樓梯#3'},
+      'build3_b1_aisle1': {'name': '早餐店'},
+      'build3_b1_room1': {'name': '店1'},
+      'build3_b1_room2': {'name': '店2'},
+      'build3_b1_room3': {'name': '店3'},
+      'build3_b1_room4': {'name': '合作社'},
+      'build3_b1_room5': {'name': '中和樓B1未知空間'},
       'build3_1f_room1': {'name': '潛能教室'},
       'build3_1f_room2': {'name': '理化教室'},
       'build3_1f_toilet1': {'name': '中和樓1F廁所#1'},
@@ -121,24 +131,29 @@ const Map settingData = {
       'build3_1f_room5': {'name': '101教室'},
       'build3_1f_room6': {'name': '205教室'},
       'build3_1f_toilet2': {'name': '中和樓1F廁所#2'},
-      'build3_stair3': {'name': '中和樓樓梯#3'},
+
+      'build4_b1_room1': {'name': '至誠樓B1'},
+      'build4_b1_room2': {'name': '至誠樓B1未知空間'},
       'build4_1f_room1': {'name': '體育辦公室'},
       'build4_1f_room2': {'name': '體育器材室'},
-      'build4_1f_aisle1': {'name': '至誠樓穿堂'},
+      'build4_1f_aisle1': {'name': '至誠樓1F穿堂'},
       'build4_1f_room3': {'name': '教官室'},
       'build4_1f_room4': {'name': '健護教室'},
       'build4_1f_room5': {'name': '社團教室'},
       'build4_1f_room6': {'name': '儲藏室'},
-      'build4_1f_aisle2': {'name': '至誠樓側郎'},
+      'build4_1f_aisle2': {'name': '至誠樓1F側郎'},
       'build4_stair1': {'name': '至誠樓樓梯#1'},
+
+      'build5_b1_room1': {'name': '謙融樓B1用餐區'},
+      'build5_b1_room2': {'name': '謙融樓B1未知空間'},
       'build5_1f_room1': {'name': '306教室'},
       'build5_1f_room2': {'name': '305教室'},
-      'build5_1f_aisle1': {'name': '謙融樓穿堂'},
+      'build5_1f_aisle1': {'name': '謙融樓1F穿堂'},
       'build5_1f_room3': {'name': '304教室'},
       'build5_1f_room4': {'name': '303教室'},
       'build5_1f_room5': {'name': '302教室'},
       'build5_1f_room6': {'name': '301教室'},
-      'build5_1f_aisle2': {'name': '謙融樓側郎'},
+      'build5_1f_aisle2': {'name': '謙融樓1F側郎'},
       'build5_stair1': {'name': '謙融樓樓梯#1'},
     }
   },
@@ -655,6 +670,61 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 4,
     'length': 14
   },
+  // build3_b1
+  'build3_b1_aisle1': {
+    'build': 'build3',
+    'x': 44.5,
+    'y': -2,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_b1_room1': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': -2,
+    'z': 13.75,
+    'height': 3,
+    'width': 4.5,
+    'length': 16
+  },
+  'build3_b1_room2': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': -2,
+    'z': 9.25,
+    'height': 3,
+    'width': 4.5,
+    'length': 16
+  },
+  'build3_b1_room3': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': -2,
+    'z': 2.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_b1_room4': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': -2,
+    'z': -11,
+    'height': 3,
+    'width': 18,
+    'length': 16
+  },
+  'build3_b1_room5': {
+    'build': 'build3',
+    'x': 54.5,
+    'y': -2,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
   // build3_1f
   'build3_1f_room1': {
     'build': 'build3',
@@ -749,6 +819,25 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 10,
     'length': 10
   },
+  // build4_b1
+  'build4_b1_room1': {
+    'build': 'build4',
+    'x': 10,
+    'y': -2,
+    'z': -28,
+    'height': 3,
+    'width': 16,
+    'length': 63
+  },
+  'build4_b1_room2': {
+    'build': 'build4',
+    'x': 48.5,
+    'y': -2,
+    'z': -30,
+    'height': 3,
+    'width': 12,
+    'length': 14
+  },
   // build4_1f
   'build4_1f_room1': {
     'build': 'build4',
@@ -832,6 +921,25 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 29,
     'width': 10,
     'length': 10
+  },
+  // build5_b1
+  'build5_b1_room1': {
+    'build': 'build5',
+    'x': 37,
+    'y': -2,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_b1_room2': {
+    'build': 'build5',
+    'x': 5.5,
+    'y': -2,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 54
   },
   // build5_1f
   'build5_1f_room1': {

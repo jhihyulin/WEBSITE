@@ -122,6 +122,7 @@ const Map settingData = {
 
 // build, floor, x, y, z, height, width, length, color, render, rotate, searchable
 const Map<String, Map<String, dynamic>> mapData = {
+  // build
   'build_1f': {
     'x': 13,
     'y': 1,
@@ -193,6 +194,17 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 6,
     'length': 5,
   },
+  // build1
+  'build1_1f_room': {
+    'build': 'build1',
+    'x': -1,
+    'y': 1,
+    'z': 42.5,
+    'height': 4,
+    'width': 5,
+    'length': 3,
+    'floor': 1,
+  },
   'build1_b1_room1': {
     'build': 'build1',
     'x': -2,
@@ -223,6 +235,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 10,
     'floor': 1,
   },
+  'build1_2f_room': {
+    'build': 'build1',
+    'x': -1,
+    'y': 5,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 3,
+    'floor': 2,
+  },
   'build1_2f_room1': {
     'build': 'build1',
     'x': -4.5,
@@ -242,6 +264,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 30,
     'length': 5,
     'floor': 2,
+  },
+  'build1_3f_room': {
+    'build': 'build1',
+    'x': -1,
+    'y': 8,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 3,
+    'floor': 3,
   },
   'build1_3f_room1': {
     'build': 'build1',
@@ -271,36 +303,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 3,
     'width': 3,
     'length': 6,
-    'floor': 3,
-  },
-  'build1_1f_room': {
-    'build': 'build1',
-    'x': -1,
-    'y': 1,
-    'z': 42.5,
-    'height': 4,
-    'width': 5,
-    'length': 3,
-    'floor': 1,
-  },
-  'build1_2f_room': {
-    'build': 'build1',
-    'x': -1,
-    'y': 5,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 3,
-    'floor': 2,
-  },
-  'build1_3f_room': {
-    'build': 'build1',
-    'x': -1,
-    'y': 8,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 3,
     'floor': 3,
   },
   'build1_4f_room': {
@@ -441,6 +443,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 5,
     'length': 3
   },
+  // build2
   'build2_1f_room1': {
     'build': 'build2',
     'x': 25,

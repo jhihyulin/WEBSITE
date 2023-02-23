@@ -217,12 +217,12 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build1_1f_room1': {
     'build': 'build1',
-    'x': -2,
+    'x': 0.5,
     'y': 1,
     'z': 67.5,
     'height': 4,
     'width': 15,
-    'length': 25,
+    'length': 20,
     'floor': 1,
   },
   'build1_1f_room2': {
@@ -247,12 +247,12 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build1_2f_room1': {
     'build': 'build1',
-    'x': -4.5,
+    'x': -2,
     'y': 5,
     'z': 60,
     'height': 3,
     'width': 30,
-    'length': 20,
+    'length': 15,
     'floor': 2,
   },
   'build1_2f_room2': {
@@ -297,12 +297,12 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   'build1_3f_room3': {
     'build': 'build1',
-    'x': -11.5,
+    'x': -12,
     'y': 8,
     'z': 46.5,
     'height': 3,
     'width': 3,
-    'length': 6,
+    'length': 5,
     'floor': 3,
   },
   'build1_4f_room': {

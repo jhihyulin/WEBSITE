@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:html';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,6 @@ const Map settingData = {
       'build_6f': {'name': ''},
       'build_7f': {'name': ''},
       'build_stair': {'name': '樓梯'},
-
       'build1_b1_room1': {'name': '行政大樓B1'},
       'build1_b1_room2': {'name': '行政大樓B1未知空間'},
       'build1_1f_room1': {'name': '學務處'},
@@ -104,7 +104,6 @@ const Map settingData = {
       'build1_7f_toilet1': {'name': '行政大樓7F廁所'},
       'build1_stair': {'name': '行政大樓樓梯'},
       'build1_elevator': {'name': '行政大樓電梯'},
-
       'build2_base1': {'name': '通達樓基1'},
       'build2_1f_room1': {'name': '通達樓1F會議室'},
       'build2_2f_room1': {'name': '生物實驗室1'},
@@ -116,7 +115,6 @@ const Map settingData = {
       'build2_3f_toilet1': {'name': '通達樓3F廁所'},
       'build2_4f_toilet1': {'name': '通達樓4F廁所'},
       'build2_5f_toilet1': {'name': '通達樓5F廁所'},
-
       'build3_stair1': {'name': '中和樓樓梯#1'},
       'build3_stair2': {'name': '中和樓樓梯#2'},
       'build3_stair3': {'name': '中和樓樓梯#3'},
@@ -138,7 +136,6 @@ const Map settingData = {
       'build3_1f_room5': {'name': '101教室'},
       'build3_1f_room6': {'name': '205教室'},
       'build3_1f_toilet2': {'name': '中和樓1F廁所#2'},
-
       'build4_b1_room1': {'name': '至誠樓B1'},
       'build4_b1_room2': {'name': '至誠樓B1未知空間'},
       'build4_1f_room1': {'name': '體育辦公室'},
@@ -150,7 +147,6 @@ const Map settingData = {
       'build4_1f_room6': {'name': '儲藏室'},
       'build4_1f_aisle2': {'name': '至誠樓1F側郎'},
       'build4_stair1': {'name': '至誠樓樓梯#1'},
-
       'build5_b1_room1': {'name': '謙融樓B1用餐區'},
       'build5_b1_room2': {'name': '謙融樓B1未知空間'},
       'build5_1f_room1': {'name': '306教室'},
@@ -1441,8 +1437,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       var mesh = three.Mesh(
           three.PlaneGeometry(
               settingData['ground']['width'], settingData['ground']['length']),
-          three.MeshPhongMaterial(
-              {'color': settingData['ground']['color']}));
+          three.MeshPhongMaterial({'color': settingData['ground']['color']}));
       mesh.rotation.x = -three.Math.pi / 2;
       mesh.receiveShadow = true;
       mesh.name = 'ground';
@@ -1569,15 +1564,18 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     if (controls.autoRotate) {
       controls.autoRotate = false;
     }
-    var x = mapData[buildingName]!['x'];
-    var y = mapData[buildingName]!['y'];
-    var z = mapData[buildingName]!['z'];
-    var height = mapData[buildingName]!['height'];
-    var length = mapData[buildingName]!['length'];
-    var width = mapData[buildingName]!['width'];
-    var object = scene.getObjectByName(buildingName);
+    if (_navigatorTimer != null) {
+      _navigatorTimer!.cancel();
+    }
+    var objectX = mapData[buildingName]!['x'];
+    var objectY = mapData[buildingName]!['y'];
+    var objectZ = mapData[buildingName]!['z'];
+    var objectHeight = mapData[buildingName]!['height'];
     var tarCameraPosition = three.Vector3(
-        x + length * 2, y + height * 2, z + width * 2); // TODO: Best position
+      objectX + 50,
+      objectY + (objectHeight / 2) + 50,
+      objectZ + 50,
+    );
     _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {
         timer.cancel();
@@ -1593,7 +1591,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         // TODO: Best route
         cameraPosition.lerp(tarCameraPosition, 0.1);
       }
-      controls.target.set(x, height / 2 + y, z);
+      controls.target.set(objectX, objectY + (objectHeight / 2), objectZ);
     });
     for (var i in scene.children) {
       if (i is three.Mesh) {

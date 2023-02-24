@@ -59,25 +59,22 @@ const Map settingData = {
     }
   },
   'object': {
-    'color': 0xaaaaaa,
-    'focusColor': 0xff0000,
-    'focusOpacity': 0.5,
     'set': {
-      'build_base1': {'name': '基1'},
-      'build_base2': {'name': '基2'},
-      'build_1f': {'name': ''},
-      'build_2f': {'name': ''},
-      'build_3f': {'name': ''},
-      'build_4f': {'name': ''},
-      'build_5f': {'name': ''},
-      'build_6f': {'name': ''},
-      'build_7f': {'name': ''},
-      'build_stair': {'name': '樓梯'},
+      'build_base1': {'name': '基1', 'searchable': false},
+      'build_base2': {'name': '基2', 'searchable': false},
+      'build_1f': {'name': '行政大樓==通達樓1F', 'searchable': false},
+      'build_2f': {'name': '行政大樓==通達樓2F', 'searchable': false},
+      'build_3f': {'name': '行政大樓==通達樓3F', 'searchable': false},
+      'build_4f': {'name': '行政大樓==通達樓4F', 'searchable': false},
+      'build_5f': {'name': '行政大樓==通達樓5F', 'searchable': false},
+      'build_6f': {'name': '行政大樓=x=通達樓6F', 'searchable': false},
+      'build_7f': {'name': '行政大樓=x=通達樓7F', 'searchable': false},
+      'build_stair': {'name': '行政大樓==通達樓-樓梯'},
       'build1_b1_room1': {'name': '行政大樓B1'},
       'build1_b1_room2': {'name': '行政大樓B1未知空間'},
       'build1_1f_room1': {'name': '學務處'},
       'build1_1f_room2': {'name': '健康中心'},
-      'build1_1f_facility1': {'name': 'ATM'},
+      'build1_1f_facility1': {'name': 'ATM'},// TODO: fix search upper case
       'build1_2f_room1': {'name': '教務處'},
       'build1_2f_room2': {'name': '輔導室'},
       'build1_3f_room1': {'name': '總務處'},
@@ -86,8 +83,8 @@ const Map settingData = {
       'build1_4f_room1': {'name': '教師辦公室'},
       'build1_4f_room2': {'name': '家長接待室'},
       'build1_5f_room1': {'name': '自主學習空間'},
-      'build1_6f_room1': {'name': '暫'},
-      'build1_7f_room1': {'name': '暫'},
+      'build1_6f_room1': {'name': '行政大樓6F會議室'},
+      'build1_7f_room1': {'name': '桌球室'},
       'build1_1f_room': {'name': '行政大樓1F未知空間'},
       'build1_2f_room': {'name': '行政大樓2F油印室'},
       'build1_3f_room': {'name': '行政大樓3F未知空間'},
@@ -104,7 +101,7 @@ const Map settingData = {
       'build1_7f_toilet1': {'name': '行政大樓7F廁所'},
       'build1_stair': {'name': '行政大樓樓梯'},
       'build1_elevator': {'name': '行政大樓電梯'},
-      'build2_base1': {'name': '通達樓基1'},
+      'build2_base1': {'name': '通達樓基1', 'searchable': false},
       'build2_1f_room1': {'name': '通達樓1F會議室'},
       'build2_2f_room1': {'name': '生物實驗室1'},
       'build2_3f_room1': {'name': '化學實驗室2'},
@@ -118,9 +115,9 @@ const Map settingData = {
       'build3_stair1': {'name': '中和樓樓梯#1'},
       'build3_stair2': {'name': '中和樓樓梯#2'},
       'build3_stair3': {'name': '中和樓樓梯#3'},
-      'build3_base1': {'name': '中和樓基1'},
-      'build3_base2': {'name': '中和樓基2'},
-      'build3_base3': {'name': '中和樓基3'},
+      'build3_base1': {'name': '中和樓基1', 'searchable': false},
+      'build3_base2': {'name': '中和樓基2', 'searchable': false},
+      'build3_base3': {'name': '中和樓基3', 'searchable': false},
       'build3_b1_aisle1': {'name': '早餐店'},
       'build3_b1_room1': {'name': '店1'},
       'build3_b1_room2': {'name': '店2'},
@@ -130,7 +127,7 @@ const Map settingData = {
       'build3_1f_room1': {'name': '潛能教室'},
       'build3_1f_room2': {'name': '理化教室'},
       'build3_1f_toilet1': {'name': '中和樓1F廁所#1'},
-      'build3_1f_aisle1': {'name': '中和樓1F走道#1'},
+      'build3_1f_aisle1': {'name': '中和樓1F走道#1', 'searchable': false},
       'build3_1f_room3': {'name': '103教室'},
       'build3_1f_room4': {'name': '102教室'},
       'build3_1f_room5': {'name': '101教室'},
@@ -140,23 +137,23 @@ const Map settingData = {
       'build4_b1_room2': {'name': '至誠樓B1未知空間'},
       'build4_1f_room1': {'name': '體育辦公室'},
       'build4_1f_room2': {'name': '體育器材室'},
-      'build4_1f_aisle1': {'name': '至誠樓1F穿堂'},
+      'build4_1f_aisle1': {'name': '至誠樓1F穿堂', 'searchable': false},
       'build4_1f_room3': {'name': '教官室'},
       'build4_1f_room4': {'name': '健護教室'},
       'build4_1f_room5': {'name': '社團教室'},
       'build4_1f_room6': {'name': '儲藏室'},
-      'build4_1f_aisle2': {'name': '至誠樓1F側郎'},
+      'build4_1f_aisle2': {'name': '至誠樓1F側郎', 'searchable': false},
       'build4_stair1': {'name': '至誠樓樓梯#1'},
       'build5_b1_room1': {'name': '謙融樓B1用餐區'},
       'build5_b1_room2': {'name': '謙融樓B1未知空間'},
       'build5_1f_room1': {'name': '306教室'},
       'build5_1f_room2': {'name': '305教室'},
-      'build5_1f_aisle1': {'name': '謙融樓1F穿堂'},
+      'build5_1f_aisle1': {'name': '謙融樓1F穿堂', 'searchable': false},
       'build5_1f_room3': {'name': '304教室'},
       'build5_1f_room4': {'name': '303教室'},
       'build5_1f_room5': {'name': '302教室'},
       'build5_1f_room6': {'name': '301教室'},
-      'build5_1f_aisle2': {'name': '謙融樓1F側郎'},
+      'build5_1f_aisle2': {'name': '謙融樓1F側郎', 'searchable': false},
       'build5_stair1': {'name': '謙融樓樓梯#1'},
     }
   },
@@ -179,8 +176,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 51.5,
     'height': 1,
     'width': 13,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_base2': {
     'x': 13,
@@ -188,8 +184,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 61,
     'height': 1,
     'width': 6,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_1f': {
     'x': 13,
@@ -197,8 +192,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 51.5,
     'height': 4,
     'width': 13,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_2f': {
     'x': 13,
@@ -206,8 +200,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 51.5,
     'height': 3,
     'width': 13,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_3f': {
     'x': 13,
@@ -215,8 +208,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 51.5,
     'height': 3,
     'width': 13,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_4f': {
     'x': 13,
@@ -224,8 +216,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 51.5,
     'height': 3,
     'width': 13,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_5f': {
     'x': 13,
@@ -233,8 +224,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 51.5,
     'height': 3,
     'width': 13,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_6f': {
     'x': 13,
@@ -242,8 +232,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 51.5,
     'height': 3,
     'width': 13,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_7f': {
     'x': 13,
@@ -251,8 +240,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 51.5,
     'height': 3,
     'width': 13,
-    'length': 5,
-    'searchable': false,
+    'length': 5
   },
   'build_stair': {
     'x': 13,
@@ -782,8 +770,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 40.5,
     'height': 1,
     'width': 17,
-    'length': 12,
-    'searchable': false
+    'length': 12
   },
   'build3_base3': {
     'build': 'build3',
@@ -829,8 +816,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 24,
     'height': 3,
     'width': 16,
-    'length': 6,
-    'searchable': false
+    'length': 6
   },
   'build3_1f_room3': {
     'build': 'build3',
@@ -1162,14 +1148,15 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     setState(() {
       dNameToName = {
         for (var i in mapData.keys)
-          mapData[i]!['searchable'] == false
+          settingData['object']['set'][i]['searchable'] == false
               ? ''
               : settingData['object']['set'][i]['name']: i
       };
       nameToDName = {
         for (var i in mapData.keys)
-          mapData[i]!['searchable'] == false ? '' : i: settingData['object']
-              ['set'][i]['name']
+          settingData['object']['set'][i]['searchable'] == false
+          ? ''
+          : i: settingData['object']['set'][i]['name']
       };
     });
 
@@ -1447,13 +1434,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     // buildings
     for (var i in mapData.keys) {
       // for import obj file
-      if (mapData[i]!['render'] == false) {
+      if (settingData['object']['set'][i]['render'] == false) {
         continue;
       }
       material = three.MeshPhongMaterial({
         'color': settingData['buildings']['randomColor'] == true
             ? (three.Math.random() * 0xffffff).toInt()
-            : mapData[i]!['color'] ?? settingData['buildings']['color'],
+            : settingData['object']['set'][i]!['color'] ?? settingData['buildings']['color'],
         'flatShading': true,
       });
       var mesh = three.Mesh(geometry, material);
@@ -1607,8 +1594,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           });
         } else {
           i.material = three.MeshPhongMaterial({
-            'color':
-                mapData[i.name]!['color'] ?? settingData['buildings']['color'],
+            'color': settingData['object']['set'][i.name]!['color'] ??
+                settingData['buildings']['color'],
             'flatShading': true,
             'opacity': settingData['buildings']['focusOpacity'],
             'transparent': true,
@@ -1662,7 +1649,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         i.material = three.MeshPhongMaterial({
           'color': settingData['buildings']['randomColor'] == true
               ? (three.Math.random() * 0xffffff).toInt()
-              : mapData[i]!['color'] ?? settingData['buildings']['color'],
+              : settingData['object']['set'][i.name]!['color'] ?? settingData['buildings']['color'],
           'flatShading': true,
           'opacity': 1,
           'transparent': false,

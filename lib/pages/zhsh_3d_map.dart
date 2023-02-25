@@ -16,35 +16,38 @@ const int deskopModeWidth = 640;
 // TODO: Load from web
 const Map settingData = {
   'camera': {
-    'x': 100,
-    'y': 100,
+    'x': -50,
+    'y': 25,
     'z': 100,
-    'focusX': 0,
+    'focusX': 12.5,
     'focusY': 0,
-    'focusZ': 0,
+    'focusZ': 25,
+    'focusIncreaseX': -50,
+    'focusIncreaseY': 50,
+    'focusIncreaseZ': -50,
   },
   'controls': {'enabled': true, 'autoRotate': false, 'autoRotateSpeed': 2.0},
   'lights': [
     {
       'type': 'ambient',
       'color': 0xffffff,
-      'intensity': 0.5,
+      'intensity': 1,
     },
     {
       'type': 'directional',
       'color': 0xffffff,
-      'intensity': 0.5,
+      'intensity': 1,
       'position': {'x': 100, 'y': 100, 'z': 100},
       'target': {'x': 0, 'y': 0, 'z': 0},
       'shadow': {
         'enabled': true,
       }
-    },
+    }
   ],
   'buildings': {
-    'randomColor': true,
-    'color': 0xaaaaaa,
-    'focusColor': 0xff0000,
+    'randomColor': false,
+    'color': 0x888888,
+    'focusColor': 0xaa0000,
     'focusOpacity': 0.5,
     'name': {
       'build': '行政大樓==通達樓',
@@ -1353,7 +1356,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     renderer = three.WebGLRenderer(options);
     renderer!.setPixelRatio(dpr);
     renderer!.setSize(width, height, false);
-    renderer!.shadowMap.enabled = false;
+    renderer!.shadowMap.enabled = true;
   }
 
   initScene() {
@@ -1450,6 +1453,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       mesh.scale.x = mapData[i]!['length'];
       mesh.scale.y = mapData[i]!['height'];
       mesh.scale.z = mapData[i]!['width'];
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
       if (mapData[i]!['rotate'] != null) {
         mesh.rotateX(mapData[i]!['rotate']!['x']);
         mesh.rotateY(mapData[i]!['rotate']!['y']);
@@ -1465,20 +1470,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     }
 
     // lights
-    // var light = three.DirectionalLight(0xffffff);
-    // light.position.set(1, 1, 1);
-    // scene.add(light);
-    // var dirLight =
-    //     three.DirectionalLight(settingData['lights']['directional']['color']);
-    // dirLight.position.set(
-    //     settingData['lights']['directional']['x'],
-    //     settingData['lights']['directional']['y'],
-    //     settingData['lights']['directional']['z']);
-    // scene.add(dirLight);
-    // var ambientLight =
-    //     three.AmbientLight(settingData['lights']['ambient']['color']);
-    // scene.add(ambientLight);
-
     for (var i in settingData['lights']) {
       if (i['type'] == 'ambient') {
         var ambientLight = three.AmbientLight(i['color']);
@@ -1523,7 +1514,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         dirLight.position
             .set(i['position']['x'], i['position']['y'], i['position']['z']);
         dirLight.intensity = i['intensity'];
-        dirLight.castShadow = i['shadow']['enabled'] ?? false;
+        dirLight.castShadow = true;
         scene.add(dirLight);
         if (kDebugMode) {
           var dirLightHelper = three.DirectionalLightHelper(dirLight, 5);
@@ -1559,9 +1550,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     var objectZ = mapData[buildingName]!['z'];
     var objectHeight = mapData[buildingName]!['height'];
     var tarCameraPosition = three.Vector3(
-      objectX + 50,
-      objectY + (objectHeight / 2) + 50,
-      objectZ + 50,
+      objectX + settingData['camera']['focusIncreaseX'],
+      objectY + (objectHeight / 2) + settingData['camera']['focusIncreaseY'],
+      objectZ + settingData['camera']['focusIncreaseZ'],
     );
     _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {

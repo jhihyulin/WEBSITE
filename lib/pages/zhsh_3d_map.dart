@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:html';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -77,7 +78,7 @@ const Map settingData = {
       'build1_b1_room2': {'name': '行政大樓B1未知空間'},
       'build1_1f_room1': {'name': '學務處'},
       'build1_1f_room2': {'name': '健康中心'},
-      'build1_1f_facility1': {'name': 'ATM'},// TODO: fix search upper case
+      'build1_1f_facility1': {'name': 'ATM'}, // TODO: fix search upper case
       'build1_2f_room1': {'name': '教務處'},
       'build1_2f_room2': {'name': '輔導室'},
       'build1_3f_room1': {'name': '總務處'},
@@ -1157,9 +1158,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       };
       nameToDName = {
         for (var i in mapData.keys)
-          settingData['object']['set'][i]['searchable'] == false
-          ? ''
-          : i: settingData['object']['set'][i]['name']
+          settingData['object']['set'][i]['searchable'] == false ? '' : i:
+              settingData['object']['set'][i]['name']
       };
     });
 
@@ -1170,33 +1170,28 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     });
   }
 
-  initSize(BuildContext context) {
+  initSize(BuildContext context) async {
     if (screenSize != null) {
       return;
     }
-
     final mqd = MediaQuery.of(context);
-
     screenSize = mqd.size;
     dpr = mqd.devicePixelRatio;
 
     initPlatformState();
+    initData();
   }
 
   @override
   Widget build(BuildContext context) {
+    initSize(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('3D Map'),
       ),
-      body: Builder(
-        builder: (BuildContext context) {
-          initSize(context);
-          return MediaQuery.of(context).size.width > deskopModeWidth
-              ? _buildDesktop(context)
-              : _buildMobile(context);
-        },
-      ),
+      body: MediaQuery.of(context).size.width > deskopModeWidth
+          ? _buildDesktop(context)
+          : _buildMobile(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _navigatorTimer?.cancel();
@@ -1308,7 +1303,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Text(
           'Floor: ${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor']}'),
       Text(
-          'BuildingName: ${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}'),
+          'BuildingName: ${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}')
     ]);
   }
 
@@ -1443,7 +1438,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       material = three.MeshPhongMaterial({
         'color': settingData['buildings']['randomColor'] == true
             ? (three.Math.random() * 0xffffff).toInt()
-            : settingData['object']['set'][i]!['color'] ?? settingData['buildings']['color'],
+            : settingData['object']['set'][i]!['color'] ??
+                settingData['buildings']['color'],
         'flatShading': true,
       });
       var mesh = three.Mesh(geometry, material);
@@ -1640,13 +1636,22 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         i.material = three.MeshPhongMaterial({
           'color': settingData['buildings']['randomColor'] == true
               ? (three.Math.random() * 0xffffff).toInt()
-              : settingData['object']['set'][i.name]!['color'] ?? settingData['buildings']['color'],
+              : settingData['object']['set'][i.name]!['color'] ??
+                  settingData['buildings']['color'],
           'flatShading': true,
           'opacity': 1,
           'transparent': false,
         });
       }
     }
+  }
+
+  initData() {
+    // TODO
+    print('TODO: initData');
+    Future.delayed(Duration(seconds: 5), () {
+      return;
+    });
   }
 
   @override

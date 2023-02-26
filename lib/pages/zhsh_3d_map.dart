@@ -1087,6 +1087,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   late FlutterGlPlugin three3dRender;
   three.WebGLRenderer? renderer;
 
+  bool _lightHelper = kDebugMode;
+  bool _groundHelper = kDebugMode;
+
   Timer? _navigatorTimer;
 
   int? fboId;
@@ -1408,7 +1411,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     // var kDebugMode = false;
     // helper
-    if (kDebugMode) {
+    if (_groundHelper) {
       var grid = three.GridHelper(1000, 1000, 0xff0000, 0xffff);
       scene.add(grid);
       var cameraHelper = three.CameraHelper(camera);
@@ -1418,12 +1421,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     }
 
     // ground
-    if (!kDebugMode) {
+    if (!_groundHelper) {
       var mesh = three.Mesh(
           three.PlaneGeometry(
               settingData['ground']['width'], settingData['ground']['length']),
           three.MeshPhongMaterial({'color': settingData['ground']['color']}));
       mesh.rotation.x = -three.Math.pi / 2;
+      mesh.castShadow = false;
       mesh.receiveShadow = true;
       mesh.name = 'ground';
       scene.add(mesh);
@@ -1471,50 +1475,25 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         var ambientLight = three.AmbientLight(i['color']);
         ambientLight.intensity = i['intensity'];
         scene.add(ambientLight);
-      } else if (i['type'] == 'point') {
-        var pointLight = three.PointLight(i['color']);
-        pointLight.position.set(i['x'], i['y'], i['z']);
-        scene.add(pointLight);
-        if (kDebugMode) {
-          var sphereSize = 1;
-          var pointLightHelper = three.PointLightHelper(
-              pointLight, sphereSize, 0xff0000 as three_dart.Color);
-          scene.add(pointLightHelper);
-        }
-      } else if (i['type'] == 'spot') {
-        var spotLight = three.SpotLight(i['color']);
-        spotLight.position.set(i['x'], i['y'], i['z']);
-        scene.add(spotLight);
-        if (kDebugMode) {
-          var spotLightHelper =
-              three.SpotLightHelper(spotLight, 0xff0000 as three_dart.Color);
-          scene.add(spotLightHelper);
-        }
-      } else if (i['type'] == 'hemisphere') {
-        var hemisphereLight = three.HemisphereLight(
-            i['skyColor'], i['groundColor'], i['intensity']);
-        hemisphereLight.position.set(i['x'], i['y'], i['z']);
-        scene.add(hemisphereLight);
-        if (kDebugMode) {
-          var hemisphereLightHelper = three.HemisphereLightHelper(
-              hemisphereLight, 10, 0xff0000 as three_dart.Color);
-          scene.add(hemisphereLightHelper);
-        }
-      } else if (i['type'] == 'rectArea') {
-        var rectAreaLight = three.RectAreaLight(
-            i['color'], i['intensity'], i['width'], i['height']);
-        rectAreaLight.position.set(i['x'], i['y'], i['z']);
-        scene.add(rectAreaLight);
       } else if (i['type'] == 'directional') {
         var dirLight = three.DirectionalLight(i['color']);
         dirLight.position
             .set(i['position']['x'], i['position']['y'], i['position']['z']);
         dirLight.intensity = i['intensity'];
-        dirLight.castShadow = true;
-        scene.add(dirLight);
-        if (kDebugMode) {
+        dirLight.castShadow = i['shadow']['enabled'];
+        dirLight.shadow!.camera!.near = 1;
+        dirLight.shadow!.camera!.far = 500;
+        dirLight.shadow!.camera!.right = 90;
+        dirLight.shadow!.camera!.left = -90;
+        dirLight.shadow!.camera!.top = 90;
+        dirLight.shadow!.camera!.bottom = -90;
+        dirLight.shadow!.mapSize.width = 2048;
+        dirLight.shadow!.mapSize.height = 2048;
+        if (_lightHelper) {
           var dirLightHelper = three.DirectionalLightHelper(dirLight, 5);
           scene.add(dirLightHelper);
+        } else {
+          scene.add(dirLight);
         }
       }
     }

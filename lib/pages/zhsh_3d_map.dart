@@ -36,7 +36,7 @@ const Map settingData = {
     },
     {
       'type': 'directional',
-      'color': 0xffffff,
+      'color': 0xff8400,
       'intensity': 1,
       'position': {'x': 100, 'y': 100, 'z': 100},
       'target': {'x': 0, 'y': 0, 'z': 0},
@@ -47,7 +47,7 @@ const Map settingData = {
   ],
   'buildings': {
     'randomColor': false,
-    'color': 0x888888,
+    'color': 0xa6a7a3,
     'focusColor': 0xaa0000,
     'focusOpacity': 0.5,
     'name': {
@@ -137,6 +137,42 @@ const Map settingData = {
       'build3_1f_room5': {'name': '101教室'},
       'build3_1f_room6': {'name': '205教室'},
       'build3_1f_toilet2': {'name': '中和樓1F廁所#2'},
+      'build3_2f_room1': {'name': '生物實驗室2'},
+      'build3_2f_room2': {'name': '設備組'},
+      'build3_2f_toilet1': {'name': '中和樓2F廁所#1'},
+      'build3_2f_aisle1': {'name': '中和樓2F走道#1', 'searchable': false},
+      'build3_2f_room3': {'name': '113教室'},
+      'build3_2f_room4': {'name': '112教室'},
+      'build3_2f_room5': {'name': '111教室'},
+      'build3_2f_room6': {'name': '110教室'},
+      'build3_2f_toilet2': {'name': '中和樓2F廁所#2'},
+      'build3_3f_room1': {'name': '化學實驗室2'},
+      'build3_3f_room2': {'name': '視聽教室'},
+      'build3_3f_toilet1': {'name': '中和樓3F廁所#1'},
+      'build3_3f_aisle1': {'name': '中和樓3F走道#1', 'searchable': false},
+      'build3_3f_room3': {'name': '118教室'},
+      'build3_3f_room4': {'name': '117教室'},
+      'build3_3f_room5': {'name': '116教室'},
+      'build3_3f_room6': {'name': '115教室'},
+      'build3_3f_toilet2': {'name': '中和樓3F廁所#2'},
+      'build3_4f_room1': {'name': '物理實驗室2'},
+      'build3_4f_room2': {'name': '電腦教室3'},
+      'build3_4f_toilet1': {'name': '中和樓4F廁所#1'},
+      'build3_4f_aisle1': {'name': '中和樓4F走道#1', 'searchable': false},
+      'build3_4f_room3': {'name': '教師辦公室'},
+      // 'build3_4f_room4': {'name': ''},
+      'build3_4f_room5': {'name': '寰宇教室'},
+      'build3_4f_room6': {'name': '國際教室'},
+      'build3_4f_toilet2': {'name': '中和樓4F廁所#2'},
+      'build3_5f_room1': {'name': '團輔室'},
+      'build3_5f_room2': {'name': '電腦教室4'},
+      'build3_5f_toilet1': {'name': '中和樓5F廁所#1'},
+      'build3_5f_aisle1': {'name': '中和樓5F走道#1', 'searchable': false},
+      'build3_5f_room3': {'name': '社科教室'},
+      'build3_5f_room4': {'name': '美術教室2'},
+      // 'build3_5f_room5': {'name': ''},
+      'build3_5f_room6': {'name': '美術教室1'},
+      'build3_5f_toilet2': {'name': '中和樓5F廁所#2'},
       'build4_b1_room1': {'name': '至誠樓B1'},
       'build4_b1_room2': {'name': '至誠樓B1未知空間'},
       'build4_1f_room1': {'name': '體育辦公室'},
@@ -867,6 +903,340 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 12,
     'length': 14
   },
+  // build3_2f
+  'build3_2f_room1': {
+    'build': 'build3',
+    'x': 40,
+    'y': 4,
+    'z': 66.5,
+    'height': 3,
+    'width': 17,
+    'length': 11
+  },
+  'build3_2f_room2': {
+    'build': 'build3',
+    'x': 47.5,
+    'y': 4,
+    'z': 40.5,
+    'height': 3,
+    'width': 17,
+    'length': 12
+  },
+  'build3_2f_toilet1': {
+    'build': 'build3',
+    'x': 54.5,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_2f_aisle1': {
+    'build': 'build3',
+    'x': 44.5,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_2f_room3': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 4,
+    'z': 11.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_2f_room4': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 4,
+    'z': 2.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_2f_room5': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 4,
+    'z': -6.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_2f_room6': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 4,
+    'z': -15.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_2f_toilet2': {
+    'build': 'build3',
+    'x': 48.5,
+    'y': 4,
+    'z': -30,
+    'height': 3,
+    'width': 12,
+    'length': 14
+  },
+  // build3_3f
+  'build3_3f_room1': {
+    'build': 'build3',
+    'x': 40,
+    'y': 7,
+    'z': 66.5,
+    'height': 3,
+    'width': 17,
+    'length': 11
+  },
+  'build3_3f_room2': {
+    'build': 'build3',
+    'x': 47.5,
+    'y': 7,
+    'z': 40.5,
+    'height': 3,
+    'width': 17,
+    'length': 12
+  },
+  'build3_3f_toilet1': {
+    'build': 'build3',
+    'x': 54.5,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_3f_aisle1': {
+    'build': 'build3',
+    'x': 44.5,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_3f_room3': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 7,
+    'z': 11.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_3f_room4': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 7,
+    'z': 2.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_3f_room5': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 7,
+    'z': -6.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_3f_room6': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 7,
+    'z': -15.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_3f_toilet2': {
+    'build': 'build3',
+    'x': 48.5,
+    'y': 7,
+    'z': -30,
+    'height': 3,
+    'width': 12,
+    'length': 14
+  },
+  // build3_4f
+  'build3_4f_room1': {
+    'build': 'build3',
+    'x': 40,
+    'y': 10,
+    'z': 66.5,
+    'height': 3,
+    'width': 17,
+    'length': 11
+  },
+  'build3_4f_room2': {
+    'build': 'build3',
+    'x': 47.5,
+    'y': 10,
+    'z': 40.5,
+    'height': 3,
+    'width': 17,
+    'length': 12
+  },
+  'build3_4f_toilet1': {
+    'build': 'build3',
+    'x': 54.5,
+    'y': 10,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_4f_aisle1': {
+    'build': 'build3',
+    'x': 44.5,
+    'y': 10,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_4f_room3': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 10,
+    'z': 7,
+    // 'z': 11.5,
+    'height': 3,
+    'width': 18,
+    // 'width': 9,
+    'length': 16
+  },
+  // 'build3_4f_room4': {
+  //   'build': 'build3',
+  //   'x': 49.5,
+  //   'y': 10,
+  //   'z': 2.5,
+  //   'height': 3,
+  //   'width': 9,
+  //   'length': 16
+  // },
+  'build3_4f_room5': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 10,
+    'z': -6.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_4f_room6': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 10,
+    'z': -15.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_4f_toilet2': {
+    'build': 'build3',
+    'x': 48.5,
+    'y': 10,
+    'z': -30,
+    'height': 3,
+    'width': 12,
+    'length': 14
+  },
+  // build3_5f
+  'build3_5f_room1': {
+    'build': 'build3',
+    'x': 40,
+    'y': 13,
+    'z': 66.5,
+    'height': 3,
+    'width': 17,
+    'length': 11
+  },
+  'build3_5f_room2': {
+    'build': 'build3',
+    'x': 47.5,
+    'y': 13,
+    'z': 40.5,
+    'height': 3,
+    'width': 17,
+    'length': 12
+  },
+  'build3_5f_toilet1': {
+    'build': 'build3',
+    'x': 54.5,
+    'y': 13,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_5f_aisle1': {
+    'build': 'build3',
+    'x': 44.5,
+    'y': 13,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 6
+  },
+  'build3_5f_room3': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 13,
+    'z': 11.5,
+    'height': 3,
+    'width': 9,
+    'length': 16
+  },
+  'build3_5f_room4': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 13,
+    'z': -0.5,
+    // 'z': 2.5,
+    'height': 3,
+    'width': 15,
+    // 'width': 9,
+    'length': 16
+  },
+  // 'build3_5f_room5': {
+  //   'build': 'build3',
+  //   'x': 49.5,
+  //   'y': 13,
+  //   'z': -6.5,
+  //   'height': 3,
+  //   'width': 9,
+  //   'length': 16
+  // },
+  'build3_5f_room6': {
+    'build': 'build3',
+    'x': 49.5,
+    'y': 13,
+    'z': -14,
+    // 'z': -15.5,
+    'height': 3,
+    'width': 12,
+    // 'width': 9,
+    'length': 16
+  },
+  'build3_5f_toilet2': {
+    'build': 'build3',
+    'x': 48.5,
+    'y': 13,
+    'z': -30,
+    'height': 3,
+    'width': 12,
+    'length': 14
+  },
 
   // build4
   'build4_stair1': {
@@ -1445,6 +1815,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             : settingData['object']['set'][i]!['color'] ??
                 settingData['buildings']['color'],
         'flatShading': true,
+        'shininess': 100
       });
       var mesh = three.Mesh(geometry, material);
       mesh.position.x = mapData[i]!['x'];
@@ -1489,11 +1860,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         dirLight.shadow!.camera!.bottom = -90;
         dirLight.shadow!.mapSize.width = 2048;
         dirLight.shadow!.mapSize.height = 2048;
+        dirLight.shadow!.bias = -0.0005;
+        scene.add(dirLight);
         if (_lightHelper) {
           var dirLightHelper = three.DirectionalLightHelper(dirLight, 5);
           scene.add(dirLightHelper);
-        } else {
-          scene.add(dirLight);
         }
       }
     }

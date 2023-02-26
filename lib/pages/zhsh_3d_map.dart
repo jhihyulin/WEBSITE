@@ -195,6 +195,40 @@ const Map settingData = {
       'build5_1f_room6': {'name': '301教室'},
       'build5_1f_aisle2': {'name': '謙融樓1F側郎', 'searchable': false},
       'build5_stair1': {'name': '謙融樓樓梯#1'},
+      'build5_2f_room1': {'name': '312教室'},
+      'build5_2f_room2': {'name': '311教室'},
+      'build5_2f_aisle1': {'name': '謙融樓2F穿堂', 'searchable': false},
+      'build5_2f_room3': {'name': '310教室'},
+      'build5_2f_room4': {'name': '309教室'},
+      'build5_2f_room5': {'name': '308教室'},
+      'build5_2f_room6': {'name': '307教室'},
+      'build5_2f_aisle2': {'name': '謙融樓2F側郎', 'searchable': false},
+      'build5_3f_room1': {'name': '318教室'},
+      'build5_3f_room2': {'name': '317教室'},
+      'build5_3f_aisle1': {'name': '謙融樓3F穿堂', 'searchable': false},
+      'build5_3f_room3': {'name': '316教室'},
+      'build5_3f_room4': {'name': '315教室'},
+      'build5_3f_room5': {'name': '314教室'},
+      'build5_3f_room6': {'name': '313教室'},
+      'build5_3f_aisle2': {'name': '謙融樓3F側郎', 'searchable': false},
+      'build5_4f_room1': {'name': '生科教室'},
+      // 'build5_4f_room2': {'name': ''},
+      'build5_4f_aisle1': {'name': '創課教室'},
+      'build5_4f_room3': {'name': '電腦教室1'},
+      // 'build5_4f_room4': {'name': ''},
+      'build5_4f_room5': {'name': '電腦教室2'},
+      // 'build5_4f_room6': {'name': ''},
+      'build5_4f_aisle2': {'name': '謙融樓4F側郎', 'searchable': false},
+      'build5_5f_room1': {'name': '星象館'},
+      'build5_5f_room2': {'name': '地科實驗室'},
+      // 'build5_5f_aisle1': {'name': '謙融樓5F穿堂', 'searchable': false},
+      'build5_5f_room3': {'name': '韻律教室'},
+      // 'build5_5f_room4': {'name': ''},
+      'build5_5f_room5': {'name': '音樂教室1'},
+      'build5_5f_room6': {'name': '音樂教室2'},
+      'build5_5f_aisle2': {'name': '謙融樓5F側郎', 'searchable': false},
+      'facility_courtyard1': {'name': '中庭', 'render': false},
+      'facility_courtyard2': {'name': '小中庭', 'render': false},
     }
   },
   'ground': {
@@ -1443,6 +1477,322 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 11.5,
     'length': 4.5
   },
+  // build5_2f
+  'build5_2f_room1': {
+    'build': 'build5',
+    'x': 37,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_2f_room2': {
+    'build': 'build5',
+    'x': 28,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_2f_aisle1': {
+    'build': 'build5',
+    'x': 21.25,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 4.5
+  },
+  'build5_2f_room3': {
+    'build': 'build5',
+    'x': 14.5,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_2f_room4': {
+    'build': 'build5',
+    'x': 5.5,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_2f_room5': {
+    'build': 'build5',
+    'x': -3.5,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_2f_room6': {
+    'build': 'build5',
+    'x': -12.5,
+    'y': 4,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_2f_aisle2': {
+    'build': 'build5',
+    'x': -19.25,
+    'y': 4,
+    'z': 26.25,
+    'height': 3,
+    'width': 11.5,
+    'length': 4.5
+  },
+  // build5_3f
+  'build5_3f_room1': {
+    'build': 'build5',
+    'x': 37,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_3f_room2': {
+    'build': 'build5',
+    'x': 28,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_3f_aisle1': {
+    'build': 'build5',
+    'x': 21.25,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 4.5
+  },
+  'build5_3f_room3': {
+    'build': 'build5',
+    'x': 14.5,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_3f_room4': {
+    'build': 'build5',
+    'x': 5.5,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_3f_room5': {
+    'build': 'build5',
+    'x': -3.5,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_3f_room6': {
+    'build': 'build5',
+    'x': -12.5,
+    'y': 7,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_3f_aisle2': {
+    'build': 'build5',
+    'x': -19.25,
+    'y': 7,
+    'z': 26.25,
+    'height': 3,
+    'width': 11.5,
+    'length': 4.5
+  },
+  // build5_4f
+  'build5_4f_room1': {
+    'build': 'build5',
+    'x': 32.5,
+    // 'x': 37,
+    'y': 10,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 18
+    // 'length': 9
+  },
+  // 'build5_4f_room2': {
+  //   'build': 'build5',
+  //   'x': 28,
+  //   'y': 10,
+  //   'z': 24,
+  //   'height': 3,
+  //   'width': 16,
+  //   'length': 9
+  // },
+  'build5_4f_aisle1': {
+    'build': 'build5',
+    'x': 21.25,
+    'y': 10,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 4.5
+  },
+  'build5_4f_room3': {
+    'build': 'build5',
+    'x': 10,
+    'y': 10,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 18
+    // 'length': 9
+  },
+  // 'build5_4f_room4': {
+  //   'build': 'build5',
+  //   'x': 5.5,
+  //   'y': 10,
+  //   'z': 24,
+  //   'height': 3,
+  //   'width': 16,
+  //   'length': 9
+  // },
+  'build5_4f_room5': {
+    'build': 'build5',
+    'x': -8,
+    'y': 10,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 18
+    // 'length': 9
+  },
+  // 'build5_4f_room6': {
+  //   'build': 'build5',
+  //   'x': -12.5,
+  //   'y': 10,
+  //   'z': 24,
+  //   'height': 3,
+  //   'width': 16,
+  //   'length': 9
+  // },
+  'build5_4f_aisle2': {
+    'build': 'build5',
+    'x': -19.25,
+    'y': 10,
+    'z': 26.25,
+    'height': 3,
+    'width': 11.5,
+    'length': 4.5
+  },
+  // build5_5f
+  'build5_5f_room1': {
+    'build': 'build5',
+    'x': 37,
+    'y': 13,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_5f_room2': {
+    'build': 'build5',
+    'x': 25.75,
+    'y': 13,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 13.5
+    // 'length': 9
+  },
+  // 'build5_5f_aisle1': {
+  //   'build': 'build5',
+  //   'x': 21.25,
+  //   'y': 13,
+  //   'z': 24,
+  //   'height': 3,
+  //   'width': 16,
+  //   'length': 4.5
+  // },
+  'build5_5f_room3': {
+    'build': 'build5',
+    'x': 10,
+    'y': 13,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 18
+    // 'length': 9
+  },
+  // 'build5_5f_room4': {
+  //   'build': 'build5',
+  //   'x': 5.5,
+  //   'y': 13,
+  //   'z': 24,
+  //   'height': 3,
+  //   'width': 16,
+  //   'length': 9
+  // },
+  'build5_5f_room5': {
+    'build': 'build5',
+    'x': -3.5,
+    'y': 13,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_5f_room6': {
+    'build': 'build5',
+    'x': -12.5,
+    'y': 13,
+    'z': 24,
+    'height': 3,
+    'width': 16,
+    'length': 9
+  },
+  'build5_5f_aisle2': {
+    'build': 'build5',
+    'x': -19.25,
+    'y': 13,
+    'z': 26.25,
+    'height': 3,
+    'width': 11.5,
+    'length': 4.5
+  },
+
+  // facility
+  'facility_courtyard1': {
+    'x': 10,
+    'y': 0,
+    'z': -2,
+    'height': 0,
+    'width': 0,
+    'length': 0
+  },
+  'facility_courtyard2': {
+    'x': 20,
+    'y': 0,
+    'z': 38,
+    'height': 0,
+    'width': 0,
+    'length': 0
+  },
 };
 
 class ZHSH3DMapPage extends StatefulWidget {
@@ -1923,6 +2273,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           continue;
         }
         if (i.name == buildingName) {
+          if (settingData['object']['set'][i.name]!['render'] == false) {
+            continue;
+          }
           i.material = three.MeshPhongMaterial({
             'color': settingData['buildings']['focusColor'],
             'flatShading': true,

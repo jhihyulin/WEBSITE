@@ -267,6 +267,7 @@ const Map settingData = {
       'facility_court1': {'name': '籃球場B'},
       'facility_court2': {'name': '排球場'},
       'facility_court3': {'name': '籃球場A'},
+      'facility_court4': {'name': '未知場地'},
     }
   },
   'ground': {
@@ -2158,9 +2159,9 @@ const Map<String, Map<String, dynamic>> mapData = {
   'facility_court2': {
     'x': 0,
     'y': 0,
-    'z': -60,
+    'z': -62.5,
     'height': 0.1,
-    'width': 35,
+    'width': 30,
     'length': 50
   },
   'facility_court3': {
@@ -2170,6 +2171,19 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 0.1,
     'width': 35,
     'length': 30
+  },
+  'facility_court4': {
+    'x': -60,
+    'y': 0,
+    'z': -85,
+    'height': 0.1,
+    'width': 15,
+    'length': 12,
+    'rotate': {
+      'x': 0,
+      'y': -0.5,
+      'z': 0
+    }
   },
 };
 

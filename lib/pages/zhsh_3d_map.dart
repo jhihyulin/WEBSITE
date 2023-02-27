@@ -2260,11 +2260,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 0.1,
     'width': 15,
     'length': 12,
-    'rotate': {
-      'x': 0,
-      'y': -0.5,
-      'z': 0
-    }
+    'rotate': {'x': 0, 'y': -0.5, 'z': 0}
   },
   'facility_recyclihgYard1': {
     'x': -80,
@@ -2289,11 +2285,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 2,
     'width': 15,
     'length': 36,
-    'rotate': {
-      'x': 0,
-      'y': 0.05,
-      'z': 0
-    }
+    'rotate': {'x': 0, 'y': 0.05, 'z': 0}
   },
   'facility_toilet1': {
     'x': -80,
@@ -2601,6 +2593,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     renderer!.setPixelRatio(dpr);
     renderer!.setSize(width, height, false);
     renderer!.shadowMap.enabled = true;
+    renderer!.shadowMap.type = three.PCFSoftShadowMap;
   }
 
   initScene() {
@@ -2685,13 +2678,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       if (settingData['object']['set'][i]['render'] == false) {
         continue;
       }
-      material = three.MeshPhongMaterial({
+      var material = three.MeshPhysicalMaterial({
         'color': settingData['buildings']['randomColor'] == true
             ? (three.Math.random() * 0xffffff).toInt()
             : settingData['object']['set'][i]!['color'] ??
                 settingData['buildings']['color'],
-        'flatShading': true,
-        'shininess': 100
+        'flatShading': false,
+        'roughness': 0.1,
+        'metalness': 0.1,
       });
       var mesh = three.Mesh(geometry, material);
       mesh.position.x = mapData[i]!['x'];
@@ -2740,7 +2734,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         dirLight.shadow!.camera!.bottom = -180;
         dirLight.shadow!.mapSize.width = 2048;
         dirLight.shadow!.mapSize.height = 2048;
-        dirLight.shadow!.bias = -0.01;
+        dirLight.shadow!.bias = -0.0006;
         scene.add(dirLight);
         if (_lightHelper) {
           var dirLightHelper = three.DirectionalLightHelper(dirLight, 5);

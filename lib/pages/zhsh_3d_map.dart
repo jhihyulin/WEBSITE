@@ -269,6 +269,7 @@ const Map settingData = {
       'build8_base3': {'name': '游泳池基3', 'searchable': false},
       'build8_room1': {'name': '游泳池'},
       'build8_room2': {'name': '游泳池更衣室'},
+      'build8_room3': {'name': '游泳池??鍋爐室??'},
       'facility_courtyard1': {'name': '中庭', 'render': false},
       'facility_courtyard2': {'name': '小中庭', 'render': false},
       'facility_gate': {'name': '大門'},
@@ -285,6 +286,8 @@ const Map settingData = {
       'facility_electronic1': {'name': '電箱'},
       'facility_garbages1': {'name': '垃圾場'},
       'facility_electronic2': {'name': '變電所'},
+      'facility_platform1': {'name': '司令台'},
+      'facility_ground1': {'name': '運動場'}
     }
   },
   'ground': {
@@ -2218,6 +2221,15 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 25,
     'length': 13
   },
+  'build8_room3': {
+    'build': 'build8',
+    'x': 70,
+    'y': 0,
+    'z': -105,
+    'height': 3,
+    'width': 5,
+    'length': 23
+  },
 
   // facility
   'facility_courtyard1': {
@@ -2350,6 +2362,22 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 8,
     'length': 13,
     'rotate': {'x': 0, 'y': 1.2, 'z': 0}
+  },
+  'facility_platform1': {
+    'x': 0,
+    'y': 0,
+    'z': -135,
+    'height': 8,
+    'width': 6,
+    'length': 14
+  },
+  'facility_ground1': {
+    'x': 0,
+    'y': 0,
+    'z': -105,
+    'height': 0.1,
+    'width': 50,
+    'length': 100
   },
 };
 

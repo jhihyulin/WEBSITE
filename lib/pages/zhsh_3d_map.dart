@@ -261,6 +261,9 @@ const Map settingData = {
       'build5_5f_aisle2': {'name': '謙融樓5F側郎', 'searchable': false},
       'facility_courtyard1': {'name': '中庭', 'render': false},
       'facility_courtyard2': {'name': '小中庭', 'render': false},
+      'facility_gate': {'name': '大門'},
+      'facility_gate_###1': {'name': '大門柱#1', 'searchable': false},
+      'facility_gate_###2': {'name': '大門柱#2', 'searchable': false},
     }
   },
   'ground': {
@@ -2117,6 +2120,30 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 0,
     'length': 0
   },
+  'facility_gate': {
+    'x': -30,
+    'y': 7,
+    'z': 100,
+    'height': 3,
+    'width': 8,
+    'length': 20
+  },
+  'facility_gate_###1': {
+    'x': -37,
+    'y': 0,
+    'z': 100,
+    'height': 7,
+    'width': 6,
+    'length': 4
+  },
+  'facility_gate_###2': {
+    'x': -23,
+    'y': 0,
+    'z': 100,
+    'height': 7,
+    'width': 6,
+    'length': 4
+  },
 };
 
 class ZHSH3DMapPage extends StatefulWidget {
@@ -2505,7 +2532,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         mesh.rotateY(mapData[i]!['rotate']!['y']);
         mesh.rotateZ(mapData[i]!['rotate']!['z']);
       }
-      mesh.name = i;
+      if (RegExp(r'.*_###[0-9]').allMatches(i).isNotEmpty) {
+        mesh.name = i.replaceAll(RegExp(r'_###[0-9]'), '');
+      } else {
+        mesh.name = i;
+      }
       mesh.updateMatrix();
       mesh.matrixAutoUpdate = false;
       scene.add(mesh);

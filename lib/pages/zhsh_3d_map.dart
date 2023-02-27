@@ -264,6 +264,9 @@ const Map settingData = {
       'facility_gate': {'name': '大門'},
       'facility_gate_###1': {'name': '大門柱#1', 'searchable': false},
       'facility_gate_###2': {'name': '大門柱#2', 'searchable': false},
+      'facility_court1': {'name': '籃球場B'},
+      'facility_court2': {'name': '排球場'},
+      'facility_court3': {'name': '籃球場A'},
     }
   },
   'ground': {
@@ -2143,6 +2146,30 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 7,
     'width': 6,
     'length': 4
+  },
+  'facility_court1': {
+    'x': 40,
+    'y': 0,
+    'z': -60,
+    'height': 0.1,
+    'width': 35,
+    'length': 30
+  },
+  'facility_court2': {
+    'x': 0,
+    'y': 0,
+    'z': -60,
+    'height': 0.1,
+    'width': 35,
+    'length': 50
+  },
+  'facility_court3': {
+    'x': -50,
+    'y': 0,
+    'z': -50,
+    'height': 0.1,
+    'width': 35,
+    'length': 30
   },
 };
 

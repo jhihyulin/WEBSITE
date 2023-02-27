@@ -38,7 +38,7 @@ const Map settingData = {
       'type': 'directional',
       'color': 0xff8400,
       'intensity': 1,
-      'position': {'x': 100, 'y': 100, 'z': 100},
+      'position': {'x': 100, 'y': 50, 'z': 100},
       'target': {'x': 0, 'y': 0, 'z': 0},
       'shadow': {
         'enabled': true,
@@ -259,6 +259,13 @@ const Map settingData = {
       'build5_5f_room5': {'name': '音樂教室1'},
       'build5_5f_room6': {'name': '音樂教室2'},
       'build5_5f_aisle2': {'name': '謙融樓5F側郎', 'searchable': false},
+      'build6_base1': {'name': '圖書館基1'},
+      'build7_base1': {'name': '活動中心基1'},
+      'build8_base1': {'name': '游泳池基1', 'searchable': false},
+      'build8_base2': {'name': '游泳池基2', 'searchable': false},
+      'build8_base3': {'name': '游泳池基3', 'searchable': false},
+      'build8_room1': {'name': '游泳池'},
+      'build8_room2': {'name': '游泳池更衣室'},
       'facility_courtyard1': {'name': '中庭', 'render': false},
       'facility_courtyard2': {'name': '小中庭', 'render': false},
       'facility_gate': {'name': '大門'},
@@ -268,6 +275,12 @@ const Map settingData = {
       'facility_court2': {'name': '排球場'},
       'facility_court3': {'name': '籃球場A'},
       'facility_court4': {'name': '未知場地'},
+      'facility_recyclihgYard1': {'name': '回收場'},
+      'facility_guardHouse': {'name': '警衛室'},
+      'facility_parkingLot1': {'name': '機車棚'},
+      'facility_toilet1': {'name': '廁所#獨'},
+      'facility_electronic1': {'name': '電箱'},
+      'facility_garbages1': {'name': '垃圾場'},
     }
   },
   'ground': {
@@ -2106,6 +2119,74 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 11.5,
     'length': 4.5
   },
+  // build6
+  'build6_base1': {
+    'build': 'build6',
+    'x': -60,
+    'y': 0,
+    'z': 0,
+    'height': 1,
+    'width': 35,
+    'length': 30
+  },
+
+  // build7
+  'build7_base1': {
+    'build': 'build7',
+    'x': -75,
+    'y': 0,
+    'z': 60,
+    'height': 1,
+    'width': 50,
+    'length': 35
+  },
+
+  // build8
+  'build8_base1': {
+    'build': 'build8',
+    'x': 70,
+    'y': 0,
+    'z': -85,
+    'height': 1,
+    'width': 35,
+    'length': 23
+  },
+  'build8_base2': {
+    'build': 'build8',
+    'x': 88,
+    'y': 0,
+    'z': -72.5,
+    'height': 1,
+    'width': 25,
+    'length': 13
+  },
+  'build8_base3': {
+    'build': 'build8',
+    'x': 70,
+    'y': 0,
+    'z': -63.75,
+    'height': 1,
+    'width': 7.5,
+    'length': 23
+  },
+  'build8_room1': {
+    'build': 'build8',
+    'x': 70,
+    'y': 1,
+    'z': -85,
+    'height': 6,
+    'width': 35,
+    'length': 23
+  },
+  'build8_room2': {
+    'build': 'build8',
+    'x': 88,
+    'y': 1,
+    'z': -72.5,
+    'height': 4,
+    'width': 25,
+    'length': 13
+  },
 
   // facility
   'facility_courtyard1': {
@@ -2184,6 +2265,59 @@ const Map<String, Map<String, dynamic>> mapData = {
       'y': -0.5,
       'z': 0
     }
+  },
+  'facility_recyclihgYard1': {
+    'x': -80,
+    'y': 0,
+    'z': 0,
+    'height': 0.1,
+    'width': 35,
+    'length': 10
+  },
+  'facility_guardHouse': {
+    'x': -44,
+    'y': 0,
+    'z': 100,
+    'height': 3,
+    'width': 5,
+    'length': 10
+  },
+  'facility_parkingLot1': {
+    'x': -75,
+    'y': 0,
+    'z': 98,
+    'height': 2,
+    'width': 15,
+    'length': 36,
+    'rotate': {
+      'x': 0,
+      'y': 0.05,
+      'z': 0
+    }
+  },
+  'facility_toilet1': {
+    'x': -80,
+    'y': 0,
+    'z': 25.5,
+    'height': 3,
+    'width': 9,
+    'length': 11
+  },
+  'facility_electronic1': {
+    'x': 25,
+    'y': 0,
+    'z': 103,
+    'height': 2,
+    'width': 3,
+    'length': 10
+  },
+  'facility_garbages1': {
+    'x': 35.5,
+    'y': 0,
+    'z': 103,
+    'height': 0.1,
+    'width': 3,
+    'length': 11
   },
 };
 
@@ -2600,10 +2734,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         dirLight.castShadow = i['shadow']['enabled'];
         dirLight.shadow!.camera!.near = 1;
         dirLight.shadow!.camera!.far = 500;
-        dirLight.shadow!.camera!.right = 90;
-        dirLight.shadow!.camera!.left = -90;
-        dirLight.shadow!.camera!.top = 90;
-        dirLight.shadow!.camera!.bottom = -90;
+        dirLight.shadow!.camera!.right = 180;
+        dirLight.shadow!.camera!.left = -180;
+        dirLight.shadow!.camera!.top = 180;
+        dirLight.shadow!.camera!.bottom = -180;
         dirLight.shadow!.mapSize.width = 2048;
         dirLight.shadow!.mapSize.height = 2048;
         dirLight.shadow!.bias = -0.0005;

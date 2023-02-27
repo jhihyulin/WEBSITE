@@ -259,8 +259,11 @@ const Map settingData = {
       'build5_5f_room5': {'name': '音樂教室1'},
       'build5_5f_room6': {'name': '音樂教室2'},
       'build5_5f_aisle2': {'name': '謙融樓5F側郎', 'searchable': false},
-      'build6_base1': {'name': '圖書館基1'},
-      'build7_base1': {'name': '活動中心基1'},
+      'build6_base1': {'name': '圖書館基1', 'searchable': false},
+      'build7_base1': {'name': '活動中心基1', 'searchable': false},
+      'build7_toilet1': {'name': '活動中心女廁所'},
+      'build7_toilet2': {'name': '活動中心男廁所'},
+      'build7_build': {'name': '活動中心'},
       'build8_base1': {'name': '游泳池基1', 'searchable': false},
       'build8_base2': {'name': '游泳池基2', 'searchable': false},
       'build8_base3': {'name': '游泳池基3', 'searchable': false},
@@ -281,6 +284,7 @@ const Map settingData = {
       'facility_toilet1': {'name': '廁所#獨'},
       'facility_electronic1': {'name': '電箱'},
       'facility_garbages1': {'name': '垃圾場'},
+      'facility_electronic2': {'name': '變電所'},
     }
   },
   'ground': {
@@ -2140,6 +2144,33 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 50,
     'length': 35
   },
+  'build7_toilet1': {
+    'build': 'build7',
+    'x': -82.5,
+    'y': 1,
+    'z': 38,
+    'height': 3,
+    'width': 5,
+    'length': 5
+  },
+  'build7_toilet2': {
+    'build': 'build7',
+    'x': -67.5,
+    'y': 1,
+    'z': 38,
+    'height': 3,
+    'width': 5,
+    'length': 5
+  },
+  'build7_build': {
+    'build': 'build7',
+    'x': -75,
+    'y': 1,
+    'z': 60,
+    'height': 10,
+    'width': 50,
+    'length': 35
+  },
 
   // build8
   'build8_base1': {
@@ -2310,6 +2341,15 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 0.1,
     'width': 3,
     'length': 11
+  },
+  'facility_electronic2': {
+    'x': 72,
+    'y': 0,
+    'z': -3,
+    'height': 3,
+    'width': 8,
+    'length': 13,
+    'rotate': {'x': 0, 'y': 1.2, 'z': 0}
   },
 };
 

@@ -2847,9 +2847,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     var objectZ = mapData[buildingName]!['z'];
     var objectHeight = mapData[buildingName]!['height'];
     var tarCameraPosition = three.Vector3(
-      objectX + settingData['camera']['focusIncreaseX'],
+      objectX >= 0
+          ? objectX - settingData['camera']['focusIncreaseX']
+          : objectX + settingData['camera']['focusIncreaseX'],
       objectY + (objectHeight / 2) + settingData['camera']['focusIncreaseY'],
-      objectZ + settingData['camera']['focusIncreaseZ'],
+      objectZ >= 0
+          ? objectZ - settingData['camera']['focusIncreaseZ']
+          : objectZ + settingData['camera']['focusIncreaseZ'],
     );
     _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {

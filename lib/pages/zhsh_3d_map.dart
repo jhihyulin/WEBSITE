@@ -59,7 +59,8 @@ const Map settingData = {
       'build5': '謙融樓',
       'build6': '圖書館',
       'build7': '活動中心',
-      'build8': '游泳池'
+      'build8': '游泳池',
+      'build9': '教師宿舍'
     }
   },
   'object': {
@@ -270,6 +271,22 @@ const Map settingData = {
       'build8_room1': {'name': '游泳池'},
       'build8_room2': {'name': '游泳池更衣室'},
       'build8_room3': {'name': '游泳池??鍋爐室??'},
+      'build9_stair1': {'name': '教師宿舍樓梯'},
+      'build9_1f': {'name': '教師宿舍1F'},
+      'build9_1f_###1': {'name': '教師宿舍1F#1', 'searchable': false},
+      'build9_1f_###2': {'name': '教師宿舍1F#2', 'searchable': false},
+      'build9_2f': {'name': '教師宿舍2F'},
+      'build9_2f_###1': {'name': '教師宿舍2F#1', 'searchable': false},
+      'build9_2f_###2': {'name': '教師宿舍2F#2', 'searchable': false},
+      'build9_3f': {'name': '教師宿舍3F'},
+      'build9_3f_###1': {'name': '教師宿舍3F#1', 'searchable': false},
+      'build9_3f_###2': {'name': '教師宿舍3F#2', 'searchable': false},
+      'build9_4f': {'name': '教師宿舍4F'},
+      'build9_4f_###1': {'name': '教師宿舍4F#1', 'searchable': false},
+      'build9_4f_###2': {'name': '教師宿舍4F#2', 'searchable': false},
+      'build9_5f': {'name': '教師宿舍5F'},
+      'build9_5f_###1': {'name': '教師宿舍5F#1', 'searchable': false},
+      'build9_5f_###2': {'name': '教師宿舍5F#2', 'searchable': false},
       'facility_courtyard1': {'name': '中庭', 'render': false},
       'facility_courtyard2': {'name': '小中庭', 'render': false},
       'facility_gate': {'name': '大門'},
@@ -2232,6 +2249,157 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 23
   },
 
+  // build9
+  'build9_stair1': {
+    'build': 'build9',
+    'x': 80,
+    'y': 0,
+    'z': -45,
+    'height': 21,
+    'width': 6,
+    'length': 6
+  },
+  // build9_1f
+  'build9_1f': {
+    'build': 'build9',
+    'x': 77,
+    'y': 0,
+    'z': -42,
+    'height': 3,
+    'width': 0,
+    'length': 0
+  },
+  'build9_1f_###1': {
+    'build': 'build9',
+    'x': 70.5,
+    'y': 0,
+    'z': -47.5,
+    'height': 3,
+    'width': 11,
+    'length': 13
+  },
+  'build9_1f_###2': {
+    'build': 'build9',
+    'x': 82.5,
+    'y': 0,
+    'z': -35.5,
+    'height': 3,
+    'width': 13,
+    'length': 11
+  },
+  // build9_2f
+  'build9_2f': {
+    'build': 'build9',
+    'x': 77,
+    'y': 3,
+    'z': -42,
+    'height': 3,
+    'width': 0,
+    'length': 0
+  },
+  'build9_2f_###1': {
+    'build': 'build9',
+    'x': 70.5,
+    'y': 3,
+    'z': -47.5,
+    'height': 3,
+    'width': 11,
+    'length': 13
+  },
+  'build9_2f_###2': {
+    'build': 'build9',
+    'x': 82.5,
+    'y': 3,
+    'z': -35.5,
+    'height': 3,
+    'width': 13,
+    'length': 11
+  },
+  // build9_3f
+  'build9_3f': {
+    'build': 'build9',
+    'x': 77,
+    'y': 6,
+    'z': -42,
+    'height': 3,
+    'width': 0,
+    'length': 0
+  },
+  'build9_3f_###1': {
+    'build': 'build9',
+    'x': 70.5,
+    'y': 6,
+    'z': -47.5,
+    'height': 3,
+    'width': 11,
+    'length': 13
+  },
+  'build9_3f_###2': {
+    'build': 'build9',
+    'x': 82.5,
+    'y': 6,
+    'z': -35.5,
+    'height': 3,
+    'width': 13,
+    'length': 11
+  },
+  // build9_4f
+  'build9_4f': {
+    'build': 'build9',
+    'x': 77,
+    'y': 9,
+    'z': -42,
+    'height': 3,
+    'width': 0,
+    'length': 0
+  },
+  'build9_4f_###1': {
+    'build': 'build9',
+    'x': 70.5,
+    'y': 9,
+    'z': -47.5,
+    'height': 3,
+    'width': 11,
+    'length': 13
+  },
+  'build9_4f_###2': {
+    'build': 'build9',
+    'x': 82.5,
+    'y': 9,
+    'z': -35.5,
+    'height': 3,
+    'width': 13,
+    'length': 11
+  },
+  // build9_5f
+  'build9_5f': {
+    'build': 'build9',
+    'x': 77,
+    'y': 12,
+    'z': -42,
+    'height': 3,
+    'width': 0,
+    'length': 0
+  },
+  'build9_5f_###1': {
+    'build': 'build9',
+    'x': 70.5,
+    'y': 12,
+    'z': -47.5,
+    'height': 3,
+    'width': 11,
+    'length': 13
+  },
+  'build9_5f_###2': {
+    'build': 'build9',
+    'x': 82.5,
+    'y': 12,
+    'z': -35.5,
+    'height': 3,
+    'width': 13,
+    'length': 11
+  },
+
   // facility
   'facility_courtyard1': {
     'x': 10,
@@ -2955,11 +3123,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   }
 
   initData() {
-    // TODO
+    // TODO: init data from web
     print('TODO: initData');
-    Future.delayed(Duration(seconds: 5), () {
-      return;
-    });
   }
 
   @override

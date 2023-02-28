@@ -305,7 +305,9 @@ const Map settingData = {
       'facility_garbages1': {'name': '垃圾場'},
       'facility_electronic2': {'name': '變電所'},
       'facility_platform1': {'name': '司令台'},
-      'facility_ground1': {'name': '運動場'}
+      'facility_ground1': {'name': '運動場'},
+      'facility_parkingLot2': {'name': '停車場#1', 'render': false},
+      'facility_parkingLot3': {'name': '停車場#2', 'render': false},
     }
   },
   'ground': {
@@ -2556,6 +2558,22 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 50,
     'length': 100
   },
+  'facility_parkingLot2': {
+    'x': 23,
+    'y': 0,
+    'z': 75,
+    'height': 0.1,
+    'width': 30,
+    'length': 20
+  },
+  'facility_parkingLot3': {
+    'x': 75,
+    'y': 0,
+    'z': -20,
+    'height': 0.1,
+    'width': 15,
+    'length': 20
+  },
 };
 
 class ZHSH3DMapPage extends StatefulWidget {
@@ -2782,14 +2800,37 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           },
         ),
       ),
-      Text('Selected Location Display Name: $_selectedLocationName'),
-      Text('Selected Location Name: $_selectedLocation'),
-      Text(
-          'Description: ${_selectedLocation == '' ? '' : settingData['object']!['set'][_selectedLocation]['description']}'),
-      Text(
-          'Floor: ${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor']}'),
-      Text(
-          'BuildingName: ${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']]}')
+      Offstage(
+        offstage: _selectedLocation == '',
+        child: ListTile(
+          title: Text('Selected Location'),
+          trailing: Text('$_selectedLocationName')
+        ),
+      ),
+      Offstage(
+        offstage: _selectedLocation == '',
+        child: ListTile(
+          title: Text('Description'),
+          trailing: Text(
+              '${_selectedLocation == '' ? '' : settingData['object']!['set'][_selectedLocation]['description'] ?? 'None'}'),
+        ),
+      ),
+      Offstage(
+        offstage: _selectedLocation == '',
+        child: ListTile(
+          title: Text('Building'),
+          trailing: Text(
+              '${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+        ),
+      ),
+      Offstage(
+        offstage: _selectedLocation == '',
+        child: ListTile(
+          title: Text('Floor'),
+          trailing: Text(
+              '${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'),
+        ),
+      ),
     ]);
   }
 

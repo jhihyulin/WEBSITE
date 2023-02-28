@@ -282,6 +282,7 @@ const Map settingData = {
       'facility_recyclihgYard1': {'name': '回收場'},
       'facility_guardHouse': {'name': '警衛室'},
       'facility_parkingLot1': {'name': '機車棚'},
+      'facility_parkingLot1_###1': {'name': '機車棚#1', 'searchable': false},
       'facility_toilet1': {'name': '廁所#獨'},
       'facility_electronic1': {'name': '電箱'},
       'facility_garbages1': {'name': '垃圾場'},
@@ -2329,6 +2330,14 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 15,
     'length': 36,
     'rotate': {'x': 0, 'y': 0.05, 'z': 0}
+  },
+  'facility_parkingLot1_###1': {
+    'x': -78,
+    'y': 0,
+    'z': 87,
+    'height': 2,
+    'width': 2,
+    'length': 30
   },
   'facility_toilet1': {
     'x': -80,

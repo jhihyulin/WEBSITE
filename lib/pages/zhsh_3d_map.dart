@@ -343,6 +343,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5
   },
   'build_1f': {
+    'floor': 1,
     'x': 13,
     'y': 1,
     'z': 51.5,
@@ -351,6 +352,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5
   },
   'build_2f': {
+    'floor': 2,
     'x': 13,
     'y': 5,
     'z': 51.5,
@@ -359,6 +361,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5
   },
   'build_3f': {
+    'floor': 3,
     'x': 13,
     'y': 8,
     'z': 51.5,
@@ -367,6 +370,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5
   },
   'build_4f': {
+    'floor': 4,
     'x': 13,
     'y': 11,
     'z': 51.5,
@@ -375,6 +379,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5
   },
   'build_5f': {
+    'floor': 5,
     'x': 13,
     'y': 14,
     'z': 51.5,
@@ -383,6 +388,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5
   },
   'build_6f': {
+    'floor': 6,
     'x': 13,
     'y': 17,
     'z': 51.5,
@@ -391,6 +397,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5
   },
   'build_7f': {
+    'floor': 7,
     'x': 13,
     'y': 20,
     'z': 51.5,
@@ -736,6 +743,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 26
   },
   'build2_1f_room1': {
+    'floor': 1,
     'build': 'build2',
     'x': 25,
     'y': 1,
@@ -745,6 +753,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 19
   },
   'build2_2f_room1': {
+    'floor': 2,
     'build': 'build2',
     'x': 25,
     'y': 4,
@@ -754,6 +763,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 19
   },
   'build2_3f_room1': {
+    'floor': 3,
     'build': 'build2',
     'x': 25,
     'y': 7,
@@ -763,6 +773,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 19
   },
   'build2_4f_room1': {
+    'floor': 4,
     'build': 'build2',
     'x': 25,
     'y': 10,
@@ -772,6 +783,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 19
   },
   'build2_5f_room1': {
+    'floor': 5,
     'build': 'build2',
     'x': 25,
     'y': 13,
@@ -781,6 +793,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 19
   },
   'build2_1f_toilet1': {
+    'floor': 1,
     'build': 'build2',
     'x': 38,
     'y': 1,
@@ -790,6 +803,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 7
   },
   'build2_2f_toilet1': {
+    'floor': 2,
     'build': 'build2',
     'x': 38,
     'y': 4,
@@ -799,6 +813,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 7
   },
   'build2_3f_toilet1': {
+    'floor': 3,
     'build': 'build2',
     'x': 38,
     'y': 7,
@@ -808,6 +823,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 7
   },
   'build2_4f_toilet1': {
+    'floor': 4,
     'build': 'build2',
     'x': 38,
     'y': 10,
@@ -817,6 +833,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 7
   },
   'build2_5f_toilet1': {
+    'floor': 5,
     'build': 'build2',
     'x': 38,
     'y': 13,
@@ -856,6 +873,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build3_b1
   'build3_b1_aisle1': {
+    'floor': -1,
     'build': 'build3',
     'x': 44.5,
     'y': -2,
@@ -865,6 +883,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_b1_room1': {
+    'floor': -1,
     'build': 'build3',
     'x': 49.5,
     'y': -2,
@@ -874,6 +893,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_b1_room2': {
+    'floor': -1,
     'build': 'build3',
     'x': 49.5,
     'y': -2,
@@ -883,6 +903,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_b1_room3': {
+    'floor': -1,
     'build': 'build3',
     'x': 49.5,
     'y': -2,
@@ -892,6 +913,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_b1_room4': {
+    'floor': -1,
     'build': 'build3',
     'x': 49.5,
     'y': -2,
@@ -901,6 +923,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_b1_room5': {
+    'floor': -1,
     'build': 'build3',
     'x': 54.5,
     'y': -2,
@@ -939,6 +962,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build3_1f
   'build3_1f_room1': {
+    'floor': 1,
     'build': 'build3',
     'x': 40,
     'y': 1,
@@ -948,6 +972,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 11
   },
   'build3_1f_room2': {
+    'floor': 1,
     'build': 'build3',
     'x': 47.5,
     'y': 1,
@@ -957,6 +982,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 12
   },
   'build3_1f_toilet1': {
+    'floor': 1,
     'build': 'build3',
     'x': 54.5,
     'y': 1,
@@ -966,6 +992,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_1f_aisle1': {
+    'floor': 1,
     'build': 'build3',
     'x': 44.5,
     'y': 1,
@@ -975,6 +1002,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_1f_room3': {
+    'floor': 1,
     'build': 'build3',
     'x': 49.5,
     'y': 1,
@@ -984,6 +1012,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_1f_room4': {
+    'floor': 1,
     'build': 'build3',
     'x': 49.5,
     'y': 1,
@@ -993,6 +1022,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_1f_room5': {
+    'floor': 1,
     'build': 'build3',
     'x': 49.5,
     'y': 1,
@@ -1002,6 +1032,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_1f_room6': {
+    'floor': 1,
     'build': 'build3',
     'x': 49.5,
     'y': 1,
@@ -1011,6 +1042,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_1f_toilet2': {
+    'floor': 1,
     'build': 'build3',
     'x': 48.5,
     'y': 1,
@@ -1021,6 +1053,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build3_2f
   'build3_2f_room1': {
+    'floor': 2,
     'build': 'build3',
     'x': 40,
     'y': 4,
@@ -1030,6 +1063,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 11
   },
   'build3_2f_room2': {
+    'floor': 2,
     'build': 'build3',
     'x': 47.5,
     'y': 4,
@@ -1039,6 +1073,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 12
   },
   'build3_2f_toilet1': {
+    'floor': 2,
     'build': 'build3',
     'x': 54.5,
     'y': 4,
@@ -1048,6 +1083,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_2f_aisle1': {
+    'floor': 2,
     'build': 'build3',
     'x': 44.5,
     'y': 4,
@@ -1057,6 +1093,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_2f_room3': {
+    'floor': 2,
     'build': 'build3',
     'x': 49.5,
     'y': 4,
@@ -1066,6 +1103,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_2f_room4': {
+    'floor': 2,
     'build': 'build3',
     'x': 49.5,
     'y': 4,
@@ -1075,6 +1113,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_2f_room5': {
+    'floor': 2,
     'build': 'build3',
     'x': 49.5,
     'y': 4,
@@ -1084,6 +1123,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_2f_room6': {
+    'floor': 2,
     'build': 'build3',
     'x': 49.5,
     'y': 4,
@@ -1093,6 +1133,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_2f_toilet2': {
+    'floor': 2,
     'build': 'build3',
     'x': 48.5,
     'y': 4,
@@ -1103,6 +1144,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build3_3f
   'build3_3f_room1': {
+    'floor': 3,
     'build': 'build3',
     'x': 40,
     'y': 7,
@@ -1112,6 +1154,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 11
   },
   'build3_3f_room2': {
+    'floor': 3,
     'build': 'build3',
     'x': 47.5,
     'y': 7,
@@ -1121,6 +1164,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 12
   },
   'build3_3f_toilet1': {
+    'floor': 3,
     'build': 'build3',
     'x': 54.5,
     'y': 7,
@@ -1130,6 +1174,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_3f_aisle1': {
+    'floor': 3,
     'build': 'build3',
     'x': 44.5,
     'y': 7,
@@ -1139,6 +1184,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_3f_room3': {
+    'floor': 3,
     'build': 'build3',
     'x': 49.5,
     'y': 7,
@@ -1148,6 +1194,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_3f_room4': {
+    'floor': 3,
     'build': 'build3',
     'x': 49.5,
     'y': 7,
@@ -1157,6 +1204,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_3f_room5': {
+    'floor': 3,
     'build': 'build3',
     'x': 49.5,
     'y': 7,
@@ -1166,6 +1214,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_3f_room6': {
+    'floor': 3,
     'build': 'build3',
     'x': 49.5,
     'y': 7,
@@ -1175,6 +1224,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_3f_toilet2': {
+    'floor': 3,
     'build': 'build3',
     'x': 48.5,
     'y': 7,
@@ -1185,6 +1235,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build3_4f
   'build3_4f_room1': {
+    'floor': 4,
     'build': 'build3',
     'x': 40,
     'y': 10,
@@ -1194,6 +1245,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 11
   },
   'build3_4f_room2': {
+    'floor': 4,
     'build': 'build3',
     'x': 47.5,
     'y': 10,
@@ -1203,6 +1255,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 12
   },
   'build3_4f_toilet1': {
+    'floor': 4,
     'build': 'build3',
     'x': 54.5,
     'y': 10,
@@ -1212,6 +1265,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_4f_aisle1': {
+    'floor': 4,
     'build': 'build3',
     'x': 44.5,
     'y': 10,
@@ -1221,6 +1275,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_4f_room3': {
+    'floor': 4,
     'build': 'build3',
     'x': 49.5,
     'y': 10,
@@ -1232,6 +1287,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   // 'build3_4f_room4': {
+  //   'floor': 4,
   //   'build': 'build3',
   //   'x': 49.5,
   //   'y': 10,
@@ -1241,6 +1297,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   //   'length': 16
   // },
   'build3_4f_room5': {
+    'floor': 4,
     'build': 'build3',
     'x': 49.5,
     'y': 10,
@@ -1250,6 +1307,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_4f_room6': {
+    'floor': 4,
     'build': 'build3',
     'x': 49.5,
     'y': 10,
@@ -1259,6 +1317,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_4f_toilet2': {
+    'floor': 4,
     'build': 'build3',
     'x': 48.5,
     'y': 10,
@@ -1269,6 +1328,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build3_5f
   'build3_5f_room1': {
+    'floor': 5,
     'build': 'build3',
     'x': 40,
     'y': 13,
@@ -1278,6 +1338,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 11
   },
   'build3_5f_room2': {
+    'floor': 5,
     'build': 'build3',
     'x': 47.5,
     'y': 13,
@@ -1287,6 +1348,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 12
   },
   'build3_5f_toilet1': {
+    'floor': 5,
     'build': 'build3',
     'x': 54.5,
     'y': 13,
@@ -1296,6 +1358,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_5f_aisle1': {
+    'floor': 5,
     'build': 'build3',
     'x': 44.5,
     'y': 13,
@@ -1305,6 +1368,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 6
   },
   'build3_5f_room3': {
+    'floor': 5,
     'build': 'build3',
     'x': 49.5,
     'y': 13,
@@ -1314,6 +1378,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_5f_room4': {
+    'floor': 5,
     'build': 'build3',
     'x': 49.5,
     'y': 13,
@@ -1325,6 +1390,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   // 'build3_5f_room5': {
+  //   'floor': 5,
   //   'build': 'build3',
   //   'x': 49.5,
   //   'y': 13,
@@ -1334,6 +1400,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   //   'length': 16
   // },
   'build3_5f_room6': {
+    'floor': 5,
     'build': 'build3',
     'x': 49.5,
     'y': 13,
@@ -1345,6 +1412,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 16
   },
   'build3_5f_toilet2': {
+    'floor': 5,
     'build': 'build3',
     'x': 48.5,
     'y': 13,
@@ -1366,6 +1434,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build4_b1
   'build4_b1_room1': {
+    'floor': -1,
     'build': 'build4',
     'x': 10,
     'y': -2,
@@ -1375,6 +1444,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 63
   },
   'build4_b1_room2': {
+    'floor': -1,
     'build': 'build4',
     'x': 48.5,
     'y': -2,
@@ -1385,6 +1455,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build4_1f
   'build4_1f_room1': {
+    'floor': 1,
     'build': 'build4',
     'x': 37,
     'y': 1,
@@ -1394,6 +1465,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_1f_room2': {
+    'floor': 1,
     'build': 'build4',
     'x': 28,
     'y': 1,
@@ -1403,6 +1475,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_1f_aisle1': {
+    'floor': 1,
     'build': 'build4',
     'x': 21.25,
     'y': 1,
@@ -1412,6 +1485,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build4_1f_room3': {
+    'floor': 1,
     'build': 'build4',
     'x': 14.5,
     'y': 1,
@@ -1421,6 +1495,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_1f_room4': {
+    'floor': 1,
     'build': 'build4',
     'x': 5.5,
     'y': 1,
@@ -1430,6 +1505,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_1f_room5': {
+    'floor': 1,
     'build': 'build4',
     'x': -3.5,
     'y': 1,
@@ -1439,6 +1515,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_1f_room6': {
+    'floor': 1,
     'build': 'build4',
     'x': -12.5,
     'y': 1,
@@ -1448,6 +1525,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_1f_aisle2': {
+    'floor': 1,
     'build': 'build4',
     'x': -19.25,
     'y': 1,
@@ -1458,6 +1536,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build4_2f
   'build4_2f_room1': {
+    'floor': 2,
     'build': 'build4',
     'x': 37,
     'y': 4,
@@ -1467,6 +1546,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_2f_room2': {
+    'floor': 2,
     'build': 'build4',
     'x': 28,
     'y': 4,
@@ -1476,6 +1556,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_2f_aisle1': {
+    'floor': 2,
     'build': 'build4',
     'x': 21.25,
     'y': 4,
@@ -1485,6 +1566,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build4_2f_room3': {
+    'floor': 2,
     'build': 'build4',
     'x': 14.5,
     'y': 4,
@@ -1494,6 +1576,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_2f_room4': {
+    'floor': 2,
     'build': 'build4',
     'x': 5.5,
     'y': 4,
@@ -1503,6 +1586,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_2f_room5': {
+    'floor': 2,
     'build': 'build4',
     'x': -3.5,
     'y': 4,
@@ -1512,6 +1596,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_2f_room6': {
+    'floor': 2,
     'build': 'build4',
     'x': -12.5,
     'y': 4,
@@ -1521,6 +1606,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_2f_aisle2': {
+    'floor': 2,
     'build': 'build4',
     'x': -19.25,
     'y': 4,
@@ -1531,6 +1617,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build4_3f
   'build4_3f_room1': {
+    'floor': 3,
     'build': 'build4',
     'x': 37,
     'y': 7,
@@ -1540,6 +1627,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_3f_room2': {
+    'floor': 3,
     'build': 'build4',
     'x': 28,
     'y': 7,
@@ -1549,6 +1637,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_3f_aisle1': {
+    'floor': 3,
     'build': 'build4',
     'x': 21.25,
     'y': 7,
@@ -1558,6 +1647,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build4_3f_room3': {
+    'floor': 3,
     'build': 'build4',
     'x': 14.5,
     'y': 7,
@@ -1567,6 +1657,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_3f_room4': {
+    'floor': 3,
     'build': 'build4',
     'x': 5.5,
     'y': 7,
@@ -1576,6 +1667,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_3f_room5': {
+    'floor': 3,
     'build': 'build4',
     'x': -3.5,
     'y': 7,
@@ -1585,6 +1677,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_3f_room6': {
+    'floor': 3,
     'build': 'build4',
     'x': -12.5,
     'y': 7,
@@ -1594,6 +1687,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_3f_aisle2': {
+    'floor': 3,
     'build': 'build4',
     'x': -19.25,
     'y': 7,
@@ -1604,6 +1698,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build4_4f
   'build4_4f_room1': {
+    'floor': 4,
     'build': 'build4',
     'x': 37,
     'y': 10,
@@ -1613,6 +1708,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_4f_room2': {
+    'floor': 4,
     'build': 'build4',
     'x': 28,
     'y': 10,
@@ -1622,6 +1718,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_4f_aisle1': {
+    'floor': 4,
     'build': 'build4',
     'x': 21.25,
     'y': 10,
@@ -1631,6 +1728,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build4_4f_room3': {
+    'floor': 4,
     'build': 'build4',
     'x': 14.5,
     'y': 10,
@@ -1640,6 +1738,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_4f_room4': {
+    'floor': 4,
     'build': 'build4',
     'x': 5.5,
     'y': 10,
@@ -1649,6 +1748,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_4f_room5': {
+    'floor': 4,
     'build': 'build4',
     'x': -3.5,
     'y': 10,
@@ -1658,6 +1758,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_4f_room6': {
+    'floor': 4,
     'build': 'build4',
     'x': -12.5,
     'y': 10,
@@ -1667,6 +1768,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_4f_aisle2': {
+    'floor': 4,
     'build': 'build4',
     'x': -19.25,
     'y': 10,
@@ -1677,6 +1779,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build4_5f
   'build4_5f_room1': {
+    'floor': 5,
     'build': 'build4',
     'x': 37,
     'y': 13,
@@ -1686,6 +1789,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_5f_room2': {
+    'floor': 5,
     'build': 'build4',
     'x': 28,
     'y': 13,
@@ -1695,6 +1799,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_5f_aisle1': {
+    'floor': 5,
     'build': 'build4',
     'x': 21.25,
     'y': 13,
@@ -1704,6 +1809,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build4_5f_room3': {
+    'floor': 5,
     'build': 'build4',
     'x': 14.5,
     'y': 13,
@@ -1713,6 +1819,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_5f_room4': {
+    'floor': 5,
     'build': 'build4',
     'x': 5.5,
     'y': 13,
@@ -1722,6 +1829,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_5f_room5': {
+    'floor': 5,
     'build': 'build4',
     'x': -3.5,
     'y': 13,
@@ -1731,6 +1839,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_5f_room6': {
+    'floor': 5,
     'build': 'build4',
     'x': -12.5,
     'y': 13,
@@ -1740,6 +1849,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build4_5f_aisle2': {
+    'floor': 5,
     'build': 'build4',
     'x': -19.25,
     'y': 13,
@@ -1761,6 +1871,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build5_b1
   'build5_b1_room1': {
+    'floor': -1,
     'build': 'build5',
     'x': 37,
     'y': -2,
@@ -1770,6 +1881,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_b1_room2': {
+    'floor': -1,
     'build': 'build5',
     'x': 5.5,
     'y': -2,
@@ -1780,6 +1892,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build5_1f
   'build5_1f_room1': {
+    'floor': 1,
     'build': 'build5',
     'x': 37,
     'y': 1,
@@ -1789,6 +1902,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_1f_room2': {
+    'floor': 1,
     'build': 'build5',
     'x': 28,
     'y': 1,
@@ -1798,6 +1912,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_1f_aisle1': {
+    'floor': 1,
     'build': 'build5',
     'x': 21.25,
     'y': 1,
@@ -1807,6 +1922,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build5_1f_room3': {
+    'floor': 1,
     'build': 'build5',
     'x': 14.5,
     'y': 1,
@@ -1816,6 +1932,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_1f_room4': {
+    'floor': 1,
     'build': 'build5',
     'x': 5.5,
     'y': 1,
@@ -1825,6 +1942,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_1f_room5': {
+    'floor': 1,
     'build': 'build5',
     'x': -3.5,
     'y': 1,
@@ -1834,6 +1952,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_1f_room6': {
+    'floor': 1,
     'build': 'build5',
     'x': -12.5,
     'y': 1,
@@ -1843,6 +1962,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_1f_aisle2': {
+    'floor': 1,
     'build': 'build5',
     'x': -19.25,
     'y': 1,
@@ -1853,6 +1973,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build5_2f
   'build5_2f_room1': {
+    'floor': 2,
     'build': 'build5',
     'x': 37,
     'y': 4,
@@ -1862,6 +1983,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_2f_room2': {
+    'floor': 2,
     'build': 'build5',
     'x': 28,
     'y': 4,
@@ -1871,6 +1993,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_2f_aisle1': {
+    'floor': 2,
     'build': 'build5',
     'x': 21.25,
     'y': 4,
@@ -1880,6 +2003,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build5_2f_room3': {
+    'floor': 2,
     'build': 'build5',
     'x': 14.5,
     'y': 4,
@@ -1889,6 +2013,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_2f_room4': {
+    'floor': 2,
     'build': 'build5',
     'x': 5.5,
     'y': 4,
@@ -1898,6 +2023,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_2f_room5': {
+    'floor': 2,
     'build': 'build5',
     'x': -3.5,
     'y': 4,
@@ -1907,6 +2033,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_2f_room6': {
+    'floor': 2,
     'build': 'build5',
     'x': -12.5,
     'y': 4,
@@ -1916,6 +2043,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_2f_aisle2': {
+    'floor': 2,
     'build': 'build5',
     'x': -19.25,
     'y': 4,
@@ -1926,6 +2054,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build5_3f
   'build5_3f_room1': {
+    'floor': 3,
     'build': 'build5',
     'x': 37,
     'y': 7,
@@ -1935,6 +2064,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_3f_room2': {
+    'floor': 3,
     'build': 'build5',
     'x': 28,
     'y': 7,
@@ -1944,6 +2074,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_3f_aisle1': {
+    'floor': 3,
     'build': 'build5',
     'x': 21.25,
     'y': 7,
@@ -1953,6 +2084,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build5_3f_room3': {
+    'floor': 3,
     'build': 'build5',
     'x': 14.5,
     'y': 7,
@@ -1962,6 +2094,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_3f_room4': {
+    'floor': 3,
     'build': 'build5',
     'x': 5.5,
     'y': 7,
@@ -1971,6 +2104,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_3f_room5': {
+    'floor': 3,
     'build': 'build5',
     'x': -3.5,
     'y': 7,
@@ -1980,6 +2114,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_3f_room6': {
+    'floor': 3,
     'build': 'build5',
     'x': -12.5,
     'y': 7,
@@ -1989,6 +2124,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_3f_aisle2': {
+    'floor': 3,
     'build': 'build5',
     'x': -19.25,
     'y': 7,
@@ -1999,6 +2135,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build5_4f
   'build5_4f_room1': {
+    'floor': 4,
     'build': 'build5',
     'x': 32.5,
     // 'x': 37,
@@ -2010,6 +2147,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     // 'length': 9
   },
   // 'build5_4f_room2': {
+  //   'floor': 4,
   //   'build': 'build5',
   //   'x': 28,
   //   'y': 10,
@@ -2019,6 +2157,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   //   'length': 9
   // },
   'build5_4f_aisle1': {
+    'floor': 4,
     'build': 'build5',
     'x': 21.25,
     'y': 10,
@@ -2028,6 +2167,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 4.5
   },
   'build5_4f_room3': {
+    'floor': 4,
     'build': 'build5',
     'x': 10,
     'y': 10,
@@ -2038,6 +2178,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     // 'length': 9
   },
   // 'build5_4f_room4': {
+  //   'floor': 4,
   //   'build': 'build5',
   //   'x': 5.5,
   //   'y': 10,
@@ -2047,6 +2188,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   //   'length': 9
   // },
   'build5_4f_room5': {
+    'floor': 4,
     'build': 'build5',
     'x': -8,
     'y': 10,
@@ -2057,6 +2199,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     // 'length': 9
   },
   // 'build5_4f_room6': {
+  //   'floor': 4,
   //   'build': 'build5',
   //   'x': -12.5,
   //   'y': 10,
@@ -2066,6 +2209,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   //   'length': 9
   // },
   'build5_4f_aisle2': {
+    'floor': 4,
     'build': 'build5',
     'x': -19.25,
     'y': 10,
@@ -2076,6 +2220,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build5_5f
   'build5_5f_room1': {
+    'floor': 5,
     'build': 'build5',
     'x': 37,
     'y': 13,
@@ -2085,6 +2230,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_5f_room2': {
+    'floor': 5,
     'build': 'build5',
     'x': 25.75,
     'y': 13,
@@ -2095,6 +2241,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     // 'length': 9
   },
   // 'build5_5f_aisle1': {
+  //   'floor': 5,
   //   'build': 'build5',
   //   'x': 21.25,
   //   'y': 13,
@@ -2104,6 +2251,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   //   'length': 4.5
   // },
   'build5_5f_room3': {
+    'floor': 5,
     'build': 'build5',
     'x': 10,
     'y': 13,
@@ -2114,6 +2262,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     // 'length': 9
   },
   // 'build5_5f_room4': {
+  //   'floor': 5,
   //   'build': 'build5',
   //   'x': 5.5,
   //   'y': 13,
@@ -2123,6 +2272,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   //   'length': 9
   // },
   'build5_5f_room5': {
+    'floor': 5,
     'build': 'build5',
     'x': -3.5,
     'y': 13,
@@ -2132,6 +2282,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_5f_room6': {
+    'floor': 5,
     'build': 'build5',
     'x': -12.5,
     'y': 13,
@@ -2141,6 +2292,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 9
   },
   'build5_5f_aisle2': {
+    'floor': 5,
     'build': 'build5',
     'x': -19.25,
     'y': 13,
@@ -2149,6 +2301,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 11.5,
     'length': 4.5
   },
+
   // build6
   'build6_base1': {
     'build': 'build6',
@@ -2266,6 +2419,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build9_1f
   'build9_1f': {
+    'floor': 1,
     'build': 'build9',
     'x': 77,
     'y': 0,
@@ -2275,6 +2429,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 0
   },
   'build9_1f_###1': {
+    'floor': 1,
     'build': 'build9',
     'x': 70.5,
     'y': 0,
@@ -2284,6 +2439,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 13
   },
   'build9_1f_###2': {
+    'floor': 1,
     'build': 'build9',
     'x': 82.5,
     'y': 0,
@@ -2294,6 +2450,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build9_2f
   'build9_2f': {
+    'floor': 2,
     'build': 'build9',
     'x': 77,
     'y': 3,
@@ -2303,6 +2460,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 0
   },
   'build9_2f_###1': {
+    'floor': 2,
     'build': 'build9',
     'x': 70.5,
     'y': 3,
@@ -2312,6 +2470,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 13
   },
   'build9_2f_###2': {
+    'floor': 2,
     'build': 'build9',
     'x': 82.5,
     'y': 3,
@@ -2322,6 +2481,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build9_3f
   'build9_3f': {
+    'floor': 3,
     'build': 'build9',
     'x': 77,
     'y': 6,
@@ -2331,6 +2491,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 0
   },
   'build9_3f_###1': {
+    'floor': 3,
     'build': 'build9',
     'x': 70.5,
     'y': 6,
@@ -2340,6 +2501,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 13
   },
   'build9_3f_###2': {
+    'floor': 3,
     'build': 'build9',
     'x': 82.5,
     'y': 6,
@@ -2350,6 +2512,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build9_4f
   'build9_4f': {
+    'floor': 4,
     'build': 'build9',
     'x': 77,
     'y': 9,
@@ -2359,6 +2522,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 0
   },
   'build9_4f_###1': {
+    'floor': 4,
     'build': 'build9',
     'x': 70.5,
     'y': 9,
@@ -2368,6 +2532,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 13
   },
   'build9_4f_###2': {
+    'floor': 4,
     'build': 'build9',
     'x': 82.5,
     'y': 9,
@@ -2378,6 +2543,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
   // build9_5f
   'build9_5f': {
+    'floor': 5,
     'build': 'build9',
     'x': 77,
     'y': 12,
@@ -2387,6 +2553,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 0
   },
   'build9_5f_###1': {
+    'floor': 5,
     'build': 'build9',
     'x': 70.5,
     'y': 12,
@@ -2396,6 +2563,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 13
   },
   'build9_5f_###2': {
+    'floor': 5,
     'build': 'build9',
     'x': 82.5,
     'y': 12,

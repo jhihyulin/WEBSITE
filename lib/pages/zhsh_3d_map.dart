@@ -2694,7 +2694,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     initSize(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('ZHSH 3D Map'),
+        title: const Text('ZHSH 3D Map'),
       ),
       body: MediaQuery.of(context).size.width > deskopModeWidth
           ? _buildDesktop(context)
@@ -2707,7 +2707,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           resetBuilgingColor();
         },
         tooltip: 'reset location',
-        child: Icon(Icons.home),
+        child: const Icon(Icons.home),
       ),
     );
   }
@@ -2725,12 +2725,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                     return three3dRender.isInitialized
                         ? HtmlElementView(
                             viewType: three3dRender.textureId!.toString())
-                        : Center(child: CircularProgressIndicator());
+                        : const Center(child: CircularProgressIndicator());
                   }));
             }),
         Container(
           width: MediaQuery.of(context).size.width / 3,
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: _contentWidget(),
         ),
       ],
@@ -2754,7 +2754,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                         : Center(
                             child: ClipRRect(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0)),
+                                  const BorderRadius.all(Radius.circular(16.0)),
                               child: LinearProgressIndicator(
                                 minHeight: 20,
                                 backgroundColor: Theme.of(context).splashColor,
@@ -2766,7 +2766,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             }),
         Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: _contentWidget())
       ],
     ));
@@ -2778,7 +2778,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         decoration: InputDecoration(
           labelText: '搜尋地點',
           hintText: '請輸入地點',
-          prefixIcon: Icon(Icons.pin_drop),
+          prefixIcon: const Icon(Icons.pin_drop),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
@@ -2804,13 +2804,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Offstage(
         offstage: _selectedLocation == '',
         child: ListTile(
-            title: Text('地點'),
+            title: const Text('地點'),
             trailing: Text('$_selectedLocationName')),
       ),
       Offstage(
         offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
         child: ListTile(
-          title: Text('建築'),
+          title: const Text('建築'),
           trailing: Text(
               '${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
         ),
@@ -2818,7 +2818,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Offstage(
         offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
         child: ListTile(
-          title: Text('樓層'),
+          title: const Text('樓層'),
           trailing: Text(
               '${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
         ),
@@ -2826,7 +2826,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Offstage(
         offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
         child: ListTile(
-          title: Text('詳細資訊'),
+          title: const Text('詳細資訊'),
           subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
         )
       )
@@ -3063,7 +3063,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           ? objectZ - settingData['camera']['focusIncreaseZ']
           : objectZ + settingData['camera']['focusIncreaseZ'],
     );
-    _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+    _navigatorTimer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {
         timer.cancel();
         return;
@@ -3117,7 +3117,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     var z = settingData['camera']['focusZ'];
     var tarCameraPosition = three.Vector3(settingData['camera']['x'],
         settingData['camera']['y'], settingData['camera']['z']);
-    _navigatorTimer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+    _navigatorTimer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {
         timer.cancel();
         return;

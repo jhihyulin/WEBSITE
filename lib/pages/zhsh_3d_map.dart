@@ -80,10 +80,13 @@ const Map settingData = {
       'build1_1f_room1': {'name': '學務處'},
       'build1_1f_room2': {'name': '健康中心'},
       'build1_1f_facility1': {'name': 'ATM'}, // TODO: fix search upper case
-      'build1_2f_room1': {'name': '教務處'},
+      'build1_2f_room1': {
+        'name': '教務處',
+        'description': '這是好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多的測試文字'
+      },
       'build1_2f_room2': {'name': '輔導室'},
       'build1_3f_room1': {'name': '總務處'},
-      'build1_3f_room2': {'name': '校長室'},
+      'build1_3f_room2': {'name': '校長室', 'description': '曾經是大蛇丸的棲息地'},
       'build1_3f_room3': {'name': '會議室'},
       'build1_4f_room1': {'name': '教師辦公室'},
       'build1_4f_room2': {'name': '家長接待室'},
@@ -2691,7 +2694,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     initSize(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('3D Map'),
+        title: Text('ZHSH 3D Map'),
       ),
       body: MediaQuery.of(context).size.width > deskopModeWidth
           ? _buildDesktop(context)
@@ -2773,11 +2776,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     return Column(children: [
       InputDecorator(
         decoration: InputDecoration(
-          labelText: 'Please select a location',
+          labelText: '搜尋地點',
+          hintText: '請輸入地點',
           prefixIcon: Icon(Icons.pin_drop),
-          labelStyle: TextStyle(
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
@@ -2803,34 +2804,32 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Offstage(
         offstage: _selectedLocation == '',
         child: ListTile(
-          title: Text('Selected Location'),
-          trailing: Text('$_selectedLocationName')
-        ),
+            title: Text('地點'),
+            trailing: Text('$_selectedLocationName')),
       ),
       Offstage(
-        offstage: _selectedLocation == '',
+        offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
         child: ListTile(
-          title: Text('Description'),
-          trailing: Text(
-              '${_selectedLocation == '' ? '' : settingData['object']!['set'][_selectedLocation]['description'] ?? 'None'}'),
-        ),
-      ),
-      Offstage(
-        offstage: _selectedLocation == '',
-        child: ListTile(
-          title: Text('Building'),
+          title: Text('建築'),
           trailing: Text(
               '${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
         ),
       ),
       Offstage(
-        offstage: _selectedLocation == '',
+        offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
         child: ListTile(
-          title: Text('Floor'),
+          title: Text('樓層'),
           trailing: Text(
-              '${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'),
+              '${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
         ),
       ),
+      Offstage(
+        offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
+        child: ListTile(
+          title: Text('詳細資訊'),
+          subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
+        )
+      )
     ]);
   }
 

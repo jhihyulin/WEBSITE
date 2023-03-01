@@ -38,10 +38,20 @@ const Map settingData = {
       'type': 'directional',
       'color': 0xff8400,
       'intensity': 1,
-      'position': {'x': 100, 'y': 100, 'z': 100},
+      'position': {'x': 90, 'y': 80, 'z': 50},
       'target': {'x': 0, 'y': 0, 'z': 0},
       'shadow': {
         'enabled': true,
+        'bias': -0.0006,
+        'mapSize': {'width': 2048, 'height': 2048},
+        'camera': {
+          'left': -100,
+          'right': 100,
+          'top': 100,
+          'bottom': -100,
+          'near': 0.1,
+          'far': 500,
+        }
       }
     }
   ],
@@ -2972,11 +2982,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       Offstage(
         offstage: _selectedLocation == '',
         child: ListTile(
-            title: const Text('地點'),
-            trailing: Text('$_selectedLocationName')),
+            title: const Text('地點'), trailing: Text('$_selectedLocationName')),
       ),
       Offstage(
-        offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
+        offstage: _selectedLocation == '' ||
+            mapData[_selectedLocation]!['build'] == null ||
+            settingData['buildings']!['name']
+                    [mapData[_selectedLocation]!['build']] ==
+                null,
         child: ListTile(
           title: const Text('建築'),
           trailing: Text(
@@ -2984,20 +2997,24 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         ),
       ),
       Offstage(
-        offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
+        offstage: _selectedLocation == '' ||
+            mapData[_selectedLocation]!['floor'] == null,
         child: ListTile(
           title: const Text('樓層'),
           trailing: Text(
-              '${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
+              '${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'
+                  .replaceAll('-', 'B')),
         ),
       ),
       Offstage(
-        offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
-        child: ListTile(
-          title: const Text('詳細資訊'),
-          subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
-        )
-      )
+          offstage: _selectedLocation == '' ||
+              settingData['object']['set'][_selectedLocation]['description'] ==
+                  null,
+          child: ListTile(
+            title: const Text('詳細資訊'),
+            subtitle: Text(
+                '${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
+          ))
     ]);
   }
 
@@ -3178,16 +3195,18 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         dirLight.position
             .set(i['position']['x'], i['position']['y'], i['position']['z']);
         dirLight.intensity = i['intensity'];
-        dirLight.castShadow = i['shadow']['enabled'];
-        dirLight.shadow!.camera!.near = 1;
-        dirLight.shadow!.camera!.far = 500;
-        dirLight.shadow!.camera!.right = 180;
-        dirLight.shadow!.camera!.left = -180;
-        dirLight.shadow!.camera!.top = 180;
-        dirLight.shadow!.camera!.bottom = -180;
-        dirLight.shadow!.mapSize.width = 2048;
-        dirLight.shadow!.mapSize.height = 2048;
-        dirLight.shadow!.bias = -0.0006;
+        if (i['shadow']['enabled']) {
+          dirLight.castShadow = i['shadow']['enabled'];
+          dirLight.shadow!.camera!.near = i['shadow']['camera']['near'];
+          dirLight.shadow!.camera!.far = i['shadow']['camera']['far'];
+          dirLight.shadow!.camera!.right = i['shadow']['camera']['right'];
+          dirLight.shadow!.camera!.left = i['shadow']['camera']['left'];
+          dirLight.shadow!.camera!.top = i['shadow']['camera']['top'];
+          dirLight.shadow!.camera!.bottom = i['shadow']['camera']['bottom'];
+          dirLight.shadow!.mapSize.width = i['shadow']['mapSize']['width'];
+          dirLight.shadow!.mapSize.height = i['shadow']['mapSize']['height'];
+          dirLight.shadow!.bias = i['shadow']['bias'];
+        }
         scene.add(dirLight);
         if (_lightHelper) {
           var dirLightHelper = three.DirectionalLightHelper(dirLight, 5);

@@ -326,7 +326,7 @@ const Map settingData = {
   'ground': {
     'color': 0x96ad82,
     'width': 200,
-    'length': 250,
+    'length': 300
   },
   'background': {
     'color': 'system', // 'system' or 0x000000

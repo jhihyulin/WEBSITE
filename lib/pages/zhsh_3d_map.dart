@@ -323,11 +323,7 @@ const Map settingData = {
       'facility_parkingLot3': {'name': '停車場#2', 'render': false},
     }
   },
-  'ground': {
-    'color': 0x96ad82,
-    'width': 200,
-    'length': 300
-  },
+  'ground': {'color': 0x96ad82, 'width': 200, 'length': 300},
   'background': {
     'color': 'system', // 'system' or 0x000000
   },
@@ -2955,7 +2951,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       InputDecorator(
         decoration: InputDecoration(
           labelText: '搜尋地點',
-          hintText: '請輸入地點',
           prefixIcon: const Icon(Icons.pin_drop),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.0),

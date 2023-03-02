@@ -16,6 +16,7 @@ const int deskopModeWidth = 640;
 
 // TODO: Load from web
 const Map settingData = {
+  'version': {'name': 'Ver2023.3.2'},
   'camera': {
     'x': -50,
     'y': 25,
@@ -3043,6 +3044,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   late three_jsm.OrbitControls controls;
 
+  bool _devMode = false;
+
   @override
   void initState() {
     super.initState();
@@ -3146,11 +3149,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                         : const Center(child: CircularProgressIndicator());
                   }));
             }),
-        Container(
-          width: MediaQuery.of(context).size.width / 3,
-          padding: const EdgeInsets.all(16.0),
-          child: _contentWidget(),
-        ),
+        SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width / 3,
+            padding: const EdgeInsets.all(16.0),
+            child: _contentWidget(),
+          ),
+        )
       ],
     );
   }
@@ -3221,42 +3226,91 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           },
         ),
       ),
+      // ListView.builder(
+      //   shrinkWrap: true,
+      //   itemCount: settingData['object']['set'].length,
+      //   itemBuilder: (BuildContext context, int index) {
+      //     var key = settingData['object']['set'].keys.elementAt(index);
+      //     if (settingData['object']['set'][key]['searchable'] == false) {
+      //       return Container();
+      //     }
+      //     print(index);
+      //     return ListTile(
+      //       title: Text('${settingData['object']['set'][key]['name']}'),
+      //       subtitle: Text(
+      //           '${settingData['object']['set'][key]['description'] ?? ''}'),
+      //       onTap: () {
+      //         search(key);
+      //       },
+      //     );
+      //   },
+      // ),
       Offstage(
         offstage: _selectedLocation == '',
-        child: ListTile(
-            title: const Text('地點'), trailing: Text('$_selectedLocationName')),
-      ),
-      Offstage(
-        offstage: _selectedLocation == '' ||
-            mapData[_selectedLocation]!['build'] == null ||
-            settingData['buildings']!['name']
-                    [mapData[_selectedLocation]!['build']] ==
-                null,
-        child: ListTile(
-          title: const Text('建築'),
-          trailing: Text(
-              '${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+        child: Card(
+          child: Column(
+            children: [
+              Offstage(
+                offstage: _selectedLocation == '',
+                child: ListTile(
+                    title: const Text('地點'),
+                    trailing: Text('$_selectedLocationName')),
+              ),
+              Offstage(
+                offstage: _selectedLocation == '' ||
+                    mapData[_selectedLocation]!['build'] == null ||
+                    settingData['buildings']!['name']
+                            [mapData[_selectedLocation]!['build']] ==
+                        null,
+                child: ListTile(
+                  title: const Text('建築'),
+                  trailing: Text(
+                      '${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+                ),
+              ),
+              Offstage(
+                offstage: _selectedLocation == '' ||
+                    mapData[_selectedLocation]!['floor'] == null,
+                child: ListTile(
+                  title: const Text('樓層'),
+                  trailing: Text(
+                      '${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'
+                          .replaceAll('-', 'B')),
+                ),
+              ),
+              Offstage(
+                  offstage: _selectedLocation == '' ||
+                      settingData['object']['set'][_selectedLocation]
+                              ['description'] ==
+                          null,
+                  child: ListTile(
+                    title: const Text('詳細資訊'),
+                    subtitle: Text(
+                        '${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
+                  )),
+            ],
+          ),
         ),
       ),
+      SizedBox(height: 20),
+      InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+          child: Chip(
+            label: Text('${settingData['version']['name']}'),
+          ),
+          onLongPress: () {
+            setState(() {
+              _devMode = !_devMode;
+            });
+          }),
       Offstage(
-        offstage: _selectedLocation == '' ||
-            mapData[_selectedLocation]!['floor'] == null,
-        child: ListTile(
-          title: const Text('樓層'),
-          trailing: Text(
-              '${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'
-                  .replaceAll('-', 'B')),
-        ),
-      ),
-      Offstage(
-          offstage: _selectedLocation == '' ||
-              settingData['object']['set'][_selectedLocation]['description'] ==
-                  null,
-          child: ListTile(
-            title: const Text('詳細資訊'),
-            subtitle: Text(
-                '${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
-          ))
+        offstage: _devMode == false,
+        child: Column(
+          children: [
+            Text('DevMode: $_devMode'),
+          ],
+        )
+      )
     ]);
   }
 

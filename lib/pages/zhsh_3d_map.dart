@@ -44,7 +44,7 @@ const Map settingData = {
       'shadow': {
         'enabled': true,
         'bias': -0.0006,
-        'mapSize': {'width': 1024, 'height': 1024},
+        'mapSize': {'width': 2048, 'height': 2048},
         'camera': {
           'left': -150,
           'right': 150,
@@ -3315,7 +3315,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           offstage: _devMode == false,
           child: Column(
             children: [
-              Text('DevMode: $_devMode'),
+              Text('DevMode: $_devMode long press to toggle'),
               ListTile(
                 title: const Text('全螢幕'),
                 trailing: Switch(

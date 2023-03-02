@@ -85,7 +85,7 @@ const Map settingData = {
       'build_5f': {'name': '行政大樓==通達樓5F', 'searchable': false},
       'build_6f': {'name': '行政大樓=x=通達樓6F', 'searchable': false},
       'build_7f': {'name': '行政大樓=x=通達樓7F', 'searchable': false},
-      'build_stair': {'name': '行政大樓==通達樓-樓梯'},
+      'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
       'build1_b1_room1': {'name': '行政大樓B1'},
       'build1_b1_room2': {'name': '行政大樓B1未知空間'},
       'build1_1f_room1': {'name': '學務處'},

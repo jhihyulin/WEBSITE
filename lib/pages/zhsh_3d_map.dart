@@ -43,7 +43,7 @@ const Map settingData = {
       'shadow': {
         'enabled': true,
         'bias': -0.0006,
-        'mapSize': {'width': 2048, 'height': 2048},
+        'mapSize': {'width': 1024, 'height': 1024},
         'camera': {
           'left': -150,
           'right': 150,

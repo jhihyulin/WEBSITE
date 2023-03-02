@@ -3341,8 +3341,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                 ),
               ),
               ListTile(
-                title: const Text('FPS'),
-                trailing: Text('$_fps'),
+                title: const Text('Render Cost'),
+                trailing: Text('$_fps ms'),
               ),
             ],
           ))

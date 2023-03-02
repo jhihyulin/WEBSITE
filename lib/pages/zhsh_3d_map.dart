@@ -3047,6 +3047,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   bool _devMode = false;
   bool _fullScreen = false;
 
+  int _fps = 0;
+
   @override
   void initState() {
     super.initState();
@@ -3338,6 +3340,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   },
                 ),
               ),
+              ListTile(
+                title: const Text('FPS'),
+                trailing: Text('$_fps'),
+              ),
             ],
           ))
     ]);
@@ -3366,6 +3372,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         print(' render: sourceTexture: $sourceTexture ');
       }
     }
+    setState(() {
+      _fps = (1000 / (t1 - t)) ~/ 1;
+    });
   }
 
   search(String location) {

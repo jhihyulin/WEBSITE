@@ -3049,6 +3049,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   int _fps = 0;
 
+  Vector3 _cameraPosition = Vector3(0, 0, 0);
+  Vector3 _cameraTarget = Vector3(0, 0, 0);
+
   @override
   void initState() {
     super.initState();
@@ -3058,8 +3061,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   Future<void> initPlatformState() async {
     if (MediaQuery.of(context).size.width > deskopModeWidth) {
       width = MediaQuery.of(context).size.width / 3 * 2;
-      height =
-          MediaQuery.of(context).size.height - (_fullScreen ? 0 : AppBar().preferredSize.height);
+      height = MediaQuery.of(context).size.height -
+          (_fullScreen ? 0 : AppBar().preferredSize.height);
     } else {
       width = MediaQuery.of(context).size.width;
       height =
@@ -3344,6 +3347,18 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                 title: const Text('Render Cost'),
                 trailing: Text('$_fps ms'),
               ),
+              ListTile(
+                title: const Text('Camera Position'),
+                trailing: Text('${_cameraPosition.x.toStringAsFixed(2)}, '
+                    '${_cameraPosition.y.toStringAsFixed(2)}, '
+                    '${_cameraPosition.z.toStringAsFixed(2)}'),
+              ),
+              ListTile(
+                title: const Text('Camera Target'),
+                trailing: Text('${_cameraTarget.x.toStringAsFixed(2)}, '
+                    '${_cameraTarget.y.toStringAsFixed(2)}, '
+                    '${_cameraTarget.z.toStringAsFixed(2)}'),
+              ),
             ],
           ))
     ]);
@@ -3372,8 +3387,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         print(' render: sourceTexture: $sourceTexture ');
       }
     }
+    var cameraPosition = camera.position;
+    var cameraTarget = controls.target;
     setState(() {
       _fps = (1000 / (t1 - t)) ~/ 1;
+      _cameraPosition = cameraPosition;
+      _cameraTarget = cameraTarget;
     });
   }
 

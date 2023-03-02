@@ -95,8 +95,8 @@ const Map settingData = {
         'description': '這是好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多的測試文字'
       },
       'build1_2f_room2': {'name': '輔導室'},
-      'build1_3f_room1': {'name': '總務處'},
-      'build1_3f_room2': {'name': '校長室', 'description': '曾經是大蛇丸的棲息地'},
+      'build1_3f_room1': {'name': '校長室', 'description': '曾經是大蛇丸的棲息地'},
+      'build1_3f_room2': {'name': '總務處'},
       'build1_3f_room3': {'name': '會議室'},
       'build1_4f_room1': {'name': '教師辦公室'},
       'build1_4f_room2': {'name': '家長接待室'},
@@ -274,6 +274,28 @@ const Map settingData = {
       'build5_5f_room6': {'name': '音樂教室2'},
       'build5_5f_aisle2': {'name': '謙融樓5F側郎', 'searchable': false},
       'build6_base1': {'name': '圖書館基1', 'searchable': false},
+      'build6_elevator1': {'name': '圖書館電梯'},
+      'build6_stair1': {'name': '圖書館樓梯'},
+      'build6_stair2': {'name': '圖書館後樓梯'},
+      'build6_1f_toilet1': {'name': '圖書館1F廁所'},
+      'build6_1f_room1': {'name': '演藝廳'},
+      'build6_1f_room2': {'name': '圖書館1F平台?'},
+      'build6_1f_room2_###1': {'name': '圖書館1F平台?#1', 'searchable': false},
+      'build6_2f_toilet1': {'name': '圖書館2F廁所'},
+      'build6_2f_room2': {'name': 'MIT教室'},
+      'build6_2f_room2_###1': {'name': '圖書館2F平台?#1', 'searchable': false},
+      'build6_3f_toilet1': {'name': '圖書館3F廁所'},
+      'build6_3f_room1': {'name': '圖書館閱覽室'},
+      'build6_3f_room1_###1': {'name': '圖書館閱覽室#1', 'searchable': false},
+      'build6_3f_room1_###2': {'name': '圖書館閱覽室#2', 'searchable': false},
+      'build6_4f_toilet1': {'name': '圖書館4F廁所'},
+      'build6_4f_room1': {'name': '圖書館4F???'},
+      'build6_4f_room1_###1': {'name': '圖書館4F???#1', 'searchable': false},
+      'build6_4f_room1_###2': {'name': '圖書館4F???#2', 'searchable': false},
+      'build6_5f_toilet1': {'name': '圖書館5F廁所'},
+      'build6_5f_room1': {'name': '圖書館5F???'},
+      'build6_5f_room1_###1': {'name': '圖書館5F???#1', 'searchable': false},
+      'build6_5f_room1_###2': {'name': '圖書館5F???#2', 'searchable': false},
       'build7_base1': {'name': '活動中心基1', 'searchable': false},
       'build7_toilet1': {'name': '活動中心女廁所'},
       'build7_toilet2': {'name': '活動中心男廁所'},
@@ -2316,7 +2338,229 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 0,
     'height': 1,
     'width': 35,
-    'length': 30
+    'length': 25
+  },
+  'build6_elevator1': {
+    'build': 'build6',
+    'x': -56,
+    'y': 1,
+    'z': -8,
+    'height': 18,
+    'width': 3,
+    'length': 3
+  },
+  'build6_stair1': {
+    'build': 'build6',
+    'x': -51,
+    'y': 1,
+    'z': -8,
+    'height': 18,
+    'width': 3,
+    'length': 7
+  },
+  'build6_stair2': {
+    'build': 'build6',
+    'x': -73.75,
+    'y': 0,
+    'z': 0,
+    'height': 17,
+    'width': 16,
+    'length': 2.5
+  },
+  // build6_1f
+  'build6_1f_toilet1': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -52.5,
+    'y': 1,
+    'z': -13.5,
+    'height': 3,
+    'width': 8,
+    'length': 10
+  },
+  'build6_1f_room1': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -60,
+    'y': 1,
+    'z': 11.5,
+    'height': 6,
+    'width': 12,
+    'length': 25
+  },
+  'build6_1f_room2': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -62.5,
+    'y': 1,
+    'z': -0.5,
+    'height': 3,
+    'width': 12,
+    'length': 20
+  },
+  'build6_1f_room2_###1': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -65,
+    'y': 1,
+    'z': -12,
+    'height': 3,
+    'width': 11,
+    'length': 15
+  },
+  // build6_2f
+  'build6_2f_toilet1': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -52.5,
+    'y': 4,
+    'z': -13.5,
+    'height': 3,
+    'width': 8,
+    'length': 10
+  },
+  'build6_2f_room2': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -62.5,
+    'y': 4,
+    'z': -0.5,
+    'height': 3,
+    'width': 12,
+    'length': 20
+  },
+  'build6_2f_room2_###1': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -65,
+    'y': 4,
+    'z': -12,
+    'height': 3,
+    'width': 11,
+    'length': 15
+  },
+  // build6_3f
+  'build6_3f_toilet1': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -52.5,
+    'y': 7,
+    'z': -13.5,
+    'height': 3,
+    'width': 8,
+    'length': 10
+  },
+  'build6_3f_room1_###1': {
+    'floor': 3,
+    'build': 'build6',
+    'x': -60,
+    'y': 7,
+    'z': 11.5,
+    'height': 3,
+    'width': 12,
+    'length': 25
+  },
+  'build6_3f_room1': {
+    'floor': 3,
+    'build': 'build6',
+    'x': -62.5,
+    'y': 7,
+    'z': -0.5,
+    'height': 3,
+    'width': 12,
+    'length': 20
+  },
+  'build6_3f_room1_###2': {
+    'floor': 3,
+    'build': 'build6',
+    'x': -65,
+    'y': 7,
+    'z': -12,
+    'height': 3,
+    'width': 11,
+    'length': 15
+  },
+  // build6_4f
+  'build6_4f_toilet1': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -52.5,
+    'y': 10,
+    'z': -13.5,
+    'height': 3,
+    'width': 8,
+    'length': 10
+  },
+  'build6_4f_room1_###1': {
+    'floor': 4,
+    'build': 'build6',
+    'x': -60,
+    'y': 10,
+    'z': 11.5,
+    'height': 3,
+    'width': 12,
+    'length': 25
+  },
+  'build6_4f_room1': {
+    'floor': 4,
+    'build': 'build6',
+    'x': -62.5,
+    'y': 10,
+    'z': -0.5,
+    'height': 3,
+    'width': 12,
+    'length': 20
+  },
+  'build6_4f_room1_###2': {
+    'floor': 4,
+    'build': 'build6',
+    'x': -65,
+    'y': 10,
+    'z': -12,
+    'height': 3,
+    'width': 11,
+    'length': 15
+  },
+  // build6_5f
+  'build6_5f_toilet1': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -52.5,
+    'y': 13,
+    'z': -13.5,
+    'height': 3,
+    'width': 8,
+    'length': 10
+  },
+  'build6_5f_room1_###1': {
+    'floor': 5,
+    'build': 'build6',
+    'x': -60,
+    'y': 13,
+    'z': 11.5,
+    'height': 3,
+    'width': 12,
+    'length': 25
+  },
+  'build6_5f_room1': {
+    'floor': 5,
+    'build': 'build6',
+    'x': -62.5,
+    'y': 13,
+    'z': -0.5,
+    'height': 3,
+    'width': 12,
+    'length': 20
+  },
+  'build6_5f_room1_###2': {
+    'floor': 5,
+    'build': 'build6',
+    'x': -65,
+    'y': 13,
+    'z': -12,
+    'height': 3,
+    'width': 11,
+    'length': 15
   },
 
   // build7

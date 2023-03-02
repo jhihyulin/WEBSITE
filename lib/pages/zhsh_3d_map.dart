@@ -28,7 +28,7 @@ const Map settingData = {
     'focusIncreaseY': 50,
     'focusIncreaseZ': -50,
   },
-  'controls': {'enabled': true, 'autoRotate': true, 'autoRotateSpeed': 2.0},
+  'controls': {'enabled': true, 'autoRotate': false, 'autoRotateSpeed': 2.0},
   'lights': [
     {
       'type': 'ambient',

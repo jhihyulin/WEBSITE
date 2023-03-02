@@ -3206,7 +3206,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               return const Iterable<String>.empty();
             }
             return dNameToName.keys.where((String option) {
-              return option.contains(textEditingValue.text.toLowerCase());
+              var result = option
+                  .toLowerCase()
+                  .contains(textEditingValue.text.toLowerCase());
+              return result;
             });
           },
           onSelected: (String selection) {

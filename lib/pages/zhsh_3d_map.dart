@@ -280,9 +280,11 @@ const Map settingData = {
       'build6_stair2': {'name': '圖書館後樓梯'},
       'build6_1f_toilet1': {'name': '圖書館1F廁所'},
       'build6_1f_room1': {'name': '演藝廳'},
-      'build6_1f_room2': {'name': '圖書館1F平台?'},
-      'build6_1f_room2_###1': {'name': '圖書館1F平台?#1', 'searchable': false},
-      'build6_2f_toilet1': {'name': '圖書館2F廁所'},
+      'build6_1f_room2': {'name': '圖書館展覽區'},
+      'build6_1f_room3': {'name': '圖書館???區'},
+      'build6_1f_room4': {'name': '圖書館辦公區'},
+      'build6_1f_room5': {'name': 'TED講堂'},
+      'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},
       'build6_2f_room2': {'name': 'MIT教室'},
       'build6_2f_room2_###1': {'name': '圖書館2F平台?#1', 'searchable': false},
       'build6_3f_toilet1': {'name': '圖書館3F廁所'},
@@ -290,9 +292,11 @@ const Map settingData = {
       'build6_3f_room1_###1': {'name': '圖書館閱覽室#1', 'searchable': false},
       'build6_3f_room1_###2': {'name': '圖書館閱覽室#2', 'searchable': false},
       'build6_4f_toilet1': {'name': '圖書館4F廁所'},
-      'build6_4f_room1': {'name': '圖書館4F???'},
-      'build6_4f_room1_###1': {'name': '圖書館4F???#1', 'searchable': false},
-      'build6_4f_room1_###2': {'name': '圖書館4F???#2', 'searchable': false},
+      'build6_3f_room1_###3': {'name': '圖書館閱覽室#3', 'searchable': false},
+      'build6_3f_room1_###4': {'name': '圖書館閱覽室#4', 'searchable': false},
+      'build6_4f_room3': {'name': 'MOOCs教室'},
+      'build6_4f_room4': {'name': 'ICT教室'},
+      'build6_4f_room5': {'name': '電腦機房'},
       'build6_5f_toilet1': {'name': '圖書館5F廁所'},
       'build6_5f_room1': {'name': '圖書館5F???'},
       'build6_5f_room1_###1': {'name': '圖書館5F???#1', 'searchable': false},
@@ -2392,22 +2396,42 @@ const Map<String, Map<String, dynamic>> mapData = {
   'build6_1f_room2': {
     'floor': 1,
     'build': 'build6',
-    'x': -62.5,
+    'x': -57.5,
     'y': 1,
     'z': -0.5,
     'height': 3,
     'width': 12,
-    'length': 20
+    'length': 10
   },
-  'build6_1f_room2_###1': {
+  'build6_1f_room3': {
     'floor': 1,
     'build': 'build6',
-    'x': -65,
+    'x': -67.5,
+    'y': 1,
+    'z': -0.5,
+    'height': 3,
+    'width': 12,
+    'length': 10
+  },
+  'build6_1f_room4': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -67.5,
     'y': 1,
     'z': -12,
     'height': 3,
     'width': 11,
-    'length': 15
+    'length': 10
+  },
+  'build6_1f_room5': {
+    'floor': 1,
+    'build': 'build6',
+    'x': -60,
+    'y': 1,
+    'z': -12,
+    'height': 3,
+    'width': 11,
+    'length': 5
   },
   // build6_2f
   'build6_2f_toilet1': {
@@ -2492,27 +2516,47 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 8,
     'length': 10
   },
-  'build6_4f_room1_###1': {
+  'build6_4f_room3': {
     'floor': 4,
     'build': 'build6',
-    'x': -60,
+    'x': -52.5,
     'y': 10,
-    'z': 11.5,
+    'z': 12.5,
     'height': 3,
-    'width': 12,
-    'length': 25
+    'width': 10,
+    'length': 10
   },
-  'build6_4f_room1': {
+    'build6_4f_room4': {
+    'floor': 4,
+    'build': 'build6',
+    'x': -65,
+    'y': 10,
+    'z': 12.5,
+    'height': 3,
+    'width': 10,
+    'length': 15
+  },
+  'build6_4f_room5': {
+    'floor': 4,
+    'build': 'build6',
+    'x': -50,
+    'y': 10,
+    'z': 6.5,
+    'height': 3,
+    'width': 2,
+    'length': 5
+  },
+  'build6_3f_room1_###3': {
     'floor': 4,
     'build': 'build6',
     'x': -62.5,
     'y': 10,
-    'z': -0.5,
+    'z': 0.5,
     'height': 3,
-    'width': 12,
+    'width': 14,
     'length': 20
   },
-  'build6_4f_room1_###2': {
+  'build6_3f_room1_###4': {
     'floor': 4,
     'build': 'build6',
     'x': -65,
@@ -3219,10 +3263,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               return const Iterable<String>.empty();
             }
             return dNameToName.keys.where((String option) {
-              var result = option
+              return option
                   .toLowerCase()
                   .contains(textEditingValue.text.toLowerCase());
-              return result;
             });
           },
           onSelected: (String selection) {

@@ -3045,6 +3045,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   late three_jsm.OrbitControls controls;
 
   bool _devMode = false;
+  bool _fullScreen = false;
 
   @override
   void initState() {
@@ -3056,7 +3057,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     if (MediaQuery.of(context).size.width > deskopModeWidth) {
       width = MediaQuery.of(context).size.width / 3 * 2;
       height =
-          MediaQuery.of(context).size.height - AppBar().preferredSize.height;
+          MediaQuery.of(context).size.height - (_fullScreen ? 0 : AppBar().preferredSize.height);
     } else {
       width = MediaQuery.of(context).size.width;
       height =
@@ -3114,9 +3115,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   Widget build(BuildContext context) {
     initSize(context);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ZHSH 3D Map'),
-      ),
+      appBar: _fullScreen
+          ? null
+          : AppBar(
+              title: Text('ZHSH 3D Map'),
+            ),
       body: MediaQuery.of(context).size.width > deskopModeWidth
           ? _buildDesktop(context)
           : _buildMobile(context),
@@ -3304,13 +3307,39 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             });
           }),
       Offstage(
-        offstage: _devMode == false,
-        child: Column(
-          children: [
-            Text('DevMode: $_devMode'),
-          ],
-        )
-      )
+          offstage: _devMode == false,
+          child: Column(
+            children: [
+              Text('DevMode: $_devMode'),
+              ListTile(
+                title: const Text('全螢幕'),
+                trailing: Switch(
+                  value: _fullScreen,
+                  onChanged: (bool value) {
+                    if (value) {
+                      document.documentElement!.requestFullscreen();
+                      setState(() {
+                        _fullScreen = value;
+                      });
+                      // TODO: reinit when fullscreen
+                      Future.delayed(const Duration(milliseconds: 500), () {
+                        initPlatformState();
+                      });
+                    } else {
+                      document.exitFullscreen();
+                      setState(() {
+                        _fullScreen = value;
+                      });
+                      // TODO: reinit when exit fullscreen
+                      Future.delayed(const Duration(milliseconds: 500), () {
+                        initPlatformState();
+                      });
+                    }
+                  },
+                ),
+              ),
+            ],
+          ))
     ]);
   }
 

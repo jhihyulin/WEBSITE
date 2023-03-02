@@ -45,10 +45,10 @@ const Map settingData = {
         'bias': -0.0006,
         'mapSize': {'width': 2048, 'height': 2048},
         'camera': {
-          'left': -100,
-          'right': 100,
-          'top': 100,
-          'bottom': -100,
+          'left': -150,
+          'right': 150,
+          'top': 150,
+          'bottom': -150,
           'near': 0.1,
           'far': 500,
         }

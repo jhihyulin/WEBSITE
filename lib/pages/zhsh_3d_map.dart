@@ -3359,6 +3359,18 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                     '${_cameraTarget.y.toStringAsFixed(2)}, '
                     '${_cameraTarget.z.toStringAsFixed(2)}'),
               ),
+              ListTile(
+                title: const Text('Default Camera Position'),
+                trailing: Text('${settingData['camera']['x']}, '
+                    '${settingData['camera']['y']}, '
+                    '${settingData['camera']['z']}'),
+              ),
+              ListTile(
+                title: const Text('Default Camera Target'),
+                trailing: Text('${settingData['camera']['focusX']}, '
+                    '${settingData['camera']['focusY']}, '
+                    '${settingData['camera']['focusZ']}'),
+              ),
             ],
           ))
     ]);

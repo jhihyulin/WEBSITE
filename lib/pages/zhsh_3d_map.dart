@@ -172,7 +172,7 @@ const Map settingData = {
       'build3_4f_room2': {'name': '電腦教室3'},
       'build3_4f_toilet1': {'name': '中和樓4F廁所#1', 'searchable': false},
       'build3_4f_aisle1': {'name': '中和樓4F走道#1', 'searchable': false},
-      'build3_4f_room3': {'name': '教師辦公室'},
+      'build3_4f_room3': {'name': '專任辦公室'},
       // 'build3_4f_room4': {'name': ''},
       'build3_4f_room5': {'name': '寰宇教室'},
       'build3_4f_room6': {'name': '國際教室'},

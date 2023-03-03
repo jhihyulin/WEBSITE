@@ -76,6 +76,7 @@ const Map settingData = {
   },
   'object': {
     'set': {
+      // TODO: Add description
       'build_base1': {'name': '基1', 'searchable': false},
       'build_base2': {'name': '基2', 'searchable': false},
       'build_1f': {'name': '行政大樓==通達樓1F', 'searchable': false},
@@ -91,13 +92,10 @@ const Map settingData = {
       'build1_1f_room1': {'name': '學務處'},
       'build1_1f_room2': {'name': '健康中心'},
       'build1_1f_facility1': {'name': 'ATM'}, // TODO: fix search upper case
-      'build1_2f_room1': {
-        'name': '教務處',
-        'description': '這是好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多好多的測試文字'
-      },
+      'build1_2f_room1': {'name': '教務處'},
       'build1_2f_room2': {'name': '輔導室'},
       'build1_3f_room1': {'name': '總務處'},
-      'build1_3f_room2': {'name': '校長室', 'description': '曾經是大蛇丸的棲息地'},
+      'build1_3f_room2': {'name': '校長室'},
       'build1_3f_room3': {'name': '小型會議室'},// TODO: ReCheck relative positionin 3F
       'build1_4f_room1': {'name': '教師辦公室'},
       'build1_4f_room2': {'name': '家長接待室'},

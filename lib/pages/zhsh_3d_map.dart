@@ -3132,7 +3132,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   @override
   void initState() {
-    _windowSizeTimer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+    _windowSizeTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (screenSize != MediaQuery.of(context).size) {
         if (MediaQuery.of(context).size.width > deskopModeWidth) {
           width = MediaQuery.of(context).size.width / 3 * 2;
@@ -3377,6 +3377,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       ),
       const SizedBox(height: 20),
       GestureDetector(
+        onTap: _devMode
+            ? () {
+                setState(() {
+                  _devMode = false;
+                });
+              }
+            : null,
         onPanCancel: _devModeTimer?.cancel,
         onPanDown: (DragDownDetails details) {
           _devModeTimer = Timer(
@@ -3397,7 +3404,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           offstage: _devMode == false,
           child: Column(
             children: [
-              Text('DevMode: $_devMode long press to toggle'),
+              const Text('Tap 5 seconds to open'),
+              const Text('Short tap to close'),
               ListTile(
                 title: const Text('全螢幕'),
                 trailing: Switch(

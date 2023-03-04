@@ -103,12 +103,12 @@ const Map settingData = {
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
       'build1_b1_room1': {'name': '行政大樓B1'},
       'build1_b1_room1_###1': {'name': '行政大樓B1未知空間', 'searchable': false},
-      'build1_1f_room1': {'name': '學務處', 'description': '學務描述測試、測試組'},
+      'build1_1f_room1': {'name': '學務處', 'description': '訓育組、社團活動組、衛生組、生輔組、體育組、教官'},
       'build1_1f_room2': {'name': '健康中心'},
-      'build1_1f_facility1': {'name': 'ATM'},
-      'build1_2f_room1': {'name': '教務處'},
+      'build1_1f_facility1': {'name': 'ATM自動櫃員機', 'description': '中華郵政'},
+      'build1_2f_room1': {'name': '教務處', 'description': '教學組、註冊組、試務組、實研組'},
       'build1_2f_room2': {'name': '輔導室'},
-      'build1_3f_room1': {'name': '總務處/人事室'},
+      'build1_3f_room1': {'name': '總務處/人事室', 'description': '文書組、事務組、出納組'},
       'build1_3f_room2': {'name': '校長室/秘書室'},
       'build1_3f_room3': {'name': '會計室'},
       'build1_2f_room4': {'name': '簡報室'},
@@ -151,7 +151,7 @@ const Map settingData = {
       'build3_base2': {'name': '中和樓基2', 'searchable': false},
       'build3_base3': {'name': '中和樓基3', 'searchable': false},
       'build3_b1_aisle1': {'name': '早餐店'},
-      'build3_b1_room1': {'name': '店1'}, // TODO: namem
+      'build3_b1_room1': {'name': '店1'}, // TODO: name
       'build3_b1_room2': {'name': '店2'}, // TODO: name
       'build3_b1_room3': {'name': '店3'}, // TODO: name
       'build3_b1_room4': {'name': '合作社'},
@@ -294,8 +294,8 @@ const Map settingData = {
       'build6_1f_toilet1': {'name': '圖書館1F廁所', 'searchable': false},
       'build6_1f_room1': {'name': '演藝廳'},
       'build6_1f_room2': {'name': '圖書館展覽區'},
-      'build6_1f_room3': {'name': '圖書館???區'},
-      'build6_1f_room4': {'name': '圖書館辦公區'},
+      'build6_1f_room3': {'name': '圖書館???區'},// TODO: check this
+      'build6_1f_room4': {'name': '圖書館辦公區', 'description': '資訊媒體組'},// TODO: check this
       'build6_1f_room5': {'name': 'TED講堂'},
       'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},
       'build6_2f_room2': {'name': 'MIT教室'},
@@ -317,13 +317,13 @@ const Map settingData = {
       'build7_base1': {'name': '活動中心基1', 'searchable': false},
       'build7_toilet1': {'name': '活動中心女廁所', 'searchable': false},
       'build7_toilet2': {'name': '活動中心男廁所', 'searchable': false},
-      'build7_build': {'name': '活動中心'},
+      'build7_build': {'name': '活動中心', 'description': '籃球場、羽球場'},
       'build8_base1': {'name': '游泳池基1', 'searchable': false},
       'build8_base2': {'name': '游泳池基2', 'searchable': false},
       'build8_base3': {'name': '游泳池基3', 'searchable': false},
       'build8_room1': {'name': '游泳池'},
       'build8_room2': {'name': '游泳池更衣室'},
-      'build8_room3': {'name': '游泳池??鍋爐室??'},
+      'build8_room3': {'name': '游泳池鍋爐室??'},// TODO: check this
       'build9_stair1': {'name': '教師宿舍樓梯', 'searchable': false},
       'build9_1f': {'name': '教師宿舍1F'},
       'build9_1f_###1': {'name': '教師宿舍1F#1', 'searchable': false},

@@ -18,9 +18,7 @@ const int deskopModeWidth = 640;
 const Map settingData = {
   'version': {'name': 'Ver2023.3.4'},
   'general': {
-    'devMode': {
-      'OpenDuration': 5
-    },
+    'devMode': {'openDuration': 5},
     'search': {
       'descriptionSearch': true,
     }
@@ -103,7 +101,10 @@ const Map settingData = {
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
       'build1_b1_room1': {'name': '行政大樓B1'},
       'build1_b1_room1_###1': {'name': '行政大樓B1未知空間', 'searchable': false},
-      'build1_1f_room1': {'name': '學務處', 'description': '訓育組、社團活動組、衛生組、生輔組、體育組、教官'},
+      'build1_1f_room1': {
+        'name': '學務處',
+        'description': '訓育組、社團活動組、衛生組、生輔組、體育組、教官'
+      },
       'build1_1f_room2': {'name': '健康中心'},
       'build1_1f_facility1': {'name': 'ATM自動櫃員機', 'description': '中華郵政'},
       'build1_2f_room1': {'name': '教務處', 'description': '教學組、註冊組、試務組、實研組'},
@@ -294,8 +295,11 @@ const Map settingData = {
       'build6_1f_toilet1': {'name': '圖書館1F廁所', 'searchable': false},
       'build6_1f_room1': {'name': '演藝廳'},
       'build6_1f_room2': {'name': '圖書館展覽區'},
-      'build6_1f_room3': {'name': '圖書館???區'},// TODO: check this
-      'build6_1f_room4': {'name': '圖書館辦公區', 'description': '資訊媒體組'},// TODO: check this
+      'build6_1f_room3': {'name': '圖書館???區'}, // TODO: check this
+      'build6_1f_room4': {
+        'name': '圖書館辦公區',
+        'description': '資訊媒體組'
+      }, // TODO: check this
       'build6_1f_room5': {'name': 'TED講堂'},
       'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},
       'build6_2f_room2': {'name': 'MIT教室'},
@@ -323,7 +327,7 @@ const Map settingData = {
       'build8_base3': {'name': '游泳池基3', 'searchable': false},
       'build8_room1': {'name': '游泳池'},
       'build8_room2': {'name': '游泳池更衣室'},
-      'build8_room3': {'name': '游泳池鍋爐室??'},// TODO: check this
+      'build8_room3': {'name': '游泳池鍋爐室??'}, // TODO: check this
       'build9_stair1': {'name': '教師宿舍樓梯', 'searchable': false},
       'build9_1f': {'name': '教師宿舍1F'},
       'build9_1f_###1': {'name': '教師宿舍1F#1', 'searchable': false},
@@ -3086,6 +3090,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   Timer? _navigatorTimer;
   Timer? _devModeTimer;
+  Timer? _windowSizeTimer;
 
   int? fboId;
   late double width;
@@ -3126,6 +3131,15 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   @override
   void initState() {
+    _windowSizeTimer = Timer.periodic(Duration(milliseconds: 100), (timer) {
+      if (screenSize != MediaQuery.of(context).size) {
+        screenSize = MediaQuery.of(context).size;
+        initPlatformState();
+        if (kDebugMode) {
+          print('window size changed: $screenSize');
+        }
+      }
+    });
     super.initState();
   }
 
@@ -3356,10 +3370,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         onPanCancel: _devModeTimer?.cancel,
         onPanDown: (DragDownDetails details) {
           _devModeTimer = Timer(
-              Duration(seconds: settingData['general']['devMode']['openDuration']), () {
+              Duration(
+                  seconds: settingData['general']['devMode']['openDuration']),
+              () {
             setState(() {
               _devMode = !_devMode;
             });
+            _devModeTimer?.cancel();
           });
         },
         child: Chip(
@@ -3736,6 +3753,57 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     }
   }
 
+  focusWithoutAnimation(String buildingName) {
+    if (_navigatorTimer != null) {
+      _navigatorTimer!.cancel();
+    }
+    var objectX = mapData[buildingName]!['x'];
+    var objectY = mapData[buildingName]!['y'];
+    var objectZ = mapData[buildingName]!['z'];
+    var objectHeight = mapData[buildingName]!['height'];
+    var tarCameraPosition = three.Vector3(
+      objectX >= 0
+          ? objectX + settingData['camera']['focusIncreaseX']
+          : objectX - settingData['camera']['focusIncreaseX'],
+      objectY + (objectHeight / 2) + settingData['camera']['focusIncreaseY'],
+      objectZ >= 0
+          ? objectZ + settingData['camera']['focusIncreaseZ']
+          : objectZ - settingData['camera']['focusIncreaseZ'],
+    );
+    camera.position
+        .set(tarCameraPosition.x, tarCameraPosition.y, tarCameraPosition.z);
+    controls.target.set(objectX, objectY + (objectHeight / 2), objectZ);
+    for (var i in scene.children) {
+      if (i is three.Mesh) {
+        if (i.name == 'ground') {
+          continue;
+        }
+        if (i.name == buildingName) {
+          if (settingData['object']['set'][i.name]!['render'] == false) {
+            continue;
+          }
+          i.material = three.MeshPhongMaterial({
+            'color': settingData['buildings']['focusColor'],
+            'flatShading': true,
+            'opacity': 1,
+            'transparent': false,
+          });
+        } else {
+          i.material = three.MeshPhongMaterial({
+            'color': settingData['object']['set'][i.name]!['color'] ??
+                settingData['buildings']['color'],
+            'flatShading': true,
+            'opacity': settingData['buildings']['focusOpacity'],
+            'transparent': true,
+          });
+        }
+      }
+    }
+    if (kDebugMode) {
+      print('focusWithoutAnimation: $buildingName');
+    }
+  }
+
   resetCamera() {
     if (controls.autoRotate) {
       controls.autoRotate = false;
@@ -3803,6 +3871,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     disposed = true;
     three3dRender.dispose();
     _navigatorTimer?.cancel();
+    _windowSizeTimer?.cancel();
 
     super.dispose();
   }

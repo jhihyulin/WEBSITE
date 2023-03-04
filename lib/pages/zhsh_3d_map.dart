@@ -3060,6 +3060,8 @@ const Map<String, Map<String, dynamic>> mapData = {
 };
 
 class ZHSH3DMapPage extends StatefulWidget {
+  const ZHSH3DMapPage({super.key});
+
   @override
   _ZHSH3DMapPageState createState() => _ZHSH3DMapPageState();
 }
@@ -3071,8 +3073,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   late FlutterGlPlugin three3dRender;
   three.WebGLRenderer? renderer;
 
-  bool _lightHelper = kDebugMode;
-  bool _groundHelper = kDebugMode;
+  final bool _lightHelper = kDebugMode;
+  final bool _groundHelper = kDebugMode;
 
   Timer? _navigatorTimer;
 
@@ -3184,7 +3186,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       appBar: _fullScreen
           ? null
           : AppBar(
-              title: Text('ZHSH 3D Map'),
+              title: const Text('ZHSH 3D Map'),
             ),
       body: MediaQuery.of(context).size.width > deskopModeWidth
           ? _buildDesktop(context)
@@ -3208,7 +3210,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         three_jsm.DomLikeListenable(
             key: _globalKey,
             builder: (BuildContext context) {
-              return Container(
+              return SizedBox(
                   width: width,
                   height: height,
                   child: Builder(builder: (BuildContext context) {
@@ -3236,7 +3238,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         three_jsm.DomLikeListenable(
             key: _globalKey,
             builder: (BuildContext context) {
-              return Container(
+              return SizedBox(
                   width: width,
                   height: height,
                   child: Builder(builder: (BuildContext context) {
@@ -3302,7 +3304,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                 offstage: _selectedLocation == '',
                 child: ListTile(
                     title: const Text('地點'),
-                    trailing: Text('$_selectedLocationName')),
+                    trailing: Text(_selectedLocationName)),
               ),
               Offstage(
                 offstage: _selectedLocation == '' ||
@@ -3340,7 +3342,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           ),
         ),
       ),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
       InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(16.0)),
           child: Chip(
@@ -3532,22 +3534,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     // world
     var geometry = three.BoxGeometry(1, 1, 1);
     geometry.translate(0, 0.5, 0);
-    var material = three.MeshPhongMaterial({'flatShading': true});
 
-    // for (var i = 0; i < 500; i++) {
-    //   var mesh = three.Mesh(geometry, material);
-    //   mesh.position.x = three.Math.random() * 1600 - 800;
-    //   mesh.position.y = 0;
-    //   mesh.position.z = three.Math.random() * 1600 - 800;
-    //   mesh.scale.x = 20;
-    //   mesh.scale.y = three.Math.random() * 80 + 10;
-    //   mesh.scale.z = 20;
-    //   mesh.updateMatrix();
-    //   mesh.matrixAutoUpdate = false;
-    //   scene.add(mesh);
-    // }
-
-    // var kDebugMode = false;
     // helper
     if (_groundHelper) {
       var grid = three.GridHelper(1000, 1000, 0xff0000, 0xffff);

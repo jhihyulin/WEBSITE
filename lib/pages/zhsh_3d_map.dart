@@ -24,9 +24,9 @@ const Map settingData = {
     'focusX': 12.5,
     'focusY': 0,
     'focusZ': 25,
-    'focusIncreaseX': -50,
-    'focusIncreaseY': 50,
-    'focusIncreaseZ': -50,
+    'focusIncreaseX': 25,
+    'focusIncreaseY': 25,
+    'focusIncreaseZ': 25,
   },
   'controls': {'enabled': true, 'autoRotate': false, 'autoRotateSpeed': 2.0},
   'lights': [
@@ -3662,12 +3662,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     var objectHeight = mapData[buildingName]!['height'];
     var tarCameraPosition = three.Vector3(
       objectX >= 0
-          ? objectX - settingData['camera']['focusIncreaseX']
-          : objectX + settingData['camera']['focusIncreaseX'],
+          ? objectX + settingData['camera']['focusIncreaseX']
+          : objectX - settingData['camera']['focusIncreaseX'],
       objectY + (objectHeight / 2) + settingData['camera']['focusIncreaseY'],
       objectZ >= 0
-          ? objectZ - settingData['camera']['focusIncreaseZ']
-          : objectZ + settingData['camera']['focusIncreaseZ'],
+          ? objectZ + settingData['camera']['focusIncreaseZ']
+          : objectZ - settingData['camera']['focusIncreaseZ'],
     );
     _navigatorTimer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       if (!mounted || disposed) {

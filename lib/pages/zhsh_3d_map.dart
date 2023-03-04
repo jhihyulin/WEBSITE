@@ -16,7 +16,7 @@ const int deskopModeWidth = 640;
 
 // TODO: Load from web
 const Map settingData = {
-  'version': {'name': 'Ver2023.3.2'},
+  'version': {'name': 'Ver2023.3.4'},
   'camera': {
     'x': -50,
     'y': 25,
@@ -27,6 +27,7 @@ const Map settingData = {
     'focusIncreaseX': 25,
     'focusIncreaseY': 25,
     'focusIncreaseZ': 25,
+    'focusLerp': 0.25
   },
   'controls': {'enabled': true, 'autoRotate': false, 'autoRotateSpeed': 2.0},
   'lights': [
@@ -3677,12 +3678,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       var cameraPosition = camera.position;
       var distance = cameraPosition.distanceTo(tarCameraPosition);
       if (distance < 1) {
+        cameraPosition.set(tarCameraPosition.x, tarCameraPosition.y,
+            tarCameraPosition.z);
         timer.cancel();
         controls.autoRotate = settingData['controls']['autoRotate'];
         return;
       } else {
         // TODO: Best route
-        cameraPosition.lerp(tarCameraPosition, 0.1);
+        cameraPosition.lerp(tarCameraPosition, settingData['camera']['focusLerp']);
       }
       controls.target.set(objectX, objectY + (objectHeight / 2), objectZ);
     });
@@ -3731,12 +3734,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       var cameraPosition = camera.position;
       var distance = cameraPosition.distanceTo(tarCameraPosition);
       if (distance < 1) {
+        cameraPosition.set(tarCameraPosition.x, tarCameraPosition.y,
+            tarCameraPosition.z);
         timer.cancel();
         controls.autoRotate = settingData['controls']['autoRotate'];
         return;
       } else {
         // TODO: Best route
-        cameraPosition.lerp(tarCameraPosition, 0.1);
+        cameraPosition.lerp(tarCameraPosition, settingData['camera']['focusLerp']);
       }
       controls.target.set(x, y, z);
     });

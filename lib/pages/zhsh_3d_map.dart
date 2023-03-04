@@ -29,7 +29,12 @@ const Map settingData = {
     'focusIncreaseZ': 25,
     'focusLerp': 0.25
   },
-  'controls': {'enabled': true, 'autoRotate': false, 'autoRotateSpeed': 2.0},
+  'controls': {
+    'enabled': true,
+    'autoRotate': false,
+    'autoRotateSpeed': 2.0,
+    'searchFocus': true,
+  },
   'lights': [
     {
       'type': 'ambient',
@@ -3269,19 +3274,22 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             borderRadius: BorderRadius.circular(16.0),
           ),
         ),
-        child: Autocomplete(
+        child: Autocomplete<String>(
           optionsBuilder: (TextEditingValue textEditingValue) {
             if (textEditingValue.text == '') {
               return const Iterable<String>.empty();
             }
-            return search(textEditingValue.text);
+            return searchRecommend(textEditingValue.text);
           },
           onSelected: (String selection) {
-            var name = settingData['object']['set'][selection]['name'];
             if (kDebugMode) {
-              print('You just selected Display Name: $selection, Name: $name');
+              print('You just selected Display Name: $selection');
             }
-            focus(name!);
+            var id = search(selection);
+            if (settingData['controls']['searchFocus'] == true) {
+              focus(id);
+            }
+            // focus(id);
           },
         ),
       ),
@@ -3440,20 +3448,36 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     });
   }
 
-  Future<Iterable<String>> search(String arg) async {
+  FutureOr<Iterable<String>> searchRecommend(String arg) {
     var result = <String>[];
     if (arg == '') {
       return result;
     }
     for (var i in settingData['object']['set'].keys) {
-      if (settingData['object']['set'][i]['name'] != null &&
-          settingData['object']['set'][i]['name']!
-              .toLowerCase()
-              .contains(arg.toLowerCase())) {
-        result.add(i);
+      if (settingData['object']['set'][i]['name'] == null) {
+        continue;
+      }
+      if (settingData['object']['set'][i]['searchable'] == false) {
+        continue;
+      }
+      if (settingData['object']['set'][i]['name']!
+          .toLowerCase()
+          .contains(arg.toLowerCase())) {
+        result.add(settingData['object']['set'][i]['name']!);
       }
     }
     return result;
+  }
+
+  search(String arg) {
+    if (arg == '') {
+      return;
+    }
+    setState(() {
+      _selectedLocation = dNameToName[arg]!;
+      _selectedLocationName = arg;
+    });
+    return dNameToName[arg];
   }
 
   initRenderer() {
@@ -3636,10 +3660,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   }
 
   focus(String buildingName) {
-    setState(() {
-      _selectedLocation = buildingName;
-      _selectedLocationName = nameToDName[buildingName]!;
-    });
     if (controls.autoRotate) {
       controls.autoRotate = false;
     }

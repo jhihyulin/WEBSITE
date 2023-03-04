@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gl/flutter_gl.dart';
+import 'package:three_dart/three3d/helpers/index.dart';
 import 'package:three_dart/three3d/math/vector3.dart';
 import 'package:three_dart/three3d/three.dart' as three_dart;
 import 'package:three_dart/three_dart.dart' as three;
@@ -3133,11 +3134,20 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   void initState() {
     _windowSizeTimer = Timer.periodic(Duration(milliseconds: 100), (timer) {
       if (screenSize != MediaQuery.of(context).size) {
-        screenSize = MediaQuery.of(context).size;
-        initPlatformState();
-        if (kDebugMode) {
-          print('window size changed: $screenSize');
+        if (MediaQuery.of(context).size.width > deskopModeWidth) {
+          width = MediaQuery.of(context).size.width / 3 * 2;
+          height = MediaQuery.of(context).size.height -
+              (_fullScreen ? 0 : AppBar().preferredSize.height);
+        } else {
+          width = MediaQuery.of(context).size.width;
+          height = (MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height) *
+              2 /
+              3;
         }
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        screenSize = MediaQuery.of(context).size;
       }
     });
     super.initState();
@@ -3398,18 +3408,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                       setState(() {
                         _fullScreen = value;
                       });
-                      // TODO: reinit when fullscreen
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        initPlatformState();
-                      });
                     } else {
                       html.document.exitFullscreen();
                       setState(() {
                         _fullScreen = value;
-                      });
-                      // TODO: reinit when exit fullscreen
-                      Future.delayed(const Duration(milliseconds: 500), () {
-                        initPlatformState();
                       });
                     }
                   },
@@ -3750,57 +3752,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           });
         }
       }
-    }
-  }
-
-  focusWithoutAnimation(String buildingName) {
-    if (_navigatorTimer != null) {
-      _navigatorTimer!.cancel();
-    }
-    var objectX = mapData[buildingName]!['x'];
-    var objectY = mapData[buildingName]!['y'];
-    var objectZ = mapData[buildingName]!['z'];
-    var objectHeight = mapData[buildingName]!['height'];
-    var tarCameraPosition = three.Vector3(
-      objectX >= 0
-          ? objectX + settingData['camera']['focusIncreaseX']
-          : objectX - settingData['camera']['focusIncreaseX'],
-      objectY + (objectHeight / 2) + settingData['camera']['focusIncreaseY'],
-      objectZ >= 0
-          ? objectZ + settingData['camera']['focusIncreaseZ']
-          : objectZ - settingData['camera']['focusIncreaseZ'],
-    );
-    camera.position
-        .set(tarCameraPosition.x, tarCameraPosition.y, tarCameraPosition.z);
-    controls.target.set(objectX, objectY + (objectHeight / 2), objectZ);
-    for (var i in scene.children) {
-      if (i is three.Mesh) {
-        if (i.name == 'ground') {
-          continue;
-        }
-        if (i.name == buildingName) {
-          if (settingData['object']['set'][i.name]!['render'] == false) {
-            continue;
-          }
-          i.material = three.MeshPhongMaterial({
-            'color': settingData['buildings']['focusColor'],
-            'flatShading': true,
-            'opacity': 1,
-            'transparent': false,
-          });
-        } else {
-          i.material = three.MeshPhongMaterial({
-            'color': settingData['object']['set'][i.name]!['color'] ??
-                settingData['buildings']['color'],
-            'flatShading': true,
-            'opacity': settingData['buildings']['focusOpacity'],
-            'transparent': true,
-          });
-        }
-      }
-    }
-    if (kDebugMode) {
-      print('focusWithoutAnimation: $buildingName');
     }
   }
 

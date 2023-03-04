@@ -3274,40 +3274,17 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             if (textEditingValue.text == '') {
               return const Iterable<String>.empty();
             }
-            return dNameToName.keys.where((String option) {
-              return option
-                  .toLowerCase()
-                  .contains(textEditingValue.text.toLowerCase());
-            });
+            return search(textEditingValue.text);
           },
           onSelected: (String selection) {
-            var name = dNameToName[selection];
+            var name = settingData['object']['set'][selection]['name'];
             if (kDebugMode) {
               print('You just selected Display Name: $selection, Name: $name');
             }
-            search(name!);
+            focus(name!);
           },
         ),
       ),
-      // ListView.builder(
-      //   shrinkWrap: true,
-      //   itemCount: settingData['object']['set'].length,
-      //   itemBuilder: (BuildContext context, int index) {
-      //     var key = settingData['object']['set'].keys.elementAt(index);
-      //     if (settingData['object']['set'][key]['searchable'] == false) {
-      //       return Container();
-      //     }
-      //     print(index);
-      //     return ListTile(
-      //       title: Text('${settingData['object']['set'][key]['name']}'),
-      //       subtitle: Text(
-      //           '${settingData['object']['set'][key]['description'] ?? ''}'),
-      //       onTap: () {
-      //         search(key);
-      //       },
-      //     );
-      //   },
-      // ),
       Offstage(
         offstage: _selectedLocation == '',
         child: Card(
@@ -3463,12 +3440,20 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     });
   }
 
-  search(String location) {
-    setState(() {
-      _selectedLocation = location;
-      _selectedLocationName = nameToDName[location]!;
-    });
-    focus(location);
+  Future<Iterable<String>> search(String arg) async {
+    var result = <String>[];
+    if (arg == '') {
+      return result;
+    }
+    for (var i in settingData['object']['set'].keys) {
+      if (settingData['object']['set'][i]['name'] != null &&
+          settingData['object']['set'][i]['name']!
+              .toLowerCase()
+              .contains(arg.toLowerCase())) {
+        result.add(i);
+      }
+    }
+    return result;
   }
 
   initRenderer() {
@@ -3651,6 +3636,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   }
 
   focus(String buildingName) {
+    setState(() {
+      _selectedLocation = buildingName;
+      _selectedLocationName = nameToDName[buildingName]!;
+    });
     if (controls.autoRotate) {
       controls.autoRotate = false;
     }
@@ -3678,14 +3667,15 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       var cameraPosition = camera.position;
       var distance = cameraPosition.distanceTo(tarCameraPosition);
       if (distance < 1) {
-        cameraPosition.set(tarCameraPosition.x, tarCameraPosition.y,
-            tarCameraPosition.z);
+        cameraPosition.set(
+            tarCameraPosition.x, tarCameraPosition.y, tarCameraPosition.z);
         timer.cancel();
         controls.autoRotate = settingData['controls']['autoRotate'];
         return;
       } else {
         // TODO: Best route
-        cameraPosition.lerp(tarCameraPosition, settingData['camera']['focusLerp']);
+        cameraPosition.lerp(
+            tarCameraPosition, settingData['camera']['focusLerp']);
       }
       controls.target.set(objectX, objectY + (objectHeight / 2), objectZ);
     });
@@ -3734,14 +3724,15 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       var cameraPosition = camera.position;
       var distance = cameraPosition.distanceTo(tarCameraPosition);
       if (distance < 1) {
-        cameraPosition.set(tarCameraPosition.x, tarCameraPosition.y,
-            tarCameraPosition.z);
+        cameraPosition.set(
+            tarCameraPosition.x, tarCameraPosition.y, tarCameraPosition.z);
         timer.cancel();
         controls.autoRotate = settingData['controls']['autoRotate'];
         return;
       } else {
         // TODO: Best route
-        cameraPosition.lerp(tarCameraPosition, settingData['camera']['focusLerp']);
+        cameraPosition.lerp(
+            tarCameraPosition, settingData['camera']['focusLerp']);
       }
       controls.target.set(x, y, z);
     });

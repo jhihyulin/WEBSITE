@@ -17,8 +17,13 @@ const int deskopModeWidth = 640;
 // TODO: Load from web
 const Map settingData = {
   'version': {'name': 'Ver2023.3.4'},
-  'devMode': {
-    'openDuration': 5
+  'general': {
+    'devMode': {
+      'OpenDuration': 5
+    },
+    'search': {
+      'descriptionSearch': true,
+    }
   },
   'camera': {
     'x': -50,
@@ -98,12 +103,12 @@ const Map settingData = {
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
       'build1_b1_room1': {'name': '行政大樓B1'},
       'build1_b1_room1_###1': {'name': '行政大樓B1未知空間', 'searchable': false},
-      'build1_1f_room1': {'name': '學務處'},
+      'build1_1f_room1': {'name': '學務處', 'description': '學務描述測試、測試組'},
       'build1_1f_room2': {'name': '健康中心'},
       'build1_1f_facility1': {'name': 'ATM'},
-      'build1_2f_room1': {'name': '教務處/人事室'},
+      'build1_2f_room1': {'name': '教務處'},
       'build1_2f_room2': {'name': '輔導室'},
-      'build1_3f_room1': {'name': '總務處'},
+      'build1_3f_room1': {'name': '總務處/人事室'},
       'build1_3f_room2': {'name': '校長室/秘書室'},
       'build1_3f_room3': {'name': '會計室'},
       'build1_2f_room4': {'name': '簡報室'},
@@ -3350,7 +3355,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       GestureDetector(
         onPanCancel: _devModeTimer?.cancel,
         onPanDown: (DragDownDetails details) {
-          _devModeTimer = Timer(Duration(seconds: settingData['devMode']['openDuration']), () {
+          _devModeTimer = Timer(
+              Duration(seconds: settingData['general']['devMode']['openDuration']), () {
             setState(() {
               _devMode = !_devMode;
             });
@@ -3472,7 +3478,16 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       if (settingData['object']['set'][i]['name']!
           .toLowerCase()
           .contains(arg.toLowerCase())) {
+        // name search
         result.add(settingData['object']['set'][i]['name']!);
+      } else if (settingData['object']['set'][i]['description'] != null &&
+          settingData['object']['set'][i]['description']!
+              .toLowerCase()
+              .contains(arg.toLowerCase())) {
+        // description search
+        if (settingData['general']['search']['descriptionSearch']) {
+          result.add(settingData['object']['set'][i]['name']!);
+        }
       }
     }
     return result;

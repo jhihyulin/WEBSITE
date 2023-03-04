@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:html';
+import 'dart:html' as html;
 import 'dart:io';
 import 'dart:math';
 
@@ -3377,7 +3377,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   value: _fullScreen,
                   onChanged: (bool value) {
                     if (value) {
-                      document.documentElement!.requestFullscreen();
+                      html.document.documentElement!.requestFullscreen();
                       setState(() {
                         _fullScreen = value;
                       });
@@ -3386,7 +3386,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                         initPlatformState();
                       });
                     } else {
-                      document.exitFullscreen();
+                      html.document.exitFullscreen();
                       setState(() {
                         _fullScreen = value;
                       });

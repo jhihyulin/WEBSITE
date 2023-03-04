@@ -137,9 +137,9 @@ const Map settingData = {
       'build3_base2': {'name': '中和樓基2', 'searchable': false},
       'build3_base3': {'name': '中和樓基3', 'searchable': false},
       'build3_b1_aisle1': {'name': '早餐店'},
-      'build3_b1_room1': {'name': '店1'},// TODO: namem
-      'build3_b1_room2': {'name': '店2'},// TODO: name
-      'build3_b1_room3': {'name': '店3'},// TODO: name
+      'build3_b1_room1': {'name': '店1'}, // TODO: namem
+      'build3_b1_room2': {'name': '店2'}, // TODO: name
+      'build3_b1_room3': {'name': '店3'}, // TODO: name
       'build3_b1_room4': {'name': '合作社'},
       'build3_b1_room5': {'name': '中和樓B1未知空間', 'searchable': false},
       'build3_1f_room1': {'name': '潛能教室'},
@@ -188,7 +188,7 @@ const Map settingData = {
       'build3_5f_room6': {'name': '美術教室1'},
       'build3_5f_toilet2': {'name': '中和樓5F廁所#2', 'searchable': false},
       'build4_b1_room1': {'name': '至誠樓B1', 'description': '生存遊戲社'},
-      'build4_b1_room1_###1': {'name': '至誠樓B1cc',  'searchable': false},
+      'build4_b1_room1_###1': {'name': '至誠樓B1cc', 'searchable': false},
       'build4_1f_room1': {'name': '體育辦公室'},
       'build4_1f_room2': {'name': '體育器材室'},
       'build4_1f_aisle1': {'name': '至誠樓1F穿堂', 'searchable': false},
@@ -2537,7 +2537,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 10,
     'length': 10
   },
-    'build6_4f_room4': {
+  'build6_4f_room4': {
     'floor': 4,
     'build': 'build6',
     'x': -65,

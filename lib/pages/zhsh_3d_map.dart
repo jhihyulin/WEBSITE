@@ -17,6 +17,9 @@ const int deskopModeWidth = 640;
 // TODO: Load from web
 const Map settingData = {
   'version': {'name': 'Ver2023.3.4'},
+  'devMode': {
+    'openDuration': 5
+  },
   'camera': {
     'x': -50,
     'y': 25,
@@ -3077,6 +3080,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   final bool _groundHelper = kDebugMode;
 
   Timer? _navigatorTimer;
+  Timer? _devModeTimer;
 
   int? fboId;
   late double width;
@@ -3343,16 +3347,19 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         ),
       ),
       const SizedBox(height: 20),
-      InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-          child: Chip(
-            label: Text('${settingData['version']['name']}'),
-          ),
-          onLongPress: () {
+      GestureDetector(
+        onPanCancel: _devModeTimer?.cancel,
+        onPanDown: (DragDownDetails details) {
+          _devModeTimer = Timer(Duration(seconds: settingData['devMode']['openDuration']), () {
             setState(() {
               _devMode = !_devMode;
             });
-          }),
+          });
+        },
+        child: Chip(
+          label: Text('${settingData['version']['name']}'),
+        ),
+      ),
       Offstage(
           offstage: _devMode == false,
           child: Column(

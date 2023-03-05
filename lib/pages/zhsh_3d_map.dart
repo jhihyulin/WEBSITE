@@ -22,6 +22,7 @@ const Map settingData = {
     'devMode': {'openDuration': 5},
     'search': {
       'descriptionSearch': true,
+      'keywordSearch': true,
     }
   },
   'camera': {
@@ -89,7 +90,7 @@ const Map settingData = {
   },
   'object': {
     'set': {
-      // TODO: Add description
+      // TODO: Add description & keyword
       'build_base1': {'name': '基1', 'searchable': false},
       'build_base2': {'name': '基2', 'searchable': false},
       'build_1f': {'name': '行政大樓==通達樓1F', 'searchable': false},
@@ -104,7 +105,8 @@ const Map settingData = {
       'build1_b1_room1_###1': {'name': '行政大樓B1未知空間', 'searchable': false},
       'build1_1f_room1': {
         'name': '學務處',
-        'description': '訓育組、社團活動組、衛生組、生輔組、體育組、教官'
+        'description': '訓育組、社團活動組、衛生組、生輔組、體育組、教官',
+        'keyword': '關鍵字測試'
       },
       'build1_1f_room2': {'name': '健康中心'},
       'build1_1f_facility1': {'name': 'ATM自動櫃員機', 'description': '中華郵政'},
@@ -3513,6 +3515,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               .contains(arg.toLowerCase())) {
         // description search
         if (settingData['general']['search']['descriptionSearch']) {
+          result.add(settingData['object']['set'][i]['name']!);
+        }
+      } else if (settingData['object']['set'][i]['keyword'] != null &&
+          settingData['object']['set'][i]['keyword']!
+              .toLowerCase()
+              .contains(arg.toLowerCase())) {
+        // keyword search
+        if (settingData['general']['search']['keywordSearch']) {
           result.add(settingData['object']['set'][i]['name']!);
         }
       }

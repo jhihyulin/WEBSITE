@@ -3407,7 +3407,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           offstage: _devMode == false,
           child: Column(
             children: [
-              const Text('Tap 5 seconds to open'),
+              const Text('Press 5 seconds to open'),
               const Text('Short tap to close'),
               ListTile(
                 title: const Text('全螢幕'),
@@ -3474,7 +3474,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         print(renderer!.info.render);
       }
     }
-    // 重要 更新纹理之前一定要调用 确保gl程序执行完毕
+    // IMPORTANT: Before updating the texture, it must be called to ensure that the gl program is executed.
     gl.flush();
     // var pixels = _gl.readCurrentPixels(0, 0, 10, 10);
     // print(' --------------pixels............. ');

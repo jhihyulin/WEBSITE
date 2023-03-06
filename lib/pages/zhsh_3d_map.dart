@@ -3384,6 +3384,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                 setState(() {
                   _devMode = false;
                 });
+                _devModeTimer?.cancel();
               }
             : null,
         onPanCancel: _devModeTimer?.cancel,
@@ -3393,7 +3394,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   seconds: settingData['general']['devMode']['openDuration']),
               () {
             setState(() {
-              _devMode = !_devMode;
+              _devMode = true;
             });
             _devModeTimer?.cancel();
           });

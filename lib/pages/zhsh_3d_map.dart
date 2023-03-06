@@ -3823,7 +3823,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               ? (three.Math.random() * 0xffffff).toInt()
               : settingData['object']['set'][i.name]!['color'] ??
                   settingData['buildings']['color'],
-          'flatShading': true,
+          'flatShading': false,
           'opacity': 1,
           'roughness': 0.1,
 

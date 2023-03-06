@@ -3825,6 +3825,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   settingData['buildings']['color'],
           'flatShading': true,
           'opacity': 1,
+          'roughness': 0.1,
+
+          'metalness': 0.1,
           'transparent': false,
         });
       }

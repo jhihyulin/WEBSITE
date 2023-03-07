@@ -3415,7 +3415,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           ),
         ),
       ),
-      const SizedBox(height: 20),
+      const Text('ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.grey, fontSize: 12)),
       GestureDetector(
         onTap: _devMode
             ? () {

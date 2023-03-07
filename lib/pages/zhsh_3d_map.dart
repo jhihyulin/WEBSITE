@@ -3755,18 +3755,22 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           if (settingData['object']['set'][i.name]!['render'] == false) {
             continue;
           }
-          i.material = three.MeshPhongMaterial({
+          i.material = three.MeshPhysicalMaterial({
             'color': settingData['buildings']['focusColor'],
             'flatShading': true,
             'opacity': 1,
+            'roughness': 0.1,
+            'metalness': 0.1,
             'transparent': false,
           });
         } else {
-          i.material = three.MeshPhongMaterial({
+          i.material = three.MeshPhysicalMaterial({
             'color': settingData['object']['set'][i.name]!['color'] ??
                 settingData['buildings']['color'],
             'flatShading': true,
             'opacity': settingData['buildings']['focusOpacity'],
+            'roughness': 0.1,
+            'metalness': 0.1,
             'transparent': true,
           });
         }
@@ -3818,7 +3822,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         continue;
       }
       if (i is three.Mesh) {
-        i.material = three.MeshPhongMaterial({
+        i.material = three.MeshPhysicalMaterial({
           'color': settingData['buildings']['randomColor'] == true
               ? (three.Math.random() * 0xffffff).toInt()
               : settingData['object']['set'][i.name]!['color'] ??
@@ -3827,6 +3831,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           'opacity': 1,
           'roughness': 0.1,
           'metalness': 0.1,
+          'transparent': false,
         });
       }
     }

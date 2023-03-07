@@ -101,6 +101,10 @@ const Map settingData = {
       //   'description': 'description',
       //   'keyword': ['keyword1', 'keyword2'],
       //   'color': 0x000000, // single object color
+      // 'link': {
+      //   'link1name': 'link1url',
+      //   'link2name': 'link2url',
+      // } // TODO: Add link function
       //   'searchable': bool, // if false, this object will not be searched, no matter what the next three are
       //   'nameSearch': bool, // true or null to use global setting
       //   'keywordSearch': bool, // true or null to use global setting

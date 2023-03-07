@@ -91,7 +91,6 @@ const Map settingData = {
   'object': {
     'set': {
       // TODO: Add description & keyword
-      'build_base1': {'name': '基1', 'searchable': false},
       'build_base2': {'name': '基2', 'searchable': false},
       'build_1f': {'name': '行政大樓==通達樓1F', 'searchable': false},
       'build_2f': {'name': '行政大樓==通達樓2F', 'searchable': false},
@@ -103,6 +102,7 @@ const Map settingData = {
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
       'build1_b1_room1': {'name': '行政大樓B1'},
       'build1_b1_room1_###1': {'name': '行政大樓B1未知空間', 'searchable': false},
+      'build1_b1_room1_###extend': {'name': '行政大樓B1延伸空間', 'searchable': false},
       'build1_1f_room1': {
         'name': '學務處',
         'description': '訓育組、社團活動組、衛生組、生輔組、體育組、教官',
@@ -379,14 +379,6 @@ const Map settingData = {
 // build, floor, x, y, z, height, width, length, color, render, rotate, searchable
 const Map<String, Map<String, dynamic>> mapData = {
   // build
-  'build_base1': {
-    'x': 13,
-    'y': 0,
-    'z': 51.5,
-    'height': 1,
-    'width': 13,
-    'length': 5
-  },
   'build_base2': {
     'x': 13,
     'y': 0,
@@ -488,6 +480,14 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 5,
     'length': 13,
     'floor': -1,
+  },
+  'build1_b1_room1_###extend': {
+    'x': 13,
+    'y': -2,
+    'z': 49,
+    'height': 3,
+    'width': 18,
+    'length': 5
   },
   // build1_1f
   'build1_1f_room': {
@@ -3647,8 +3647,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         mesh.rotateY(mapData[i]!['rotate']!['y']);
         mesh.rotateZ(mapData[i]!['rotate']!['z']);
       }
-      if (RegExp(r'.*_###[0-9]').allMatches(i).isNotEmpty) {
-        mesh.name = i.replaceAll(RegExp(r'_###[0-9]'), '');
+      if (RegExp(r'.*_###.*').allMatches(i).isNotEmpty) {
+        mesh.name = i.replaceAll(RegExp(r'_###.*'), '');
       } else {
         mesh.name = i;
       }

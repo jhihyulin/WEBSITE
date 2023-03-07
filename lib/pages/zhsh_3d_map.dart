@@ -21,8 +21,13 @@ const Map settingData = {
   'general': {
     'devMode': {'openDuration': 5},
     'search': {
-      'descriptionSearch': true,
+      // nameSearch: contains
+      // keywordSearch: allmatch
+      // descriptionSearch: contains
+      // here is global setting
+      'descriptionSearch': false,
       'keywordSearch': true,
+      'nameSearch': true,
     }
   },
   'camera': {
@@ -91,6 +96,16 @@ const Map settingData = {
   'object': {
     'set': {
       // TODO: Add description & keyword
+      // 'id': {
+      //   'name': 'name',
+      //   'description': 'description',
+      //   'keyword': ['keyword1', 'keyword2'],
+      //   'color': 0x000000, // single object color
+      //   'searchable': bool, // if false, this object will not be searched, no matter what the next three are
+      //   'nameSearch': bool, // true or null to use global setting
+      //   'keywordSearch': bool, // true or null to use global setting
+      //   'descriptionSearch': bool, // true or null to use global setting
+      // }
       'build_base2': {'name': '基2', 'searchable': false},
       'build_1f': {'name': '行政大樓==通達樓1F', 'searchable': false},
       'build_2f': {'name': '行政大樓==通達樓2F', 'searchable': false},
@@ -100,15 +115,21 @@ const Map settingData = {
       'build_6f': {'name': '行政大樓=x=通達樓6F', 'searchable': false},
       'build_7f': {'name': '行政大樓=x=通達樓7F', 'searchable': false},
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
-      'build1_b1_room1': {'name': '行政大樓B1'},
+      'build1_b1_room1': {
+        'name': '行政大樓B1',
+        'keyword': ['行政大樓地下室']
+      },
       'build1_b1_room1_###1': {'name': '行政大樓B1未知空間', 'searchable': false},
       'build1_b1_room1_###extend': {'name': '行政大樓B1延伸空間', 'searchable': false},
       'build1_1f_room1': {
         'name': '學務處',
-        'description': '訓育組、社團活動組、衛生組、生輔組、體育組、教官',
-        'keyword': '關鍵字測試'
+        'description': '訓育組、社團活動組、衛生組、生輔組、教官',
+        'keyword': ['訓育組', '社團活動組', '衛生組', '生輔組', '教官']
       },
-      'build1_1f_room2': {'name': '健康中心'},
+      'build1_1f_room2': {
+        'name': '健康中心',
+        'keyword': ['保健室']
+      },
       'build1_1f_facility1': {'name': 'ATM自動櫃員機', 'description': '中華郵政'},
       'build1_2f_room1': {'name': '教務處', 'description': '教學組、註冊組、試務組、實研組'},
       'build1_2f_room2': {'name': '輔導室'},
@@ -205,7 +226,11 @@ const Map settingData = {
       // 'build3_5f_room5': {'name': ''},
       'build3_5f_room6': {'name': '美術教室1'},
       'build3_5f_toilet2': {'name': '中和樓5F廁所#2', 'searchable': false},
-      'build4_b1_room1': {'name': '至誠樓B1', 'description': '生存遊戲社'},
+      'build4_b1_room1': {
+        'name': '至誠樓B1',
+        'description': '生存遊戲社',
+        'keywords': ['生存遊戲社', '生存遊戲', '生存']
+      },
       'build4_b1_room1_###1': {'name': '至誠樓B1cc', 'searchable': false},
       'build4_1f_room1': {'name': '體育辦公室'},
       'build4_1f_room2': {'name': '體育器材室'},
@@ -360,7 +385,12 @@ const Map settingData = {
       'facility_guardHouse': {'name': '警衛室'},
       'facility_parkingLot1': {'name': '機車棚'},
       'facility_parkingLot1_###1': {'name': '機車棚#1', 'searchable': false},
-      'facility_toilet1': {'name': '廁所#獨'},
+      'facility_toilet1': {
+        'name': '廁所',
+        'keyword': ['百萬廁所'],
+        'description': '民國89年以貳佰參拾玖萬伍仟元建成',
+        'nameSearch': false
+      },
       'facility_electronic1': {'name': '電箱'},
       'facility_garbages1': {'name': '垃圾場'},
       'facility_electronic2': {'name': '變電所'},
@@ -376,7 +406,7 @@ const Map settingData = {
   },
 };
 
-// build, floor, x, y, z, height, width, length, color, render, rotate, searchable
+// build, floor, x, y, z, height, width, length, color, render, rotate, nameSearch
 const Map<String, Map<String, dynamic>> mapData = {
   // build
   'build_base2': {
@@ -3134,7 +3164,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   @override
   void initState() {
-    _windowSizeTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    _windowSizeTimer =
+        Timer.periodic(const Duration(milliseconds: 100), (timer) {
       if (screenSize != MediaQuery.of(context).size) {
         if (MediaQuery.of(context).size.width > deskopModeWidth) {
           width = MediaQuery.of(context).size.width / 3 * 2;
@@ -3184,14 +3215,16 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     setState(() {
       dNameToName = {
         for (var i in mapData.keys)
-          settingData['object']['set'][i]['searchable'] == false
-              ? ''
-              : settingData['object']['set'][i]['name']: i
+          // settingData['object']['set'][i]['nameSearch'] == false
+          //     ? ''
+          //     : settingData['object']['set'][i]['name']: i
+          settingData['object']['set'][i]['name']: i
       };
       nameToDName = {
         for (var i in mapData.keys)
-          settingData['object']['set'][i]['searchable'] == false ? '' : i:
-              settingData['object']['set'][i]['name']
+          // settingData['object']['set'][i]['nameSearch'] == false ? '' : i:
+          //     settingData['object']['set'][i]['name']
+          i: settingData['object']['set'][i]['name']
       };
     });
 
@@ -3509,22 +3542,28 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           .toLowerCase()
           .contains(arg.toLowerCase())) {
         // name search
-        result.add(settingData['object']['set'][i]['name']!);
+        if (settingData['general']['search']['nameSearch'] &&
+            settingData['object']['set'][i]['nameSearch'] != false) {
+          result.add(settingData['object']['set'][i]['name']!);
+        }
       } else if (settingData['object']['set'][i]['description'] != null &&
           settingData['object']['set'][i]['description']!
               .toLowerCase()
               .contains(arg.toLowerCase())) {
         // description search
-        if (settingData['general']['search']['descriptionSearch']) {
+        if (settingData['general']['search']['descriptionSearch'] &&
+            settingData['object']['set'][i]['descriptionSearch'] != false) {
           result.add(settingData['object']['set'][i]['name']!);
         }
-      } else if (settingData['object']['set'][i]['keyword'] != null &&
-          settingData['object']['set'][i]['keyword']!
-              .toLowerCase()
-              .contains(arg.toLowerCase())) {
+      } else if (settingData['object']['set'][i]['keyword'] != null) {
         // keyword search
-        if (settingData['general']['search']['keywordSearch']) {
-          result.add(settingData['object']['set'][i]['name']!);
+        if (settingData['general']['search']['keywordSearch'] &&
+            settingData['object']['set'][i]['keywordSearch'] != false) {
+          for (var j in settingData['object']['set'][i]['keyword']!) {
+            if (j.toLowerCase() == arg.toLowerCase()) {
+              result.add(settingData['object']['set'][i]['name']!);
+            }
+          }
         }
       }
     }

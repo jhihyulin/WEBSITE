@@ -18,7 +18,7 @@ const int deskopModeWidth = 640;
 
 // TODO: Load from web
 const Map settingData = {
-  'version': {'name': 'Ver2023.3.4'},
+  'version': {'name': 'Ver2023.3.8'},
   'general': {
     'devMode': {'openDuration': 5},
     'search': {

@@ -12,6 +12,7 @@ import 'package:three_dart/three3d/math/vector3.dart';
 import 'package:three_dart/three3d/three.dart' as three_dart;
 import 'package:three_dart/three_dart.dart' as three;
 import 'package:three_dart_jsm/three_dart_jsm.dart' as three_jsm;
+import 'package:url_launcher/url_launcher.dart';
 
 const int deskopModeWidth = 640;
 
@@ -101,16 +102,17 @@ const Map settingData = {
       //   'description': 'description',
       //   'keyword': ['keyword1', 'keyword2'],
       //   'color': 0x000000, // single object color
-      // 'link': {
-      //   'link1name': 'link1url',
-      //   'link2name': 'link2url',
-      // } // TODO: Add link function
-      // 'image': ['image1link', 'image2link'], // TODO: Add image function
-      //   'searchable': bool, // if false, this object will not be searched, no matter what the next three are
+      //   'link': {
+      //     'link1name': 'link1url',
+      //     'link2name': 'link2url',
+      //   },
+      //   'image': ['image1link', 'image2link'], // TODO: Add image function
+      //   'searchable':
+      //       bool, // if false, this object will not be searched, no matter what the next three are
       //   'nameSearch': bool, // true or null to use global setting
       //   'keywordSearch': bool, // true or null to use global setting
       //   'descriptionSearch': bool, // true or null to use global setting
-      // }
+      // },
       'build_base2': {'name': '基2', 'searchable': false},
       'build_1f': {'name': '行政大樓==通達樓1F', 'searchable': false},
       'build_2f': {'name': '行政大樓==通達樓2F', 'searchable': false},
@@ -129,6 +131,11 @@ const Map settingData = {
       'build1_1f_room1': {
         'name': '學務處',
         'description': '訓育組、社團活動組、衛生組、生輔組、教官',
+        'link': {
+          '學務處網站':
+              'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs',
+          '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military'
+        },
         'keyword': ['訓育組', '社團活動組', '衛生組', '生輔組', '教官']
       },
       'build1_1f_room2': {
@@ -136,11 +143,42 @@ const Map settingData = {
         'keyword': ['保健室']
       },
       'build1_1f_facility1': {'name': 'ATM自動櫃員機', 'description': '中華郵政'},
-      'build1_2f_room1': {'name': '教務處', 'description': '教學組、註冊組、試務組、實研組'},
-      'build1_2f_room2': {'name': '輔導室'},
-      'build1_3f_room1': {'name': '總務處 / 人事室', 'description': '文書組、事務組、出納組'},
-      'build1_3f_room2': {'name': '校長室 / 秘書室'},
-      'build1_3f_room3': {'name': '會計室'},
+      'build1_2f_room1': {
+        'name': '教務處',
+        'description': '教學組、註冊組、試務組、實研組',
+        'link': {
+          '教務處網站':
+              'https://sites.google.com/mail2.chshs.ntpc.edu.tw/teacheraffairs'
+        }
+      },
+      'build1_2f_room2': {
+        'name': '輔導處',
+        'link': {
+          '輔導處網站':
+              'https://sites.google.com/mail2.chshs.ntpc.edu.tw/consultation'
+        }
+      },
+      'build1_3f_room1': {
+        'name': '總務處 / 人事室',
+        'description': '文書組、事務組、出納組',
+        'link': {
+          '總務處網站':
+              'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs',
+          '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel'
+        }
+      },
+      'build1_3f_room2': {
+        'name': '校長室 / 秘書室',
+        'link': {
+          '校長室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/principal'
+        }
+      },
+      'build1_3f_room3': {
+        'name': '會計室',
+        'link': {
+          '會計室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/acc'
+        }
+      },
       'build1_2f_room4': {'name': '簡報室'},
       'build1_4f_room1': {'name': '教師辦公室'},
       'build1_4f_room2': {'name': '家長接待室'},
@@ -240,7 +278,12 @@ const Map settingData = {
       'build4_1f_room1': {'name': '體育辦公室'},
       'build4_1f_room2': {'name': '體育器材室'},
       'build4_1f_aisle1': {'name': '至誠樓1F穿堂', 'searchable': false},
-      'build4_1f_room3': {'name': '教官室'},
+      'build4_1f_room3': {
+        'name': '教官室',
+        'link': {
+          '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military'
+        }
+      },
       'build4_1f_room4': {'name': '健護教室'},
       'build4_1f_room5': {'name': '社團教室'},
       'build4_1f_room6': {'name': '儲藏室'},
@@ -3411,6 +3454,40 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                     subtitle: Text(
                         '${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
                   )),
+              Offstage(
+                  offstage: _selectedLocation == '' ||
+                      settingData['object']['set'][_selectedLocation]['link'] ==
+                          null,
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: _selectedLocation == '' ||
+                                settingData['object']['set'][_selectedLocation]
+                                        ['link'] ==
+                                    null
+                            ? const []
+                            : [
+                                for (var link in settingData['object']['set']
+                                        [_selectedLocation]['link']
+                                    .keys)
+                                  ElevatedButton(
+                                    onPressed: settingData['object']['set']
+                                                    [_selectedLocation]['link']
+                                                [link]
+                                            .isEmpty
+                                        ? null
+                                        : () {
+                                            launchUrl(Uri.parse(
+                                                settingData['object']['set']
+                                                        [_selectedLocation]
+                                                    ['link'][link]));
+                                          },
+                                    child: Text(link),
+                                  ),
+                              ]),
+                  ))
             ],
           ),
         ),

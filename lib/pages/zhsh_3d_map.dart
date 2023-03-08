@@ -434,10 +434,14 @@ const Map settingData = {
       'facility_parkingLot1': {'name': '機車棚'},
       'facility_parkingLot1_###1': {'name': '機車棚#1', 'searchable': false},
       'facility_toilet1': {
-        'name': '廁所',
+        'name': '百萬廁所',
         'keyword': ['百萬廁所'],
         'description': '民國89年以貳佰參拾玖萬伍仟元建成',
-        'nameSearch': false
+        'nameSearch': false,
+        'link': {
+          '決標公告':
+              'https://web.pcc.gov.tw/tps/atm/AtmAwardWithoutSso/QueryAtmAwardDetail?pkAtmMain=MjM1NzU4'
+        }
       },
       'facility_electronic1': {'name': '電箱'},
       'facility_garbages1': {'name': '垃圾場'},

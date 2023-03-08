@@ -3411,8 +3411,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           },
         ),
       ),
-      Offstage(
-        offstage: _selectedLocation == '',
+      SizedBox(
+        width: MediaQuery.of(context).size.width,
         child: Card(
           child: Column(
             children: [
@@ -3487,14 +3487,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                                     child: Text(link),
                                   ),
                               ]),
-                  ))
+                  )),
+              const Text('ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey, fontSize: 12)),
             ],
           ),
         ),
       ),
-      const Text('ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.grey, fontSize: 12)),
       GestureDetector(
         onTap: _devMode
             ? () {

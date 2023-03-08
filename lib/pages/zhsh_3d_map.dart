@@ -3552,8 +3552,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         if (settingData['general']['search']['nameSearch'] &&
             settingData['object']['set'][i]['nameSearch'] != false) {
           result.add(settingData['object']['set'][i]['name']!);
+          continue;
         }
-      } else if (settingData['object']['set'][i]['description'] != null &&
+      }
+      if (settingData['object']['set'][i]['description'] != null &&
           settingData['object']['set'][i]['description']!
               .toLowerCase()
               .contains(arg.toLowerCase())) {
@@ -3561,14 +3563,17 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         if (settingData['general']['search']['descriptionSearch'] &&
             settingData['object']['set'][i]['descriptionSearch'] != false) {
           result.add(settingData['object']['set'][i]['name']!);
+          continue;
         }
-      } else if (settingData['object']['set'][i]['keyword'] != null) {
+      }
+      if (settingData['object']['set'][i]['keyword'] != null) {
         // keyword search
         if (settingData['general']['search']['keywordSearch'] &&
             settingData['object']['set'][i]['keywordSearch'] != false) {
           for (var j in settingData['object']['set'][i]['keyword']!) {
             if (j.toLowerCase() == arg.toLowerCase()) {
               result.add(settingData['object']['set'][i]['name']!);
+              continue;
             }
           }
         }

@@ -86,11 +86,13 @@ class _MyAppState extends State<MyApp> {
               theme: ThemeData(
                   useMaterial3: true,
                   fontFamily: 'Montserrat',
+                  fontFamilyFallback: const ['NotoSerifTC', 'NotoSansTC'],
                   brightness: Brightness.light,
                   colorSchemeSeed: themeColor),
               darkTheme: ThemeData(
                   useMaterial3: true,
                   fontFamily: 'Montserrat',
+                  fontFamilyFallback: const ['NotoSerifTC', 'NotoSansTC'],
                   brightness: Brightness.dark,
                   colorSchemeSeed: themeColor),
               themeMode: themeMode == 0

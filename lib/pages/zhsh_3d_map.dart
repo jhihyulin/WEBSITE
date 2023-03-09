@@ -16,7 +16,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 const int deskopModeWidth = 640;
 
-// TODO: Load from web
 const Map settingData = {
   'version': {'name': 'Ver2023.3.8'},
   'general': {
@@ -373,7 +372,7 @@ const Map settingData = {
       'build6_1f_room3': {'name': '圖書館???區'}, // TODO: check this
       'build6_1f_room4': {
         'name': '圖書館辦公區',
-        'description': '資訊媒體組'// TODO: check this
+        'description': '資訊媒體組' // TODO: check this
       },
       'build6_1f_room5': {'name': 'TED講堂'},
       'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},
@@ -3295,7 +3294,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     dpr = mqd.devicePixelRatio;
 
     initPlatformState();
-    initData();
   }
 
   @override
@@ -3964,11 +3962,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         });
       }
     }
-  }
-
-  initData() {
-    // TODO: init data from web
-    print('TODO: initData');
   }
 
   @override

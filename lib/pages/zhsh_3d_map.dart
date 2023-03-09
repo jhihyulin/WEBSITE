@@ -403,7 +403,7 @@ const Map settingData = {
       'build8_base3': {'name': '游泳池基3', 'searchable': false},
       'build8_room1': {'name': '游泳池'},
       'build8_room2': {'name': '游泳池更衣室'},
-      'build8_room3': {'name': '游泳池鍋爐室旁空間', 'searchable': false},
+      'build8_room3': {'name': '游泳池旁空間', 'searchable': false},
       'build9_stair1': {'name': '教師宿舍樓梯', 'searchable': false},
       'build9_1f': {'name': '教師宿舍1F'},
       'build9_1f_###1': {'name': '教師宿舍1F#1', 'searchable': false},

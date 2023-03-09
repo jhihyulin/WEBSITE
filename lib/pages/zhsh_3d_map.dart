@@ -373,8 +373,8 @@ const Map settingData = {
       'build6_1f_room3': {'name': '圖書館???區'}, // TODO: check this
       'build6_1f_room4': {
         'name': '圖書館辦公區',
-        'description': '資訊媒體組'
-      }, // TODO: check this
+        'description': '資訊媒體組'// TODO: check this
+      },
       'build6_1f_room5': {'name': 'TED講堂'},
       'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},
       'build6_2f_room2': {'name': 'MIT教室'},
@@ -402,7 +402,7 @@ const Map settingData = {
       'build8_base3': {'name': '游泳池基3', 'searchable': false},
       'build8_room1': {'name': '游泳池'},
       'build8_room2': {'name': '游泳池更衣室'},
-      'build8_room3': {'name': '游泳池鍋爐室??'}, // TODO: check this
+      'build8_room3': {'name': '游泳池鍋爐室旁空間', 'searchable': false},
       'build9_stair1': {'name': '教師宿舍樓梯', 'searchable': false},
       'build9_1f': {'name': '教師宿舍1F'},
       'build9_1f_###1': {'name': '教師宿舍1F#1', 'searchable': false},
@@ -3871,7 +3871,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         controls.autoRotate = settingData['controls']['autoRotate'];
         return;
       } else {
-        // TODO: Best route
         cameraPosition.lerp(
             tarCameraPosition, settingData['camera']['focusLerp']);
       }
@@ -3932,7 +3931,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         controls.autoRotate = settingData['controls']['autoRotate'];
         return;
       } else {
-        // TODO: Best route
         cameraPosition.lerp(
             tarCameraPosition, settingData['camera']['focusLerp']);
       }

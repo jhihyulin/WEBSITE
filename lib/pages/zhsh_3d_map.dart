@@ -355,6 +355,7 @@ const Map settingData = {
       // 'build5_4f_room6': {'name': ''},
       'build5_4f_aisle2': {'name': '謙融樓4F側郎', 'searchable': false},
       'build5_5f_room1': {'name': '星象館'},
+      'build5_5f_room1_###1': {'name': '星象館頂部半球體', 'searchable': false},
       'build5_5f_room2': {'name': '地科實驗室'},
       // 'build5_5f_aisle1': {'name': '謙融樓5F穿堂', 'searchable': false},
       'build5_5f_room3': {'name': '韻律教室'},
@@ -2374,6 +2375,15 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 16,
     'length': 9
   },
+  'build5_5f_room1_###1': {
+    'floor': 5,
+    'build': 'build5',
+    'x': 37,
+    'y': 16,
+    'z': 24,
+    'radius': 3,
+    'shape': 'ball'
+  },
   'build5_5f_room2': {
     'floor': 5,
     'build': 'build5',
@@ -3749,9 +3759,15 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
     // buildings
     for (var i in mapData.keys) {
-      // for import obj file
       if (settingData['object']['set'][i]['render'] == false) {
         continue;
+      }
+      dynamic geo;
+      if (mapData[i]!['shape'] == 'ball') {
+        geo = three.SphereGeometry(mapData[i]!['radius'], 32, 64);
+      } else {
+        geo = three.BoxGeometry(1, 1, 1);
+        geo.translate(0, 0.5, 0);
       }
       var material = three.MeshPhysicalMaterial({
         'color': settingData['buildings']['randomColor'] == true
@@ -3762,13 +3778,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         'roughness': 0.1,
         'metalness': 0.1,
       });
-      var mesh = three.Mesh(geometry, material);
-      mesh.position.x = mapData[i]!['x'];
-      mesh.position.y = mapData[i]!['y'];
-      mesh.position.z = mapData[i]!['z'];
-      mesh.scale.x = mapData[i]!['length'];
-      mesh.scale.y = mapData[i]!['height'];
-      mesh.scale.z = mapData[i]!['width'];
+      var mesh = three.Mesh(geo, material);
+      if (mapData[i]!['shape'] == 'ball') {
+      } else {
+        mesh.scale.set(mapData[i]!['length'], mapData[i]!['height'],
+            mapData[i]!['width']);
+      }
+      mesh.position.set(mapData[i]!['x'], mapData[i]!['y'], mapData[i]!['z']);
       mesh.castShadow = true;
       mesh.receiveShadow = true;
       if (mapData[i]!['rotate'] != null) {

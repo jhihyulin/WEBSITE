@@ -95,7 +95,7 @@ const Map settingData = {
   },
   'object': {
     'set': {
-      // TODO: Add description & keyword
+      // Example:
       // 'id': {
       //   'name': 'name',
       //   'description': 'description',
@@ -122,7 +122,7 @@ const Map settingData = {
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
       'build1_b1_room1': {
         'name': '行政大樓B1',
-        'keyword': ['行政大樓地下室']
+        'keyword': ['行政大樓地下室', '地下室']
       },
       'build1_b1_room1_###1': {'name': '行政大樓B1未知空間', 'searchable': false},
       'build1_b1_room1_###extend': {'name': '行政大樓B1延伸空間', 'searchable': false},
@@ -144,6 +144,7 @@ const Map settingData = {
       'build1_2f_room1': {
         'name': '教務處',
         'description': '教學組、註冊組、試務組、實研組',
+        'keyword': ['教學組', '註冊組', '試務組', '實研組'],
         'link': {
           '教務處網站':
               'https://sites.google.com/mail2.chshs.ntpc.edu.tw/teacheraffairs'
@@ -159,6 +160,7 @@ const Map settingData = {
       'build1_3f_room1': {
         'name': '總務處 / 人事室',
         'description': '文書組、事務組、出納組',
+        'keyword': ['文書組', '事務組', '出納組', '出納'],
         'link': {
           '總務處網站':
               'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs',
@@ -270,7 +272,7 @@ const Map settingData = {
       'build4_b1_room1': {
         'name': '至誠樓B1',
         'description': '生存遊戲社',
-        'keywords': ['生存遊戲社', '生存遊戲', '生存']
+        'keywords': ['生存遊戲社', '生存遊戲', '地下室']
       },
       'build4_b1_room1_###1': {'name': '至誠樓B1cc', 'searchable': false},
       'build4_1f_room1': {'name': '體育辦公室'},
@@ -319,7 +321,7 @@ const Map settingData = {
       'build4_5f_room6': {'name': '213教室'},
       'build4_5f_aisle2': {'name': '至誠樓5F側郎', 'searchable': false},
       'build4_stair1': {'name': '至誠樓樓梯#1', 'searchable': false},
-      'build5_b1_room1': {'name': '用餐區'},
+      'build5_b1_room1': {'name': 'B1用餐區', 'keywords': ['地下室']},
       'build5_b1_room2': {'name': '謙融樓B1未知空間', 'searchable': false},
       'build5_1f_room1': {'name': '306教室'},
       'build5_1f_room2': {'name': '305教室'},
@@ -371,10 +373,11 @@ const Map settingData = {
       'build6_1f_toilet1': {'name': '圖書館1F廁所', 'searchable': false},
       'build6_1f_room1': {'name': '演藝廳'},
       'build6_1f_room2': {'name': '圖書館展覽區'},
-      'build6_1f_room3': {'name': '圖書館???區'}, // TODO: check this
+      'build6_1f_room3': {'name': '圖書館會議室'},
       'build6_1f_room4': {
         'name': '圖書館辦公區',
-        'description': '資訊媒體組' // TODO: check this
+        'description': '資訊媒體組',
+        'keywords': ['資訊媒體組', '資訊組', '資訊'],
       },
       'build6_1f_room5': {'name': 'TED講堂'},
       'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},

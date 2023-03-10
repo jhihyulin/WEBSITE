@@ -140,7 +140,11 @@ const Map settingData = {
         'name': '健康中心',
         'keyword': ['保健室']
       },
-      'build1_1f_facility1': {'name': 'ATM自動櫃員機', 'description': '中華郵政'},
+      'build1_1f_facility1': {
+        'name': 'ATM自動櫃員機',
+        'description': '中華郵政',
+        'keyword': ['中華郵政', '郵局', '提款機']
+      },
       'build1_2f_room1': {
         'name': '教務處',
         'description': '教學組、註冊組、試務組、實研組',
@@ -180,7 +184,10 @@ const Map settingData = {
         }
       },
       'build1_2f_room4': {'name': '簡報室'},
-      'build1_4f_room1': {'name': '教師辦公室'},
+      'build1_4f_room1': {
+        'name': '教師辦公室',
+        'keyword': ['大辦']
+      },
       'build1_4f_room2': {'name': '家長接待室'},
       'build1_5f_room1': {'name': '自主學習空間'},
       'build1_6f_room1': {'name': '大型會議室'},
@@ -255,7 +262,10 @@ const Map settingData = {
       'build3_4f_room2': {'name': '電腦教室3'},
       'build3_4f_toilet1': {'name': '中和樓4F廁所#1', 'searchable': false},
       'build3_4f_aisle1': {'name': '中和樓4F走道#1', 'searchable': false},
-      'build3_4f_room3': {'name': '專任辦公室'},
+      'build3_4f_room3': {
+        'name': '專任辦公室',
+        'keywords': ['小辦公室', '小辦']
+      },
       // 'build3_4f_room4': {'name': ''},
       'build3_4f_room5': {'name': '寰宇教室'},
       'build3_4f_room6': {'name': '國際教室'},
@@ -275,7 +285,10 @@ const Map settingData = {
         'keyword': ['生存遊戲社', '生存遊戲', '地下室']
       },
       'build4_b1_room1_###1': {'name': '至誠樓B1cc', 'searchable': false},
-      'build4_1f_room1': {'name': '體育辦公室'},
+      'build4_1f_room1': {
+        'name': '體育辦公室',
+        'keywords': ['體辦']
+      },
       'build4_1f_room2': {'name': '體育器材室'},
       'build4_1f_aisle1': {'name': '至誠樓1F穿堂', 'searchable': false},
       'build4_1f_room3': {
@@ -359,7 +372,10 @@ const Map settingData = {
       'build5_4f_room5': {'name': '電腦教室2'},
       // 'build5_4f_room6': {'name': ''},
       'build5_4f_aisle2': {'name': '謙融樓4F側郎', 'searchable': false},
-      'build5_5f_room1': {'name': '星象館'},
+      'build5_5f_room1': {
+        'name': '星象館',
+        'keyword': ['天文館', '望遠鏡']
+      },
       'build5_5f_room1_###1': {'name': '星象館上層', 'searchable': false},
       'build5_5f_room1_###2': {'name': '星象館頂部半球體', 'searchable': false},
       'build5_5f_room2': {'name': '地科實驗室'},

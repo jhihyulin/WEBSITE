@@ -3454,7 +3454,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               errorText: _notFound ? _notFoundText : null,
               errorBorder: _notFound
                   ? OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
                       borderSide: BorderSide(
                           color: Theme.of(context).colorScheme.error))
                   : null,

@@ -3252,6 +3252,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   int _fps = 0;
 
+  static const String _notFoundText = '找不到地點';
+  bool _notFound = false;
+
   Vector3 _cameraPosition = Vector3(0, 0, 0);
   Vector3 _cameraTarget = Vector3(0, 0, 0);
 
@@ -3428,32 +3431,55 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   Widget _contentWidget() {
     return Column(children: [
-      InputDecorator(
-        decoration: InputDecoration(
-          labelText: '搜尋地點',
-          prefixIcon: const Icon(Icons.pin_drop),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-        ),
-        child: Autocomplete<String>(
-          optionsBuilder: (TextEditingValue textEditingValue) {
-            if (textEditingValue.text == '') {
-              return const Iterable<String>.empty();
-            }
-            return searchRecommend(textEditingValue.text);
-          },
-          onSelected: (String selection) {
-            if (kDebugMode) {
-              print('You just selected Display Name: $selection');
-            }
-            var id = search(selection);
-            if (settingData['controls']['searchFocus'] == true) {
-              focus(id);
-            }
-            // focus(id);
-          },
-        ),
+      Autocomplete<String>(
+        fieldViewBuilder: (BuildContext context,
+            TextEditingController textEditingController,
+            FocusNode focusNode,
+            VoidCallback onFieldSubmitted) {
+          return TextField(
+            controller: textEditingController,
+            focusNode: focusNode,
+            onSubmitted: (String value) {
+              onFieldSubmitted();
+            },
+            decoration: InputDecoration(
+              hintText: '輸入關鍵字',
+              prefixIcon: const Icon(Icons.search),
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  textEditingController.clear();
+                },
+              ),
+              errorText: _notFound ? _notFoundText : null,
+              errorBorder: _notFound
+                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error))
+                  : null,
+            ),
+          );
+        },
+        optionsBuilder: (TextEditingValue textEditingValue) {
+          if (textEditingValue.text == '') {
+            setState(() {
+              _notFound = false;
+            });
+            return const Iterable<String>.empty();
+          }
+          return searchRecommend(textEditingValue.text);
+        },
+        onSelected: (String selection) {
+          if (kDebugMode) {
+            print('You just selected Display Name: $selection');
+          }
+          var id = search(selection);
+          if (settingData['controls']['searchFocus'] == true) {
+            focus(id);
+          }
+          // focus(id);
+        },
       ),
       SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -3700,7 +3726,17 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         }
       }
     }
-    return result;
+    if (result.isNotEmpty) {
+      setState(() {
+        _notFound = false;
+      });
+      return result;
+    } else {
+      setState(() {
+        _notFound = true;
+      });
+      return [];
+    }
   }
 
   search(String arg) {

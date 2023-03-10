@@ -3451,6 +3451,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   textEditingController.clear();
                 },
               ),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16.0))),
               errorText: _notFound ? _notFoundText : null,
               errorBorder: _notFound
                   ? OutlineInputBorder(

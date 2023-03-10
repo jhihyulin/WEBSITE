@@ -3443,7 +3443,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               onFieldSubmitted();
             },
             decoration: InputDecoration(
-              hintText: '輸入關鍵字',
+              labelText: '搜尋地點',
+              hintText: '請輸入關鍵字',
               prefixIcon: const Icon(Icons.search),
               suffixIcon: IconButton(
                 icon: const Icon(Icons.clear),

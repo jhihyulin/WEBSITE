@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'home.dart';
 import 'provider/theme.dart';
@@ -85,14 +86,18 @@ class _MyAppState extends State<MyApp> {
               title: websiteName,
               theme: ThemeData(
                   useMaterial3: true,
-                  fontFamily: 'Montserrat',
-                  fontFamilyFallback: const ['NotoSerifTC', 'NotoSansTC'],
+                  fontFamilyFallback: [
+                    GoogleFonts.notoSans().fontFamily ?? '',
+                    GoogleFonts.notoSerif().fontFamily ?? '',
+                  ],
                   brightness: Brightness.light,
                   colorSchemeSeed: themeColor),
               darkTheme: ThemeData(
                   useMaterial3: true,
-                  fontFamily: 'Montserrat',
-                  fontFamilyFallback: const ['NotoSerifTC', 'NotoSansTC'],
+                  fontFamilyFallback: [
+                    GoogleFonts.notoSans().fontFamily ?? '',
+                    GoogleFonts.notoSerif().fontFamily ?? '',
+                  ],
                   brightness: Brightness.dark,
                   colorSchemeSeed: themeColor),
               themeMode: themeMode == 0

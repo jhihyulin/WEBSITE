@@ -272,7 +272,7 @@ const Map settingData = {
       'build4_b1_room1': {
         'name': '至誠樓B1',
         'description': '生存遊戲社',
-        'keywords': ['生存遊戲社', '生存遊戲', '地下室']
+        'keyword': ['生存遊戲社', '生存遊戲', '地下室']
       },
       'build4_b1_room1_###1': {'name': '至誠樓B1cc', 'searchable': false},
       'build4_1f_room1': {'name': '體育辦公室'},
@@ -321,7 +321,10 @@ const Map settingData = {
       'build4_5f_room6': {'name': '213教室'},
       'build4_5f_aisle2': {'name': '至誠樓5F側郎', 'searchable': false},
       'build4_stair1': {'name': '至誠樓樓梯#1', 'searchable': false},
-      'build5_b1_room1': {'name': 'B1用餐區', 'keywords': ['地下室']},
+      'build5_b1_room1': {
+        'name': 'B1用餐區',
+        'keyword': ['地下室']
+      },
       'build5_b1_room2': {'name': '謙融樓B1未知空間', 'searchable': false},
       'build5_1f_room1': {'name': '306教室'},
       'build5_1f_room2': {'name': '305教室'},
@@ -377,7 +380,7 @@ const Map settingData = {
       'build6_1f_room4': {
         'name': '圖書館辦公區',
         'description': '資訊媒體組',
-        'keywords': ['資訊媒體組', '資訊組', '資訊'],
+        'keyword': ['資訊媒體組', '資訊組', '資訊'],
       },
       'build6_1f_room5': {'name': 'TED講堂'},
       'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},
@@ -3647,31 +3650,31 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       if (settingData['object']['set'][i]['searchable'] == false) {
         continue;
       }
-      if (settingData['object']['set'][i]['name']!
-          .toLowerCase()
-          .contains(arg.toLowerCase())) {
-        // name search
-        if (settingData['general']['search']['nameSearch'] &&
-            settingData['object']['set'][i]['nameSearch'] != false) {
+      // name search
+      if (settingData['general']['search']['nameSearch'] &&
+          settingData['object']['set'][i]['nameSearch'] != false) {
+        if (settingData['object']['set'][i]['name']!
+            .toLowerCase()
+            .contains(arg.toLowerCase())) {
           result.add(settingData['object']['set'][i]['name']!);
           continue;
         }
       }
-      if (settingData['object']['set'][i]['description'] != null &&
-          settingData['object']['set'][i]['description']!
-              .toLowerCase()
-              .contains(arg.toLowerCase())) {
-        // description search
-        if (settingData['general']['search']['descriptionSearch'] &&
-            settingData['object']['set'][i]['descriptionSearch'] != false) {
+      // description search
+      if (settingData['general']['search']['descriptionSearch'] &&
+          settingData['object']['set'][i]['descriptionSearch'] != false) {
+        if (settingData['object']['set'][i]['description'] != null &&
+            settingData['object']['set'][i]['description']!
+                .toLowerCase()
+                .contains(arg.toLowerCase())) {
           result.add(settingData['object']['set'][i]['name']!);
           continue;
         }
       }
-      if (settingData['object']['set'][i]['keyword'] != null) {
-        // keyword search
-        if (settingData['general']['search']['keywordSearch'] &&
-            settingData['object']['set'][i]['keywordSearch'] != false) {
+      // keyword search
+      if (settingData['general']['search']['keywordSearch'] &&
+          settingData['object']['set'][i]['keywordSearch'] != false) {
+        if (settingData['object']['set'][i]['keyword'] != null) {
           for (var j in settingData['object']['set'][i]['keyword']!) {
             if (j.toLowerCase() == arg.toLowerCase()) {
               result.add(settingData['object']['set'][i]['name']!);
@@ -3795,8 +3798,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       var mesh = three.Mesh(geo, material);
       if (mapData[i]!['shape'] == 'ball') {
       } else {
-        mesh.scale.set(mapData[i]!['length'], mapData[i]!['height'],
-            mapData[i]!['width']);
+        mesh.scale.set(
+            mapData[i]!['length'], mapData[i]!['height'], mapData[i]!['width']);
       }
       mesh.position.set(mapData[i]!['x'], mapData[i]!['y'], mapData[i]!['z']);
       mesh.castShadow = true;

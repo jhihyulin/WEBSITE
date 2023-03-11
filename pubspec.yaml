@@ -41,15 +41,6 @@ flutter:
   - family: SocialIcons
     fonts:
       - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
-  - family: Montserrat
-    fonts:
-      - asset: assets/fonts/Montserrat-Regular.ttf
-  - family: NotoSansTC
-    fonts:
-      - asset: assets/fonts/NotoSansTC-Regular.otf
-  - family: NotoSerifTC
-    fonts:
-      - asset: assets/fonts/NotoSerifTC-Medium.otf
   - family: Logo
     fonts:
       - asset: assets/fonts/Logo.ttf

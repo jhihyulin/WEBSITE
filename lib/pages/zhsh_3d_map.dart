@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:io';
 import 'dart:math';
@@ -3440,8 +3441,19 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             controller: textEditingController,
             focusNode: focusNode,
             onSubmitted: (String value) {
+              var search = searchRecommend(value, true);
+              if (search == 'NotFound') {
+                setState(() {
+                  _notFound = true;
+                });
+              } else {
+                setState(() {
+                  _notFound = false;
+                });
+              }
               onFieldSubmitted();
             },
+            onEditingComplete: onFieldSubmitted,
             decoration: InputDecoration(
               labelText: '搜尋地點',
               hintText: '請輸入關鍵字',
@@ -3452,7 +3464,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   textEditingController.clear();
                 },
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(16.0))),
               errorText: _notFound ? _notFoundText : null,
               errorBorder: _notFound
@@ -3470,7 +3482,23 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
             });
             return const Iterable<String>.empty();
           }
-          return searchRecommend(textEditingValue.text);
+          var search = searchRecommend(textEditingValue.text, false);
+          if (search == 'NA') {
+            setState(() {
+              _notFound = false;
+            });
+            return const Iterable<String>.empty();
+          } else if (search == 'NotFound') {
+            setState(() {
+              _notFound = true;
+            });
+            return const Iterable<String>.empty();
+          } else {
+            setState(() {
+              _notFound = false;
+            });
+            return search;
+          }
         },
         onSelected: (String selection) {
           if (kDebugMode) {
@@ -3682,10 +3710,15 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     });
   }
 
-  FutureOr<Iterable<String>> searchRecommend(String arg) {
+  dynamic searchRecommend(String arg, bool editcomplete) {
+    if (RegExp(
+            r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9')
+        .hasMatch(arg)) {
+      return 'NA';
+    }
     var result = <String>[];
     if (arg == '') {
-      return result;
+      return 'NA';
     }
     for (var i in settingData['object']['set'].keys) {
       if (settingData['object']['set'][i]['name'] == null) {
@@ -3729,15 +3762,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       }
     }
     if (result.isNotEmpty) {
-      setState(() {
-        _notFound = false;
-      });
       return result;
+    } else if (editcomplete) {
+      return 'NotFound';
+    } else if (RegExp(r'[\u4E00-\u9FA5]').hasMatch(arg)) {
+      return 'NA';
     } else {
-      setState(() {
-        _notFound = true;
-      });
-      return [];
+      return 'NotFound';
     }
   }
 

@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'home.dart';
 import 'provider/theme.dart';
@@ -24,6 +25,7 @@ import 'pages/timer.dart';
 import 'pages/url_launcher.dart';
 import 'pages/qr_generator.dart';
 import 'pages/clock.dart';
+import 'pages/zhsh_3d_map.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
@@ -42,6 +44,7 @@ Map<String, Widget Function(BuildContext)> _routes = {
   '/urllauncher': (BuildContext context) => URLLauncherPage(),
   '/qrgenerator': (BuildContext context) => QRGeneratorPage(),
   '/clock': (BuildContext context) => ClockPage(),
+  '/zhsh3dmap': (BuildContext context) => ZHSH3DMapPage(),
   '/setting': (BuildContext context) => SettingPage(),
   '': (BuildContext context) => NavigationController(inputIndex: 0),
   '/tool': (BuildContext context) => NavigationController(inputIndex: 1),
@@ -83,12 +86,18 @@ class _MyAppState extends State<MyApp> {
               title: websiteName,
               theme: ThemeData(
                   useMaterial3: true,
-                  fontFamily: 'Montserrat',
+                  fontFamilyFallback: [
+                    GoogleFonts.notoSans().fontFamily ?? '',
+                    GoogleFonts.notoSerif().fontFamily ?? '',
+                  ],
                   brightness: Brightness.light,
                   colorSchemeSeed: themeColor),
               darkTheme: ThemeData(
                   useMaterial3: true,
-                  fontFamily: 'Montserrat',
+                  fontFamilyFallback: [
+                    GoogleFonts.notoSans().fontFamily ?? '',
+                    GoogleFonts.notoSerif().fontFamily ?? '',
+                  ],
                   brightness: Brightness.dark,
                   colorSchemeSeed: themeColor),
               themeMode: themeMode == 0

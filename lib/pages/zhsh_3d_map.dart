@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 const int deskopModeWidth = 640;
 
 const Map settingData = {
-  'version': {'name': 'Ver2023.3.8'},
+  'version': {'name': 'Ver2023.3.11'},
   'general': {
     'devMode': {'openDuration': 5},
     'search': {

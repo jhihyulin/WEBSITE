@@ -17,7 +17,6 @@ class QRGeneratorPage extends StatefulWidget {
 }
 
 class _QRGeneratorPageState extends State<QRGeneratorPage> {
-  bool _generated = false;
   String _data = '';
   int _version = QrVersions.auto;
   int _versionSelect = QrVersions.auto;
@@ -26,13 +25,12 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
   Color _foregroundColor = Colors.black;
   int _padding = 10;
   bool _useEmbeddedImage = false;
-  ImagePicker _imagePicker = ImagePicker();
+  final ImagePicker _imagePicker = ImagePicker();
   var _embeddedImage = null;
   final GlobalKey globalKey = GlobalKey();
   QrEmbeddedImageStyle _embeddedImageSize = QrEmbeddedImageStyle(
     size: Size(30, 30),
   );
-  final _formKey = GlobalKey<FormState>();
   final TextEditingController _textEditingController = TextEditingController();
 
   @override
@@ -41,12 +39,9 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
   }
 
   void _generate() {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _data = _textEditingController.text;
-        _generated = true;
-      });
-    }
+    setState(() {
+      _data = _textEditingController.text;
+    });
   }
 
   void _createImageFromRenderKey() async {
@@ -84,27 +79,18 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Form(
-                          key: _formKey,
-                          child: TextFormField(
-                              controller: _textEditingController,
-                              decoration: InputDecoration(
-                                labelText: 'Data',
-                                hintText: 'Enter data to generate QR code',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
+                        TextFormField(
+                            controller: _textEditingController,
+                            decoration: InputDecoration(
+                              labelText: 'Data',
+                              hintText: 'Enter data to generate QR code',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16.0),
                               ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              onChanged: (value) {
-                                _generate();
-                              }),
-                        ),
+                            ),
+                            onChanged: (value) {
+                              _generate();
+                            }),
                         Theme(
                           data: theme,
                           child: ExpansionTile(

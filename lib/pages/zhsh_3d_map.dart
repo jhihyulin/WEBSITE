@@ -227,8 +227,8 @@ const Map settingData = {
       'build3_base2': {'name': '中和樓基2', 'searchable': false},
       'build3_base3': {'name': '中和樓基3', 'searchable': false},
       'build3_b1_aisle1': {'name': '早餐店'},
-      'build3_b1_room1': {'name': '店1'},// TODO: name
-      'build3_b1_room2': {'name': '店2'},// TODO: name
+      'build3_b1_room1': {'name': '店A'},// TODO: name
+      'build3_b1_room2': {'name': '店B'},// TODO: name
       'build3_b1_room3': {'name': '倒了的店', 'searchable': false},
       'build3_b1_room4': {'name': '合作社'},
       'build3_b1_room5': {'name': '中和樓B1未知空間', 'searchable': false},

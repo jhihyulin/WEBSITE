@@ -48,6 +48,8 @@ const Map settingData = {
     'autoRotate': false,
     'autoRotateSpeed': 2.0,
     'searchFocus': true,
+    'minPolarAngle': 1,
+    'maxPolarAngle': 89,
   },
   'lights': [
     {
@@ -59,17 +61,17 @@ const Map settingData = {
       'type': 'directional',
       'color': 0xff8400,
       'intensity': 1,
-      'position': {'x': 90, 'y': 80, 'z': 50},
+      'position': {'x': 90, 'y': 60, 'z': 50},
       'target': {'x': 0, 'y': 0, 'z': 0},
       'shadow': {
         'enabled': true,
         'bias': -0.0006,
-        'mapSize': {'width': 2048, 'height': 2048},
+        'mapSize': {'width': 4096, 'height': 4096},
         'camera': {
-          'left': -150,
-          'right': 150,
-          'top': 150,
-          'bottom': -150,
+          'left': -200,
+          'right': 200,
+          'top': 200,
+          'bottom': -200,
           'near': 0.1,
           'far': 500,
         }
@@ -490,9 +492,14 @@ const Map settingData = {
       'wall_###11': {'name': '校園圍牆#11', 'searchable': false},
       'wall_###12': {'name': '校園圍牆#12', 'searchable': false},
       'wall_###13': {'name': '校園圍牆#13', 'searchable': false},
+      'hill': {'name': '山丘'},
+      'hill_###1': {'name': '山丘#1', 'searchable': false},
+      'hill_###2': {'name': '山丘#2', 'searchable': false},
+      'hill_###3': {'name': '山丘#3', 'searchable': false},
+      'hill_###4': {'name': '山丘#4', 'searchable': false},
     }
   },
-  'ground': {'color': 0x96ad82, 'width': 220, 'length': 300},
+  'ground': {'color': 0x96ad82, 'width': 5000, 'length': 5000},
   'background': {
     'color': 'system', // 'system' or 0x000000
   },
@@ -3086,7 +3093,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 40,
     'y': 0,
     'z': -60,
-    'height': 0.01,
+    'height': 0.1,
     'width': 35,
     'length': 30
   },
@@ -3094,7 +3101,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 0,
     'y': 0,
     'z': -62.5,
-    'height': 0.01,
+    'height': 0.1,
     'width': 30,
     'length': 50
   },
@@ -3102,7 +3109,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -50,
     'y': 0,
     'z': -50,
-    'height': 0.01,
+    'height': 0.1,
     'width': 35,
     'length': 30
   },
@@ -3110,7 +3117,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -60,
     'y': 0,
     'z': -85,
-    'height': 0.01,
+    'height': 0.1,
     'width': 15,
     'length': 12,
     'rotate': {'x': 0, 'y': -0.5, 'z': 0}
@@ -3128,7 +3135,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -80,
     'y': 0,
     'z': 0,
-    'height': 0.01,
+    'height': 0.1,
     'width': 35,
     'length': 10
   },
@@ -3211,7 +3218,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 0,
     'y': 0,
     'z': -105,
-    'height': 0.01,
+    'height': 0.1,
     'width': 50,
     'length': 100
   },
@@ -3219,7 +3226,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 55,
     'y': 0,
     'z': -125,
-    'height': 0.01,
+    'height': 0.1,
     'width': 10,
     'length': 15
   },
@@ -3227,7 +3234,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 23,
     'y': 0,
     'z': 75,
-    'height': 0.01,
+    'height': 0.1,
     'width': 30,
     'length': 20
   },
@@ -3235,7 +3242,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 75,
     'y': 0,
     'z': -20,
-    'height': 0.01,
+    'height': 0.1,
     'width': 15,
     'length': 20
   },
@@ -3350,10 +3357,55 @@ const Map<String, Map<String, dynamic>> mapData = {
   'wall_###13': {
     'x': 63.5,
     'y': 0,
-    'z': -128.85,
+    'z': -129.85,
     'height': 2,
-    'width': 17,
+    'width': 19,
     'length': 0.3
+  },
+  'hill': {
+    'x': 0,
+    'y': -15,
+    'z': -162,
+    'height': 30,
+    'width': 30,
+    'length': 190,
+    'rotate': {'x': 0.7, 'y': 0, 'z': 0}
+  },
+  'hill_###1': {
+    'x': 93,
+    'y': -31,
+    'z': -134,
+    'height': 40,
+    'width': 40,
+    'length': 40,
+    'rotate': {'x': 0.5, 'y': 0.65, 'z': 0.5}
+  },
+  'hill_###2': {
+    'x': 90,
+    'y': -18,
+    'z': -138,
+    'height': 30,
+    'width': 30,
+    'length': 30,
+    'rotate': {'x': -0.2, 'y': 0.2, 'z': 0.7}
+  },
+  'hill_###3': {
+    'x': -93.7,
+    'y': -26,
+    'z': -73,
+    'height': 40,
+    'width': 180,
+    'length': 40,
+    'rotate': {'x': 0, 'y': 0, 'z': 0.5}
+  },
+  'hill_###4': {
+    'x': -75,
+    'y': -30,
+    'z': -105,
+    'height': 40,
+    'width': 110,
+    'length': 40,
+    'rotate': {'x': 0, 'y': -0.5, 'z': 0.4}
   },
 };
 
@@ -3985,7 +4037,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     controls.screenSpacePanning = false;
     controls.minDistance = 1;
     controls.maxDistance = 500;
-    controls.maxPolarAngle = three.Math.pi / 2;
+    controls.minPolarAngle = settingData['controls']['minPolarAngle'] *
+        three.Math.pi /
+        180; // radians
+    controls.maxPolarAngle = settingData['controls']['maxPolarAngle'] *
+        three.Math.pi /
+        180; // radians
     controls.target.set(settingData['camera']['focusX'],
         settingData['camera']['focusY'], settingData['camera']['focusZ']);
 

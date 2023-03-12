@@ -227,8 +227,8 @@ const Map settingData = {
       'build3_base2': {'name': '中和樓基2', 'searchable': false},
       'build3_base3': {'name': '中和樓基3', 'searchable': false},
       'build3_b1_aisle1': {'name': '早餐店'},
-      'build3_b1_room1': {'name': '店A'},// TODO: name
-      'build3_b1_room2': {'name': '店B'},// TODO: name
+      'build3_b1_room1': {'name': '店A'}, // TODO: name
+      'build3_b1_room2': {'name': '店B'}, // TODO: name
       'build3_b1_room3': {'name': '倒了的店', 'searchable': false},
       'build3_b1_room4': {'name': '合作社'},
       'build3_b1_room5': {'name': '中和樓B1未知空間', 'searchable': false},
@@ -476,7 +476,7 @@ const Map settingData = {
       'facility_ground1_###1': {'name': '運動場#1', 'searchable': false},
       'facility_parkingLot2': {'name': '停車場#1', 'render': false},
       'facility_parkingLot3': {'name': '停車場#2', 'render': false},
-      'wall':  {'name': '校園圍牆'},
+      'wall': {'name': '校園圍牆'},
       'wall_###1': {'name': '校園圍牆#1', 'searchable': false},
       'wall_###2': {'name': '校園圍牆#2', 'searchable': false},
       'wall_###3': {'name': '校園圍牆#3', 'searchable': false},
@@ -3239,14 +3239,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 15,
     'length': 20
   },
-  'wall': {
-    'x': -13.5,
-    'y': 0,
-    'z': 102,
-    'height': 4,
-    'width': 1,
-    'length': 15
-  },
+  'wall': {'x': -13.5, 'y': 0, 'z': 102, 'height': 4, 'width': 1, 'length': 15},
   'wall_###1': {
     'x': 7.75,
     'y': 0,
@@ -3877,9 +3870,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   }
 
   dynamic searchRecommend(String arg, bool editcomplete) {
-    if (RegExp(
-            r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9')
-        .hasMatch(arg)) {
+    if (RegExp(r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9').hasMatch(arg)) {
       return 'NA';
     }
     var result = <String>[];

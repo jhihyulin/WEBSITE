@@ -61,7 +61,7 @@ const Map settingData = {
       'type': 'directional',
       'color': 0xff8400,
       'intensity': 1,
-      'position': {'x': 90, 'y': 60, 'z': 50},
+      'position': {'x': -90, 'y': 60, 'z': 50},
       'target': {'x': 0, 'y': 0, 'z': 0},
       'shadow': {
         'enabled': true,
@@ -589,6 +589,24 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 
   // build1
+  'build1_stair': {
+    'build': 'build1',
+    'x': -10,
+    'y': -2,
+    'z': 42.5,
+    'height': 29,
+    'width': 5,
+    'length': 9
+  },
+  'build1_elevator': {
+    'build': 'build1',
+    'x': -4,
+    'y': -2,
+    'z': 42.5,
+    'height': 29,
+    'width': 5,
+    'length': 3
+  },
   // build1_b1
   'build1_b1_room1': {
     'build': 'build1',
@@ -672,6 +690,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     // cccccc
   },
   // build1_2f
+  'build1_2f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 5,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 2,
+  },
   'build1_2f_room': {
     'build': 'build1',
     'x': -1,
@@ -703,6 +731,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 2,
   },
   // build1_3f
+  'build1_3f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 8,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 3,
+  },
   'build1_3f_room': {
     'build': 'build1',
     'x': -1,
@@ -754,6 +792,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 2,
   },
   // build1_4f
+  'build1_4f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 11,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 4,
+  },
   'build1_4f_room': {
     'build': 'build1',
     'x': -1,
@@ -785,6 +833,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 4,
   },
   // build1_5f
+  'build1_5f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 14,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 5,
+  },
   'build1_5f_room': {
     'build': 'build1',
     'x': -1,
@@ -806,6 +864,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 5,
   },
   // build1_6f
+  'build1_6f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 17,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 6,
+  },
   'build1_6f_room': {
     'build': 'build1',
     'x': -1,
@@ -827,6 +895,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 5,
   },
   // build1_7f
+  'build1_7f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 20,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 7,
+  },
   'build1_7f_room': {
     'build': 'build1',
     'x': -1,
@@ -846,84 +924,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 30,
     'length': 25,
     'floor': 5,
-  },
-  'build1_2f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 5,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 2,
-  },
-  'build1_3f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 8,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 3,
-  },
-  'build1_4f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 11,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 4,
-  },
-  'build1_5f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 14,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 5,
-  },
-  'build1_6f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 17,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 6,
-  },
-  'build1_7f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 20,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 7,
-  },
-  'build1_stair': {
-    'build': 'build1',
-    'x': -10,
-    'y': -2,
-    'z': 42.5,
-    'height': 29,
-    'width': 5,
-    'length': 9
-  },
-  'build1_elevator': {
-    'build': 'build1',
-    'x': -4,
-    'y': -2,
-    'z': 42.5,
-    'height': 29,
-    'width': 5,
-    'length': 3
   },
 
   // build2

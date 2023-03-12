@@ -452,6 +452,7 @@ const Map settingData = {
       'facility_court2': {'name': '排球場'},
       'facility_court3': {'name': '籃球場A'},
       'facility_court4': {'name': '未知用途球場'},
+      'facility_court4_###1': {'name': '未知用途球場#1', 'searchable': false},
       'facility_recyclihgYard1': {'name': '回收場'},
       'facility_guardHouse': {'name': '警衛室'},
       'facility_parkingLot1': {'name': '機車棚'},
@@ -467,15 +468,31 @@ const Map settingData = {
         }
       },
       'facility_electronic1': {'name': '電箱'},
-      'facility_garbages1': {'name': '垃圾場'},
+      'facility_electronic1_###1': {'name': '電箱#1', 'searchable': false},
+      'facility_garbages1': {'name': '垃圾場 / 廚餘'},
       'facility_electronic2': {'name': '變電所'},
       'facility_platform1': {'name': '司令台'},
       'facility_ground1': {'name': '運動場'},
+      'facility_ground1_###1': {'name': '運動場#1', 'searchable': false},
       'facility_parkingLot2': {'name': '停車場#1', 'render': false},
       'facility_parkingLot3': {'name': '停車場#2', 'render': false},
+      'wall':  {'name': '校園圍牆'},
+      'wall_###1': {'name': '校園圍牆#1', 'searchable': false},
+      'wall_###2': {'name': '校園圍牆#2', 'searchable': false},
+      'wall_###3': {'name': '校園圍牆#3', 'searchable': false},
+      'wall_###4': {'name': '校園圍牆#4', 'searchable': false},
+      'wall_###5': {'name': '校園圍牆#5', 'searchable': false},
+      'wall_###6': {'name': '校園圍牆#6', 'searchable': false},
+      'wall_###7': {'name': '校園圍牆#7', 'searchable': false},
+      'wall_###8': {'name': '校園圍牆#8', 'searchable': false},
+      'wall_###9': {'name': '校園圍牆#9', 'searchable': false},
+      'wall_###10': {'name': '校園圍牆#10', 'searchable': false},
+      'wall_###11': {'name': '校園圍牆#11', 'searchable': false},
+      'wall_###12': {'name': '校園圍牆#12', 'searchable': false},
+      'wall_###13': {'name': '校園圍牆#13', 'searchable': false},
     }
   },
-  'ground': {'color': 0x96ad82, 'width': 200, 'length': 300},
+  'ground': {'color': 0x96ad82, 'width': 220, 'length': 300},
   'background': {
     'color': 'system', // 'system' or 0x000000
   },
@@ -3069,7 +3086,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 40,
     'y': 0,
     'z': -60,
-    'height': 0.1,
+    'height': 0.01,
     'width': 35,
     'length': 30
   },
@@ -3077,7 +3094,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 0,
     'y': 0,
     'z': -62.5,
-    'height': 0.1,
+    'height': 0.01,
     'width': 30,
     'length': 50
   },
@@ -3085,7 +3102,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -50,
     'y': 0,
     'z': -50,
-    'height': 0.1,
+    'height': 0.01,
     'width': 35,
     'length': 30
   },
@@ -3093,16 +3110,25 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -60,
     'y': 0,
     'z': -85,
-    'height': 0.1,
+    'height': 0.01,
     'width': 15,
     'length': 12,
+    'rotate': {'x': 0, 'y': -0.5, 'z': 0}
+  },
+  'facility_court4_###1': {
+    'x': -65.4,
+    'y': 0,
+    'z': -87.95,
+    'height': 3,
+    'width': 15,
+    'length': 0.3,
     'rotate': {'x': 0, 'y': -0.5, 'z': 0}
   },
   'facility_recyclihgYard1': {
     'x': -80,
     'y': 0,
     'z': 0,
-    'height': 0.1,
+    'height': 0.01,
     'width': 35,
     'length': 10
   },
@@ -3110,7 +3136,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -44,
     'y': 0,
     'z': 100,
-    'height': 3,
+    'height': 4,
     'width': 5,
     'length': 10
   },
@@ -3140,29 +3166,38 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 11
   },
   'facility_electronic1': {
-    'x': 25,
+    'x': 28,
     'y': 0,
-    'z': 103,
+    'z': 98.5,
     'height': 2,
     'width': 3,
-    'length': 10
+    'length': 7
+  },
+  'facility_electronic1_###1': {
+    'x': 23,
+    'y': 0,
+    'z': 99,
+    'height': 3,
+    'width': 2,
+    'length': 3
   },
   'facility_garbages1': {
-    'x': 35.5,
+    'x': 37,
     'y': 0,
-    'z': 103,
-    'height': 0.1,
+    'z': 98.5,
+    'height': 2,
     'width': 3,
-    'length': 11
+    'length': 11,
+    'rotate': {'x': 0, 'y': -0.05, 'z': 0}
   },
   'facility_electronic2': {
-    'x': 72,
+    'x': 74,
     'y': 0,
-    'z': -3,
-    'height': 3,
-    'width': 8,
-    'length': 13,
-    'rotate': {'x': 0, 'y': 1.2, 'z': 0}
+    'z': -2,
+    'height': 4,
+    'width': 13,
+    'length': 8,
+    'rotate': {'x': 0, 'y': -0.6, 'z': 0}
   },
   'facility_platform1': {
     'x': 0,
@@ -3176,15 +3211,23 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 0,
     'y': 0,
     'z': -105,
-    'height': 0.1,
+    'height': 0.01,
     'width': 50,
     'length': 100
+  },
+  'facility_ground1_###1': {
+    'x': 55,
+    'y': 0,
+    'z': -125,
+    'height': 0.01,
+    'width': 10,
+    'length': 15
   },
   'facility_parkingLot2': {
     'x': 23,
     'y': 0,
     'z': 75,
-    'height': 0.1,
+    'height': 0.01,
     'width': 30,
     'length': 20
   },
@@ -3192,9 +3235,132 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': 75,
     'y': 0,
     'z': -20,
-    'height': 0.1,
+    'height': 0.01,
     'width': 15,
     'length': 20
+  },
+  'wall': {
+    'x': -13.5,
+    'y': 0,
+    'z': 102,
+    'height': 4,
+    'width': 1,
+    'length': 15
+  },
+  'wall_###1': {
+    'x': 7.75,
+    'y': 0,
+    'z': 100.5,
+    'height': 2,
+    'width': 0.3,
+    'length': 28,
+    'rotate': {'x': 0, 'y': 0.1, 'z': 0}
+  },
+  'wall_###2': {
+    'x': -51.5,
+    'y': 0,
+    'z': 103.5,
+    'height': 4,
+    'width': 0.3,
+    'length': 6,
+    'rotate': {'x': 0, 'y': 0.5, 'z': 0}
+  },
+  'wall_###3': {
+    'x': -74,
+    'y': 0,
+    'z': 106,
+    'height': 2,
+    'width': 0.3,
+    'length': 40,
+    'rotate': {'x': 0, 'y': 0.05, 'z': 0}
+  },
+  'wall_###4': {
+    'x': -98,
+    'y': 0,
+    'z': 79.95,
+    'height': 2,
+    'width': 55,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': 0.15, 'z': 0}
+  },
+  'wall_###5': {
+    'x': -93.6,
+    'y': 0,
+    'z': 35.2,
+    'height': 2,
+    'width': 39.2,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.45, 'z': 0}
+  },
+  'wall_###6': {
+    'x': -85.15,
+    'y': 0,
+    'z': 0,
+    'height': 2,
+    'width': 35,
+    'length': 0.3
+  },
+  'wall_###7': {
+    'x': 55,
+    'y': 0,
+    'z': 57,
+    'height': 2,
+    'width': 85,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.3, 'z': 0}
+  },
+  'wall_###8': {
+    'x': 81.5,
+    'y': 0,
+    'z': -4,
+    'height': 2,
+    'width': 50,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.6, 'z': 0}
+  },
+  'wall_###9': {
+    'x': 100.5,
+    'y': 0,
+    'z': -49,
+    'height': 2,
+    'width': 50,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.2, 'z': 0}
+  },
+  'wall_###10': {
+    'x': 103,
+    'y': 0,
+    'z': -81.5,
+    'height': 2,
+    'width': 17,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': 0.3, 'z': 0}
+  },
+  'wall_###11': {
+    'x': 95,
+    'y': 0,
+    'z': -97.5,
+    'height': 2,
+    'width': 20,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': 0.6, 'z': 0}
+  },
+  'wall_###12': {
+    'x': 76.5,
+    'y': 0,
+    'z': -113,
+    'height': 2,
+    'width': 0.3,
+    'length': 30,
+    'rotate': {'x': 0, 'y': -0.52, 'z': 0}
+  },
+  'wall_###13': {
+    'x': 63.5,
+    'y': 0,
+    'z': -128.85,
+    'height': 2,
+    'width': 17,
+    'length': 0.3
   },
 };
 
@@ -3213,7 +3379,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   three.WebGLRenderer? renderer;
 
   final bool _lightHelper = kDebugMode;
-  final bool _groundHelper = kDebugMode;
+  final bool _groundHelper = false;
 
   Timer? _navigatorTimer;
   Timer? _devModeTimer;

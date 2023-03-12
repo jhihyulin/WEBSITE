@@ -61,7 +61,7 @@ const Map settingData = {
       'type': 'directional',
       'color': 0xff8400,
       'intensity': 1,
-      'position': {'x': -90, 'y': 60, 'z': 50},
+      'position': {'x': -90, 'y': 40, 'z': 50},
       'target': {'x': 0, 'y': 0, 'z': 0},
       'shadow': {
         'enabled': true,
@@ -123,6 +123,21 @@ const Map settingData = {
       'build_6f': {'name': '行政大樓=x=通達樓6F', 'searchable': false},
       'build_7f': {'name': '行政大樓=x=通達樓7F', 'searchable': false},
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
+      'build1_colunm': {'name': '行政大樓-柱子1', 'searchable': false},
+      'build1_colunm_###1': {'name': '行政大樓-柱子2', 'searchable': false},
+      'build1_colunm_###2': {'name': '行政大樓-柱子3', 'searchable': false},
+      'build1_colunm_###3': {'name': '行政大樓-柱子4', 'searchable': false},
+      'build1_colunm_###4': {'name': '行政大樓-柱子5', 'searchable': false},
+      'build1_colunm_###5': {'name': '行政大樓-柱子6', 'searchable': false},
+      'build1_beam': {'name': '行政大樓-梁1', 'searchable': false},
+      'build1_beam_###1': {'name': '行政大樓-梁2', 'searchable': false},
+      'build1_beam_###2': {'name': '行政大樓-梁3', 'searchable': false},
+      'build1_beam_###3': {'name': '行政大樓-梁4', 'searchable': false},
+      'build1_beam_###4': {'name': '行政大樓-梁5', 'searchable': false},
+      'build1_beam_###5': {'name': '行政大樓-梁6', 'searchable': false},
+      'build1_beam_###6': {'name': '行政大樓-梁7', 'searchable': false},
+      'build1_facade': {'name': '行政大樓-牆1', 'searchable': false},
+      'build1_gate': {'name': '行政大樓-大門', 'searchable': false},
       'build1_b1_room1': {
         'name': '行政大樓B1',
         'keyword': ['行政大樓地下室', '地下室']
@@ -606,6 +621,142 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 29,
     'width': 5,
     'length': 3
+  },
+  'build1_colunm': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 74.6,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###1': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 69.7,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###2': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 64.8,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###3': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 59.9,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###4': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 55,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###5': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 50.1,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_beam': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 74.6,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###1': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 72.15,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###2': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 67.25,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###3': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 62.35,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###4': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 57.45,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###5': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 52.55,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###6': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 47.35,
+    'height': 0.5,
+    'width': 4.7,
+    'length': 0.5
+  },
+  'build1_facade': {
+    'build': 'build1',
+    'x': -9.25,
+    'y': 1,
+    'z': 47,
+    'height': 7,
+    'width': 4,
+    'length': 0.5
+  },
+  'build1_gate': {
+    'build': 'build1',
+    'x': -9.25,
+    'y': 1,
+    'z': 54.5,
+    'height': 4,
+    'width': 11,
+    'length': 0.5,
+    'opacity': 0.2
   },
   // build1_b1
   'build1_b1_room1': {
@@ -4100,6 +4251,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         mesh.scale.set(
             mapData[i]!['length'], mapData[i]!['height'], mapData[i]!['width']);
       }
+      if (mapData[i]!['opacity'] != null) {
+        mesh.material.opacity = mapData[i]!['opacity'];
+        mesh.material.transparent = true;
+      }
       mesh.position.set(mapData[i]!['x'], mapData[i]!['y'], mapData[i]!['z']);
       mesh.castShadow = true;
       mesh.receiveShadow = true;
@@ -4287,10 +4442,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               : settingData['object']['set'][i.name]!['color'] ??
                   settingData['buildings']['color'],
           'flatShading': false,
-          'opacity': 1,
+          'opacity': mapData[i.name]!['opacity'] ?? 1,
           'roughness': 0.1,
           'metalness': 0.1,
-          'transparent': false,
+          'transparent': mapData[i.name]!['opacity'] != null,
         });
       }
     }

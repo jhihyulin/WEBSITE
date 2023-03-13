@@ -144,6 +144,10 @@ const Map settingData = {
       'build1_stairgate_###2': {'name': '行政大樓-門前樓梯3', 'searchable': false},
       'build1_stairgate_###3': {'name': '行政大樓-門前樓梯4', 'searchable': false},
       'build1_facade': {'name': '行政大樓-牆1', 'searchable': false},
+      'build1_facade_###1': {'name': '行政大樓-牆2', 'searchable': false},
+      'build1_facade_###2': {'name': '行政大樓-牆3', 'searchable': false},
+      'build1_facade_###3': {'name': '行政大樓-牆4', 'searchable': false},
+      'build1_facade_###4': {'name': '行政大樓-牆5', 'searchable': false},
       'build1_gate': {'name': '行政大樓-大門', 'searchable': false},
       'build1_b1_room1': {
         'name': '行政大樓B1',
@@ -821,6 +825,42 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 47,
     'height': 7,
     'width': 4,
+    'length': 0.5
+  },
+  'build1_facade_###1': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 72.15,
+    'height': 0.7,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_facade_###2': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 67.25,
+    'height': 0.7,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_facade_###3': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 62.35,
+    'height': 0.7,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_facade_###4': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 47.35,
+    'height': 0.7,
+    'width': 4.7,
     'length': 0.5
   },
   'build1_gate': {

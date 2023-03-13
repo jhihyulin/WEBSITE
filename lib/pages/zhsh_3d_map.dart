@@ -143,6 +143,11 @@ const Map settingData = {
       'build1_beam_###7': {'name': '行政大樓-梁8', 'searchable': false},
       'build1_beam_###8': {'name': '行政大樓-梁9', 'searchable': false},
       'build1_beam_###9': {'name': '行政大樓-梁10', 'searchable': false},
+      'build1_beam_###10': {'name': '行政大樓-梁11', 'searchable': false},
+      'build1_beam_###11': {'name': '行政大樓-梁12', 'searchable': false},
+      'build1_beam_###12': {'name': '行政大樓-梁13', 'searchable': false},
+      'build1_beam_###13': {'name': '行政大樓-梁14', 'searchable': false},
+      'build1_beam_###14': {'name': '行政大樓-梁15', 'searchable': false},
       'build1_stairgate': {'name': '行政大樓-門前樓梯', 'searchable': false},
       'build1_stairgate_###1': {'name': '行政大樓-門前樓梯2', 'searchable': false},
       'build1_stairgate_###2': {'name': '行政大樓-門前樓梯3', 'searchable': false},
@@ -795,6 +800,51 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 2,
     'width': 4.1,
     'length': 0.5
+  },
+  'build1_beam_###10': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 69.7,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###11': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 64.8,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###12': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 59.9,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###13': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 55,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###14': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 50.1,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
   },
   'build1_stairgate': {
     'build': 'build1',

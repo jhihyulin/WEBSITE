@@ -29,6 +29,10 @@ const Map settingData = {
       'descriptionSearch': false,
       'keywordSearch': true,
       'nameSearch': true,
+    },
+    'position': {
+      // default
+      'gateSlideDoor': 7, // open0 close10
     }
   },
   'camera': {
@@ -3752,7 +3756,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   bool _devMode = false;
   bool _fullScreen = false;
 
-  double _gateSlideDoor = 0;
+  double _gateSlideDoor =
+      settingData['general']['position']['gateSlideDoor'] ?? 0;
 
   int _fps = 0;
 
@@ -4182,12 +4187,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   value: _gateSlideDoor,
                   min: 0,
                   max: 10,
-                  label: '$_gateSlideDoor',
+                  divisions: null,
                   onChanged: (double value) {
                     setState(() {
                       _gateSlideDoor = value;
                     });
-                    setGateSlideDoor(value.toInt());
+                    setGateSlideDoor(_gateSlideDoor);
                   },
                 ),
               )
@@ -4317,6 +4322,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   initScene() {
     initRenderer();
     initPage();
+    initObject();
   }
 
   initPage() {
@@ -4607,7 +4613,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     }
   }
 
-  setGateSlideDoor(int value) {
+  initObject() {
+    setGateSlideDoor(_gateSlideDoor);
+  }
+
+  setGateSlideDoor(double value) {
     var mesh = scene.getObjectByName('facility_gate_slidedoor') as three.Mesh;
     mesh.position.setX(mapData['facility_gate_slidedoor']!['x']! - value);
     mesh.updateMatrix();

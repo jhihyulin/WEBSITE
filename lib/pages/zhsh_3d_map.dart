@@ -451,10 +451,22 @@ const Map settingData = {
       'build6_5f_room1': {'name': '自造空間'},
       'build6_5f_room1_###1': {'name': '圖書館5F???#1', 'searchable': false},
       'build6_5f_room1_###2': {'name': '圖書館5F???#2', 'searchable': false},
-      'build7_base1': {'name': '活動中心基1', 'searchable': false},
+      'build7_build_###base1': {'name': '活動中心基1', 'searchable': false},
+      'build7_build_###base2': {'name': '活動中心基2', 'searchable': false},
       'build7_toilet1': {'name': '活動中心女廁所', 'searchable': false},
       'build7_toilet2': {'name': '活動中心男廁所', 'searchable': false},
-      'build7_build': {'name': '活動中心', 'description': '籃球場、羽球場'},
+      'build7_build': {
+        'name': '活動中心',
+        'description': '籃球場、羽球場',
+        'keyword': ['籃球場', '羽球場', '籃球', '羽球']
+      },
+      'build7_build_###build_extend1': {'name': '活動中心#1', 'searchable': false},
+      'build7_build_###colunm_1': {'name': '活動中心柱子#1', 'searchable': false},
+      'build7_build_###colunm_2': {'name': '活動中心柱子#2', 'searchable': false},
+      'build7_build_###colunm_3': {'name': '活動中心柱子#3', 'searchable': false},
+      'build7_build_###colunm_4': {'name': '活動中心柱子#4', 'searchable': false},
+      'build7_build_###colunm_5': {'name': '活動中心柱子#5', 'searchable': false},
+      'build7_build_###colunm_6': {'name': '活動中心柱子#6', 'searchable': false},
       'build8_base1': {'name': '游泳池基1', 'searchable': false},
       'build8_base2': {'name': '游泳池基2', 'searchable': false},
       'build8_base3': {'name': '游泳池基3', 'searchable': false},
@@ -3075,7 +3087,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 
   // build7
-  'build7_base1': {
+  'build7_build_###base1': {
     'build': 'build7',
     'x': -75,
     'y': 0,
@@ -3083,6 +3095,15 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 1,
     'width': 50,
     'length': 35
+  },
+  'build7_build_###base2': {
+    'build': 'build7',
+    'x': -55,
+    'y': 0,
+    'z': 60,
+    'height': 1,
+    'width': 37,
+    'length': 5
   },
   'build7_toilet1': {
     'build': 'build7',
@@ -3110,6 +3131,69 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 10,
     'width': 50,
     'length': 35
+  },
+  'build7_build_###build_extend1': {
+    'build': 'build7',
+    'x': -55,
+    'y': 10,
+    'z': 60,
+    'height': 1,
+    'width': 28,
+    'length': 5
+  },
+  'build7_build_###colunm_1': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 72,// 60
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_2': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 67,
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_3': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 62,
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_4': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 58,
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_5': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 53,
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_6': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 48,
+    'height': 10,
+    'width': 1,
+    'length': 1
   },
 
   // build8

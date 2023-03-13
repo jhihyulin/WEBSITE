@@ -165,6 +165,7 @@ const Map settingData = {
         'name': '健康中心',
         'keyword': ['保健室']
       },
+      'build1_1f_room2_###1': {'name': '健康中心#1', 'searchable': false},
       'build1_1f_facility1': {
         'name': 'ATM自動櫃員機',
         'description': '中華郵政',
@@ -893,13 +894,23 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 10,
     'floor': 1,
   },
+  'build1_1f_room2_###1': {
+    'build': 'build1',
+    'x': 9.5,
+    'y': 1,
+    'z': 57,
+    'height': 4,
+    'width': 6,
+    'length': 2,
+    'floor': 1,
+  },
   'build1_1f_facility1': {
     'build': 'build1',
     'x': 9.5,
     'y': 1,
-    'z': 55.5,
+    'z': 52.5,
     'height': 4,
-    'width': 9,
+    'width': 3,
     'length': 2,
     'floor': 1,
   },

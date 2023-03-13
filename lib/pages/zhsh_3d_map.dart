@@ -207,10 +207,7 @@ const Map settingData = {
           '校長室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/principal'
         }
       },
-      'build1_3f_extend': {
-        'name': '行政大樓3f露臺',
-        'searchable': false
-      },
+      'build1_3f_extend': {'name': '行政大樓3f露臺', 'searchable': false},
       'build1_3f_room3': {
         'name': '會計室',
         'link': {
@@ -481,6 +478,7 @@ const Map settingData = {
       'facility_gate': {'name': '大門'},
       'facility_gate_###1': {'name': '大門柱#1', 'searchable': false},
       'facility_gate_###2': {'name': '大門柱#2', 'searchable': false},
+      'facility_gate_slidedoor': {'name': '大門滑門', 'searchable': false},
       'facility_court1': {'name': '籃球場B'},
       'facility_court2': {'name': '排球場'},
       'facility_court3': {'name': '籃球場A'},
@@ -3373,6 +3371,14 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 6,
     'length': 4
   },
+  'facility_gate_slidedoor': {
+    'x': -20, //-30close -20open
+    'y': 0,
+    'z': 102,
+    'height': 2,
+    'width': 0.5,
+    'length': 10
+  },
   'facility_court1': {
     'x': 40,
     'y': 0,
@@ -3745,6 +3751,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   bool _devMode = false;
   bool _fullScreen = false;
+
+  double _gateSlideDoor = 0;
 
   int _fps = 0;
 
@@ -4168,6 +4176,21 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                     '${settingData['camera']['focusY']}, '
                     '${settingData['camera']['focusZ']}'),
               ),
+              ListTile(
+                title: const Text('Gate Slide Door'),
+                subtitle: Slider(
+                  value: _gateSlideDoor,
+                  min: 0,
+                  max: 10,
+                  label: '$_gateSlideDoor',
+                  onChanged: (double value) {
+                    setState(() {
+                      _gateSlideDoor = value;
+                    });
+                    setGateSlideDoor(value.toInt());
+                  },
+                ),
+              )
             ],
           ))
     ]);
@@ -4582,6 +4605,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         });
       }
     }
+  }
+
+  setGateSlideDoor(int value) {
+    var mesh = scene.getObjectByName('facility_gate_slidedoor') as three.Mesh;
+    mesh.position.setX(mapData['facility_gate_slidedoor']!['x']! - value);
+    mesh.updateMatrix();
   }
 
   @override

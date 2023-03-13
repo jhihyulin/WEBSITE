@@ -202,8 +202,8 @@ const Map settingData = {
           '校長室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/principal'
         }
       },
-      'build1_3f_room2_###extend': {
-        'name': '校長室露臺',
+      'build1_3f_extend': {
+        'name': '行政大樓3f露臺',
         'searchable': false
       },
       'build1_3f_room3': {
@@ -996,7 +996,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 5,
     'floor': 3,
   },
-  'build1_3f_room2_###extend': {
+  'build1_3f_extend': {
     'x': -15.25,
     'y': 8,
     'z': 55,

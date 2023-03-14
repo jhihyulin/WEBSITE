@@ -3195,7 +3195,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build7',
     'x': -53.5,
     'y': 1,
-    'z': 72,// 60
+    'z': 72, // 60
     'height': 10,
     'width': 1,
     'length': 1
@@ -3877,6 +3877,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   bool verbose = true;
   bool disposed = false;
+  bool _initialized = false;
 
   late three.WebGLRenderTarget renderTarget;
 
@@ -4020,10 +4021,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   width: width,
                   height: height,
                   child: Builder(builder: (BuildContext context) {
-                    return three3dRender.isInitialized
-                        ? HtmlElementView(
-                            viewType: three3dRender.textureId!.toString())
-                        : const Center(child: CircularProgressIndicator());
+                    return HtmlElementView(
+                        viewType: three3dRender.textureId!.toString());
                   }));
             }),
         SingleChildScrollView(
@@ -4048,20 +4047,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   width: width,
                   height: height,
                   child: Builder(builder: (BuildContext context) {
-                    return three3dRender.isInitialized
-                        ? HtmlElementView(
-                            viewType: three3dRender.textureId!.toString())
-                        : Center(
-                            child: ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(16.0)),
-                              child: LinearProgressIndicator(
-                                minHeight: 20,
-                                backgroundColor: Theme.of(context).splashColor,
-                                value: null,
-                              ),
-                            ),
-                          );
+                    return HtmlElementView(
+                        viewType: three3dRender.textureId!.toString());
                   }));
             }),
         Container(
@@ -4457,6 +4444,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     initRenderer();
     initPage();
     initObject();
+    setState(() {
+      _initialized = true;
+    });
   }
 
   initPage() {

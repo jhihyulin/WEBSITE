@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 const int deskopModeWidth = 640;
 
 const Map settingData = {
-  'version': {'name': 'Ver2023.3.11'},
+  'version': {'name': 'Ver2023.3.14'},
   'general': {
     'devMode': {'openDuration': 5},
     'search': {
@@ -3515,7 +3515,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'z': 102,
     'height': 2,
     'width': 0.5,
-    'length': 10
+    'length': 10,
   },
   'facility_court1': {
     'x': 40,

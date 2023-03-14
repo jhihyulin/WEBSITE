@@ -661,9 +661,9 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build1',
     'x': -10.5,
     'y': 0,
-    'z': 66.5,//60
+    'z': 67,//60
     'height': 1,
-    'width': 13,
+    'width': 14,
     'length': 2
   },
   'build1_base_###2': {
@@ -697,7 +697,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build1',
     'x': -10.5,
     'y': 0,
-    'z': 73.4,
+    'z': 74.4,
     'height': 0.2,
     'width': 0.8,
     'length': 2
@@ -706,7 +706,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build1',
     'x': -10.5,
     'y': 0.2,
-    'z': 73.3,
+    'z': 74.3,
     'height': 0.2,
     'width': 0.6,
     'length': 2
@@ -715,7 +715,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build1',
     'x': -10.5,
     'y': 0.4,
-    'z': 73.2,
+    'z': 74.2,
     'height': 0.2,
     'width': 0.4,
     'length': 2
@@ -724,7 +724,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build1',
     'x': -10.5,
     'y': 0.6,
-    'z': 73.1,
+    'z': 74.1,
     'height': 0.2,
     'width': 0.2,
     'length': 2

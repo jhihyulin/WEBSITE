@@ -126,7 +126,12 @@ const Map settingData = {
       'build_5f': {'name': '行政大樓==通達樓5F', 'searchable': false},
       'build_6f': {'name': '行政大樓=x=通達樓6F', 'searchable': false},
       'build_7f': {'name': '行政大樓=x=通達樓7F', 'searchable': false},
+      'build1_base': {'name': '行政大樓-基座', 'searchable': false},
+      'build1_base_###1': {'name': '行政大樓-基座2', 'searchable': false},
+      'build1_base_###2': {'name': '行政大樓-基座3', 'searchable': false},
+      'build1_base_###3': {'name': '行政大樓-基座4', 'searchable': false},
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
+      'build1_ramp': {'name': '行政大樓-斜坡', 'searchable': false},
       'build1_colunm': {'name': '行政大樓-柱子1', 'searchable': false},
       'build1_colunm_###1': {'name': '行政大樓-柱子2', 'searchable': false},
       'build1_colunm_###2': {'name': '行政大樓-柱子3', 'searchable': false},
@@ -247,6 +252,10 @@ const Map settingData = {
       'build1_6f_toilet1': {'name': '行政大樓6F廁所', 'searchable': false},
       'build1_7f_toilet1': {'name': '行政大樓7F廁所', 'searchable': false},
       'build1_stair': {'name': '行政大樓樓梯', 'searchable': false},
+      'build1_stair1': {'name': '行政大樓樓梯1', 'searchable': false},
+      'build1_stair1_###1': {'name': '行政大樓樓梯1-1', 'searchable': false},
+      'build1_stair1_###2': {'name': '行政大樓樓梯1-2', 'searchable': false},
+      'build1_stair1_###3': {'name': '行政大樓樓梯1-3', 'searchable': false},
       'build1_elevator': {'name': '行政大樓電梯', 'searchable': false},
       'build2_base1': {'name': '通達樓基1', 'searchable': false},
       'build2_1f_room1': {'name': '中型會議室'},
@@ -639,14 +648,100 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 
   // build1
+  'build1_base': {
+    'build': 'build1',
+    'x': -12,
+    'y': 0,
+    'z': 52.5,
+    'height': 1,
+    'width': 15,
+    'length': 5
+  },
+  'build1_base_###1': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0,
+    'z': 66.5,//60
+    'height': 1,
+    'width': 13,
+    'length': 2
+  },
+  'build1_base_###2': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 0,
+    'z': 67.5,
+    'height': 1,
+    'width': 15,
+    'length': 0.8
+  },
+  'build1_base_###3': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 0,
+    'z': 67.5,
+    'height': 2,
+    'width': 15,
+    'length': 0.2
+  },
   'build1_stair': {
     'build': 'build1',
     'x': -10,
-    'y': -2,
+    'y': 0,
     'z': 42.5,
     'height': 29,
     'width': 5,
     'length': 9
+  },
+  'build1_stair1': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0,
+    'z': 73.4,
+    'height': 0.2,
+    'width': 0.8,
+    'length': 2
+  },
+  'build1_stair1_###1': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0.2,
+    'z': 73.3,
+    'height': 0.2,
+    'width': 0.6,
+    'length': 2
+  },
+  'build1_stair1_###2': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0.4,
+    'z': 73.2,
+    'height': 0.2,
+    'width': 0.4,
+    'length': 2
+  },
+  'build1_stair1_###3': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0.6,
+    'z': 73.1,
+    'height': 0.2,
+    'width': 0.2,
+    'length': 2
+  },
+  'build1_ramp': {
+    'build': 'build1',
+    'x': -12.7,
+    'y': -0.5,
+    'z': 67.5,
+    'height': 1,
+    'width': 15.18,
+    'length': 2,
+    'rotate': {
+      'x': 0.067,
+      'y': 0,
+      'z': 0
+    }
   },
   'build1_elevator': {
     'build': 'build1',
@@ -940,12 +1035,12 @@ const Map<String, Map<String, dynamic>> mapData = {
   // build1_b1
   'build1_b1_room1': {
     'build': 'build1',
-    'x': -2,
+    'x': 0.5,
     'y': -2,
     'z': 60,
     'height': 3,
     'width': 30,
-    'length': 25,
+    'length': 20,
     'floor': -1,
   },
   'build1_b1_room1_###1': {
@@ -4477,11 +4572,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     initRenderer();
     initPage();
     initObject();
-    Timer(const Duration(seconds: 1), () {// TODO: if aniamte work, remove this
+    //Timer(const Duration(seconds: 1), () {// TODO: if aniamte work, remove this
       setState(() {
         _initialized = true;
       });
-    });
+    //});
   }
 
   initPage() {

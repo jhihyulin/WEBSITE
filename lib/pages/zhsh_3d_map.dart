@@ -3995,19 +3995,52 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           : AppBar(
               title: const Text('ZHSH 3D Map'),
             ),
-      body: MediaQuery.of(context).size.width > deskopModeWidth
-          ? _buildDesktop(context)
-          : _buildMobile(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _navigatorTimer?.cancel();
-          resetCamera();
-          resetLayout();
-          resetBuilgingColor();
-        },
-        tooltip: 'reset location',
-        child: const Icon(Icons.home),
-      ),
+      body: Column(children: [
+        Offstage(
+            offstage: _initialized,
+            child: Center(
+              child: Container(
+                  padding: EdgeInsets.all(20),
+                  constraints: BoxConstraints(
+                    maxWidth: 700,
+                    minHeight: MediaQuery.of(context).size.height -
+                        AppBar().preferredSize.height -
+                        MediaQuery.of(context).padding.top -
+                        MediaQuery.of(context).padding.bottom,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                        child: LinearProgressIndicator(
+                            minHeight: 20,
+                            backgroundColor: Theme.of(context).splashColor,
+                            value: null),
+                      ),
+                    ],
+                  )),
+            )),
+        Offstage(
+          offstage: _initialized == false,
+          child: MediaQuery.of(context).size.width > deskopModeWidth
+              ? _buildDesktop(context)
+              : _buildMobile(context),
+        )
+      ]),
+      floatingActionButton: _initialized
+          ? FloatingActionButton(
+              onPressed: () {
+                _navigatorTimer?.cancel();
+                resetCamera();
+                resetLayout();
+                resetBuilgingColor();
+              },
+              tooltip: 'reset location',
+              child: const Icon(Icons.home),
+            )
+          : null,
     );
   }
 
@@ -4444,8 +4477,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     initRenderer();
     initPage();
     initObject();
-    setState(() {
-      _initialized = true;
+    Timer(const Duration(seconds: 1), () {// TODO: if aniamte work, remove this
+      setState(() {
+        _initialized = true;
+      });
     });
   }
 

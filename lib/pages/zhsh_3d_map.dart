@@ -70,7 +70,7 @@ const Map settingData = {
       'shadow': {
         'enabled': true,
         'bias': -0.0006,
-        'mapSize': {'width': 4096, 'height': 4096},
+        'mapSize': {'width': 16384, 'height': 16384},
         'camera': {
           'left': -200,
           'right': 200,
@@ -748,7 +748,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 1,
     'width': 15.18,
     'length': 2,
-    'rotate': {'x': 0.067, 'y': 0, 'z': 0}
+    'rotate': {'x': 0.0664, 'y': 0, 'z': 0}
   },
   'build1_elevator': {
     'build': 'build1',

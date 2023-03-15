@@ -65,7 +65,7 @@ const Map settingData = {
       'type': 'directional',
       'color': 0xff8400,
       'intensity': 1,
-      'position': {'x': -90, 'y': 40, 'z': 50},
+      'position': {'x': -90, 'y': 40, 'z': 70},
       'target': {'x': 0, 'y': 0, 'z': 0},
       'shadow': {
         'enabled': true,
@@ -509,6 +509,17 @@ const Map settingData = {
       'facility_gate_###1': {'name': '大門柱#1', 'searchable': false},
       'facility_gate_###2': {'name': '大門柱#2', 'searchable': false},
       'facility_gate_slidedoor': {'name': '大門滑門', 'searchable': false},
+      'facility_gate_slidedoor_###1': {'name': '大門滑門#1', 'searchable': false},
+      'facility_gate_slidedoor_###c1': {'name': '大門滑門#c1', 'searchable': false},
+      'facility_gate_slidedoor_###c2': {'name': '大門滑門#c2', 'searchable': false},
+      'facility_gate_slidedoor_###c3': {'name': '大門滑門#c3', 'searchable': false},
+      'facility_gate_slidedoor_###c4': {'name': '大門滑門#c4', 'searchable': false},
+      'facility_gate_slidedoor_###c5': {'name': '大門滑門#c5', 'searchable': false},
+      'facility_gate_slidedoor_###c6': {'name': '大門滑門#c6', 'searchable': false},
+      'facility_gate_slidedoor_###c7': {'name': '大門滑門#c7', 'searchable': false},
+      'facility_gate_slidedoor_###c8': {'name': '大門滑門#c8', 'searchable': false},
+      'facility_gate_slidedoor_###c9': {'name': '大門滑門#c9', 'searchable': false},
+      'facility_gate_slidedoor_###c10': {'name': '大門滑門#c10', 'searchable': false},
       'facility_court1': {'name': '籃球場B'},
       'facility_court2': {'name': '排球場'},
       'facility_court3': {'name': '籃球場A'},
@@ -661,7 +672,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build1',
     'x': -10.5,
     'y': 0,
-    'z': 67,//60
+    'z': 67, //60
     'height': 1,
     'width': 14,
     'length': 2
@@ -737,11 +748,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 1,
     'width': 15.18,
     'length': 2,
-    'rotate': {
-      'x': 0.067,
-      'y': 0,
-      'z': 0
-    }
+    'rotate': {'x': 0.067, 'y': 0, 'z': 0}
   },
   'build1_elevator': {
     'build': 'build1',
@@ -3608,9 +3615,97 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -20, //-30close -20open
     'y': 0,
     'z': 102,
-    'height': 2,
-    'width': 0.5,
+    'height': 0.4,
+    'width': 0.3,
     'length': 10,
+  },
+  'facility_gate_slidedoor_###1': {
+    'x': -20, //-30close -20open
+    'y': 1.6,
+    'z': 102,
+    'height': 0.4,
+    'width': 0.3,
+    'length': 10,
+  },
+  'facility_gate_slidedoor_###c1': {
+    'x': -24.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c2': {
+    'x': -23.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c3': {
+    'x': -22.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c4': {
+    'x': -21.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c5': {
+    'x': -20.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c6': {
+    'x': -19.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c7': {
+    'x': -18.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c8': {
+    'x': -17.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c9': {
+    'x': -16.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c10': {
+    'x': -15.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
   },
   'facility_court1': {
     'x': 40,
@@ -4090,8 +4185,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           : AppBar(
               title: const Text('ZHSH 3D Map'),
             ),
-      body: Stack(
-        children: [
+      body: Stack(children: [
         Offstage(
             offstage: _initialized,
             child: Center(
@@ -4574,9 +4668,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     initPage();
     initObject();
     //Timer(const Duration(seconds: 1), () {// TODO: if aniamte work, remove this
-      setState(() {
-        _initialized = true;
-      });
+    setState(() {
+      _initialized = true;
+    });
     //});
   }
 
@@ -4680,11 +4774,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         mesh.rotateY(mapData[i]!['rotate']!['y']);
         mesh.rotateZ(mapData[i]!['rotate']!['z']);
       }
-      if (RegExp(r'.*_###.*').allMatches(i).isNotEmpty) {
-        mesh.name = i.replaceAll(RegExp(r'_###.*'), '');
-      } else {
-        mesh.name = i;
-      }
+      // if (RegExp(r'.*_###.*').allMatches(i).isNotEmpty) {
+      //   mesh.name = i.replaceAll(RegExp(r'_###.*'), '');
+      // } else {
+      mesh.name = i;
+      // }
       mesh.updateMatrix();
       mesh.matrixAutoUpdate = false;
       scene.add(mesh);
@@ -4783,7 +4877,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         if (i.name == 'ground') {
           continue;
         }
-        if (i.name == buildingName) {
+        if (i.name.replaceAll(RegExp(r'_###.*'), '') == buildingName) {
           if (settingData['object']['set'][i.name]!['render'] == false) {
             continue;
           }
@@ -4875,6 +4969,20 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   setGateSlideDoor(double value) {
     var mesh = scene.getObjectByName('facility_gate_slidedoor') as three.Mesh;
     mesh.position.setX(mapData['facility_gate_slidedoor']!['x']! - value);
+    if (kDebugMode) {
+      print('setGateSlideDoor: $value');
+    }
+    var li = ['1', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10'];
+    for (var i in li) {
+      var mesh =
+          scene.getObjectByName('facility_gate_slidedoor_###$i') as three.Mesh;
+      mesh.position
+          .setX(mapData['facility_gate_slidedoor_###$i']!['x']! - value);
+      if (kDebugMode) {
+        print('setGateSlideDoor: $value, facility_gate_slidedoor_###$i');
+      }
+    mesh.updateMatrix();
+    }
     mesh.updateMatrix();
   }
 

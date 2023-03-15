@@ -54,6 +54,8 @@ Set<Map<String, dynamic>> _status = {
 };
 
 class StatusPage extends StatefulWidget {
+  const StatusPage({super.key});
+
   @override
   _StatusPageState createState() => _StatusPageState();
 }

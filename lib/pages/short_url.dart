@@ -13,7 +13,7 @@ const String SURLSERVER_URL_1 = '/create';
 Uri SURLSERVER_CREATE = Uri.https(SURLSERVER_DOMAIN, SURLSERVER_URL_1);
 
 class ShortURLPage extends StatefulWidget {
-  ShortURLPage({Key? key}) : super(key: key);
+  const ShortURLPage({Key? key}) : super(key: key);
 
   @override
   _ShortURLPageState createState() => _ShortURLPageState();
@@ -78,7 +78,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                   showCloseIcon: true,
                   closeIconColor: Theme.of(context).colorScheme.error,
                   behavior: SnackBarBehavior.floating,
-                  duration: Duration(seconds: 10),
+                  duration: const Duration(seconds: 10),
                 )),
               });
     } else {
@@ -96,12 +96,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text('ShortURL'),
+          title: const Text('ShortURL'),
         ),
         body: SingleChildScrollView(
             child: Center(
           child: Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               constraints: BoxConstraints(
                 maxWidth: 700,
                 minHeight: MediaQuery.of(context).size.height -
@@ -117,7 +117,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                         TextFormField(
                           controller: SURLURLController,
                           keyboardType: TextInputType.url,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               labelText: 'URL',
                               hintText: 'https://example.com',
                               prefixIcon: Icon(Icons.link),
@@ -144,10 +144,10 @@ class _ShortURLPageState extends State<ShortURLPage> {
                             offstage: !_loading,
                             child: Column(
                               children: [
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 ClipRRect(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)),
+                                      const BorderRadius.all(Radius.circular(16.0)),
                                   child: LinearProgressIndicator(
                                     minHeight: 20,
                                     backgroundColor: Theme.of(context)
@@ -160,10 +160,10 @@ class _ShortURLPageState extends State<ShortURLPage> {
                             offstage: !_loaded,
                             child: Column(
                               children: [
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 TextFormField(
                                   controller: SURLsURLController,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     labelText: 'Short URL',
                                     prefixIcon: Icon(Icons.link),
                                     border: OutlineInputBorder(
@@ -175,7 +175,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                 ),
                               ],
                             )),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Wrap(
                             spacing: 10,
                             runSpacing: 10,
@@ -186,24 +186,24 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                 child: ElevatedButton.icon(
                                   onPressed: _createURL,
                                   label: _loaded
-                                      ? Text('Recreate')
-                                      : Text('Create Short URL'),
+                                      ? const Text('Recreate')
+                                      : const Text('Create Short URL'),
                                   icon: _loaded
-                                      ? Icon(Icons.refresh)
-                                      : Icon(Icons.add),
+                                      ? const Icon(Icons.refresh)
+                                      : const Icon(Icons.add),
                                 ),
                               ),
                               Offstage(
                                 offstage: !_loaded,
                                 child: ElevatedButton.icon(
-                                  label: Text('Copy'),
-                                  icon: Icon(Icons.copy),
+                                  label: const Text('Copy'),
+                                  icon: const Icon(Icons.copy),
                                   onPressed: () {
                                     Clipboard.setData(
                                             ClipboardData(text: _surl))
                                         .then((value) => {
                                               ScaffoldMessenger.of(context)
-                                                  .showSnackBar(SnackBar(
+                                                  .showSnackBar(const SnackBar(
                                                 content:
                                                     Text('Copied to clipboard'),
                                                 showCloseIcon: true,
@@ -222,7 +222,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                                         .error,
                                                 behavior:
                                                     SnackBarBehavior.floating,
-                                                duration: Duration(seconds: 10),
+                                                duration: const Duration(seconds: 10),
                                               ))
                                             });
                                   },

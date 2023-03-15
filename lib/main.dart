@@ -26,29 +26,10 @@ import 'pages/url_launcher.dart';
 import 'pages/qr_generator.dart';
 import 'pages/clock.dart';
 import 'pages/zhsh_3d_map.dart';
+import 'pages/404_page.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
-
-Map<String, Widget Function(BuildContext)> _routes = {
-  '/profile': (BuildContext context) => ProfilePage(),
-  '/signin': (BuildContext context) => SignInPage(),
-  '/status': (BuildContext context) => StatusPage(),
-  '/vpn': (BuildContext context) => VPNPage(),
-  '/shorturl': (BuildContext context) => ShortURLPage(),
-  '/longurl': (BuildContext context) => LongURLPage(),
-  '/contact': (BuildContext context) => ContactPage(),
-  '/about': (BuildContext context) => AboutPage(),
-  '/bmi': (BuildContext context) => BMIPage(),
-  '/timer': (BuildContext context) => TimerPage(),
-  '/urllauncher': (BuildContext context) => URLLauncherPage(),
-  '/qrgenerator': (BuildContext context) => QRGeneratorPage(),
-  '/clock': (BuildContext context) => ClockPage(),
-  '/zhsh3dmap': (BuildContext context) => ZHSH3DMapPage(),
-  '/setting': (BuildContext context) => SettingPage(),
-  '': (BuildContext context) => NavigationController(inputIndex: 0),
-  '/tool': (BuildContext context) => NavigationController(inputIndex: 1),
-};
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,7 +40,7 @@ void main() async {
     webRecaptchaSiteKey: '6LcPhjgkAAAAAAUtPybk3GHCkYZTxDd6w4kVOiQJ',
   );
   usePathUrlStrategy();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -108,12 +89,81 @@ class _MyAppState extends State<MyApp> {
               home: Scaffold(
                 body: NavigationController(),
               ),
-              routes: _routes,
               onGenerateRoute: (RouteSettings settings) {
                 String? name = settings.name;
-                WidgetBuilder? builder = _routes[name];
-                return MaterialPageRoute(
-                    builder: (context) => builder!(context));
+                WidgetBuilder? builder;
+                Map<String, String>? parameters;
+                // analyze parameters
+                if (name!.contains(RegExp(r'.*[?].*[=].*'))) {
+                  name.split(RegExp(r'[?&]')).forEach((String parameter) {
+                    if (RegExp(r'.*[=].*').allMatches(parameter).isNotEmpty) {
+                      List<String> parameterList = parameter.split('=');
+                      parameters = {
+                        ...parameters ?? {},
+                        parameterList[0]: parameterList[1],
+                      };
+                    }
+                  });
+                }
+                // ignore all query parameters
+                name = name.replaceAll(RegExp(r'[?].*'), '');
+                if (kDebugMode) {
+                  print('Route Name: $name, Parameters: $parameters');
+                }
+                switch (name) {
+                  case '/profile':
+                    builder = (BuildContext context) => const ProfilePage();
+                    break;
+                  case '/signin':
+                    builder = (BuildContext context) => SignInPage();
+                    break;
+                  case '/status':
+                    builder = (BuildContext context) => const StatusPage();
+                    break;
+                  case '/vpn':
+                    builder = (BuildContext context) => const VPNPage();
+                    break;
+                  case '/shorturl':
+                    builder = (BuildContext context) => const ShortURLPage();
+                    break;
+                  case '/longurl':
+                    builder = (BuildContext context) => const LongURLPage();
+                    break;
+                  case '/contact':
+                    builder = (BuildContext context) => const ContactPage();
+                    break;
+                  case '/about':
+                    builder = (BuildContext context) => const AboutPage();
+                    break;
+                  case '/bmi':
+                    builder = (BuildContext context) => const BMIPage();
+                    break;
+                  case '/timer':
+                    builder = (BuildContext context) => const TimerPage();
+                    break;
+                  case '/urllauncher':
+                    builder = (BuildContext context) => const URLLauncherPage();
+                    break;
+                  case '/qrgenerator':
+                    builder = (BuildContext context) => const QRGeneratorPage();
+                    break;
+                  case '/clock':
+                    builder = (BuildContext context) => const ClockPage();
+                    break;
+                  case '/zhsh3dmap':
+                    builder = (BuildContext context) => const ZHSH3DMapPage();
+                    break;
+                  case '/setting':
+                    builder = (BuildContext context) => const SettingPage();
+                    break;
+                  case '/tool':
+                    builder = (BuildContext context) =>
+                        NavigationController(inputIndex: 1);
+                    break;
+                  default:
+                    builder = (BuildContext context) => const NotFoundPage();
+                }
+                return MaterialPageRoute(builder: builder, settings: settings);
               },
               debugShowCheckedModeBanner: false,
             );
@@ -244,7 +294,9 @@ class _NavigationControllerState extends State<NavigationController> {
                                 child: Icon(_extended
                                     ? Icons.arrow_left
                                     : Icons.arrow_right)),
-                            label: _extended ? const Text('Close') : const Text(''),
+                            label: _extended
+                                ? const Text('Close')
+                                : const Text(''),
                           ),
                         ],
                         extended: _extended,

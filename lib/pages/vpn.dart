@@ -20,6 +20,8 @@ Uri VPNSERVER_GET_VPN_TOKEN = Uri.https(VPNSERVER_DOMAIN, VPNSERVER_URL_2);
 var _defaultSelect = 'null';
 
 class VPNPage extends StatefulWidget {
+  const VPNPage({super.key});
+
   @override
   _VPNPageState createState() => _VPNPageState();
 }

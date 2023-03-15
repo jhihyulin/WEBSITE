@@ -4243,10 +4243,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               return SizedBox(
                   width: width,
                   height: height,
-                  child: Builder(builder: (BuildContext context) {
-                    return HtmlElementView(
-                        viewType: three3dRender.textureId!.toString());
-                  }));
+                  child: HtmlElementView(
+                        viewType: three3dRender.textureId!.toString()
+                      ));
             }),
         SingleChildScrollView(
           child: Container(

@@ -18,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 const int deskopModeWidth = 640;
 
 const Map settingData = {
-  'version': {'name': 'Ver2023.3.11'},
+  'version': {'name': 'Ver2023.3.14'},
   'general': {
     'devMode': {'openDuration': 5},
     'search': {
@@ -29,15 +29,19 @@ const Map settingData = {
       'descriptionSearch': false,
       'keywordSearch': true,
       'nameSearch': true,
+    },
+    'position': {
+      // default
+      'gateSlideDoor': 7, // open0 close10
     }
   },
   'camera': {
-    'x': -50,
-    'y': 25,
-    'z': 100,
-    'focusX': 12.5,
+    'x': -35,
+    'y': 5,
+    'z': 90,
+    'focusX': -10,
     'focusY': 0,
-    'focusZ': 25,
+    'focusZ': 60,
     'focusIncreaseX': 25,
     'focusIncreaseY': 25,
     'focusIncreaseZ': 25,
@@ -48,6 +52,8 @@ const Map settingData = {
     'autoRotate': false,
     'autoRotateSpeed': 2.0,
     'searchFocus': true,
+    'minPolarAngle': 1,
+    'maxPolarAngle': 89,
   },
   'lights': [
     {
@@ -59,17 +65,17 @@ const Map settingData = {
       'type': 'directional',
       'color': 0xff8400,
       'intensity': 1,
-      'position': {'x': 90, 'y': 80, 'z': 50},
+      'position': {'x': -90, 'y': 40, 'z': 70},
       'target': {'x': 0, 'y': 0, 'z': 0},
       'shadow': {
         'enabled': true,
         'bias': -0.0006,
-        'mapSize': {'width': 2048, 'height': 2048},
+        'mapSize': {'width': 16384, 'height': 16384},
         'camera': {
-          'left': -150,
-          'right': 150,
-          'top': 150,
-          'bottom': -150,
+          'left': -200,
+          'right': 200,
+          'top': 200,
+          'bottom': -200,
           'near': 0.1,
           'far': 500,
         }
@@ -120,7 +126,43 @@ const Map settingData = {
       'build_5f': {'name': '行政大樓==通達樓5F', 'searchable': false},
       'build_6f': {'name': '行政大樓=x=通達樓6F', 'searchable': false},
       'build_7f': {'name': '行政大樓=x=通達樓7F', 'searchable': false},
+      'build1_base': {'name': '行政大樓-基座', 'searchable': false},
+      'build1_base_###1': {'name': '行政大樓-基座2', 'searchable': false},
+      'build1_base_###2': {'name': '行政大樓-基座3', 'searchable': false},
+      'build1_base_###3': {'name': '行政大樓-基座4', 'searchable': false},
       'build_stair': {'name': '行政大樓==通達樓-樓梯', 'searchable': false},
+      'build1_ramp': {'name': '行政大樓-斜坡', 'searchable': false},
+      'build1_colunm': {'name': '行政大樓-柱子1', 'searchable': false},
+      'build1_colunm_###1': {'name': '行政大樓-柱子2', 'searchable': false},
+      'build1_colunm_###2': {'name': '行政大樓-柱子3', 'searchable': false},
+      'build1_colunm_###3': {'name': '行政大樓-柱子4', 'searchable': false},
+      'build1_colunm_###4': {'name': '行政大樓-柱子5', 'searchable': false},
+      'build1_colunm_###5': {'name': '行政大樓-柱子6', 'searchable': false},
+      'build1_beam': {'name': '行政大樓-梁1', 'searchable': false},
+      'build1_beam_###1': {'name': '行政大樓-梁2', 'searchable': false},
+      'build1_beam_###2': {'name': '行政大樓-梁3', 'searchable': false},
+      'build1_beam_###3': {'name': '行政大樓-梁4', 'searchable': false},
+      'build1_beam_###4': {'name': '行政大樓-梁5', 'searchable': false},
+      'build1_beam_###5': {'name': '行政大樓-梁6', 'searchable': false},
+      'build1_beam_###6': {'name': '行政大樓-梁7', 'searchable': false},
+      'build1_beam_###7': {'name': '行政大樓-梁8', 'searchable': false},
+      'build1_beam_###8': {'name': '行政大樓-梁9', 'searchable': false},
+      'build1_beam_###9': {'name': '行政大樓-梁10', 'searchable': false},
+      'build1_beam_###10': {'name': '行政大樓-梁11', 'searchable': false},
+      'build1_beam_###11': {'name': '行政大樓-梁12', 'searchable': false},
+      'build1_beam_###12': {'name': '行政大樓-梁13', 'searchable': false},
+      'build1_beam_###13': {'name': '行政大樓-梁14', 'searchable': false},
+      'build1_beam_###14': {'name': '行政大樓-梁15', 'searchable': false},
+      'build1_stairgate': {'name': '行政大樓-門前樓梯', 'searchable': false},
+      'build1_stairgate_###1': {'name': '行政大樓-門前樓梯2', 'searchable': false},
+      'build1_stairgate_###2': {'name': '行政大樓-門前樓梯3', 'searchable': false},
+      'build1_stairgate_###3': {'name': '行政大樓-門前樓梯4', 'searchable': false},
+      'build1_facade': {'name': '行政大樓-牆1', 'searchable': false},
+      'build1_facade_###1': {'name': '行政大樓-牆2', 'searchable': false},
+      'build1_facade_###2': {'name': '行政大樓-牆3', 'searchable': false},
+      'build1_facade_###3': {'name': '行政大樓-牆4', 'searchable': false},
+      'build1_facade_###4': {'name': '行政大樓-牆5', 'searchable': false},
+      'build1_gate': {'name': '行政大樓-大門', 'searchable': false},
       'build1_b1_room1': {
         'name': '行政大樓B1',
         'keyword': ['行政大樓地下室', '地下室']
@@ -141,6 +183,7 @@ const Map settingData = {
         'name': '健康中心',
         'keyword': ['保健室']
       },
+      'build1_1f_room2_###1': {'name': '健康中心#1', 'searchable': false},
       'build1_1f_facility1': {
         'name': 'ATM自動櫃員機',
         'description': '中華郵政',
@@ -178,6 +221,7 @@ const Map settingData = {
           '校長室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/principal'
         }
       },
+      'build1_3f_extend': {'name': '行政大樓3f露臺', 'searchable': false},
       'build1_3f_room3': {
         'name': '會計室',
         'link': {
@@ -208,6 +252,10 @@ const Map settingData = {
       'build1_6f_toilet1': {'name': '行政大樓6F廁所', 'searchable': false},
       'build1_7f_toilet1': {'name': '行政大樓7F廁所', 'searchable': false},
       'build1_stair': {'name': '行政大樓樓梯', 'searchable': false},
+      'build1_stair1': {'name': '行政大樓樓梯1', 'searchable': false},
+      'build1_stair1_###1': {'name': '行政大樓樓梯1-1', 'searchable': false},
+      'build1_stair1_###2': {'name': '行政大樓樓梯1-2', 'searchable': false},
+      'build1_stair1_###3': {'name': '行政大樓樓梯1-3', 'searchable': false},
       'build1_elevator': {'name': '行政大樓電梯', 'searchable': false},
       'build2_base1': {'name': '通達樓基1', 'searchable': false},
       'build2_1f_room1': {'name': '中型會議室'},
@@ -227,8 +275,8 @@ const Map settingData = {
       'build3_base2': {'name': '中和樓基2', 'searchable': false},
       'build3_base3': {'name': '中和樓基3', 'searchable': false},
       'build3_b1_aisle1': {'name': '早餐店'},
-      'build3_b1_room1': {'name': '店1'},// TODO: name
-      'build3_b1_room2': {'name': '店2'},// TODO: name
+      'build3_b1_room1': {'name': '店A'}, // TODO: name
+      'build3_b1_room2': {'name': '店B'}, // TODO: name
       'build3_b1_room3': {'name': '倒了的店', 'searchable': false},
       'build3_b1_room4': {'name': '合作社'},
       'build3_b1_room5': {'name': '中和樓B1未知空間', 'searchable': false},
@@ -417,10 +465,22 @@ const Map settingData = {
       'build6_5f_room1': {'name': '自造空間'},
       'build6_5f_room1_###1': {'name': '圖書館5F???#1', 'searchable': false},
       'build6_5f_room1_###2': {'name': '圖書館5F???#2', 'searchable': false},
-      'build7_base1': {'name': '活動中心基1', 'searchable': false},
+      'build7_build_###base1': {'name': '活動中心基1', 'searchable': false},
+      'build7_build_###base2': {'name': '活動中心基2', 'searchable': false},
       'build7_toilet1': {'name': '活動中心女廁所', 'searchable': false},
       'build7_toilet2': {'name': '活動中心男廁所', 'searchable': false},
-      'build7_build': {'name': '活動中心', 'description': '籃球場、羽球場'},
+      'build7_build': {
+        'name': '活動中心',
+        'description': '籃球場、羽球場',
+        'keyword': ['籃球場', '羽球場', '籃球', '羽球']
+      },
+      'build7_build_###build_extend1': {'name': '活動中心#1', 'searchable': false},
+      'build7_build_###colunm_1': {'name': '活動中心柱子#1', 'searchable': false},
+      'build7_build_###colunm_2': {'name': '活動中心柱子#2', 'searchable': false},
+      'build7_build_###colunm_3': {'name': '活動中心柱子#3', 'searchable': false},
+      'build7_build_###colunm_4': {'name': '活動中心柱子#4', 'searchable': false},
+      'build7_build_###colunm_5': {'name': '活動中心柱子#5', 'searchable': false},
+      'build7_build_###colunm_6': {'name': '活動中心柱子#6', 'searchable': false},
       'build8_base1': {'name': '游泳池基1', 'searchable': false},
       'build8_base2': {'name': '游泳池基2', 'searchable': false},
       'build8_base3': {'name': '游泳池基3', 'searchable': false},
@@ -448,10 +508,23 @@ const Map settingData = {
       'facility_gate': {'name': '大門'},
       'facility_gate_###1': {'name': '大門柱#1', 'searchable': false},
       'facility_gate_###2': {'name': '大門柱#2', 'searchable': false},
+      'facility_gate_slidedoor': {'name': '大門滑門', 'searchable': false},
+      'facility_gate_slidedoor_###1': {'name': '大門滑門#1', 'searchable': false},
+      'facility_gate_slidedoor_###c1': {'name': '大門滑門#c1', 'searchable': false},
+      'facility_gate_slidedoor_###c2': {'name': '大門滑門#c2', 'searchable': false},
+      'facility_gate_slidedoor_###c3': {'name': '大門滑門#c3', 'searchable': false},
+      'facility_gate_slidedoor_###c4': {'name': '大門滑門#c4', 'searchable': false},
+      'facility_gate_slidedoor_###c5': {'name': '大門滑門#c5', 'searchable': false},
+      'facility_gate_slidedoor_###c6': {'name': '大門滑門#c6', 'searchable': false},
+      'facility_gate_slidedoor_###c7': {'name': '大門滑門#c7', 'searchable': false},
+      'facility_gate_slidedoor_###c8': {'name': '大門滑門#c8', 'searchable': false},
+      'facility_gate_slidedoor_###c9': {'name': '大門滑門#c9', 'searchable': false},
+      'facility_gate_slidedoor_###c10': {'name': '大門滑門#c10', 'searchable': false},
       'facility_court1': {'name': '籃球場B'},
       'facility_court2': {'name': '排球場'},
       'facility_court3': {'name': '籃球場A'},
       'facility_court4': {'name': '未知用途球場'},
+      'facility_court4_###1': {'name': '未知用途球場#1', 'searchable': false},
       'facility_recyclihgYard1': {'name': '回收場'},
       'facility_guardHouse': {'name': '警衛室'},
       'facility_parkingLot1': {'name': '機車棚'},
@@ -467,15 +540,36 @@ const Map settingData = {
         }
       },
       'facility_electronic1': {'name': '電箱'},
-      'facility_garbages1': {'name': '垃圾場'},
+      'facility_electronic1_###1': {'name': '電箱#1', 'searchable': false},
+      'facility_garbages1': {'name': '垃圾場 / 廚餘'},
       'facility_electronic2': {'name': '變電所'},
       'facility_platform1': {'name': '司令台'},
       'facility_ground1': {'name': '運動場'},
+      'facility_ground1_###1': {'name': '運動場#1', 'searchable': false},
       'facility_parkingLot2': {'name': '停車場#1', 'render': false},
       'facility_parkingLot3': {'name': '停車場#2', 'render': false},
+      'wall': {'name': '校園圍牆'},
+      'wall_###1': {'name': '校園圍牆#1', 'searchable': false},
+      'wall_###2': {'name': '校園圍牆#2', 'searchable': false},
+      'wall_###3': {'name': '校園圍牆#3', 'searchable': false},
+      'wall_###4': {'name': '校園圍牆#4', 'searchable': false},
+      'wall_###5': {'name': '校園圍牆#5', 'searchable': false},
+      'wall_###6': {'name': '校園圍牆#6', 'searchable': false},
+      'wall_###7': {'name': '校園圍牆#7', 'searchable': false},
+      'wall_###8': {'name': '校園圍牆#8', 'searchable': false},
+      'wall_###9': {'name': '校園圍牆#9', 'searchable': false},
+      'wall_###10': {'name': '校園圍牆#10', 'searchable': false},
+      'wall_###11': {'name': '校園圍牆#11', 'searchable': false},
+      'wall_###12': {'name': '校園圍牆#12', 'searchable': false},
+      'wall_###13': {'name': '校園圍牆#13', 'searchable': false},
+      'hill': {'name': '後山', 'searchable': false},
+      'hill_###1': {'name': '後山#1', 'searchable': false},
+      'hill_###2': {'name': '後山#2', 'searchable': false},
+      'hill_###3': {'name': '後山#3', 'searchable': false},
+      'hill_###4': {'name': '後山#4', 'searchable': false},
     }
   },
-  'ground': {'color': 0x96ad82, 'width': 200, 'length': 300},
+  'ground': {'color': 0x96ad82, 'width': 5000, 'length': 5000},
   'background': {
     'color': 'system', // 'system' or 0x000000
   },
@@ -565,15 +659,395 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 
   // build1
+  'build1_base': {
+    'build': 'build1',
+    'x': -12,
+    'y': 0,
+    'z': 52.5,
+    'height': 1,
+    'width': 15,
+    'length': 5
+  },
+  'build1_base_###1': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0,
+    'z': 67, //60
+    'height': 1,
+    'width': 14,
+    'length': 2
+  },
+  'build1_base_###2': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 0,
+    'z': 67.5,
+    'height': 1,
+    'width': 15,
+    'length': 0.8
+  },
+  'build1_base_###3': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 0,
+    'z': 67.5,
+    'height': 2,
+    'width': 15,
+    'length': 0.2
+  },
+  'build1_stair': {
+    'build': 'build1',
+    'x': -10,
+    'y': 0,
+    'z': 42.5,
+    'height': 29,
+    'width': 5,
+    'length': 9
+  },
+  'build1_stair1': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0,
+    'z': 74.4,
+    'height': 0.2,
+    'width': 0.8,
+    'length': 2
+  },
+  'build1_stair1_###1': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0.2,
+    'z': 74.3,
+    'height': 0.2,
+    'width': 0.6,
+    'length': 2
+  },
+  'build1_stair1_###2': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0.4,
+    'z': 74.2,
+    'height': 0.2,
+    'width': 0.4,
+    'length': 2
+  },
+  'build1_stair1_###3': {
+    'build': 'build1',
+    'x': -10.5,
+    'y': 0.6,
+    'z': 74.1,
+    'height': 0.2,
+    'width': 0.2,
+    'length': 2
+  },
+  'build1_ramp': {
+    'build': 'build1',
+    'x': -12.7,
+    'y': -0.5,
+    'z': 67.5,
+    'height': 1,
+    'width': 15.18,
+    'length': 2,
+    'rotate': {'x': 0.0664, 'y': 0, 'z': 0}
+  },
+  'build1_elevator': {
+    'build': 'build1',
+    'x': -4,
+    'y': -2,
+    'z': 42.5,
+    'height': 29,
+    'width': 5,
+    'length': 3
+  },
+  'build1_colunm': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 74.6,
+    'height': 10,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###1': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 69.7,
+    'height': 10,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###2': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 64.8,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###3': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 59.9,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###4': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 55,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_colunm_###5': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 50.1,
+    'height': 7,
+    'width': 0.8,
+    'length': 0.8
+  },
+  'build1_beam': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 74.6,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###1': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 72.15,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###2': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 67.25,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###3': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 62.35,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###4': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 57.45,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###5': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 52.55,
+    'height': 0.5,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###6': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 5,
+    'z': 47.35,
+    'height': 0.5,
+    'width': 4.7,
+    'length': 0.5
+  },
+  'build1_beam_###7': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 7,
+    'z': 74.6,
+    'height': 2,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###8': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 7,
+    'z': 72.15,
+    'height': 2,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###9': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 7,
+    'z': 67.25,
+    'height': 2,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_beam_###10': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 69.7,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###11': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 64.8,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###12': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 59.9,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###13': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 55,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_beam_###14': {
+    'build': 'build1',
+    'x': -11.6,
+    'y': 5,
+    'z': 50.1,
+    'height': 0.5,
+    'width': 0.5,
+    'length': 4.2
+  },
+  'build1_stairgate': {
+    'build': 'build1',
+    'x': -14.9,
+    'y': 0,
+    'z': 55,
+    'height': 0.2,
+    'width': 9.8,
+    'length': 0.8
+  },
+  'build1_stairgate_###1': {
+    'build': 'build1',
+    'x': -14.8,
+    'y': 0.2,
+    'z': 55,
+    'height': 0.2,
+    'width': 9.8,
+    'length': 0.6
+  },
+  'build1_stairgate_###2': {
+    'build': 'build1',
+    'x': -14.7,
+    'y': 0.4,
+    'z': 55,
+    'height': 0.2,
+    'width': 9.8,
+    'length': 0.4
+  },
+  'build1_stairgate_###3': {
+    'build': 'build1',
+    'x': -14.6,
+    'y': 0.6,
+    'z': 55,
+    'height': 0.2,
+    'width': 9.8,
+    'length': 0.2
+  },
+  'build1_facade': {
+    'build': 'build1',
+    'x': -9.25,
+    'y': 1,
+    'z': 47,
+    'height': 7,
+    'width': 4,
+    'length': 0.5
+  },
+  'build1_facade_###1': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 72.15,
+    'height': 0.7,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_facade_###2': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 67.25,
+    'height': 0.7,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_facade_###3': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 62.35,
+    'height': 0.7,
+    'width': 4.1,
+    'length': 0.5
+  },
+  'build1_facade_###4': {
+    'build': 'build1',
+    'x': -14.1,
+    'y': 1,
+    'z': 47.35,
+    'height': 0.7,
+    'width': 4.7,
+    'length': 0.5
+  },
+  'build1_gate': {
+    'build': 'build1',
+    'x': -9.25,
+    'y': 1,
+    'z': 54.5,
+    'height': 4,
+    'width': 11,
+    'length': 0.5,
+    'opacity': 0.2
+  },
   // build1_b1
   'build1_b1_room1': {
     'build': 'build1',
-    'x': -2,
+    'x': 0.5,
     'y': -2,
     'z': 60,
     'height': 3,
     'width': 30,
-    'length': 25,
+    'length': 20,
     'floor': -1,
   },
   'build1_b1_room1_###1': {
@@ -626,13 +1100,23 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 10,
     'floor': 1,
   },
+  'build1_1f_room2_###1': {
+    'build': 'build1',
+    'x': 9.5,
+    'y': 1,
+    'z': 57,
+    'height': 4,
+    'width': 6,
+    'length': 2,
+    'floor': 1,
+  },
   'build1_1f_facility1': {
     'build': 'build1',
     'x': 9.5,
     'y': 1,
-    'z': 55.5,
+    'z': 52.5,
     'height': 4,
-    'width': 9,
+    'width': 3,
     'length': 2,
     'floor': 1,
   },
@@ -648,6 +1132,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     // cccccc
   },
   // build1_2f
+  'build1_2f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 5,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 2,
+  },
   'build1_2f_room': {
     'build': 'build1',
     'x': -1,
@@ -679,6 +1173,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 2,
   },
   // build1_3f
+  'build1_3f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 8,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 3,
+  },
   'build1_3f_room': {
     'build': 'build1',
     'x': -1,
@@ -703,11 +1207,19 @@ const Map<String, Map<String, dynamic>> mapData = {
     'build': 'build1',
     'x': -12,
     'y': 8,
-    'z': 62,
+    'z': 57.1,
     'height': 3,
-    'width': 26,
+    'width': 16.2,
     'length': 5,
     'floor': 3,
+  },
+  'build1_3f_extend': {
+    'x': -15.25,
+    'y': 8,
+    'z': 55,
+    'height': 1.5,
+    'width': 14,
+    'length': 1.5
   },
   'build1_3f_room3': {
     'build': 'build1',
@@ -730,6 +1242,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 2,
   },
   // build1_4f
+  'build1_4f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 11,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 4,
+  },
   'build1_4f_room': {
     'build': 'build1',
     'x': -1,
@@ -761,6 +1283,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 4,
   },
   // build1_5f
+  'build1_5f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 14,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 5,
+  },
   'build1_5f_room': {
     'build': 'build1',
     'x': -1,
@@ -782,6 +1314,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 5,
   },
   // build1_6f
+  'build1_6f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 17,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 6,
+  },
   'build1_6f_room': {
     'build': 'build1',
     'x': -1,
@@ -803,6 +1345,16 @@ const Map<String, Map<String, dynamic>> mapData = {
     'floor': 5,
   },
   // build1_7f
+  'build1_7f_toilet1': {
+    'build': 'build1',
+    'x': 5.5,
+    'y': 20,
+    'z': 42.5,
+    'height': 3,
+    'width': 5,
+    'length': 10,
+    'floor': 7,
+  },
   'build1_7f_room': {
     'build': 'build1',
     'x': -1,
@@ -822,84 +1374,6 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 30,
     'length': 25,
     'floor': 5,
-  },
-  'build1_2f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 5,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 2,
-  },
-  'build1_3f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 8,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 3,
-  },
-  'build1_4f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 11,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 4,
-  },
-  'build1_5f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 14,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 5,
-  },
-  'build1_6f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 17,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 6,
-  },
-  'build1_7f_toilet1': {
-    'build': 'build1',
-    'x': 5.5,
-    'y': 20,
-    'z': 42.5,
-    'height': 3,
-    'width': 5,
-    'length': 10,
-    'floor': 7,
-  },
-  'build1_stair': {
-    'build': 'build1',
-    'x': -10,
-    'y': -2,
-    'z': 42.5,
-    'height': 29,
-    'width': 5,
-    'length': 9
-  },
-  'build1_elevator': {
-    'build': 'build1',
-    'x': -4,
-    'y': -2,
-    'z': 42.5,
-    'height': 29,
-    'width': 5,
-    'length': 3
   },
 
   // build2
@@ -2765,7 +3239,7 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 
   // build7
-  'build7_base1': {
+  'build7_build_###base1': {
     'build': 'build7',
     'x': -75,
     'y': 0,
@@ -2773,6 +3247,15 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 1,
     'width': 50,
     'length': 35
+  },
+  'build7_build_###base2': {
+    'build': 'build7',
+    'x': -55,
+    'y': 0,
+    'z': 60,
+    'height': 1,
+    'width': 37,
+    'length': 5
   },
   'build7_toilet1': {
     'build': 'build7',
@@ -2800,6 +3283,69 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 10,
     'width': 50,
     'length': 35
+  },
+  'build7_build_###build_extend1': {
+    'build': 'build7',
+    'x': -55,
+    'y': 10,
+    'z': 60,
+    'height': 1,
+    'width': 28,
+    'length': 5
+  },
+  'build7_build_###colunm_1': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 72, // 60
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_2': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 67,
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_3': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 62,
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_4': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 58,
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_5': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 53,
+    'height': 10,
+    'width': 1,
+    'length': 1
+  },
+  'build7_build_###colunm_6': {
+    'build': 'build7',
+    'x': -53.5,
+    'y': 1,
+    'z': 48,
+    'height': 10,
+    'width': 1,
+    'length': 1
   },
 
   // build8
@@ -3065,6 +3611,102 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 6,
     'length': 4
   },
+  'facility_gate_slidedoor': {
+    'x': -20, //-30close -20open
+    'y': 0,
+    'z': 102,
+    'height': 0.4,
+    'width': 0.3,
+    'length': 10,
+  },
+  'facility_gate_slidedoor_###1': {
+    'x': -20, //-30close -20open
+    'y': 1.6,
+    'z': 102,
+    'height': 0.4,
+    'width': 0.3,
+    'length': 10,
+  },
+  'facility_gate_slidedoor_###c1': {
+    'x': -24.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c2': {
+    'x': -23.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c3': {
+    'x': -22.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c4': {
+    'x': -21.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c5': {
+    'x': -20.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c6': {
+    'x': -19.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c7': {
+    'x': -18.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c8': {
+    'x': -17.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c9': {
+    'x': -16.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
+  'facility_gate_slidedoor_###c10': {
+    'x': -15.75,
+    'y': 0.4,
+    'z': 102,
+    'height': 1.2,
+    'width': 0.3,
+    'length': 0.5,
+  },
   'facility_court1': {
     'x': 40,
     'y': 0,
@@ -3098,6 +3740,15 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 12,
     'rotate': {'x': 0, 'y': -0.5, 'z': 0}
   },
+  'facility_court4_###1': {
+    'x': -65.4,
+    'y': 0,
+    'z': -87.95,
+    'height': 3,
+    'width': 15,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.5, 'z': 0}
+  },
   'facility_recyclihgYard1': {
     'x': -80,
     'y': 0,
@@ -3110,7 +3761,7 @@ const Map<String, Map<String, dynamic>> mapData = {
     'x': -44,
     'y': 0,
     'z': 100,
-    'height': 3,
+    'height': 4,
     'width': 5,
     'length': 10
   },
@@ -3140,29 +3791,38 @@ const Map<String, Map<String, dynamic>> mapData = {
     'length': 11
   },
   'facility_electronic1': {
-    'x': 25,
+    'x': 28,
     'y': 0,
-    'z': 103,
+    'z': 98.5,
     'height': 2,
     'width': 3,
-    'length': 10
+    'length': 7
+  },
+  'facility_electronic1_###1': {
+    'x': 23,
+    'y': 0,
+    'z': 99,
+    'height': 3,
+    'width': 2,
+    'length': 3
   },
   'facility_garbages1': {
-    'x': 35.5,
+    'x': 37,
     'y': 0,
-    'z': 103,
-    'height': 0.1,
+    'z': 98.5,
+    'height': 2,
     'width': 3,
-    'length': 11
+    'length': 11,
+    'rotate': {'x': 0, 'y': -0.05, 'z': 0}
   },
   'facility_electronic2': {
-    'x': 72,
+    'x': 74,
     'y': 0,
-    'z': -3,
-    'height': 3,
-    'width': 8,
-    'length': 13,
-    'rotate': {'x': 0, 'y': 1.2, 'z': 0}
+    'z': -2,
+    'height': 4,
+    'width': 13,
+    'length': 8,
+    'rotate': {'x': 0, 'y': -0.6, 'z': 0}
   },
   'facility_platform1': {
     'x': 0,
@@ -3180,6 +3840,14 @@ const Map<String, Map<String, dynamic>> mapData = {
     'width': 50,
     'length': 100
   },
+  'facility_ground1_###1': {
+    'x': 55,
+    'y': 0,
+    'z': -125,
+    'height': 0.1,
+    'width': 10,
+    'length': 15
+  },
   'facility_parkingLot2': {
     'x': 23,
     'y': 0,
@@ -3195,6 +3863,167 @@ const Map<String, Map<String, dynamic>> mapData = {
     'height': 0.1,
     'width': 15,
     'length': 20
+  },
+  'wall': {'x': -13.5, 'y': 0, 'z': 102, 'height': 4, 'width': 1, 'length': 15},
+  'wall_###1': {
+    'x': 7.75,
+    'y': 0,
+    'z': 100.5,
+    'height': 2,
+    'width': 0.3,
+    'length': 28,
+    'rotate': {'x': 0, 'y': 0.1, 'z': 0}
+  },
+  'wall_###2': {
+    'x': -51.5,
+    'y': 0,
+    'z': 103.5,
+    'height': 4,
+    'width': 0.3,
+    'length': 6,
+    'rotate': {'x': 0, 'y': 0.5, 'z': 0}
+  },
+  'wall_###3': {
+    'x': -74,
+    'y': 0,
+    'z': 106,
+    'height': 2,
+    'width': 0.3,
+    'length': 40,
+    'rotate': {'x': 0, 'y': 0.05, 'z': 0}
+  },
+  'wall_###4': {
+    'x': -98,
+    'y': 0,
+    'z': 79.95,
+    'height': 2,
+    'width': 55,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': 0.15, 'z': 0}
+  },
+  'wall_###5': {
+    'x': -93.6,
+    'y': 0,
+    'z': 35.2,
+    'height': 2,
+    'width': 39.2,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.45, 'z': 0}
+  },
+  'wall_###6': {
+    'x': -85.15,
+    'y': 0,
+    'z': 0,
+    'height': 2,
+    'width': 35,
+    'length': 0.3
+  },
+  'wall_###7': {
+    'x': 55,
+    'y': 0,
+    'z': 57,
+    'height': 2,
+    'width': 85,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.3, 'z': 0}
+  },
+  'wall_###8': {
+    'x': 81.5,
+    'y': 0,
+    'z': -4,
+    'height': 2,
+    'width': 50,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.6, 'z': 0}
+  },
+  'wall_###9': {
+    'x': 100.5,
+    'y': 0,
+    'z': -49,
+    'height': 2,
+    'width': 50,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': -0.2, 'z': 0}
+  },
+  'wall_###10': {
+    'x': 103,
+    'y': 0,
+    'z': -81.5,
+    'height': 2,
+    'width': 17,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': 0.3, 'z': 0}
+  },
+  'wall_###11': {
+    'x': 95,
+    'y': 0,
+    'z': -97.5,
+    'height': 2,
+    'width': 20,
+    'length': 0.3,
+    'rotate': {'x': 0, 'y': 0.6, 'z': 0}
+  },
+  'wall_###12': {
+    'x': 76.5,
+    'y': 0,
+    'z': -113,
+    'height': 2,
+    'width': 0.3,
+    'length': 30,
+    'rotate': {'x': 0, 'y': -0.52, 'z': 0}
+  },
+  'wall_###13': {
+    'x': 63.5,
+    'y': 0,
+    'z': -129.85,
+    'height': 2,
+    'width': 19,
+    'length': 0.3
+  },
+  'hill': {
+    'x': 0,
+    'y': -15,
+    'z': -162,
+    'height': 30,
+    'width': 30,
+    'length': 190,
+    'rotate': {'x': 0.7, 'y': 0, 'z': 0}
+  },
+  'hill_###1': {
+    'x': 93,
+    'y': -31,
+    'z': -134,
+    'height': 40,
+    'width': 40,
+    'length': 40,
+    'rotate': {'x': 0.5, 'y': 0.65, 'z': 0.5}
+  },
+  'hill_###2': {
+    'x': 90,
+    'y': -18,
+    'z': -138,
+    'height': 30,
+    'width': 30,
+    'length': 30,
+    'rotate': {'x': -0.2, 'y': 0.2, 'z': 0.7}
+  },
+  'hill_###3': {
+    'x': -93.7,
+    'y': -26,
+    'z': -73,
+    'height': 40,
+    'width': 180,
+    'length': 40,
+    'rotate': {'x': 0, 'y': 0, 'z': 0.5}
+  },
+  'hill_###4': {
+    'x': -75,
+    'y': -30,
+    'z': -105,
+    'height': 40,
+    'width': 110,
+    'length': 40,
+    'rotate': {'x': 0, 'y': -0.5, 'z': 0.4}
   },
 };
 
@@ -3213,7 +4042,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   three.WebGLRenderer? renderer;
 
   final bool _lightHelper = kDebugMode;
-  final bool _groundHelper = kDebugMode;
+  final bool _groundHelper = false;
 
   Timer? _navigatorTimer;
   Timer? _devModeTimer;
@@ -3238,6 +4067,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   bool verbose = true;
   bool disposed = false;
+  bool _initialized = false;
 
   late three.WebGLRenderTarget renderTarget;
 
@@ -3250,6 +4080,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   bool _devMode = false;
   bool _fullScreen = false;
+
+  double _gateSlideDoor =
+      settingData['general']['position']['gateSlideDoor'] ?? 0;
 
   int _fps = 0;
 
@@ -3352,19 +4185,52 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           : AppBar(
               title: const Text('ZHSH 3D Map'),
             ),
-      body: MediaQuery.of(context).size.width > deskopModeWidth
-          ? _buildDesktop(context)
-          : _buildMobile(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _navigatorTimer?.cancel();
-          resetCamera();
-          resetLayout();
-          resetBuilgingColor();
-        },
-        tooltip: 'reset location',
-        child: const Icon(Icons.home),
-      ),
+      body: Stack(children: [
+        Offstage(
+            offstage: _initialized,
+            child: Center(
+              child: Container(
+                  padding: EdgeInsets.all(20),
+                  constraints: BoxConstraints(
+                    maxWidth: 700,
+                    minHeight: MediaQuery.of(context).size.height -
+                        AppBar().preferredSize.height -
+                        MediaQuery.of(context).padding.top -
+                        MediaQuery.of(context).padding.bottom,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16.0)),
+                        child: LinearProgressIndicator(
+                            minHeight: 20,
+                            backgroundColor: Theme.of(context).splashColor,
+                            value: null),
+                      ),
+                    ],
+                  )),
+            )),
+        Offstage(
+          offstage: _initialized == false,
+          child: MediaQuery.of(context).size.width > deskopModeWidth
+              ? _buildDesktop(context)
+              : _buildMobile(context),
+        ),
+      ]),
+      floatingActionButton: _initialized
+          ? FloatingActionButton(
+              onPressed: () {
+                _navigatorTimer?.cancel();
+                resetCamera();
+                resetLayout();
+                resetBuilgingColor();
+              },
+              tooltip: 'reset location',
+              child: const Icon(Icons.home),
+            )
+          : null,
     );
   }
 
@@ -3377,12 +4243,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               return SizedBox(
                   width: width,
                   height: height,
-                  child: Builder(builder: (BuildContext context) {
-                    return three3dRender.isInitialized
-                        ? HtmlElementView(
-                            viewType: three3dRender.textureId!.toString())
-                        : const Center(child: CircularProgressIndicator());
-                  }));
+                  child: HtmlElementView(
+                        viewType: three3dRender.textureId!.toString()
+                      ));
             }),
         SingleChildScrollView(
           child: Container(
@@ -3406,20 +4269,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   width: width,
                   height: height,
                   child: Builder(builder: (BuildContext context) {
-                    return three3dRender.isInitialized
-                        ? HtmlElementView(
-                            viewType: three3dRender.textureId!.toString())
-                        : Center(
-                            child: ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(16.0)),
-                              child: LinearProgressIndicator(
-                                minHeight: 20,
-                                backgroundColor: Theme.of(context).splashColor,
-                                value: null,
-                              ),
-                            ),
-                          );
+                    return HtmlElementView(
+                        viewType: three3dRender.textureId!.toString());
                   }));
             }),
         Container(
@@ -3432,7 +4283,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   Widget _contentWidget() {
     return Column(children: [
-      Autocomplete<String>(
+      Card(
+        child: Column(
+          children: [
+            Autocomplete<String>(
         fieldViewBuilder: (BuildContext context,
             TextEditingController textEditingController,
             FocusNode focusNode,
@@ -3513,7 +4367,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       ),
       SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: Card(
           child: Column(
             children: [
               Offstage(
@@ -3592,8 +4445,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.grey, fontSize: 12)),
             ],
-          ),
         ),
+      ),
+          ],
+        )
       ),
       GestureDetector(
         onTap: _devMode
@@ -3673,6 +4528,21 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                     '${settingData['camera']['focusY']}, '
                     '${settingData['camera']['focusZ']}'),
               ),
+              ListTile(
+                title: const Text('Gate Slide Door'),
+                subtitle: Slider(
+                  value: _gateSlideDoor,
+                  min: 0,
+                  max: 10,
+                  divisions: null,
+                  onChanged: (double value) {
+                    setState(() {
+                      _gateSlideDoor = value;
+                    });
+                    setGateSlideDoor(_gateSlideDoor);
+                  },
+                ),
+              )
             ],
           ))
     ]);
@@ -3711,9 +4581,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   }
 
   dynamic searchRecommend(String arg, bool editcomplete) {
-    if (RegExp(
-            r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9')
-        .hasMatch(arg)) {
+    if (RegExp(r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9').hasMatch(arg)) {
       return 'NA';
     }
     var result = <String>[];
@@ -3801,6 +4669,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   initScene() {
     initRenderer();
     initPage();
+    initObject();
+    //Timer(const Duration(seconds: 1), () {// TODO: if aniamte work, remove this
+    setState(() {
+      _initialized = true;
+    });
+    //});
   }
 
   initPage() {
@@ -3828,7 +4702,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     controls.screenSpacePanning = false;
     controls.minDistance = 1;
     controls.maxDistance = 500;
-    controls.maxPolarAngle = three.Math.pi / 2;
+    controls.minPolarAngle = settingData['controls']['minPolarAngle'] *
+        three.Math.pi /
+        180; // radians
+    controls.maxPolarAngle = settingData['controls']['maxPolarAngle'] *
+        three.Math.pi /
+        180; // radians
     controls.target.set(settingData['camera']['focusX'],
         settingData['camera']['focusY'], settingData['camera']['focusZ']);
 
@@ -3886,6 +4765,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         mesh.scale.set(
             mapData[i]!['length'], mapData[i]!['height'], mapData[i]!['width']);
       }
+      if (mapData[i]!['opacity'] != null) {
+        mesh.material.opacity = mapData[i]!['opacity'];
+        mesh.material.transparent = true;
+      }
       mesh.position.set(mapData[i]!['x'], mapData[i]!['y'], mapData[i]!['z']);
       mesh.castShadow = true;
       mesh.receiveShadow = true;
@@ -3894,11 +4777,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         mesh.rotateY(mapData[i]!['rotate']!['y']);
         mesh.rotateZ(mapData[i]!['rotate']!['z']);
       }
-      if (RegExp(r'.*_###.*').allMatches(i).isNotEmpty) {
-        mesh.name = i.replaceAll(RegExp(r'_###.*'), '');
-      } else {
-        mesh.name = i;
-      }
+      // if (RegExp(r'.*_###.*').allMatches(i).isNotEmpty) {
+      //   mesh.name = i.replaceAll(RegExp(r'_###.*'), '');
+      // } else {
+      mesh.name = i;
+      // }
       mesh.updateMatrix();
       mesh.matrixAutoUpdate = false;
       scene.add(mesh);
@@ -3997,7 +4880,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         if (i.name == 'ground') {
           continue;
         }
-        if (i.name == buildingName) {
+        if (i.name.replaceAll(RegExp(r'_###.*'), '') == buildingName) {
           if (settingData['object']['set'][i.name]!['render'] == false) {
             continue;
           }
@@ -4073,13 +4956,37 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
               : settingData['object']['set'][i.name]!['color'] ??
                   settingData['buildings']['color'],
           'flatShading': false,
-          'opacity': 1,
+          'opacity': mapData[i.name]!['opacity'] ?? 1,
           'roughness': 0.1,
           'metalness': 0.1,
-          'transparent': false,
+          'transparent': mapData[i.name]!['opacity'] != null,
         });
       }
     }
+  }
+
+  initObject() {
+    setGateSlideDoor(_gateSlideDoor);
+  }
+
+  setGateSlideDoor(double value) {
+    var mesh = scene.getObjectByName('facility_gate_slidedoor') as three.Mesh;
+    mesh.position.setX(mapData['facility_gate_slidedoor']!['x']! - value);
+    if (kDebugMode) {
+      print('setGateSlideDoor: $value');
+    }
+    var li = ['1', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10'];
+    for (var i in li) {
+      var mesh =
+          scene.getObjectByName('facility_gate_slidedoor_###$i') as three.Mesh;
+      mesh.position
+          .setX(mapData['facility_gate_slidedoor_###$i']!['x']! - value);
+      if (kDebugMode) {
+        print('setGateSlideDoor: $value, facility_gate_slidedoor_###$i');
+      }
+    mesh.updateMatrix();
+    }
+    mesh.updateMatrix();
   }
 
   @override

@@ -4283,7 +4283,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
 
   Widget _contentWidget() {
     return Column(children: [
-      Autocomplete<String>(
+      Card(
+        child: Column(
+          children: [
+            Autocomplete<String>(
         fieldViewBuilder: (BuildContext context,
             TextEditingController textEditingController,
             FocusNode focusNode,
@@ -4364,7 +4367,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
       ),
       SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: Card(
           child: Column(
             children: [
               Offstage(
@@ -4443,8 +4445,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.grey, fontSize: 12)),
             ],
-          ),
         ),
+      ),
+          ],
+        )
       ),
       GestureDetector(
         onTap: _devMode

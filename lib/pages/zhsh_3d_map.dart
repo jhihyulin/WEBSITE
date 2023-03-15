@@ -4227,7 +4227,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
             offstage: _initialized,
             child: Center(
               child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   constraints: BoxConstraints(
                     maxWidth: 700,
                     minHeight: MediaQuery.of(context).size.height -
@@ -4585,7 +4585,19 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
                     setGateSlideDoor(_gateSlideDoor);
                   },
                 ),
-              )
+              ),
+              ListTile(
+                title: const Text('Embeded Link'),
+                subtitle: const Text(
+                    'https://jhihyulin.live/zhsh3dmap?embededMode=true'),
+                trailing: IconButton(
+                  icon: const Icon(Icons.copy),
+                  onPressed: () {
+                    html.window.navigator.clipboard?.writeText(
+                        'https://jhihyulin.live/zhsh3dmap?embededMode=true');
+                  },
+                ),
+              ),
             ],
           ))
     ]);

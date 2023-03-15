@@ -36,12 +36,12 @@ const Map settingData = {
     }
   },
   'camera': {
-    'x': -50,
-    'y': 25,
-    'z': 100,
-    'focusX': 12.5,
+    'x': -35,
+    'y': 5,
+    'z': 90,
+    'focusX': -10,
     'focusY': 0,
-    'focusZ': 25,
+    'focusZ': 60,
     'focusIncreaseX': 25,
     'focusIncreaseY': 25,
     'focusIncreaseZ': 25,

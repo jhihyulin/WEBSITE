@@ -4027,8 +4027,12 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 };
 
+bool _embededMode = false;
+
 class ZHSH3DMapPage extends StatefulWidget {
-  const ZHSH3DMapPage({super.key});
+  ZHSH3DMapPage({Key? key, bool embededMode = false}): super(key: key) {
+    _embededMode = embededMode;
+  }
 
   @override
   _ZHSH3DMapPageState createState() => _ZHSH3DMapPageState();
@@ -4100,7 +4104,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
         if (MediaQuery.of(context).size.width > deskopModeWidth) {
           width = MediaQuery.of(context).size.width / 3 * 2;
           height = MediaQuery.of(context).size.height -
-              (_fullScreen ? 0 : AppBar().preferredSize.height);
+              (_fullScreen || _embededMode ? 0 : AppBar().preferredSize.height);
         } else {
           width = MediaQuery.of(context).size.width;
           height = (MediaQuery.of(context).size.height -
@@ -4121,7 +4125,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
     if (MediaQuery.of(context).size.width > deskopModeWidth) {
       width = MediaQuery.of(context).size.width / 3 * 2;
       height = MediaQuery.of(context).size.height -
-          (_fullScreen ? 0 : AppBar().preferredSize.height);
+          (_fullScreen || _embededMode ? 0 : AppBar().preferredSize.height);
     } else {
       width = MediaQuery.of(context).size.width;
       height =
@@ -4180,7 +4184,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
   Widget build(BuildContext context) {
     initSize(context);
     return Scaffold(
-      appBar: _fullScreen
+      appBar: _fullScreen || _embededMode
           ? null
           : AppBar(
               title: const Text('ZHSH 3D Map'),

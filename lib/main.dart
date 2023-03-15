@@ -151,7 +151,13 @@ class _MyAppState extends State<MyApp> {
                     builder = (BuildContext context) => const ClockPage();
                     break;
                   case '/zhsh3dmap':
-                    builder = (BuildContext context) => const ZHSH3DMapPage();
+                    if (parameters != null) {
+                      builder = (BuildContext context) => ZHSH3DMapPage(
+                            embededMode: parameters!['embededMode'] == 'true',
+                          );
+                    } else {
+                      builder = (BuildContext context) => ZHSH3DMapPage();
+                    }
                     break;
                   case '/setting':
                     builder = (BuildContext context) => const SettingPage();

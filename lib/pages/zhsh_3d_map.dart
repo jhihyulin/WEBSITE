@@ -4090,7 +4090,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           : AppBar(
               title: const Text('ZHSH 3D Map'),
             ),
-      body: Column(children: [
+      body: Stack(
+        children: [
         Offstage(
             offstage: _initialized,
             child: Center(
@@ -4122,7 +4123,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> {
           child: MediaQuery.of(context).size.width > deskopModeWidth
               ? _buildDesktop(context)
               : _buildMobile(context),
-        )
+        ),
       ]),
       floatingActionButton: _initialized
           ? FloatingActionButton(

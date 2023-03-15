@@ -12,6 +12,8 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class QRGeneratorPage extends StatefulWidget {
+  const QRGeneratorPage({super.key});
+
   @override
   _QRGeneratorPageState createState() => _QRGeneratorPageState();
 }

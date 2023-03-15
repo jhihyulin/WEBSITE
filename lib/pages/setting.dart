@@ -8,6 +8,8 @@ import '../provider/theme.dart';
 import '../plugins/logo_icons.dart';
 
 class SettingPage extends StatefulWidget {
+  const SettingPage({super.key});
+
   @override
   _SettingPageState createState() => _SettingPageState();
 }

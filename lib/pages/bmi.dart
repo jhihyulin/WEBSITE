@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BMIPage extends StatefulWidget {
+  const BMIPage({super.key});
+
   @override
   _BMIPageState createState() => _BMIPageState();
 }

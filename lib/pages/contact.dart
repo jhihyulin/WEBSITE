@@ -13,6 +13,8 @@ const String CONTACT_URL = '/contact';
 Uri CONTACT = Uri.https(CONTACT_DOMAIN, CONTACT_URL);
 
 class ContactPage extends StatefulWidget {
+  const ContactPage({super.key});
+
   @override
   _ContactPageState createState() => _ContactPageState();
 }

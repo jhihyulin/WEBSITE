@@ -16,7 +16,7 @@ const int _LURLSupportLimit = 8201;
 Uri LURLSERVER_CREATE = Uri.https(LURLSERVER_DOMAIN, LURLSERVER_URL_1);
 
 class LongURLPage extends StatefulWidget {
-  LongURLPage({Key? key}) : super(key: key);
+  const LongURLPage({Key? key}) : super(key: key);
 
   @override
   _LongURLPageState createState() => _LongURLPageState();

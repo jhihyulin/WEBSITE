@@ -4,6 +4,8 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 
 class ClockPage extends StatefulWidget {
+  const ClockPage({super.key});
+
   @override
   _ClockPageState createState() => _ClockPageState();
 }

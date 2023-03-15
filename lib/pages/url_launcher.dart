@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class URLLauncherPage extends StatefulWidget {
+  const URLLauncherPage({super.key});
+
   @override
   _URLLauncherPageState createState() => _URLLauncherPageState();
 }

@@ -63,9 +63,16 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                       TextField(
                         controller: inputURLController,
                         decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.link),
                           labelText: 'Enter URL',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              inputURLController.clear();
+                            },
                           ),
                         ),
                         onSubmitted: (value) {

@@ -4725,11 +4725,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
     initRenderer();
     initPage();
     initObject();
-    //Timer(const Duration(seconds: 1), () {// TODO: if aniamte work, remove this
+    Timer(const Duration(seconds: 1), () {
     setState(() {
       _initialized = true;
     });
-    //});
+    });
   }
 
   initPage() {
@@ -5050,6 +5050,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
     three3dRender.dispose();
     _navigatorTimer?.cancel();
     _windowSizeTimer?.cancel();
+    _hideFabAnimation?.dispose();
 
     super.dispose();
   }

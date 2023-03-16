@@ -28,10 +28,10 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
   int _padding = 10;
   bool _useEmbeddedImage = false;
   final ImagePicker _imagePicker = ImagePicker();
-  var _embeddedImage = null;
+  ImageProvider? _embeddedImage;
   final GlobalKey globalKey = GlobalKey();
   QrEmbeddedImageStyle _embeddedImageSize = QrEmbeddedImageStyle(
-    size: Size(30, 30),
+    size: const Size(30, 30),
   );
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -65,12 +65,12 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return Scaffold(
         appBar: AppBar(
-          title: Text('QR Generator'),
+          title: const Text('QR Generator'),
         ),
         body: SingleChildScrollView(
             child: Center(
                 child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     constraints: BoxConstraints(
                       maxWidth: 700,
                       minHeight: MediaQuery.of(context).size.height -
@@ -84,37 +84,47 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                         TextFormField(
                             controller: _textEditingController,
                             decoration: InputDecoration(
-                              labelText: 'Data',
+                              prefixIcon: const Icon(Icons.description),
+                              labelText: 'Input Data',
                               hintText: 'Enter data to generate QR code',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
+                              suffixIcon: IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
+                                    _textEditingController.clear();
+                                    _generate();
+                                  }),
                             ),
+                            keyboardType: TextInputType.multiline,
+                            minLines: 1,
+                            maxLines: 10,
                             onChanged: (value) {
                               _generate();
                             }),
                         Theme(
                           data: theme,
                           child: ExpansionTile(
-                            title: Text('Advanced'),
+                            title: const Text('Advanced'),
                             children: [
                               ListTile(
-                                  title: Text('Version'),
+                                  title: const Text('Version'),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                          icon: Icon(Icons.help),
+                                          icon: const Icon(Icons.help),
                                           onPressed: () {
                                             showDialog(
                                                 context: context,
                                                 builder: (context) {
                                                   return AlertDialog(
-                                                      title: Text(
+                                                      title: const Text(
                                                           'What about version?'),
                                                       content: Container(
                                                           constraints:
-                                                              BoxConstraints(
+                                                              const BoxConstraints(
                                                             maxWidth: 700,
                                                             minWidth: 700,
                                                           ),
@@ -123,7 +133,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                             child: Text.rich(
                                                                 TextSpan(
                                                                     children: [
-                                                                  TextSpan(
+                                                                  const TextSpan(
                                                                       text:
                                                                           'The symbol versions of QR Code range from Version 1 to Version 40. Each version has a different module configuration or number of modules. (The module refers to the black and white dots that make up QR Code.)"Module configuration" refers to the number of modules contained in a symbol, commencing with Version 1 (21 × 21 modules) up to Version 40 (177 × 177 modules). Each higher version number comprises 4 additional modules per side.\nSource: '),
                                                                   TextSpan(
@@ -152,7 +162,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                                       context)
                                                                   .pop();
                                                             },
-                                                            child: Text('OK'))
+                                                            child: const Text('OK'))
                                                       ]);
                                                 });
                                           }),
@@ -162,30 +172,30 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                               onChanged: (value) {
                                                 setState(() {
                                                   _version = value as int;
-                                                  _versionSelect = value as int;
+                                                  _versionSelect = value;
                                                   _generate();
                                                 });
                                               },
                                               items: [
-                                            DropdownMenuItem(
-                                              child: Text('Auto'),
+                                            const DropdownMenuItem(
                                               value: QrVersions.auto,
+                                              child: Text('Auto'),
                                             ),
                                             for (var i = 1; i <= 40; i++)
                                               DropdownMenuItem(
-                                                child: Text('$i'),
                                                 value: i,
+                                                child: Text('$i'),
                                               ),
                                           ]))
                                     ],
                                   )),
                               ListTile(
-                                  title: Text('Background Color'),
+                                  title: const Text('Background Color'),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                          icon: Icon(Icons.refresh),
+                                          icon: const Icon(Icons.refresh),
                                           onPressed: () {
                                             setState(() {
                                               _backgroundColor = Colors.white;
@@ -209,7 +219,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                 context: context,
                                                 builder: (context) {
                                                   return AlertDialog(
-                                                      title: Text(
+                                                      title: const Text(
                                                           'Background Color'),
                                                       content:
                                                           SingleChildScrollView(
@@ -238,19 +248,19 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                                       context)
                                                                   .pop();
                                                             },
-                                                            child: Text('OK'))
+                                                            child: const Text('OK'))
                                                       ]);
                                                 });
                                           })
                                     ],
                                   )),
                               ListTile(
-                                  title: Text('Foreground Color'),
+                                  title: const Text('Foreground Color'),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                          icon: Icon(Icons.refresh),
+                                          icon: const Icon(Icons.refresh),
                                           onPressed: () {
                                             setState(() {
                                               _foregroundColor = Colors.black;
@@ -274,7 +284,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                 context: context,
                                                 builder: (context) {
                                                   return AlertDialog(
-                                                      title: Text(
+                                                      title: const Text(
                                                           'Foreground Color'),
                                                       content:
                                                           SingleChildScrollView(
@@ -303,15 +313,15 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                                       context)
                                                                   .pop();
                                                             },
-                                                            child: Text('OK'))
+                                                            child: const Text('OK'))
                                                       ]);
                                                 });
                                           }),
                                     ],
                                   )),
                               ListTile(
-                                  title: Text('Gapless'),
-                                  subtitle: Text(
+                                  title: const Text('Gapless'),
+                                  subtitle: const Text(
                                       'Adds an extra pixel in size to prevent gaps'),
                                   trailing: Switch(
                                     value: _gapless,
@@ -323,12 +333,12 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                     },
                                   )),
                               ListTile(
-                                  title: Text('Padding'),
+                                  title: const Text('Padding'),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                        icon: Icon(Icons.refresh),
+                                        icon: const Icon(Icons.refresh),
                                         onPressed: () {
                                           setState(() {
                                             _padding = 10;
@@ -337,7 +347,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                         },
                                       ),
                                       IconButton(
-                                        icon: Icon(Icons.remove),
+                                        icon: const Icon(Icons.remove),
                                         onPressed: _padding > 0
                                             ? () {
                                                 setState(() {
@@ -349,7 +359,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                       ),
                                       Text('$_padding'),
                                       IconButton(
-                                        icon: Icon(Icons.add),
+                                        icon: const Icon(Icons.add),
                                         onPressed: _padding < 100
                                             ? () {
                                                 setState(() {
@@ -362,7 +372,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                     ],
                                   )),
                               ListTile(
-                                  title: Text('Use Embedded Image'),
+                                  title: const Text('Use Embedded Image'),
                                   trailing: Switch(
                                     value: _useEmbeddedImage,
                                     onChanged: (value) {
@@ -375,30 +385,30 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                               Offstage(
                                 offstage: !_useEmbeddedImage,
                                 child: ListTile(
-                                    title: Text('Embedded Image Size'),
+                                    title: const Text('Embedded Image Size'),
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                          icon: Icon(Icons.refresh),
+                                          icon: const Icon(Icons.refresh),
                                           onPressed: () {
                                             setState(() {
                                               _embeddedImageSize =
                                                   QrEmbeddedImageStyle(
-                                                      size: Size(30, 30));
+                                                      size: const Size(30, 30));
                                               _generate();
                                             });
                                           },
                                         ),
                                         IconButton(
-                                          icon: Icon(Icons.remove),
+                                          icon: const Icon(Icons.remove),
                                           onPressed: _embeddedImageSize.size !=
-                                                  Size(0, 0)
+                                                  const Size(0, 0)
                                               ? () {
                                                   setState(() {
                                                     _embeddedImageSize = (_embeddedImageSize
                                                                 .size !=
-                                                            Size(0, 0)
+                                                            const Size(0, 0)
                                                         ? QrEmbeddedImageStyle(
                                                             size: Size(
                                                                 _embeddedImageSize
@@ -418,7 +428,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                         Text(
                                             '${_embeddedImageSize.size!.width.toInt()}x${_embeddedImageSize.size!.height.toInt()}'),
                                         IconButton(
-                                          icon: Icon(Icons.add),
+                                          icon: const Icon(Icons.add),
                                           onPressed: () {
                                             setState(() {
                                               _embeddedImageSize =
@@ -441,12 +451,12 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                               Offstage(
                                 offstage: !_useEmbeddedImage,
                                 child: ListTile(
-                                    title: Text('Embedded Image'),
+                                    title: const Text('Embedded Image'),
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                          icon: Icon(Icons.refresh),
+                                          icon: const Icon(Icons.refresh),
                                           onPressed: () {
                                             setState(() {
                                               _embeddedImage = null;
@@ -455,8 +465,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                           },
                                         ),
                                         ElevatedButton.icon(
-                                            icon: Icon(Icons.image),
-                                            label: Text('Select Image'),
+                                            icon: const Icon(Icons.image),
+                                            label: const Text('Select Image'),
                                             onPressed: () async {
                                               var pickedFile =
                                                   await _imagePicker.pickImage(
@@ -476,56 +486,49 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Offstage(
                           offstage: _data.isEmpty,
-                          child: Container(
-                              child: RepaintBoundary(
+                          child: RepaintBoundary(
                             key: globalKey,
                             child: QrImage(
-                              data: _data,
-                              version: _version,
-                              size: 200,
-                              gapless: _gapless,
-                              backgroundColor: _backgroundColor,
-                              foregroundColor: _foregroundColor,
-                              padding: EdgeInsets.all(_padding.toDouble()),
-                              embeddedImage: _useEmbeddedImage
-                                  ? _embeddedImage != null
-                                      ? _embeddedImage
-                                      : AssetImage(
-                                          'assets/images/logo-512x512.png')
-                                  : null,
-                              embeddedImageStyle:
-                                  _useEmbeddedImage ? _embeddedImageSize : null,
-                              errorStateBuilder: (cxt, err) {
-                                return Container(
-                                  child: Center(
-                                    child: Text(
-                                      "Uh oh! Something went wrong...\n\n$err",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              embeddedImageEmitsError: true,
+                          data: _data,
+                          version: _version,
+                          size: 200,
+                          gapless: _gapless,
+                          backgroundColor: _backgroundColor,
+                          foregroundColor: _foregroundColor,
+                          padding: EdgeInsets.all(_padding.toDouble()),
+                          embeddedImage: _useEmbeddedImage
+                              ? _embeddedImage ?? const AssetImage(
+                                      'assets/images/logo-512x512.png')
+                              : null,
+                          embeddedImageStyle:
+                              _useEmbeddedImage ? _embeddedImageSize : null,
+                          errorStateBuilder: (cxt, err) {
+                            return Center(
+                              child: Text(
+                                "Uh oh! Something went wrong...\n\n$err",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            );
+                          },
+                          embeddedImageEmitsError: true,
                             ),
-                          )),
+                          ),
                         ),
                         Offstage(
                           offstage: _data.isEmpty,
-                          child: Container(
-                            child: SizedBox(height: 20),
-                          ),
+                          child: const SizedBox(height: 20),
                         ),
                         Offstage(
                             offstage: _data.isEmpty,
                             child: ElevatedButton.icon(
-                              label: Text('Save QR Code'),
-                              icon: Icon(Icons.save),
+                              label: const Text('Save QR Code'),
+                              icon: const Icon(Icons.save),
                               onPressed: _createImageFromRenderKey,
                             ))
                       ],

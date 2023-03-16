@@ -151,9 +151,25 @@ class _ContactPageState extends State<ContactPage> {
                           textInputAction: TextInputAction.next,
                         ),
                         const SizedBox(height: 20),
+                        TextField(
+                          controller: contactSignatureController,
+                          keyboardType: TextInputType.text,
+                          decoration: const InputDecoration(
+                              labelText: 'Signature',
+                              hintText: 'Type your signature here',
+                              prefixIcon: Icon(Icons.draw),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0)))),
+                          onSubmitted: (value) => {
+                            _sendMessage(),
+                          },
+                          textInputAction: TextInputAction.next,
+                        ),
+                        const SizedBox(height: 20),
                         TextFormField(
                           controller: contactMessageController,
-                          keyboardType: TextInputType.text,
+                          keyboardType: TextInputType.multiline,
                           minLines: 1,
                           maxLines: 10,
                           decoration: const InputDecoration(
@@ -171,22 +187,6 @@ class _ContactPageState extends State<ContactPage> {
                           },
                           onTapOutside: (event) => {
                             _messageformKey.currentState!.validate(),
-                          },
-                          textInputAction: TextInputAction.next,
-                        ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: contactSignatureController,
-                          keyboardType: TextInputType.text,
-                          decoration: const InputDecoration(
-                              labelText: 'Signature',
-                              hintText: 'Type your signature here',
-                              prefixIcon: Icon(Icons.draw),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)))),
-                          onSubmitted: (value) => {
-                            _sendMessage(),
                           },
                         ),
                         Offstage(

@@ -21,7 +21,7 @@ class _ClockPageState extends State<ClockPage> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       DateTime now = DateTime.now();
       setState(() {
         _blink = !_blink;
@@ -45,7 +45,7 @@ class _ClockPageState extends State<ClockPage> {
       appBar: _fullscreen
           ? null
           : AppBar(
-              title: Text('Clock'),
+              title: const Text('Clock'),
             ),
       body: _fullscreen
           ? Clock(
@@ -58,9 +58,9 @@ class _ClockPageState extends State<ClockPage> {
           : SingleChildScrollView(
               child: Center(
               child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   constraints: BoxConstraints(
-                    maxWidth: 700,
+                    maxWidth: _fullscreen ? MediaQuery.of(context).size.width : 700,
                     minHeight: MediaQuery.of(context).size.height -
                         AppBar().preferredSize.height -
                         MediaQuery.of(context).padding.top -
@@ -122,16 +122,16 @@ class Clock extends StatelessWidget {
           children: [
             Container(
               constraints: BoxConstraints(
-                maxWidth: 100,
-                maxHeight: 100,
+                maxWidth: fullscreen ? 200 : 100,
+                maxHeight: fullscreen ? 200 : 100,
               ),
               child: Card(
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(fullscreen ? 40 : 20),
                   child: Text(
                     hour.toString(),
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: fullscreen ? 60 : 30),
                   ),
                 ),
               ),
@@ -140,21 +140,21 @@ class Clock extends StatelessWidget {
               opacity: blink ? 1 : 0,
               child: Text(
                 ':',
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: fullscreen ?60 : 30),
               ),
             ),
             Container(
               constraints: BoxConstraints(
-                maxWidth: 100,
-                maxHeight: 100,
+                maxWidth: fullscreen ? 200 : 100,
+                maxHeight: fullscreen ? 200 : 100,
               ),
               child: Card(
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(fullscreen ? 40 : 20),
                   child: Text(
                     minute.toString(),
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: fullscreen ? 60 : 30),
                   ),
                 ),
               ),
@@ -163,21 +163,21 @@ class Clock extends StatelessWidget {
               opacity: blink ? 1 : 0,
               child: Text(
                 ':',
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: fullscreen ?60 : 30),
               ),
             ),
             Container(
               constraints: BoxConstraints(
-                maxWidth: 100,
-                maxHeight: 100,
+                maxWidth: fullscreen ? 200 : 100,
+                maxHeight: fullscreen ? 200 : 100,
               ),
               child: Card(
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(fullscreen ? 40 : 20),
                   child: Text(
                     second.toString(),
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: fullscreen ? 60 : 30),
                   ),
                 ),
               ),

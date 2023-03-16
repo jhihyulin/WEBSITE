@@ -40,9 +40,9 @@ Map<String, Map<String, Object>> SocialMedia = {
     'url': 'https://twitch.tv/jhih_yu_lin',
     'icon': Logo.twitch,
   },
-  'GoogleDeveloper': {
+  'Google Developer': {
     'url': 'https://g.dev/jhihyulin',
-    'icon': Logo.google,
+    'icon': Logo.google_developers,
   },
   'StackOverflow': {
     'url': 'https://stackoverflow.com/users/15607217/jhih-yu-lin',

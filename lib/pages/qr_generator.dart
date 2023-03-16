@@ -90,6 +90,12 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
+                              suffixIcon: IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
+                                    _textEditingController.clear();
+                                    _generate();
+                                  }),
                             ),
                             keyboardType: TextInputType.multiline,
                             minLines: 1,

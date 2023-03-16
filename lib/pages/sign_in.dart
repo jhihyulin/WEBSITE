@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
@@ -10,7 +11,7 @@ import 'package:firebase_ui_oauth_twitter/firebase_ui_oauth_twitter.dart';
 String _redirectPage = '/profile';
 
 class SignInPage extends StatefulWidget {
-  SignInPage({Key? key, String redirectPage = '/profile'}): super(key: key) {
+  SignInPage({Key? key, String redirectPage = '/profile'}) : super(key: key) {
     _redirectPage = redirectPage;
   }
   @override
@@ -80,8 +81,8 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
         appBar: AppBar(
           title: _redirectPage == '/profile'
-              ? Text('Sign In')
-              : Text('Sign In to Continue'),
+              ? const Text('Sign In')
+              : const Text('Sign In to Continue'),
         ),
         body: SignInScreen(
           providers: [

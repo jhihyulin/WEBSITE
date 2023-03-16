@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:html';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,12 +11,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'sign_in.dart';
 
-const String VPNSERVER_DOMAIN = 'vpn.jhihyulin.live';
-const String VPNSERVER_URL_1 = '/server_list';
-const String VPNSERVER_URL_2 = '/get_key';
+const String serverDomainVPN = 'vpn.jhihyulin.live';
+const String serverURLVPN1 = '/server_list';
+const String serverURLVPN2 = '/get_key';
 
-Uri VPNSERVER_GET_SERVER_LIST = Uri.https(VPNSERVER_DOMAIN, VPNSERVER_URL_1);
-Uri VPNSERVER_GET_VPN_TOKEN = Uri.https(VPNSERVER_DOMAIN, VPNSERVER_URL_2);
+Uri getServerList = Uri.https(serverDomainVPN, serverURLVPN1);
+Uri getToken = Uri.https(serverDomainVPN, serverURLVPN2);
 
 var _defaultSelect = 'null';
 
@@ -34,9 +35,9 @@ class _VPNPageState extends State<VPNPage> {
   String _usedBytesVisualization = '';
   List<DropdownMenuItem<dynamic>> items = [];
   List<DropdownMenuItem<dynamic>> _items = [
-    DropdownMenuItem(
-      child: Text('Please wait...'),
+    const DropdownMenuItem(
       value: 'null',
+      child: Text('Please wait...'),
     )
   ];
   String selectedServerId = _defaultSelect;
@@ -57,37 +58,37 @@ class _VPNPageState extends State<VPNPage> {
 
   void _resetValue() {
     setState(() {
-      String _accessUrl = '';
-      double _dataUsedPercentage = 0;
-      String _useBytesLimitVisualization = '';
-      String _usedBytesVisualization = '';
-      List<DropdownMenuItem<dynamic>> items = [];
-      List<DropdownMenuItem<dynamic>> _items = [
-        DropdownMenuItem(
-          child: Text('Please wait...'),
+      _accessUrl = '';
+      _dataUsedPercentage = 0;
+      _useBytesLimitVisualization = '';
+      _usedBytesVisualization = '';
+      items = [];
+      _items = [
+        const DropdownMenuItem(
           value: 'null',
+          child: Text('Please wait...'),
         )
       ];
-      String selectedServerId = _defaultSelect;
-      String _selectedServerId = _defaultSelect;
-      bool _getResponse = false;
-      bool _loading = false;
+      selectedServerId = _defaultSelect;
+      _selectedServerId = _defaultSelect;
+      _getResponse = false;
+      _loading = false;
     });
   }
 
   void _getServerList() async {
-    await http.get(VPNSERVER_GET_SERVER_LIST).then((value) {
+    await http.get(getServerList).then((value) {
       var data = jsonDecode(value.body);
       List<DropdownMenuItem> items = [];
-      DropdownMenuItem item = new DropdownMenuItem(
-        child: Text('Please select server'),
+      DropdownMenuItem item = DropdownMenuItem(
         value: _defaultSelect,
+        child: const Text('Please select server'),
       );
       items.add(item);
       for (var i = 0; i < data['server_amount']; i++) {
-        DropdownMenuItem item = new DropdownMenuItem(
-          child: Text(data['server_list'][i]['display_name']),
+        DropdownMenuItem item = DropdownMenuItem(
           value: data['server_list'][i]['server_id'],
+          child: Text(data['server_list'][i]['display_name']),
         );
         items.add(item);
         selectedServerId = _defaultSelect;
@@ -110,21 +111,21 @@ class _VPNPageState extends State<VPNPage> {
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 10),
+          duration: const Duration(seconds: 10),
         ),
       );
     });
   }
 
   void _getKey(String serverId) async {
-    FirebaseAuth _auth = FirebaseAuth.instance;
-    User user = await _auth.currentUser!;
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user = auth.currentUser!;
     String uid = user.uid;
     String token = await user.getIdToken();
     // print(uid);
     // print(token);
     // print(serverId);
-    await http.post(VPNSERVER_GET_VPN_TOKEN,
+    await http.post(getToken,
         body: jsonEncode({'firebase_uid': uid, 'server_id': serverId}),
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +153,7 @@ class _VPNPageState extends State<VPNPage> {
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 10),
+          duration: const Duration(seconds: 10),
         ),
       );
     });
@@ -179,7 +180,9 @@ class _VPNPageState extends State<VPNPage> {
 
   void _installOutlineVPN() async {
     String os = getOS();
-    print(os);
+    if (kDebugMode) {
+      print(os);
+    }
     switch (os) {
       case 'android':
         await launchUrl(Uri.parse(
@@ -219,12 +222,12 @@ class _VPNPageState extends State<VPNPage> {
     } else {
       return Scaffold(
           appBar: AppBar(
-            title: Text('VPN'),
+            title: const Text('VPN'),
           ),
           body: SingleChildScrollView(
               child: Center(
             child: Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 constraints: BoxConstraints(
                   maxWidth: 700,
                   minHeight: MediaQuery.of(context).size.height -
@@ -240,7 +243,7 @@ class _VPNPageState extends State<VPNPage> {
                         child: InputDecorator(
                             decoration: InputDecoration(
                               labelText: 'VPN Server',
-                              prefixIcon: Icon(Icons.dns),
+                              prefixIcon: const Icon(Icons.dns),
                               labelStyle: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurface,
                               ),
@@ -273,7 +276,7 @@ class _VPNPageState extends State<VPNPage> {
                             ))),
                     Offstage(
                       offstage: _initing,
-                      child: SizedBox(height: 20),
+                      child: const SizedBox(height: 20),
                     ),
                     Offstage(
                       offstage:
@@ -282,11 +285,11 @@ class _VPNPageState extends State<VPNPage> {
                         children: [
                           ClipRRect(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(16.0)),
+                                const BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
                               backgroundColor: Theme.of(context)
-                                  .splashColor, //TODO: change low purple
+                                  .splashColor,
                               value:
                                   _loading ? null : _dataUsedPercentage / 100,
                             ),
@@ -305,10 +308,10 @@ class _VPNPageState extends State<VPNPage> {
                             Text('Limit: $_useBytesLimitVisualization'),
                           ],
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         TextFormField(
                           controller: _accessUrlController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Access Key',
                             prefixIcon: Icon(Icons.key),
                             border: OutlineInputBorder(
@@ -318,31 +321,31 @@ class _VPNPageState extends State<VPNPage> {
                           ),
                           readOnly: true,
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Wrap(
                             spacing: 10,
                             runSpacing: 10,
                             alignment: WrapAlignment.center,
                             children: [
                               ElevatedButton.icon(
-                                label: Text('Add To APP'),
-                                icon: Icon(Icons.vpn_lock),
+                                label: const Text('Add To APP'),
+                                icon: const Icon(Icons.vpn_lock),
                                 onPressed: () async {
-                                  final Uri VPN_url = Uri.parse(_accessUrl);
-                                  if (!await launchUrl(VPN_url)) {
+                                  final Uri vpnUrl = Uri.parse(_accessUrl);
+                                  if (!await launchUrl(vpnUrl)) {
                                     throw Exception(
                                         'Could not launch $_accessUrl');
                                   }
                                 },
                               ),
                               TextButton(
-                                child: Icon(Icons.copy),
+                                child: const Icon(Icons.copy),
                                 onPressed: () async {
                                   await Clipboard.setData(
                                           ClipboardData(text: _accessUrl))
                                       .then((value) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
+                                      const SnackBar(
                                         content: Text('Copied to clipboard'),
                                         showCloseIcon: true,
                                         behavior: SnackBarBehavior.floating,
@@ -351,28 +354,28 @@ class _VPNPageState extends State<VPNPage> {
                                   }).catchError((error) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text('Error: Copy failed'),
+                                        content: const Text('Error: Copy failed'),
                                         showCloseIcon: true,
                                         closeIconColor:
                                             Theme.of(context).colorScheme.error,
                                         behavior: SnackBarBehavior.floating,
-                                        duration: Duration(seconds: 10),
+                                        duration: const Duration(seconds: 10),
                                       ),
                                     );
                                   });
                                 },
                               ),
                               TextButton(
-                                child: Icon(Icons.help),
+                                child: const Icon(Icons.help),
                                 onPressed: () {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
                                           title:
-                                              Text('How to use Outline VPN?'),
+                                              const Text('How to use Outline VPN?'),
                                           content: Container(
-                                            constraints: BoxConstraints(
+                                            constraints: const BoxConstraints(
                                               maxWidth: 700,
                                               minWidth: 700,
                                             ),
@@ -382,7 +385,7 @@ class _VPNPageState extends State<VPNPage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text.rich(TextSpan(children: [
-                                                  TextSpan(
+                                                  const TextSpan(
                                                       text:
                                                           '1. If you don\'t have Outline APP on your device, click '),
                                                   TextSpan(
@@ -399,7 +402,7 @@ class _VPNPageState extends State<VPNPage> {
                                                             _installOutlineVPN();
                                                           },
                                                   ),
-                                                  TextSpan(
+                                                  const TextSpan(
                                                       text: ' to install it.'),
                                                 ])),
                                                 const Text(
@@ -417,7 +420,7 @@ class _VPNPageState extends State<VPNPage> {
                                           ),
                                           actions: [
                                             TextButton(
-                                              child: Text('OK'),
+                                              child: const Text('OK'),
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },

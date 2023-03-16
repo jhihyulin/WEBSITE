@@ -5050,6 +5050,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
     three3dRender.dispose();
     _navigatorTimer?.cancel();
     _windowSizeTimer?.cancel();
+    _hideFabAnimation?.dispose();
 
     super.dispose();
   }

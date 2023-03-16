@@ -23,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Profile'),
+          title: const Text('Profile'),
         ),
         body: ProfileScreen(
           providers: [

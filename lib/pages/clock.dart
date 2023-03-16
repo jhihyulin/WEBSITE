@@ -60,7 +60,8 @@ class _ClockPageState extends State<ClockPage> {
               child: Container(
                   padding: const EdgeInsets.all(20),
                   constraints: BoxConstraints(
-                    maxWidth: _fullscreen ? MediaQuery.of(context).size.width : 700,
+                    maxWidth:
+                        _fullscreen ? MediaQuery.of(context).size.width : 700,
                     minHeight: MediaQuery.of(context).size.height -
                         AppBar().preferredSize.height -
                         MediaQuery.of(context).padding.top -
@@ -140,7 +141,7 @@ class Clock extends StatelessWidget {
               opacity: blink ? 1 : 0,
               child: Text(
                 ':',
-                style: TextStyle(fontSize: fullscreen ?60 : 30),
+                style: TextStyle(fontSize: fullscreen ? 60 : 30),
               ),
             ),
             Container(
@@ -163,7 +164,7 @@ class Clock extends StatelessWidget {
               opacity: blink ? 1 : 0,
               child: Text(
                 ':',
-                style: TextStyle(fontSize: fullscreen ?60 : 30),
+                style: TextStyle(fontSize: fullscreen ? 60 : 30),
               ),
             ),
             Container(

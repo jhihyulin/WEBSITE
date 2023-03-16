@@ -7,10 +7,10 @@ import 'package:flutter/services.dart';
 
 import 'sign_in.dart';
 
-const String SURLSERVER_DOMAIN = 's.jhihyulin.live';
-const String SURLSERVER_URL_1 = '/create';
+const String sURLServerDomain = 's.jhihyulin.live';
+const String sURLServerURL1 = '/create';
 
-Uri SURLSERVER_CREATE = Uri.https(SURLSERVER_DOMAIN, SURLSERVER_URL_1);
+Uri sURLServerCreate = Uri.https(sURLServerDomain, sURLServerURL1);
 
 class ShortURLPage extends StatefulWidget {
   const ShortURLPage({Key? key}) : super(key: key);
@@ -20,9 +20,9 @@ class ShortURLPage extends StatefulWidget {
 }
 
 class _ShortURLPageState extends State<ShortURLPage> {
-  final TextEditingController SURLURLController = new TextEditingController();
-  final TextEditingController SURLsURLController = new TextEditingController();
-  final _SURLformKey = GlobalKey<FormState>();
+  final TextEditingController sURLURLController = TextEditingController();
+  final TextEditingController sURLsURLController = TextEditingController();
+  final _sURLFormKey = GlobalKey<FormState>();
   bool _loading = false;
   bool _loaded = false;
   String _surl = '';
@@ -41,20 +41,20 @@ class _ShortURLPageState extends State<ShortURLPage> {
       _loading = true;
       _loaded = false;
     });
-    if (_SURLformKey.currentState!.validate()) {
+    if (_sURLFormKey.currentState!.validate()) {
       setState(() {
         _loading = true;
         _loaded = false;
       });
-      FirebaseAuth _auth = FirebaseAuth.instance;
-      User user = await _auth.currentUser!;
+      FirebaseAuth auth = FirebaseAuth.instance;
+      User user = auth.currentUser!;
       String uid = user.uid;
       String token = await user.getIdToken();
       await http
-          .post(SURLSERVER_CREATE,
+          .post(sURLServerCreate,
               body: jsonEncode({
                 'firebase_uid': uid,
-                'original_url': SURLURLController.text
+                'original_url': sURLURLController.text
               }),
               headers: {
                 'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                   _surl = jsonDecode(value.body)['url'];
                   _loading = false;
                   _loaded = true;
-                  SURLsURLController.text = _surl;
+                  sURLsURLController.text = _surl;
                 }),
               })
           .catchError((error) => {
@@ -110,12 +110,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                     MediaQuery.of(context).padding.bottom,
               ),
               child: Form(
-                  key: _SURLformKey,
+                  key: _sURLFormKey,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         TextFormField(
-                          controller: SURLURLController,
+                          controller: sURLURLController,
                           keyboardType: TextInputType.url,
                           decoration: const InputDecoration(
                               labelText: 'URL',
@@ -134,7 +134,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                             }
                           },
                           onTapOutside: (event) => {
-                            _SURLformKey.currentState!.validate(),
+                            _sURLFormKey.currentState!.validate(),
                           },
                           onFieldSubmitted: (event) => {
                             _createURL(),
@@ -151,7 +151,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                   child: LinearProgressIndicator(
                                     minHeight: 20,
                                     backgroundColor: Theme.of(context)
-                                        .splashColor, //TODO: change low purple
+                                        .splashColor,
                                   ),
                                 ),
                               ],
@@ -162,7 +162,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                               children: [
                                 const SizedBox(height: 20),
                                 TextFormField(
-                                  controller: SURLsURLController,
+                                  controller: sURLsURLController,
                                   decoration: const InputDecoration(
                                     labelText: 'Short URL',
                                     prefixIcon: Icon(Icons.link),

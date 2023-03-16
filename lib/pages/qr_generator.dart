@@ -84,12 +84,16 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                         TextFormField(
                             controller: _textEditingController,
                             decoration: InputDecoration(
-                              labelText: 'Data',
+                              prefixIcon: const Icon(Icons.description),
+                              labelText: 'Input Data',
                               hintText: 'Enter data to generate QR code',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                             ),
+                            keyboardType: TextInputType.multiline,
+                            minLines: 1,
+                            maxLines: 10,
                             onChanged: (value) {
                               _generate();
                             }),

@@ -23,7 +23,7 @@ class _TimerPageState extends State<TimerPage> {
       _isRunning = true;
     });
     if (mode == 'countdown') {
-      _timer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+      _timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
         setState(() {
           if (_counterSeconds > 0) {
             _counterSeconds -= 0.01;
@@ -43,11 +43,11 @@ class _TimerPageState extends State<TimerPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('Stopwatch'),
-                  content: Text('Stopwatch has reached its limit.'),
+                  title: const Text('Stopwatch'),
+                  content: const Text('Stopwatch has reached its limit.'),
                   actions: [
                     TextButton(
-                      child: Text('OK'),
+                      child: const Text('OK'),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -63,7 +63,7 @@ class _TimerPageState extends State<TimerPage> {
         });
       });
     } else if (mode == 'stopwatch') {
-      _timer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+      _timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
         setState(() {
           if (_counterSeconds < 59.99) {
             _counterSeconds += 0.01;
@@ -104,12 +104,12 @@ class _TimerPageState extends State<TimerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Timer'),
+          title: const Text('Timer'),
         ),
         body: SingleChildScrollView(
             child: Center(
                 child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           constraints: BoxConstraints(
             maxWidth: 700,
             minHeight: MediaQuery.of(context).size.height -
@@ -129,7 +129,6 @@ class _TimerPageState extends State<TimerPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
-                        child: Icon(Icons.arrow_drop_up),
                         onPressed: _isRunning || _mode != 'countdown'
                             ? null
                             : () {
@@ -137,12 +136,12 @@ class _TimerPageState extends State<TimerPage> {
                                   _counterHours += 1;
                                 });
                               },
+                        child: const Icon(Icons.arrow_drop_up),
                       ),
                       Chip(
                         label: Text('$_counterHours H'),
                       ),
                       TextButton(
-                        child: Icon(Icons.arrow_drop_down),
                         onPressed: _isRunning || _mode != 'countdown'
                             ? null
                             : () {
@@ -152,6 +151,7 @@ class _TimerPageState extends State<TimerPage> {
                                   }
                                 });
                               },
+                        child: const Icon(Icons.arrow_drop_down),
                       ),
                     ],
                   ),
@@ -159,7 +159,6 @@ class _TimerPageState extends State<TimerPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
-                        child: Icon(Icons.arrow_drop_up),
                         onPressed: _isRunning || _mode != 'countdown'
                             ? null
                             : () {
@@ -167,12 +166,12 @@ class _TimerPageState extends State<TimerPage> {
                                   _counterMinutes += 1;
                                 });
                               },
+                        child: const Icon(Icons.arrow_drop_up),
                       ),
                       Chip(
                         label: Text('$_counterMinutes M'),
                       ),
                       TextButton(
-                        child: Icon(Icons.arrow_drop_down),
                         onPressed: _isRunning || _mode != 'countdown'
                             ? null
                             : () {
@@ -182,6 +181,7 @@ class _TimerPageState extends State<TimerPage> {
                                   }
                                 });
                               },
+                        child: const Icon(Icons.arrow_drop_down),
                       ),
                     ],
                   ),
@@ -189,7 +189,6 @@ class _TimerPageState extends State<TimerPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       TextButton(
-                        child: Icon(Icons.arrow_drop_up),
                         onPressed: _isRunning || _mode != 'countdown'
                             ? null
                             : () {
@@ -197,12 +196,12 @@ class _TimerPageState extends State<TimerPage> {
                                   _counterSeconds += 1;
                                 });
                               },
+                        child: const Icon(Icons.arrow_drop_up),
                       ),
                       Chip(
                         label: Text('${_counterSeconds.toStringAsFixed(2)} S'),
                       ),
                       TextButton(
-                        child: Icon(Icons.arrow_drop_down),
                         onPressed: _isRunning || _mode != 'countdown'
                             ? null
                             : () {
@@ -212,12 +211,13 @@ class _TimerPageState extends State<TimerPage> {
                                   }
                                 });
                               },
+                        child: const Icon(Icons.arrow_drop_down),
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               InputDecorator(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -228,14 +228,14 @@ class _TimerPageState extends State<TimerPage> {
                   child: DropdownButton(
                     value: _mode,
                     isExpanded: true,
-                    items: [
+                    items: const [
                       DropdownMenuItem(
-                        child: Text('Countdown'),
                         value: 'countdown',
+                        child: Text('Countdown'),
                       ),
                       DropdownMenuItem(
-                        child: Text('Stopwatch'),
                         value: 'stopwatch',
+                        child: Text('Stopwatch'),
                       ),
                     ],
                     onChanged: (value) {
@@ -244,7 +244,7 @@ class _TimerPageState extends State<TimerPage> {
                       });
                     },
                   )),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 10,
@@ -257,8 +257,8 @@ class _TimerPageState extends State<TimerPage> {
                         _isRunning ? _pauseTimer : () => _startTimer(_mode),
                   ),
                   ElevatedButton.icon(
-                    icon: Icon(Icons.stop),
-                    label: Text('Reset'),
+                    icon: const Icon(Icons.stop),
+                    label: const Text('Reset'),
                     onPressed: _counterSeconds != 0 ||
                             _counterMinutes != 0 ||
                             _counterHours != 0

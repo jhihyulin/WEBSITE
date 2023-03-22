@@ -166,6 +166,10 @@ class _MyAppState extends State<MyApp> {
                     builder = (BuildContext context) =>
                         NavigationController(inputIndex: 1);
                     break;
+                  case '/':
+                    builder = (BuildContext context) =>
+                        NavigationController(inputIndex: 0);
+                    break;
                   default:
                     builder = (BuildContext context) => const NotFoundPage();
                 }

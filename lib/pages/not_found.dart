@@ -10,7 +10,7 @@ class NotFoundPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('404 Page Not Found',
+            Text('Page Not Found',
                 style: Theme.of(context).textTheme.headlineLarge),
             const SizedBox(height: 20),
             ElevatedButton(

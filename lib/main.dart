@@ -26,7 +26,7 @@ import 'pages/url_launcher.dart';
 import 'pages/qr_generator.dart';
 import 'pages/clock.dart';
 import 'pages/zhsh_3d_map.dart';
-import 'pages/404_page.dart';
+import 'pages/not_found.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;

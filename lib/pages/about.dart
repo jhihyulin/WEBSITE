@@ -4,9 +4,6 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../plugins/logo_icons.dart';
 
-const String text1 = 'Not yet written.';
-const String text2 = '';
-
 Map<String, Map<String, Object>> SocialMedia = {
   'GitHub': {
     'url': 'https://github.com/jhihyulin',
@@ -101,8 +98,13 @@ Map<String, Map<String, Object>> SocialMedia = {
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
+  bool _isDesktop(BuildContext context) {
+    return MediaQuery.of(context).size.width > 640 ? true : false;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return Scaffold(
       appBar: AppBar(
         title: const Text('About'),
@@ -121,18 +123,76 @@ class AboutPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            AnimatedTextKit(
-              isRepeatingAnimation: false,
-              displayFullTextOnTap: true,
-              animatedTexts: [
-                TypewriterAnimatedText(
-                  text1,
-                  textAlign: TextAlign.center,
-                  speed: const Duration(milliseconds: 50),
-                ),
-              ],
+            Card(
+              child: Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        constraints:
+                            const BoxConstraints(maxWidth: 200, minHeight: 128),
+                        child: const CircleAvatar(
+                          radius: 50,
+                          backgroundImage:
+                              AssetImage('assets/images/avatar.jpg'),
+                        ),
+                      ),
+                      Container(
+                          constraints: const BoxConstraints(maxWidth: 400),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const ListTile(
+                                  leading: Icon(Icons.badge),
+                                  title: Text("Name"),
+                                  subtitle: Text("Jhih Yu"),
+                                ),
+                                Theme(
+                                    data: theme,
+                                    child: const ExpansionTile(
+                                      leading: Icon(Icons.school),
+                                      title: Text("School"),
+                                      subtitle: Text(
+                                          "Zhonghe Senior High School"),
+                                      children: [
+                                        ListTile(
+                                          title: Text(
+                                              "Zhonghe Senior High School"),
+                                          trailing: Text("2020 - 2023"),
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              "Tsz-Shiou Senior High School"),
+                                          trailing: Text("2017 - 2020"),
+                                        ),
+                                      ],
+                                    ))
+                              ])),
+                      Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: const [
+                              Chip(
+                                  label: Text("Python"),
+                                  avatar: Icon(Logo.python)),
+                              Chip(
+                                  label: Text("JavaScript"),
+                                  avatar: Icon(Logo.js_square)),
+                              Chip(
+                                label: Text("FastAPI"),
+                              ),
+                              Chip(label: Text("Flutter")),
+                              Chip(label: Text("C++")),
+                            ],
+                          ))
+                    ],
+                  )),
             ),
-            //Text(text2),
             const SizedBox(height: 20),
             Container(
                 constraints: const BoxConstraints(maxWidth: 700),
@@ -143,12 +203,19 @@ class AboutPage extends StatelessWidget {
                   alignment: WrapAlignment.center,
                   children: [
                     for (var key in SocialMedia.keys)
-                      ElevatedButton.icon(
-                        onPressed: () => _launchUrl(
-                            Uri.parse(SocialMedia[key]!['url'] as String)),
-                        icon: Icon(SocialMedia[key]!['icon'] as IconData),
-                        label: Text(key),
-                      ),
+                      _isDesktop(context)
+                          ? ElevatedButton.icon(
+                              onPressed: () => _launchUrl(Uri.parse(
+                                  SocialMedia[key]!['url'] as String)),
+                              icon: Icon(SocialMedia[key]!['icon'] as IconData),
+                              label: Text(key),
+                            )
+                          : IconButton(
+                              onPressed: () => _launchUrl(Uri.parse(
+                                  SocialMedia[key]!['url'] as String)),
+                              icon: Icon(SocialMedia[key]!['icon'] as IconData),
+                              tooltip: key,
+                            )
                   ],
                 ))
           ],

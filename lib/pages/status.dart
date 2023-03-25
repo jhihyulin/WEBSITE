@@ -155,7 +155,3 @@ class _StatusPageState extends State<StatusPage> {
         ));
   }
 }
-
-// https://stats.uptimerobot.com/plWPBU9LQz
-// https://status.jhihyulin.live
-// https://status-vpn.jhihyulin.live/

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../plugins/logo_icons.dart';
 
-Map<String, Map<String, Object>> SocialMedia = {
+Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
     'url': 'https://github.com/jhihyulin',
     'icon': Logo.github,
@@ -95,6 +94,19 @@ Map<String, Map<String, Object>> SocialMedia = {
   },
 };
 
+Map<String, Object> experience = {
+  'Python': Image.asset('assets/images/python.png'),
+  'JavaScript': Image.asset('assets/images/javascript.png'),
+  'FastAPI': Image.asset('assets/images/fastapi.png'),
+  'Flutter': const FlutterLogo(),
+  'C++': Image.asset('assets/images/cpp.png'),
+  'C': Image.asset('assets/images/c.png'),
+  'Arduino': Image.asset('assets/images/arduino.png'),
+  'Fusion 360': Image.asset('assets/images/fusion360.png'),
+  'Inventor': Image.asset('assets/images/inventor.png'),
+  'Blender': Image.asset('assets/images/blender.png'),
+};
+
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
@@ -156,8 +168,8 @@ class AboutPage extends StatelessWidget {
                                     child: const ExpansionTile(
                                       leading: Icon(Icons.school),
                                       title: Text("School"),
-                                      subtitle: Text(
-                                          "Zhonghe Senior High School"),
+                                      subtitle:
+                                          Text("Zhonghe Senior High School"),
                                       children: [
                                         ListTile(
                                           title: Text(
@@ -178,18 +190,11 @@ class AboutPage extends StatelessWidget {
                             alignment: WrapAlignment.center,
                             spacing: 10,
                             runSpacing: 10,
-                            children: const [
-                              Chip(
-                                  label: Text("Python"),
-                                  avatar: Icon(Logo.python)),
-                              Chip(
-                                  label: Text("JavaScript"),
-                                  avatar: Icon(Logo.js_square)),
-                              Chip(
-                                label: Text("FastAPI"),
-                              ),
-                              Chip(label: Text("Flutter")),
-                              Chip(label: Text("C++")),
+                            children: [
+                              for (var key in experience.keys)
+                                Chip(
+                                    avatar: experience[key] as Widget,
+                                    label: Text(key))
                             ],
                           ))
                     ],
@@ -204,18 +209,18 @@ class AboutPage extends StatelessWidget {
                   runSpacing: 10,
                   alignment: WrapAlignment.center,
                   children: [
-                    for (var key in SocialMedia.keys)
+                    for (var key in socialMedia.keys)
                       _isDesktop(context)
                           ? ElevatedButton.icon(
                               onPressed: () => _launchUrl(Uri.parse(
-                                  SocialMedia[key]!['url'] as String)),
-                              icon: Icon(SocialMedia[key]!['icon'] as IconData),
+                                  socialMedia[key]!['url'] as String)),
+                              icon: Icon(socialMedia[key]!['icon'] as IconData),
                               label: Text(key),
                             )
                           : IconButton(
                               onPressed: () => _launchUrl(Uri.parse(
-                                  SocialMedia[key]!['url'] as String)),
-                              icon: Icon(SocialMedia[key]!['icon'] as IconData),
+                                  socialMedia[key]!['url'] as String)),
+                              icon: Icon(socialMedia[key]!['icon'] as IconData),
                               tooltip: key,
                             )
                   ],

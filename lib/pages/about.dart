@@ -105,6 +105,11 @@ Map<String, Object> experience = {
   'Fusion 360': Image.asset('assets/images/fusion360.png'),
   'Inventor': Image.asset('assets/images/inventor.png'),
   'Blender': Image.asset('assets/images/blender.png'),
+  'Linux': Image.asset('assets/images/linux.png'),
+  'Ubuntu': Image.asset('assets/images/ubuntu.png'),
+  'HTML': Image.asset('assets/images/html.png'),
+  'CSS': Image.asset('assets/images/css.png'),
+  'Postman': Image.asset('assets/images/postman.png'),
 };
 
 class AboutPage extends StatelessWidget {

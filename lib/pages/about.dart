@@ -110,6 +110,7 @@ Map<String, Object> experience = {
   'HTML': Image.asset('assets/images/html.png'),
   'CSS': Image.asset('assets/images/css.png'),
   'Postman': Image.asset('assets/images/postman.png'),
+  'AutoCAD': Image.asset('assets/images/autocad.png'),
 };
 
 class AboutPage extends StatelessWidget {

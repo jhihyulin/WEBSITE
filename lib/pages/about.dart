@@ -96,21 +96,21 @@ Map<String, Map<String, Object>> socialMedia = {
 
 Map<String, Object> experience = {
   'Python': Image.asset('assets/images/python.png'),
-  'JavaScript': Image.asset('assets/images/javascript.png'),
   'FastAPI': Image.asset('assets/images/fastapi.png'),
+  'JavaScript': Image.asset('assets/images/javascript.png'),
+  'HTML': Image.asset('assets/images/html.png'),
+  'CSS': Image.asset('assets/images/css.png'),
   'Flutter': const FlutterLogo(),
   'C++': Image.asset('assets/images/cpp.png'),
   'C': Image.asset('assets/images/c.png'),
   'Arduino': Image.asset('assets/images/arduino.png'),
   'Fusion 360': Image.asset('assets/images/fusion360.png'),
   'Inventor': Image.asset('assets/images/inventor.png'),
+  'AutoCAD': Image.asset('assets/images/autocad.png'),
   'Blender': Image.asset('assets/images/blender.png'),
   'Linux': Image.asset('assets/images/linux.png'),
   'Ubuntu': Image.asset('assets/images/ubuntu.png'),
-  'HTML': Image.asset('assets/images/html.png'),
-  'CSS': Image.asset('assets/images/css.png'),
   'Postman': Image.asset('assets/images/postman.png'),
-  'AutoCAD': Image.asset('assets/images/autocad.png'),
 };
 
 class AboutPage extends StatelessWidget {

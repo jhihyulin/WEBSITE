@@ -203,9 +203,19 @@ class AboutPage extends StatelessWidget {
                             runSpacing: 10,
                             children: [
                               for (var key in experience.keys)
-                                Chip(
-                                    avatar: experience[key] as Widget,
-                                    label: Text(key))
+                                _isDesktop(context)
+                                    ? Chip(
+                                        avatar: experience[key] as Widget,
+                                        label: Text(key))
+                                    : IconButton(
+                                        onPressed: null,
+                                        icon: Container(
+                                          constraints: const BoxConstraints(
+                                              maxWidth: 25, maxHeight: 25),
+                                          child: experience[key] as Widget,
+                                        ),
+                                        tooltip: key,
+                                      )
                             ],
                           ))
                     ],

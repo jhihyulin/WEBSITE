@@ -95,6 +95,7 @@ Map<String, Map<String, Object>> socialMedia = {
 };
 
 Map<String, Object> experience = {
+  'Visual Studio Code': Image.asset('assets/images/vscode.png'),
   'Python': Image.asset('assets/images/python.png'),
   'FastAPI': Image.asset('assets/images/fastapi.png'),
   'JavaScript': Image.asset('assets/images/javascript.png'),
@@ -111,6 +112,10 @@ Map<String, Object> experience = {
   'Linux': Image.asset('assets/images/linux.png'),
   'Ubuntu': Image.asset('assets/images/ubuntu.png'),
   'Postman': Image.asset('assets/images/postman.png'),
+  'Git': Image.asset('assets/images/git.png'),
+  'Android Studio': Image.asset('assets/images/androidstudio.png'),
+  'Docker': Image.asset('assets/images/docker.png'),
+  'Solid Edge': Image.asset('assets/images/solidedge.png'),
 };
 
 class AboutPage extends StatelessWidget {

@@ -51,6 +51,45 @@ class _TWUniversityResultQueryPageState
     }
   }
 
+  void search() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _loading = true;
+        _loaded = false;
+      });
+      var data = _query(inputIdController.text);
+      data.then((value) {
+        var name = value['name'] ?? '';
+        var stardata = value['star'] ?? {};
+        var udata = value['u'] ?? {};
+        var tudata = value['tu'] ?? {};
+        setState(() {
+          _loading = false;
+          _loaded = true;
+          _name = name;
+          _stardata = stardata;
+          _udata = udata;
+          _tudata = tudata;
+        });
+      }).catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $error'),
+            showCloseIcon: true,
+            closeIconColor: Theme.of(context).colorScheme.error,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 10),
+          ),
+        );
+        setState(() {
+          _loading = false;
+          _loaded = false;
+        });
+        resetValue();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +138,9 @@ class _TWUniversityResultQueryPageState
                         return '學測應試號碼長度應為8';
                       }
                       return null;
+                    },
+                    onFieldSubmitted: (value) {
+                      search();
                     },
                   ),
                   const SizedBox(
@@ -245,43 +287,7 @@ class _TWUniversityResultQueryPageState
                         icon: const Icon(Icons.search),
                         label: const Text('查詢'),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              _loading = true;
-                              _loaded = false;
-                            });
-                            var data = _query(inputIdController.text);
-                            data.then((value) {
-                              var name = value['name'] ?? '';
-                              var stardata = value['star'] ?? {};
-                              var udata = value['u'] ?? {};
-                              var tudata = value['tu'] ?? {};
-                              setState(() {
-                                _loading = false;
-                                _loaded = true;
-                                _name = name;
-                                _stardata = stardata;
-                                _udata = udata;
-                                _tudata = tudata;
-                              });
-                            }).catchError((error) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Error: $error'),
-                                  showCloseIcon: true,
-                                  closeIconColor:
-                                      Theme.of(context).colorScheme.error,
-                                  behavior: SnackBarBehavior.floating,
-                                  duration: const Duration(seconds: 10),
-                                ),
-                              );
-                              setState(() {
-                                _loading = false;
-                                _loaded = false;
-                              });
-                              resetValue();
-                            });
-                          }
+                          search();
                         },
                       )),
                   Offstage(

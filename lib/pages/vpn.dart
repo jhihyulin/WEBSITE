@@ -126,7 +126,8 @@ class _VPNPageState extends State<VPNPage> {
     // print(token);
     // print(serverId);
     await http.post(getToken,
-        body: jsonEncode({'firebase_uid': uid, 'server_id': serverId}),
+        body: jsonEncode(
+            {'firebase_uid': uid, 'token': token, 'server_id': serverId}),
         headers: {
           'Content-Type': 'application/json',
           'X-Firebase-AppCheck': token
@@ -288,8 +289,7 @@ class _VPNPageState extends State<VPNPage> {
                                 const BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
-                              backgroundColor: Theme.of(context)
-                                  .splashColor,
+                              backgroundColor: Theme.of(context).splashColor,
                               value:
                                   _loading ? null : _dataUsedPercentage / 100,
                             ),
@@ -354,7 +354,8 @@ class _VPNPageState extends State<VPNPage> {
                                   }).catchError((error) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: const Text('Error: Copy failed'),
+                                        content:
+                                            const Text('Error: Copy failed'),
                                         showCloseIcon: true,
                                         closeIconColor:
                                             Theme.of(context).colorScheme.error,
@@ -372,8 +373,8 @@ class _VPNPageState extends State<VPNPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title:
-                                              const Text('How to use Outline VPN?'),
+                                          title: const Text(
+                                              'How to use Outline VPN?'),
                                           content: Container(
                                             constraints: const BoxConstraints(
                                               maxWidth: 700,

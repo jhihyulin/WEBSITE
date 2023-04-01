@@ -13,13 +13,13 @@ Set<Map<String, dynamic>> _status = {
       'WebSite': 'https://stats.uptimerobot.com/plWPBU9LQz/793129119',
       'API': 'https://stats.uptimerobot.com/plWPBU9LQz/793711415',
       'Japan Osaka #1': 'https://stats.uptimerobot.com/plWPBU9LQz/793129203',
-      'Japan Osaka #2': 'https://stats.uptimerobot.com/plWPBU9LQz/793129204',
+      //'Japan Osaka #2': 'https://stats.uptimerobot.com/plWPBU9LQz/793129204',
       'Korea Central #1': 'https://stats.uptimerobot.com/plWPBU9LQz/793129191',
       'Long URL': 'https://stats.uptimerobot.com/plWPBU9LQz/793129221',
       'Short URL': 'https://stats.uptimerobot.com/plWPBU9LQz/793129225',
       'VPN Service Manager':
           'https://stats.uptimerobot.com/plWPBU9LQz/793144839',
-      'AList': 'https://stats.uptimerobot.com/plWPBU9LQz/793436931',
+      //'AList': 'https://stats.uptimerobot.com/plWPBU9LQz/793436931',
     },
   },
   {
@@ -34,7 +34,7 @@ Set<Map<String, dynamic>> _status = {
       'API': null,
       'Long URL': null,
       'Short URL': null,
-      'AList': null,
+      //'AList': null,
     },
   },
   {
@@ -47,7 +47,7 @@ Set<Map<String, dynamic>> _status = {
       'Main': 'https://status-vpn.jhihyulin.live',
       'VPN Service Manager': null,
       'Japan Osaka #1': null,
-      'Japan Osaka #2': null,
+      //'Japan Osaka #2': null,
       'Korea Central #1': null,
     },
   }

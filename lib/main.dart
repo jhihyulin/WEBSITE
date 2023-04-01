@@ -27,6 +27,7 @@ import 'pages/qr_generator.dart';
 import 'pages/clock.dart';
 import 'pages/zhsh_3d_map.dart';
 import 'pages/not_found.dart';
+import 'pages/tw_university_result_query.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
@@ -158,6 +159,10 @@ class _MyAppState extends State<MyApp> {
                     } else {
                       builder = (BuildContext context) => ZHSH3DMapPage();
                     }
+                    break;
+                  case '/twuniversityresultquery':
+                    builder =
+                        (BuildContext context) => TWUniversityResultQueryPage();
                     break;
                   case '/setting':
                     builder = (BuildContext context) => const SettingPage();

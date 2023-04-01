@@ -54,6 +54,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.map,
       'route': '/zhsh3dmap',
     },
+    'twuniversityresultquery': {
+      'title': '大學結果查詢',
+      'icon': Icons.school,
+      'route': '/twuniversityresultquery',
+    },
   };
 
   @override

@@ -129,8 +129,7 @@ class _VPNPageState extends State<VPNPage> {
         body: jsonEncode(
             {'firebase_uid': uid, 'token': token, 'server_id': serverId}),
         headers: {
-          'Content-Type': 'application/json',
-          'X-Firebase-AppCheck': token
+          'Content-Type': 'application/json'
         }).then((value) {
       var data = jsonDecode(value.body);
       setState(() {

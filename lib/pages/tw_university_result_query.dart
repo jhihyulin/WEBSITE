@@ -47,6 +47,15 @@ class _TWUniversityResultQueryPageState
     if (response.statusCode == HttpStatus.ok) {
       return jsonDecode(response.body);
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: ${response.statusCode} ${response.reasonPhrase}'),
+          showCloseIcon: true,
+          closeIconColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 10),
+        ),
+      );
       throw Exception('Failed to load data');
     }
   }

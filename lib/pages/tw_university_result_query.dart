@@ -375,8 +375,12 @@ class _TWUniversityResultQueryPageState
                         runSpacing: 10,
                         children: [
                           ElevatedButton.icon(
-                            icon: const Icon(Icons.search),
-                            label: const Text('查詢'),
+                            icon: _loaded
+                                ? const Icon(Icons.refresh)
+                                : const Icon(Icons.search),
+                            label: _loaded
+                                ? const Text('重新查詢')
+                                : const Text('查詢'),
                             onPressed: () {
                               search();
                             },

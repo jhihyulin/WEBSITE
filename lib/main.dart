@@ -164,8 +164,13 @@ class _MyAppState extends State<MyApp> {
                     }
                     break;
                   case '/twuniversityresultquery':
-                    builder =
-                        (BuildContext context) => TWUniversityResultQueryPage();
+                    if (parameters != null) {
+                      builder = (BuildContext context) => TWUniversityResultQueryPage(
+                            id : parameters!['id'] ?? '',
+                          );
+                    } else {
+                      builder = (BuildContext context) => TWUniversityResultQueryPage();
+                    }
                     break;
                   case '/setting':
                     builder = (BuildContext context) => const SettingPage();

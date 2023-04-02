@@ -370,7 +370,24 @@ class _TWUniversityResultQueryPageState
                                 );
                               },
                             ),
-                          )
+                          ),
+                          Offstage(
+                              offstage: !_loaded,
+                              child: TextButton(
+                                child: const Icon(Icons.send),
+                                onPressed: () {
+                                  Clipboard.setData(ClipboardData(
+                                      text:
+                                          'https://jhihyulin.live/TWUniversityResultQuery?id=$_id'));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('已複製網址到剪貼簿'),
+                                      showCloseIcon: true,
+                                      behavior: SnackBarBehavior.floating,
+                                    ),
+                                  );
+                                },
+                              ))
                         ],
                       )),
                   Offstage(
@@ -429,6 +446,7 @@ class _TWUniversityResultQueryPageState
   void search() {
     if (_formKey.currentState!.validate()) {
       setState(() {
+        _id = inputIdController.text;
         _loading = true;
         _loaded = false;
       });

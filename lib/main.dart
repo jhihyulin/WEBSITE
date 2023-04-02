@@ -101,13 +101,16 @@ class _MyAppState extends State<MyApp> {
                       List<String> parameterList = parameter.split('=');
                       parameters = {
                         ...parameters ?? {},
-                        parameterList[0]: parameterList[1],
+                        // ignore parameter case
+                        parameterList[0].toLowerCase(): parameterList[1]
                       };
                     }
                   });
                 }
                 // ignore all query parameters
                 name = name.replaceAll(RegExp(r'[?].*'), '');
+                // ignore URL case
+                name = name.toLowerCase();
                 if (kDebugMode) {
                   print('Route Name: $name, Parameters: $parameters');
                 }

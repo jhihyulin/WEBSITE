@@ -92,6 +92,9 @@ class _TWUniversityResultQueryPageState
                   Offstage(
                       offstage: !_loaded,
                       child: Card(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0))),
                           child: Container(
                               padding: const EdgeInsets.all(20),
                               child: Column(

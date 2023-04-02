@@ -17,5 +17,5 @@
 |URL Launcher|QR Generator|
 |![](/.github/preview/clock.png)|![](/.github/preview/zhsh3dmap.png)|
 |Clock|ZHSH 3D Map|
-|![](/.github/preview/setting.png)|
-|Setting|
+|![](/.github/preview/setting.png)|![](/.github/preview/twuniversityresultquery.png)|
+|Setting|TW University Result Query|

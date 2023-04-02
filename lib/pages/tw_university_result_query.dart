@@ -5,6 +5,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class TWUniversityResultQueryPage extends StatefulWidget {
@@ -160,6 +161,23 @@ class _TWUniversityResultQueryPageState
                                       title: const Text(
                                         '姓名',
                                       ),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.copy),
+                                        onPressed: () {
+                                          Clipboard.setData(ClipboardData(
+                                              text: utf8.decode(
+                                                  _name.toString().codeUnits)));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text('已複製到剪貼簿'),
+                                              showCloseIcon: true,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                            ),
+                                          );
+                                        },
+                                      ),
                                       subtitle: Text(
                                         utf8.decode(_name.toString().codeUnits),
                                       ),
@@ -171,6 +189,28 @@ class _TWUniversityResultQueryPageState
                                       leading: const Icon(Icons.star),
                                       title: const Text(
                                         '繁星推薦招生錄取',
+                                      ),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.copy),
+                                        onPressed: () {
+                                          var data = ['繁星推薦招生錄取'];
+                                          data = data +
+                                              [
+                                                for (var key in _stardata.keys)
+                                                  '$key: ${utf8.decode(_stardata[key].toString().codeUnits)}'
+                                              ];
+                                          Clipboard.setData(ClipboardData(
+                                              text: data.join('\n')));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text('已複製到剪貼簿'),
+                                              showCloseIcon: true,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                            ),
+                                          );
+                                        },
                                       ),
                                       subtitle: Column(
                                         crossAxisAlignment:
@@ -191,6 +231,28 @@ class _TWUniversityResultQueryPageState
                                       title: const Text(
                                         '大學申請入學第一階段篩選',
                                       ),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.copy),
+                                        onPressed: () {
+                                          var data = ['大學申請入學第一階段篩選'];
+                                          data = data +
+                                              [
+                                                for (var key in _udata.keys)
+                                                  '$key: ${utf8.decode(_udata[key].toString().codeUnits)}'
+                                              ];
+                                          Clipboard.setData(ClipboardData(
+                                              text: data.join('\n')));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text('已複製到剪貼簿'),
+                                              showCloseIcon: true,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                            ),
+                                          );
+                                        },
+                                      ),
                                       subtitle: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -209,6 +271,30 @@ class _TWUniversityResultQueryPageState
                                       leading: const Icon(Icons.school),
                                       title: const Text(
                                         '科技校院日間部四年制申請入學聯合招生第一階段篩選',
+                                      ),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.copy),
+                                        onPressed: () {
+                                          var data = [
+                                            '科技校院日間部四年制申請入學聯合招生第一階段篩選'
+                                          ];
+                                          data = data +
+                                              [
+                                                for (var key in _tudata.keys)
+                                                  '$key: ${utf8.decode(_tudata[key].toString().codeUnits)}'
+                                              ];
+                                          Clipboard.setData(ClipboardData(
+                                              text: data.join('\n')));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text('已複製到剪貼簿'),
+                                              showCloseIcon: true,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                            ),
+                                          );
+                                        },
                                       ),
                                       subtitle: Column(
                                         crossAxisAlignment:
@@ -283,12 +369,63 @@ class _TWUniversityResultQueryPageState
                   ),
                   Offstage(
                       offstage: _loading,
-                      child: ElevatedButton.icon(
-                        icon: const Icon(Icons.search),
-                        label: const Text('查詢'),
-                        onPressed: () {
-                          search();
-                        },
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          ElevatedButton.icon(
+                            icon: const Icon(Icons.search),
+                            label: const Text('查詢'),
+                            onPressed: () {
+                              search();
+                            },
+                          ),
+                          Offstage(
+                            offstage: !_loaded ||
+                                _stardata.isEmpty &&
+                                    _udata.isEmpty &&
+                                    _tudata.isEmpty,
+                            child: TextButton(
+                              child: const Icon(Icons.copy),
+                              onPressed: () {
+                                Clipboard.setData(ClipboardData(
+                                    text: [
+                                            _name == ''
+                                                ? false
+                                                : '姓名: ${utf8.decode(_name.toString().codeUnits)}',
+                                            _stardata.isEmpty
+                                                ? false
+                                                : '繁星推薦:\n${[
+                                                    for (var key
+                                                        in _stardata.keys)
+                                                      '$key: ${utf8.decode(_stardata[key].toString().codeUnits)}'
+                                                  ].join('\n')}',
+                                            _udata.isEmpty
+                                                ? false
+                                                : '大學申請入學第一階段篩選:\n${[
+                                                    for (var key in _udata.keys)
+                                                      '$key: ${utf8.decode(_udata[key].toString().codeUnits)}'
+                                                  ].join('\n')}',
+                                            _tudata.isEmpty
+                                                ? false
+                                                : '科技校院日間部四年制申請入學聯合招生第一階段篩選:\n${[
+                                                    for (var key
+                                                        in _tudata.keys)
+                                                      '$key: ${utf8.decode(_tudata[key].toString().codeUnits)}'
+                                                  ].join('\n')}',
+                                          ].join('\n').replaceAll('\nfalse', '').replaceAll('false\n', '')));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('已複製到剪貼簿'),
+                                    showCloseIcon: true,
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
                       )),
                   Offstage(
                     offstage: !_loading,

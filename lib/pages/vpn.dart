@@ -33,8 +33,8 @@ class _VPNPageState extends State<VPNPage> {
   double _dataUsedPercentage = 0;
   String _useBytesLimitVisualization = '';
   String _usedBytesVisualization = '';
-  List<DropdownMenuItem<dynamic>> items = [];
-  List<DropdownMenuItem<dynamic>> _items = [
+  List<DropdownMenuItem<String>> items = [];
+  List<DropdownMenuItem<String>> _items = [
     const DropdownMenuItem(
       value: 'null',
       child: Text('Please wait...'),
@@ -62,13 +62,6 @@ class _VPNPageState extends State<VPNPage> {
       _dataUsedPercentage = 0;
       _useBytesLimitVisualization = '';
       _usedBytesVisualization = '';
-      items = [];
-      _items = [
-        const DropdownMenuItem(
-          value: 'null',
-          child: Text('Please wait...'),
-        )
-      ];
       selectedServerId = _defaultSelect;
       _selectedServerId = _defaultSelect;
       _getResponse = false;
@@ -79,14 +72,14 @@ class _VPNPageState extends State<VPNPage> {
   void _getServerList() async {
     await http.get(getServerList).then((value) {
       var data = jsonDecode(value.body);
-      List<DropdownMenuItem> items = [];
-      DropdownMenuItem item = DropdownMenuItem(
+      List<DropdownMenuItem<String>> items = [];
+      DropdownMenuItem<String> item = DropdownMenuItem(
         value: _defaultSelect,
         child: const Text('Please select server'),
       );
       items.add(item);
       for (var i = 0; i < data['server_amount']; i++) {
-        DropdownMenuItem item = DropdownMenuItem(
+        DropdownMenuItem<String> item = DropdownMenuItem(
           value: data['server_list'][i]['server_id'],
           child: Text(data['server_list'][i]['display_name']),
         );
@@ -128,9 +121,7 @@ class _VPNPageState extends State<VPNPage> {
     await http.post(getToken,
         body: jsonEncode(
             {'firebase_uid': uid, 'token': token, 'server_id': serverId}),
-        headers: {
-          'Content-Type': 'application/json'
-        }).then((value) {
+        headers: {'Content-Type': 'application/json'}).then((value) {
       var data = jsonDecode(value.body);
       setState(() {
         _accessUrlController.text =
@@ -255,23 +246,25 @@ class _VPNPageState extends State<VPNPage> {
                               child: DropdownButton(
                                 items: _items,
                                 value: _selectedServerId,
-                                onChanged: (value) {
-                                  if (value == _defaultSelect) {
-                                    setState(() {
-                                      _getResponse = false;
-                                      _selectedServerId = value;
-                                      _resetValue();
-                                    });
-                                    return;
-                                  } else {
-                                    setState(() {
-                                      _loading = true;
-                                      _getResponse = false;
-                                      _selectedServerId = value;
-                                      _getKey(value);
-                                    });
-                                  }
-                                },
+                                onChanged: _loading
+                                    ? null
+                                    : (value) {
+                                        if (value == _defaultSelect) {
+                                          setState(() {
+                                            _getResponse = false;
+                                            _selectedServerId = value.toString();
+                                            _resetValue();
+                                          });
+                                          return;
+                                        } else {
+                                          setState(() {
+                                            _loading = true;
+                                            _getResponse = false;
+                                            _selectedServerId = value.toString();
+                                            _getKey(value.toString());
+                                          });
+                                        }
+                                      },
                               ),
                             ))),
                     Offstage(

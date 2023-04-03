@@ -118,6 +118,11 @@ class _TWUniversityResultQueryPageState
                                               showCloseIcon: true,
                                               behavior:
                                                   SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              16.0))),
                                             ),
                                           );
                                         },
@@ -152,6 +157,11 @@ class _TWUniversityResultQueryPageState
                                               showCloseIcon: true,
                                               behavior:
                                                   SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              16.0))),
                                             ),
                                           );
                                         },
@@ -193,6 +203,11 @@ class _TWUniversityResultQueryPageState
                                               showCloseIcon: true,
                                               behavior:
                                                   SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              16.0))),
                                             ),
                                           );
                                         },
@@ -236,6 +251,11 @@ class _TWUniversityResultQueryPageState
                                               showCloseIcon: true,
                                               behavior:
                                                   SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              16.0))),
                                             ),
                                           );
                                         },
@@ -368,6 +388,9 @@ class _TWUniversityResultQueryPageState
                                     content: Text('已複製到剪貼簿'),
                                     showCloseIcon: true,
                                     behavior: SnackBarBehavior.floating,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16.0))),
                                   ),
                                 );
                               },
@@ -381,13 +404,15 @@ class _TWUniversityResultQueryPageState
                                   Clipboard.setData(ClipboardData(
                                       text:
                                           'https://jhihyulin.live/TWUniversityResultQuery?id=$_id'));
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('已複製網址到剪貼簿'),
-                                      showCloseIcon: true,
-                                      behavior: SnackBarBehavior.floating,
-                                    ),
-                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text('已複製網址到剪貼簿'),
+                                    showCloseIcon: true,
+                                    behavior: SnackBarBehavior.floating,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(16.0))),
+                                  ));
                                 },
                               ))
                         ],
@@ -474,6 +499,8 @@ class _TWUniversityResultQueryPageState
             closeIconColor: Theme.of(context).colorScheme.error,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 10),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16.0))),
           ),
         );
         setState(() {

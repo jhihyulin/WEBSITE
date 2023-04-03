@@ -105,6 +105,8 @@ class _VPNPageState extends State<VPNPage> {
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 10),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ),
       );
     });
@@ -145,6 +147,8 @@ class _VPNPageState extends State<VPNPage> {
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 10),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ),
       );
     });
@@ -252,7 +256,8 @@ class _VPNPageState extends State<VPNPage> {
                                         if (value == _defaultSelect) {
                                           setState(() {
                                             _getResponse = false;
-                                            _selectedServerId = value.toString();
+                                            _selectedServerId =
+                                                value.toString();
                                             _resetValue();
                                           });
                                           return;
@@ -260,7 +265,8 @@ class _VPNPageState extends State<VPNPage> {
                                           setState(() {
                                             _loading = true;
                                             _getResponse = false;
-                                            _selectedServerId = value.toString();
+                                            _selectedServerId =
+                                                value.toString();
                                             _getKey(value.toString());
                                           });
                                         }
@@ -341,6 +347,9 @@ class _VPNPageState extends State<VPNPage> {
                                         content: Text('Copied to clipboard'),
                                         showCloseIcon: true,
                                         behavior: SnackBarBehavior.floating,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(16.0))),
                                       ),
                                     );
                                   }).catchError((error) {
@@ -353,6 +362,9 @@ class _VPNPageState extends State<VPNPage> {
                                             Theme.of(context).colorScheme.error,
                                         behavior: SnackBarBehavior.floating,
                                         duration: const Duration(seconds: 10),
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(16.0))),
                                       ),
                                     );
                                   });

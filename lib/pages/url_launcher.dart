@@ -23,6 +23,8 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 10),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ),
       );
       return;
@@ -35,6 +37,8 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
         closeIconColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 10),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16.0))),
       ),
     );
     return;

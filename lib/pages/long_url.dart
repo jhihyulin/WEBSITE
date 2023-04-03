@@ -84,6 +84,8 @@ class _LongURLPageState extends State<LongURLPage> {
                   closeIconColor: Theme.of(context).colorScheme.error,
                   behavior: SnackBarBehavior.floating,
                   duration: const Duration(seconds: 10),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
                 )),
               });
     } else {
@@ -151,12 +153,12 @@ class _LongURLPageState extends State<LongURLPage> {
                                   children: [
                                     const SizedBox(height: 20),
                                     ClipRRect(
-                                      borderRadius:
-                                          const BorderRadius.all(Radius.circular(16.0)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(16.0)),
                                       child: LinearProgressIndicator(
                                         minHeight: 20,
-                                        backgroundColor: Theme.of(context)
-                                            .splashColor,
+                                        backgroundColor:
+                                            Theme.of(context).splashColor,
                                       ),
                                     ),
                                   ],
@@ -210,12 +212,18 @@ class _LongURLPageState extends State<LongURLPage> {
                                                 ClipboardData(text: _lurl))
                                             .then((value) => {
                                                   ScaffoldMessenger.of(context)
-                                                      .showSnackBar(const SnackBar(
+                                                      .showSnackBar(
+                                                          const SnackBar(
                                                     content: Text(
                                                         'Copied to clipboard'),
                                                     showCloseIcon: true,
                                                     behavior: SnackBarBehavior
                                                         .floating,
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    16.0))),
                                                   ))
                                                 })
                                             .catchError((error) => {
@@ -230,8 +238,13 @@ class _LongURLPageState extends State<LongURLPage> {
                                                             .error,
                                                     behavior: SnackBarBehavior
                                                         .floating,
-                                                    duration:
-                                                        const Duration(seconds: 10),
+                                                    duration: const Duration(
+                                                        seconds: 10),
+                                                    shape: const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    16.0))),
                                                   ))
                                                 });
                                       },
@@ -246,9 +259,11 @@ class _LongURLPageState extends State<LongURLPage> {
                                               context: context,
                                               builder: (context) {
                                                 return AlertDialog(
-                                                  title: const Text('Not working?'),
+                                                  title: const Text(
+                                                      'Not working?'),
                                                   content: Container(
-                                                    constraints: const BoxConstraints(
+                                                    constraints:
+                                                        const BoxConstraints(
                                                       maxWidth: 700,
                                                       minWidth: 700,
                                                     ),
@@ -266,7 +281,8 @@ class _LongURLPageState extends State<LongURLPage> {
                                                             children: [
                                                               Offstage(
                                                                 offstage:
-                                                                    _lURLLength <= _lURLSupportLimit,
+                                                                    _lURLLength <=
+                                                                        _lURLSupportLimit,
                                                                 child:
                                                                     Text.rich(
                                                                   TextSpan(
@@ -326,30 +342,44 @@ class _LongURLPageState extends State<LongURLPage> {
                                                                 ),
                                                               ),
                                                               Offstage(
-                                                                offstage: _lURLLength > _lURLSupportLimit,
-                                                                child: Text.rich(
-                                                                  TextSpan(
-                                                                    children: [
-                                                                      const TextSpan(text: 'This is a unknown error, please contact us at '),
+                                                                  offstage:
+                                                                      _lURLLength >
+                                                                          _lURLSupportLimit,
+                                                                  child: Text.rich(
                                                                       TextSpan(
-                                                                        style: TextStyle(
-                                                                          color: Theme.of(context).colorScheme.primary,
+                                                                          children: [
+                                                                        const TextSpan(
+                                                                            text:
+                                                                                'This is a unknown error, please contact us at '),
+                                                                        TextSpan(
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).colorScheme.primary,
+                                                                          ),
+                                                                          text:
+                                                                              'admin@jhihyulin.live',
+                                                                          recognizer: TapGestureRecognizer()
+                                                                            ..onTap = () {
+                                                                              launchUrl(Uri.parse('mailto:admin@jhihyulin.live?subject=%5BLong%20URL%5D%20Bug%20Report'));
+                                                                            },
                                                                         ),
-                                                                        text: 'admin@jhihyulin.live',
-                                                                        recognizer: TapGestureRecognizer()
-                                                                          ..onTap = () {
-                                                                            launchUrl(Uri.parse('mailto:admin@jhihyulin.live?subject=%5BLong%20URL%5D%20Bug%20Report'));
-                                                                          },
-                                                                      ),
-                                                                      const TextSpan(text: ' for help.'),
-                                                                      const TextSpan(text: '\nDon\'t forget to include the following information:'),
-                                                                      const TextSpan(text: '\n1. Original URL'),
-                                                                      const TextSpan(text: '\n2. Generated Long URL'),
-                                                                      const TextSpan(text: '\n3. Error ScreenShot'),
-                                                                    ]
-                                                                  )
-                                                                )
-                                                              )
+                                                                        const TextSpan(
+                                                                            text:
+                                                                                ' for help.'),
+                                                                        const TextSpan(
+                                                                            text:
+                                                                                '\nDon\'t forget to include the following information:'),
+                                                                        const TextSpan(
+                                                                            text:
+                                                                                '\n1. Original URL'),
+                                                                        const TextSpan(
+                                                                            text:
+                                                                                '\n2. Generated Long URL'),
+                                                                        const TextSpan(
+                                                                            text:
+                                                                                '\n3. Error ScreenShot'),
+                                                                      ])))
                                                             ],
                                                           ),
                                                         ],

@@ -20,8 +20,7 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
-  final TextEditingController contactEmailController =
-      TextEditingController();
+  final TextEditingController contactEmailController = TextEditingController();
   final TextEditingController contactMessageController =
       TextEditingController();
   final TextEditingController contactSignatureController =
@@ -69,6 +68,8 @@ class _ContactPageState extends State<ContactPage> {
           content: Text('Message Sent Seccessfully.'),
           showCloseIcon: true,
           behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ));
       }).catchError((error) {
         setState(() {
@@ -80,16 +81,8 @@ class _ContactPageState extends State<ContactPage> {
           closeIconColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 10),
-          // action: SnackBarAction(
-          //   label: 'Report',
-          //   onPressed: () async {
-          //     Uri _url = Uri.parse(
-          //         'mailto:$reportEmail?subject=%5BWebsite%5DContact%20Error%20Report&body=%5B2%5DError%20Message%3A%20$error%0D%0AEmail%3A%20$Email%0D%0AMessage%3A%20$Message%0D%0ASignature%3A%20$Signature%0D%0ATimeStamp%3A%20$TimeStamp%0D%0AUID%3A%20$uid');
-          //     if (!await launchUrl(_url)) {
-          //       FailToSendReport(error, context);
-          //     }
-          //   },
-          // )
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ));
       });
     }).catchError((error) {
@@ -102,16 +95,8 @@ class _ContactPageState extends State<ContactPage> {
         closeIconColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 10),
-        // action: SnackBarAction(
-        //   label: 'Report',
-        //   onPressed: () async {
-        //     Uri _url = Uri.parse(
-        //         'mailto:$reportEmail?subject=%5BWebsite%5DContact%20Error%20Report&body=%5B1%5DError%20Message%3A%20$error%0D%0AEmail%3A%20$Email%0D%0AMessage%3A%20$Message%0D%0ASignature%3A%20$Signature%0D%0ATimeStamp%3A%20$TimeStamp%0D%0AUID%3A%20$uid');
-        //     if (!await launchUrl(_url)) {
-        //       FailToSendReport(error, context);
-        //     }
-        //   },
-        // )
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16.0))),
       ));
     });
   }
@@ -196,11 +181,11 @@ class _ContactPageState extends State<ContactPage> {
                         Offstage(
                           offstage: !_loading,
                           child: ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
-                              backgroundColor: Theme.of(context)
-                                  .splashColor,
+                              backgroundColor: Theme.of(context).splashColor,
                             ),
                           ),
                         ),
@@ -239,14 +224,3 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 }
-
-// void FailToSendReport(error, context) {
-//   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//     content: Text(
-//         'Fail to send report.\nPleae send Email to $reportEmail\nAlso don\'t forget to attach a screenshot and this error message:\n$error'),
-//     showCloseIcon: true,
-//     closeIconColor: Colors.red,
-//     behavior: SnackBarBehavior.floating,
-//     duration: Duration(seconds: 10),
-//   ));
-// }

@@ -79,6 +79,8 @@ class _ShortURLPageState extends State<ShortURLPage> {
                   closeIconColor: Theme.of(context).colorScheme.error,
                   behavior: SnackBarBehavior.floating,
                   duration: const Duration(seconds: 10),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
                 )),
               });
     } else {
@@ -146,12 +148,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                               children: [
                                 const SizedBox(height: 20),
                                 ClipRRect(
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(16.0)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(16.0)),
                                   child: LinearProgressIndicator(
                                     minHeight: 20,
-                                    backgroundColor: Theme.of(context)
-                                        .splashColor,
+                                    backgroundColor:
+                                        Theme.of(context).splashColor,
                                   ),
                                 ),
                               ],
@@ -209,6 +211,11 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                                 showCloseIcon: true,
                                                 behavior:
                                                     SnackBarBehavior.floating,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                16.0))),
                                               ))
                                             })
                                         .catchError((error) => {
@@ -222,7 +229,13 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                                         .error,
                                                 behavior:
                                                     SnackBarBehavior.floating,
-                                                duration: const Duration(seconds: 10),
+                                                duration:
+                                                    const Duration(seconds: 10),
+                                                shape: const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                16.0))),
                                               ))
                                             });
                                   },

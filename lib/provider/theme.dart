@@ -6,10 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ThemeProvider with ChangeNotifier {
-  static const Color DefaultThemeColor = Colors.blueGrey;
-  static const int DefaultThemeMode = 0;
-  Color _themeColor = DefaultThemeColor;
-  int _themeMode = 0; // 0: System 1: Light 2: Dark
+  static const Color dThemeColor = Colors.blueGrey;
+  static const int dThemeMode = 0; // 0: System 1: Light 2: Dark
+  Color _themeColor = dThemeColor;
+  int _themeMode = dThemeMode;
 
   User? _user;
 
@@ -28,8 +28,8 @@ class ThemeProvider with ChangeNotifier {
                 if (data != null) {
                   var preferance = data['preferance'];
                   if (preferance != null) {
-                    _themeColor = Color(preferance['themeColor'] ?? DefaultThemeColor.value);
-                    _themeMode = preferance['themeMode'] ?? DefaultThemeMode;
+                    _themeColor = Color(preferance['themeColor'] ?? dThemeColor.value);
+                    _themeMode = preferance['themeMode'] ?? dThemeMode;
                     notifyListeners();
                   }
                 }
@@ -37,8 +37,8 @@ class ThemeProvider with ChangeNotifier {
             });
           });
       } else {
-        _themeColor = DefaultThemeColor;
-        _themeMode = DefaultThemeMode;
+        _themeColor = dThemeColor;
+        _themeMode = dThemeMode;
         user = null;
         notifyListeners();
       }
@@ -47,7 +47,7 @@ class ThemeProvider with ChangeNotifier {
 
   Color get themeColor => _themeColor;
 
-  Color get defaultThemeColor => DefaultThemeColor;
+  Color get defaultThemeColor => dThemeColor;
 
   setThemeColor(Color themeColor) {
     _themeColor = themeColor;
@@ -57,7 +57,7 @@ class ThemeProvider with ChangeNotifier {
 
   int get themeMode => _themeMode;
 
-  int get defaultThemeMode => DefaultThemeMode;
+  int get defaultThemeMode => dThemeMode;
 
   setThemeMode(int themeMode) {
     _themeMode = themeMode;

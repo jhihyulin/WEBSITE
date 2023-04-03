@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,21 +11,31 @@ class ThemeProvider with ChangeNotifier {
   Color _themeColor = DefaultThemeColor;
   int _themeMode = 0; // 0: System 1: Light 2: Dark
 
-  User? user;
+  User? _user;
 
   ThemeProvider() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
-        this.user = user;
-        FirebaseFirestore.instance
-            .collection('user')
-            .doc(user.uid)
-            .get()
-            .then((value) => {
-                  _themeColor = Color(value['preferance']['themeColor']),
-                  _themeMode = value['preferance']['themeMode'],
-                  notifyListeners()
-                });
+        _user = user;
+          Timer(const Duration(milliseconds: 100), () {
+            FirebaseFirestore.instance
+                .collection('user')
+                .doc(user?.uid)
+                .get()
+                .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
+              if (documentSnapshot.exists) {
+                var data = documentSnapshot.data();
+                if (data != null) {
+                  var preferance = data['preferance'];
+                  if (preferance != null) {
+                    _themeColor = Color(preferance['themeColor'] ?? DefaultThemeColor.value);
+                    _themeMode = preferance['themeMode'] ?? DefaultThemeMode;
+                    notifyListeners();
+                  }
+                }
+              }
+            });
+          });
       } else {
         _themeColor = DefaultThemeColor;
         _themeMode = DefaultThemeMode;
@@ -53,14 +66,16 @@ class ThemeProvider with ChangeNotifier {
   }
 
   void syncToFirebase() {
-    if (user != null) {
-      FirebaseFirestore.instance
-          .collection('user')
-          .doc(user!.uid)
-          .update({'preferance': {
-            'themeColor': themeColor.value,
-            'themeMode': themeMode
-          }});
+    if (_user != null) {
+      FirebaseFirestore.instance.collection('user').doc(_user!.uid).update({
+        'preferance': {'themeColor': themeColor.value, 'themeMode': themeMode}
+      }).then((value) {
+        if (kDebugMode) {
+          print('Theme Data Updated');
+          print('Theme Color: $themeColor');
+          print('Theme Mode: $themeMode');
+        }
+      });
     }
   }
 }

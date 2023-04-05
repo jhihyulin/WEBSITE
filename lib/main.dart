@@ -10,24 +10,25 @@ import 'package:google_fonts/google_fonts.dart';
 import 'home.dart';
 import 'provider/theme.dart';
 import 'tool.dart';
-import 'pages/setting.dart';
 import 'firebase_options.dart';
-import 'pages/profile.dart';
-import 'pages/sign_in.dart';
-import 'pages/status.dart';
-import 'pages/vpn.dart';
-import 'pages/short_url.dart';
-import 'pages/long_url.dart';
-import 'pages/contact.dart';
-import 'pages/about.dart';
-import 'pages/bmi.dart';
-import 'pages/timer.dart';
-import 'pages/url_launcher.dart';
-import 'pages/qr_generator.dart';
-import 'pages/clock.dart';
-import 'pages/zhsh_3d_map.dart';
-import 'pages/not_found.dart';
-import 'pages/tw_university_result_query.dart';
+import 'pages/setting.dart' deferred as setting;
+import 'pages/profile.dart' deferred as profile;
+import 'pages/sign_in.dart' deferred as sign_in;
+import 'pages/status.dart' deferred as status;
+import 'pages/vpn.dart' deferred as vpn;
+import 'pages/short_url.dart' deferred as short_url;
+import 'pages/long_url.dart' deferred as long_url;
+import 'pages/contact.dart' deferred as contact;
+import 'pages/about.dart' deferred as about;
+import 'pages/bmi.dart' deferred as bmi;
+import 'pages/timer.dart' deferred as timer;
+import 'pages/url_launcher.dart' deferred as url_launcher;
+import 'pages/qr_generator.dart' deferred as qr_generator;
+import 'pages/clock.dart' deferred as clock;
+import 'pages/zhsh_3d_map.dart' deferred as zhsh_3d_map;
+import 'pages/not_found.dart' deferred as not_found;
+import 'pages/tw_university_result_query.dart'
+    deferred as tw_university_result_query;
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
@@ -52,6 +53,20 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Widget customLoadingWidget(BuildContext context) {
+    return Center(
+        child: Container(
+      padding: const EdgeInsets.all(20),
+      child: const ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        child: LinearProgressIndicator(
+          minHeight: 20,
+          value: null,
+        ),
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -116,64 +131,248 @@ class _MyAppState extends State<MyApp> {
                 }
                 switch (name) {
                   case '/profile':
-                    builder = (BuildContext context) => const ProfilePage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: profile.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return profile.ProfilePage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/signin':
-                    builder = (BuildContext context) => SignInPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: sign_in.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return sign_in.SignInPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/status':
-                    builder = (BuildContext context) => const StatusPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: status.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return status.StatusPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/vpn':
-                    builder = (BuildContext context) => const VPNPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: vpn.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return vpn.VPNPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/shorturl':
-                    builder = (BuildContext context) => const ShortURLPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: short_url.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return short_url.ShortURLPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/longurl':
-                    builder = (BuildContext context) => const LongURLPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: long_url.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return long_url.LongURLPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/contact':
-                    builder = (BuildContext context) => const ContactPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: contact.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return contact.ContactPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/about':
-                    builder = (BuildContext context) => const AboutPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: about.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return about.AboutPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/bmi':
-                    builder = (BuildContext context) => const BMIPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: bmi.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return bmi.BMIPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/timer':
-                    builder = (BuildContext context) => const TimerPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: timer.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return timer.TimerPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/urllauncher':
-                    builder = (BuildContext context) => const URLLauncherPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: url_launcher.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return url_launcher.URLLauncherPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/qrgenerator':
-                    builder = (BuildContext context) => const QRGeneratorPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: qr_generator.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return qr_generator.QRGeneratorPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/clock':
-                    builder = (BuildContext context) => const ClockPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: clock.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return clock.ClockPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/zhsh3dmap':
                     if (parameters != null) {
-                      builder = (BuildContext context) => ZHSH3DMapPage(
-                            embededMode: parameters!['embededMode'] == 'true',
-                          );
+                      builder = (BuildContext context) => FutureBuilder(
+                          future: zhsh_3d_map.loadLibrary(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return zhsh_3d_map.ZHSH3DMapPage(
+                                embededMode:
+                                    parameters!['embededMode'] == 'true',
+                              );
+                            } else {
+                              return customLoadingWidget(context);
+                            }
+                          });
                     } else {
-                      builder = (BuildContext context) => ZHSH3DMapPage();
+                      builder = (BuildContext context) => FutureBuilder(
+                          future: zhsh_3d_map.loadLibrary(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return zhsh_3d_map.ZHSH3DMapPage();
+                            } else {
+                              return customLoadingWidget(context);
+                            }
+                          });
                     }
                     break;
                   case '/twuniversityresultquery':
                     if (parameters != null) {
-                      builder = (BuildContext context) => TWUniversityResultQueryPage(
-                            id : parameters!['id'] ?? '',
-                          );
+                      builder =
+                          (BuildContext context) => FutureBuilder(
+                              future: tw_university_result_query.loadLibrary(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<dynamic> snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  return tw_university_result_query
+                                      .TWUniversityResultQueryPage(
+                                id: parameters!['id'] ?? '',
+                              );
+                                } else {
+                                  return customLoadingWidget(context);
+                                }
+                              });
                     } else {
-                      builder = (BuildContext context) => TWUniversityResultQueryPage();
+                      builder = (BuildContext context) => FutureBuilder(
+                          future: tw_university_result_query.loadLibrary(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return tw_university_result_query
+                                  .TWUniversityResultQueryPage();
+                            } else {
+                              return customLoadingWidget(context);
+                            }
+                          }); 
                     }
                     break;
                   case '/setting':
-                    builder = (BuildContext context) => const SettingPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: setting.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return setting.SettingPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                     break;
                   case '/tool':
                     builder = (BuildContext context) =>
@@ -184,7 +383,17 @@ class _MyAppState extends State<MyApp> {
                         NavigationController(inputIndex: 0);
                     break;
                   default:
-                    builder = (BuildContext context) => const NotFoundPage();
+                    builder = (BuildContext context) => FutureBuilder(
+                        future: not_found.loadLibrary(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return not_found.NotFoundPage();
+                          } else {
+                            return customLoadingWidget(context);
+                          }
+                        });
                 }
                 return MaterialPageRoute(builder: builder, settings: settings);
               },
@@ -247,7 +456,7 @@ class _NavigationControllerState extends State<NavigationController> {
     });
   }
 
-  final List<Widget> pages = [HomePage(), ToolPage()];
+  final List<Widget> pages = [const HomePage(), ToolPage()];
 
   bool _extended = false;
 

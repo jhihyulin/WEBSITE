@@ -97,6 +97,7 @@
         return appRunner.runApp();
       });
     });
+    // TODO: better way to remove loading indicator
     window.onload = function () {
       setTimeout(function () {
         var loadingIndicator = document.getElementById("loading_indicator");

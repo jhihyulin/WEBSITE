@@ -64,7 +64,7 @@ class _SettingPageState extends State<SettingPage> {
                                         : const Text('Logged out'),
                                     subtitle: user != null
                                         ? const Text(
-                                            'Settings will sync to your account.')
+                                            'Settings will sync to your account, and take effect on all devices immediately.')
                                         : const Text(
                                             'Login to sync settings to your account.'),
                                   ),

@@ -94,17 +94,14 @@
       }).then(function (engineInitializer) {
         return engineInitializer.initializeEngine();
       }).then(function (appRunner) {
-        return appRunner.runApp();
-      });
-    });
-    window.onload = function () {
-      setTimeout(function () {
+        // remove loading indicator
         var loadingIndicator = document.getElementById("loading_indicator");
         if (loadingIndicator) {
           loadingIndicator.remove();
         }
-      }, 10000);
-    };
+        return appRunner.runApp();
+      });
+    });
   </script>
 </body>
 

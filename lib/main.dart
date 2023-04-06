@@ -61,6 +61,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
             child: Container(
+              constraints: const BoxConstraints(maxWidth: 700),
           padding: const EdgeInsets.all(20),
           child: const ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(16.0)),

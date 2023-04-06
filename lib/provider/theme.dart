@@ -16,26 +16,45 @@ class ThemeProvider with ChangeNotifier {
 
   ThemeProvider() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
-      // get firebase preferance start
       if (user != null) {
         _user = user;
-        //Timer(const Duration(milliseconds: 1), () async {
+        // get Firestore preferance data
         FirebaseFirestore.instance
-              .collection('user')
-              .doc(user.uid)
-              .get()
-              .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
-            if (documentSnapshot.exists) {
-              var data = documentSnapshot.data();
-              if (data != null) {
-                var preferance = data['preferance'];
-                if (preferance != null) {
-                  dealData(preferance['themeMode'], preferance['themeColor']);
-                }
+            .collection('user')
+            .doc(user.uid)
+            .get()
+            .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
+          if (documentSnapshot.exists) {
+            var data = documentSnapshot.data();
+            if (data != null) {
+              var preferance = data['preferance'];
+              if (preferance != null) {
+                dealData(preferance['themeMode'], preferance['themeColor']);
               }
             }
-          });
-        //});
+          }
+        });
+        // receive Firestore realtime data
+        final docRef =
+            FirebaseFirestore.instance.collection('user').doc(_user!.uid);
+        docRef.snapshots().listen((event) {
+          if (kDebugMode) {
+            print('Remote Firestore Data Changed');
+          }
+          if (event.exists) {
+            var data = event.data();
+            if (data != null) {
+              var preferance = data['preferance'];
+              if (preferance != null) {
+                dealData(preferance['themeMode'], preferance['themeColor']);
+              }
+            }
+          }
+        }, onError: (e) {
+          if (kDebugMode) {
+            print('Remote Firestore Data Changed Error: $e');
+          }
+        });
       } else {
         _user = null;
         dealData(null, null);
@@ -44,16 +63,16 @@ class ThemeProvider with ChangeNotifier {
   }
 
   void dealData(int? firebaseThemeMode, int? firebaseThemeColor) async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      int? cookieThemeColor = prefs.getInt('themeColor');
-      int? cookieThemeMode = prefs.getInt('themeMode');
-      int? targetFirebaseThemeColor = firebaseThemeColor ?? cookieThemeColor;
-      int? targetFirebaseThemeMode = firebaseThemeMode ?? cookieThemeMode;
-      syncToFirebase(targetFirebaseThemeMode ?? dThemeMode,
-          Color(targetFirebaseThemeColor ?? dThemeColor.value));
-      _themeColor = Color(targetFirebaseThemeColor ?? dThemeColor.value);
-      _themeMode = targetFirebaseThemeMode ?? dThemeMode;
-      notifyListeners();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? cookieThemeColor = prefs.getInt('themeColor');
+    int? cookieThemeMode = prefs.getInt('themeMode');
+    int? targetFirebaseThemeColor = firebaseThemeColor ?? cookieThemeColor;
+    int? targetFirebaseThemeMode = firebaseThemeMode ?? cookieThemeMode;
+    syncToFirebase(targetFirebaseThemeMode ?? dThemeMode,
+        Color(targetFirebaseThemeColor ?? dThemeColor.value));
+    _themeColor = Color(targetFirebaseThemeColor ?? dThemeColor.value);
+    _themeMode = targetFirebaseThemeMode ?? dThemeMode;
+    notifyListeners();
   }
 
   Color get themeColor => _themeColor;

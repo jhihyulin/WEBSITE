@@ -54,17 +54,22 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Widget customLoadingWidget(BuildContext context) {
-    return Center(
-        child: Container(
-      padding: const EdgeInsets.all(20),
-      child: const ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        child: LinearProgressIndicator(
-          minHeight: 20,
-          value: null,
+    return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: AppBar(
+          title: const Text('Loading...'),
         ),
-      ),
-    ));
+        body: Center(
+            child: Container(
+          padding: const EdgeInsets.all(20),
+          child: const ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            child: LinearProgressIndicator(
+              minHeight: 20,
+              value: null,
+            ),
+          ),
+        )));
   }
 
   @override
@@ -331,21 +336,20 @@ class _MyAppState extends State<MyApp> {
                     break;
                   case '/twuniversityresultquery':
                     if (parameters != null) {
-                      builder =
-                          (BuildContext context) => FutureBuilder(
-                              future: tw_university_result_query.loadLibrary(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<dynamic> snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.done) {
-                                  return tw_university_result_query
-                                      .TWUniversityResultQueryPage(
+                      builder = (BuildContext context) => FutureBuilder(
+                          future: tw_university_result_query.loadLibrary(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return tw_university_result_query
+                                  .TWUniversityResultQueryPage(
                                 id: parameters!['id'] ?? '',
                               );
-                                } else {
-                                  return customLoadingWidget(context);
-                                }
-                              });
+                            } else {
+                              return customLoadingWidget(context);
+                            }
+                          });
                     } else {
                       builder = (BuildContext context) => FutureBuilder(
                           future: tw_university_result_query.loadLibrary(),
@@ -358,7 +362,7 @@ class _MyAppState extends State<MyApp> {
                             } else {
                               return customLoadingWidget(context);
                             }
-                          }); 
+                          });
                     }
                     break;
                   case '/setting':

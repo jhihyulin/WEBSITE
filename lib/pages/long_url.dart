@@ -19,7 +19,7 @@ class LongURLPage extends StatefulWidget {
   const LongURLPage({Key? key}) : super(key: key);
 
   @override
-  _LongURLPageState createState() => _LongURLPageState();
+  State<LongURLPage> createState() => _LongURLPageState();
 }
 
 class _LongURLPageState extends State<LongURLPage> {

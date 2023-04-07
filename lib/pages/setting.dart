@@ -18,7 +18,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     int themeMode =
-        Provider.of<ThemeProvider>(context, listen: false).themeMode;
+        Provider.of<ThemeProvider>(context, listen: true).themeMode;
     List<bool> themeModeIsSelected = List.generate(3, (i) {
       if (i == themeMode) {
         return true;
@@ -26,7 +26,7 @@ class _SettingPageState extends State<SettingPage> {
       return false;
     });
     Color themeColor =
-        Provider.of<ThemeProvider>(context, listen: false).themeColor;
+        Provider.of<ThemeProvider>(context, listen: true).themeColor;
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);

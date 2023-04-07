@@ -48,10 +48,8 @@ class ThemeProvider with ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     int? cookieThemeColor = prefs.getInt('themeColor');
     int? cookieThemeMode = prefs.getInt('themeMode');
-    int? targetFirebaseThemeColor = firebaseThemeColor ?? cookieThemeColor;
-    int? targetFirebaseThemeMode = firebaseThemeMode ?? cookieThemeMode;
-    _themeColor = Color(targetFirebaseThemeColor ?? dThemeColor.value);
-    _themeMode = targetFirebaseThemeMode ?? dThemeMode;
+    _themeColor = Color(firebaseThemeColor ?? cookieThemeColor ?? dThemeColor.value);
+    _themeMode = firebaseThemeMode ?? cookieThemeMode ?? dThemeMode;
     notifyListeners();
   }
 

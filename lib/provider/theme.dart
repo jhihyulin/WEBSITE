@@ -12,28 +12,16 @@ class ThemeProvider with ChangeNotifier {
   Color _themeColor = dThemeColor;
   int _themeMode = dThemeMode;
 
+  int? _lastUpdateTimeStamp;
+
+  Timer _timer = Timer(const Duration(seconds: 1), () {});
+
   User? _user;
 
   ThemeProvider() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user != null) {
         _user = user;
-        // get Firestore preferance data
-        FirebaseFirestore.instance
-            .collection('user')
-            .doc(user.uid)
-            .get()
-            .then((DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
-          if (documentSnapshot.exists) {
-            var data = documentSnapshot.data();
-            if (data != null) {
-              var preferance = data['preferance'];
-              if (preferance != null) {
-                dealData(preferance['themeMode'], preferance['themeColor']);
-              }
-            }
-          }
-        });
         // receive Firestore realtime data
         final docRef =
             FirebaseFirestore.instance.collection('user').doc(_user!.uid);
@@ -68,8 +56,6 @@ class ThemeProvider with ChangeNotifier {
     int? cookieThemeMode = prefs.getInt('themeMode');
     int? targetFirebaseThemeColor = firebaseThemeColor ?? cookieThemeColor;
     int? targetFirebaseThemeMode = firebaseThemeMode ?? cookieThemeMode;
-    syncToFirebase(targetFirebaseThemeMode ?? dThemeMode,
-        Color(targetFirebaseThemeColor ?? dThemeColor.value));
     _themeColor = Color(targetFirebaseThemeColor ?? dThemeColor.value);
     _themeMode = targetFirebaseThemeMode ?? dThemeMode;
     notifyListeners();

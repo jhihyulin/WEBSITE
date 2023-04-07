@@ -53,24 +53,33 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget customLoadingWidget(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        appBar: AppBar(
-          title: const Text('Loading...'),
-        ),
-        body: Center(
-            child: Container(
-          constraints: const BoxConstraints(maxWidth: 700),
-          padding: const EdgeInsets.all(20),
-          child: const ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
-            child: LinearProgressIndicator(
-              minHeight: 20,
-              value: null,
-            ),
-          ),
-        )));
+  Widget Function(BuildContext) dealPage(
+      Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
+    return (BuildContext context) => FutureBuilder(
+        future: loadLibrary(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return page(context);
+          } else {
+            return Scaffold(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                appBar: AppBar(
+                  title: const Text('Loading...'),
+                ),
+                body: Center(
+                    child: Container(
+                  constraints: const BoxConstraints(maxWidth: 700),
+                  padding: const EdgeInsets.all(20),
+                  child: const ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                    child: LinearProgressIndicator(
+                      minHeight: 20,
+                      value: null,
+                    ),
+                  ),
+                )));
+          }
+        });
   }
 
   @override
@@ -137,233 +146,98 @@ class _MyAppState extends State<MyApp> {
                 }
                 switch (name) {
                   case '/profile':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: profile.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return profile.ProfilePage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(profile.loadLibrary, (context) {
+                      return profile.ProfilePage();
+                    });
                     break;
                   case '/signin':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: sign_in.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return sign_in.SignInPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(sign_in.loadLibrary, (context) {
+                      return sign_in.SignInPage();
+                    });
                     break;
                   case '/status':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: status.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return status.StatusPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(status.loadLibrary, (context) {
+                      return status.StatusPage();
+                    });
                     break;
                   case '/vpn':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: vpn.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return vpn.VPNPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(vpn.loadLibrary, (context) {
+                      return vpn.VPNPage();
+                    });
                     break;
                   case '/shorturl':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: short_url.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return short_url.ShortURLPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(short_url.loadLibrary, (context) {
+                      return short_url.ShortURLPage();
+                    });
                     break;
                   case '/longurl':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: long_url.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return long_url.LongURLPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(long_url.loadLibrary, (context) {
+                      return long_url.LongURLPage();
+                    });
                     break;
                   case '/contact':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: contact.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return contact.ContactPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(contact.loadLibrary, (context) {
+                      return contact.ContactPage();
+                    });
                     break;
                   case '/about':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: about.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return about.AboutPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(about.loadLibrary, (context) {
+                      return about.AboutPage();
+                    });
                     break;
                   case '/bmi':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: bmi.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return bmi.BMIPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(bmi.loadLibrary, (context) {
+                      return bmi.BMIPage();
+                    });
                     break;
                   case '/timer':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: timer.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return timer.TimerPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(timer.loadLibrary, (context) {
+                      return timer.TimerPage();
+                    });
                     break;
                   case '/urllauncher':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: url_launcher.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return url_launcher.URLLauncherPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(url_launcher.loadLibrary, (context) {
+                      return url_launcher.URLLauncherPage();
+                    });
                     break;
                   case '/qrgenerator':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: qr_generator.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return qr_generator.QRGeneratorPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(qr_generator.loadLibrary, (context) {
+                      return qr_generator.QRGeneratorPage();
+                    });
                     break;
                   case '/clock':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: clock.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return clock.ClockPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(clock.loadLibrary, (context) {
+                      return clock.ClockPage();
+                    });
                     break;
                   case '/zhsh3dmap':
                     if (parameters != null) {
-                      builder = (BuildContext context) => FutureBuilder(
-                          future: zhsh_3d_map.loadLibrary(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<dynamic> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return zhsh_3d_map.ZHSH3DMapPage(
-                                embededMode:
-                                    parameters!['embededMode'] == 'true',
-                              );
-                            } else {
-                              return customLoadingWidget(context);
-                            }
-                          });
+                      builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
+                        return zhsh_3d_map.ZHSH3DMapPage(
+                          embededMode: parameters!['embededMode'] == 'true',
+                        );
+                      });
                     } else {
-                      builder = (BuildContext context) => FutureBuilder(
-                          future: zhsh_3d_map.loadLibrary(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<dynamic> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return zhsh_3d_map.ZHSH3DMapPage();
-                            } else {
-                              return customLoadingWidget(context);
-                            }
-                          });
+                      builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
+                        return zhsh_3d_map.ZHSH3DMapPage();
+                      });
                     }
                     break;
                   case '/twuniversityresultquery':
                     if (parameters != null) {
-                      builder = (BuildContext context) => FutureBuilder(
-                          future: tw_university_result_query.loadLibrary(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<dynamic> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return tw_university_result_query
-                                  .TWUniversityResultQueryPage(
-                                id: parameters!['id'] ?? '',
-                              );
-                            } else {
-                              return customLoadingWidget(context);
-                            }
-                          });
+                      builder = dealPage(tw_university_result_query.loadLibrary,
+                          (context) {
+                        return tw_university_result_query
+                            .TWUniversityResultQueryPage(
+                          id: parameters!['id'] ?? '',
+                        );
+                      });
                     } else {
-                      builder = (BuildContext context) => FutureBuilder(
-                          future: tw_university_result_query.loadLibrary(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<dynamic> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return tw_university_result_query
-                                  .TWUniversityResultQueryPage();
-                            } else {
-                              return customLoadingWidget(context);
-                            }
-                          });
+                      builder = dealPage(tw_university_result_query.loadLibrary,
+                          (context) {
+                        return tw_university_result_query
+                            .TWUniversityResultQueryPage();
+                      });
                     }
                     break;
                   case '/setting':
@@ -378,17 +252,9 @@ class _MyAppState extends State<MyApp> {
                         NavigationController(inputIndex: 0);
                     break;
                   default:
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: not_found.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return not_found.NotFoundPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = dealPage(not_found.loadLibrary, (context) {
+                      return not_found.NotFoundPage();
+                    });
                 }
                 return MaterialPageRoute(builder: builder, settings: settings);
               },

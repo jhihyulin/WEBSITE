@@ -11,7 +11,7 @@ import 'home.dart';
 import 'provider/theme.dart';
 import 'tool.dart';
 import 'firebase_options.dart';
-import 'pages/setting.dart' deferred as setting;
+import 'pages/setting.dart';
 import 'pages/profile.dart' deferred as profile;
 import 'pages/sign_in.dart' deferred as sign_in;
 import 'pages/status.dart' deferred as status;
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
             child: Container(
-              constraints: const BoxConstraints(maxWidth: 700),
+          constraints: const BoxConstraints(maxWidth: 700),
           padding: const EdgeInsets.all(20),
           child: const ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
@@ -367,17 +367,7 @@ class _MyAppState extends State<MyApp> {
                     }
                     break;
                   case '/setting':
-                    builder = (BuildContext context) => FutureBuilder(
-                        future: setting.loadLibrary(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return setting.SettingPage();
-                          } else {
-                            return customLoadingWidget(context);
-                          }
-                        });
+                    builder = (BuildContext context) => const SettingPage();
                     break;
                   case '/tool':
                     builder = (BuildContext context) =>

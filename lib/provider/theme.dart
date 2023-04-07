@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +9,6 @@ class ThemeProvider with ChangeNotifier {
   static const int dThemeMode = 0; // 0: System 1: Light 2: Dark
   Color _themeColor = dThemeColor;
   int _themeMode = dThemeMode;
-
-  int? _lastUpdateTimeStamp;
-
-  Timer _timer = Timer(const Duration(seconds: 1), () {});
 
   User? _user;
 
@@ -54,10 +48,8 @@ class ThemeProvider with ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     int? cookieThemeColor = prefs.getInt('themeColor');
     int? cookieThemeMode = prefs.getInt('themeMode');
-    int? targetFirebaseThemeColor = firebaseThemeColor ?? cookieThemeColor;
-    int? targetFirebaseThemeMode = firebaseThemeMode ?? cookieThemeMode;
-    _themeColor = Color(targetFirebaseThemeColor ?? dThemeColor.value);
-    _themeMode = targetFirebaseThemeMode ?? dThemeMode;
+    _themeColor = Color(firebaseThemeColor ?? cookieThemeColor ?? dThemeColor.value);
+    _themeMode = firebaseThemeMode ?? cookieThemeMode ?? dThemeMode;
     notifyListeners();
   }
 

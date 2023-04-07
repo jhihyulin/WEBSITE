@@ -49,7 +49,7 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -214,7 +214,7 @@ class _MyAppState extends State<MyApp> {
                     if (parameters != null) {
                       builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
                         return zhsh_3d_map.ZHSH3DMapPage(
-                          embededMode: parameters!['embededMode'] == 'true',
+                          embededMode: parameters!['embededmode'] == 'true',
                         );
                       });
                     } else {
@@ -274,7 +274,7 @@ class NavigationController extends StatefulWidget {
   }
 
   @override
-  _NavigationControllerState createState() => _NavigationControllerState();
+  State<NavigationController> createState() => _NavigationControllerState();
 }
 
 class _NavigationControllerState extends State<NavigationController> {

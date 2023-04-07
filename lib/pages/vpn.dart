@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:html';
+import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -24,7 +24,7 @@ class VPNPage extends StatefulWidget {
   const VPNPage({super.key});
 
   @override
-  _VPNPageState createState() => _VPNPageState();
+  State<VPNPage> createState() => _VPNPageState();
 }
 
 class _VPNPageState extends State<VPNPage> {
@@ -155,7 +155,7 @@ class _VPNPageState extends State<VPNPage> {
   }
 
   String getOS() {
-    final userAgent = window.navigator.userAgent.toString().toLowerCase();
+    final userAgent = html.window.navigator.userAgent.toString().toLowerCase();
     if (userAgent.contains('android') && userAgent.contains('linux')) {
       return 'android';
     } else if (userAgent.contains('iphone') || userAgent.contains('ipad')) {

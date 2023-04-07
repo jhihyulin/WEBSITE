@@ -11,14 +11,13 @@ class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
 
   @override
-  _SettingPageState createState() => _SettingPageState();
+  State<SettingPage> createState() => _SettingPageState();
 }
 
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    int themeMode =
-        Provider.of<ThemeProvider>(context, listen: true).themeMode;
+    int themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
     List<bool> themeModeIsSelected = List.generate(3, (i) {
       if (i == themeMode) {
         return true;
@@ -90,12 +89,12 @@ class _SettingPageState extends State<SettingPage> {
                                                   themeModeIsSelected.length;
                                               buttonIndex++) {
                                             if (buttonIndex == index) {
-                                              themeModeIsSelected[
-                                                  buttonIndex] = true;
+                                              themeModeIsSelected[buttonIndex] =
+                                                  true;
                                               themeMode = buttonIndex;
                                             } else {
-                                              themeModeIsSelected[
-                                                  buttonIndex] = false;
+                                              themeModeIsSelected[buttonIndex] =
+                                                  false;
                                             }
                                           }
                                           Provider.of<ThemeProvider>(context,
@@ -137,12 +136,12 @@ class _SettingPageState extends State<SettingPage> {
                                               context: context,
                                               builder: (context) {
                                                 return AlertDialog(
-                                                    title: const Text('Theme Color'),
+                                                    title: const Text(
+                                                        'Theme Color'),
                                                     content:
                                                         SingleChildScrollView(
                                                       child: ColorPicker(
-                                                        pickerColor:
-                                                            themeColor,
+                                                        pickerColor: themeColor,
                                                         onColorChanged:
                                                             (color) {
                                                           setState(() {
@@ -175,15 +174,16 @@ class _SettingPageState extends State<SettingPage> {
                                                                   .pop();
                                                             });
                                                           },
-                                                          child: const Text('Reset')),
+                                                          child: const Text(
+                                                              'Reset')),
                                                       TextButton(
                                                           onPressed: () {
                                                             Navigator.of(
                                                                     context)
                                                                 .pop();
                                                           },
-                                                          child:
-                                                              const Text('Cancel')),
+                                                          child: const Text(
+                                                              'Cancel')),
                                                       TextButton(
                                                           onPressed: () {
                                                             Provider.of<ThemeProvider>(
@@ -196,7 +196,8 @@ class _SettingPageState extends State<SettingPage> {
                                                                     context)
                                                                 .pop();
                                                           },
-                                                          child: const Text('OK'))
+                                                          child:
+                                                              const Text('OK'))
                                                     ]);
                                               });
                                         }),
@@ -270,11 +271,10 @@ class _SettingPageState extends State<SettingPage> {
                                   leading: const Icon(Icons.email),
                                   title: const Text('Contact'),
                                   subtitle: Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: const SelectionArea(
-                                      child: Text('JY@jhihyulin.live'),
-                                    )
-                                  ),
+                                      alignment: Alignment.centerLeft,
+                                      child: const SelectionArea(
+                                        child: Text('JY@jhihyulin.live'),
+                                      )),
                                   trailing: IconButton(
                                     icon: const Icon(Icons.open_in_new),
                                     onPressed: () {
@@ -282,7 +282,8 @@ class _SettingPageState extends State<SettingPage> {
                                           'mailto:JY@jhihyulin.live'));
                                     },
                                   )),
-                              const Text('ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                              const Text(
+                                  'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 12)),

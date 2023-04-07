@@ -4,7 +4,7 @@ class BMIPage extends StatefulWidget {
   const BMIPage({super.key});
 
   @override
-  _BMIPageState createState() => _BMIPageState();
+  State<BMIPage> createState() => _BMIPageState();
 }
 
 class _BMIPageState extends State<BMIPage> {

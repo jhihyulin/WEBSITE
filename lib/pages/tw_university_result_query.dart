@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +14,7 @@ class TWUniversityResultQueryPage extends StatefulWidget {
     _id = id;
   }
   @override
-  _TWUniversityResultQueryPageState createState() =>
+  State<TWUniversityResultQueryPage> createState() =>
       _TWUniversityResultQueryPageState();
 }
 

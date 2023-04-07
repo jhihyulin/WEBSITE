@@ -6,7 +6,7 @@ class TimerPage extends StatefulWidget {
   const TimerPage({super.key});
 
   @override
-  _TimerPageState createState() => _TimerPageState();
+  State<TimerPage> createState() => _TimerPageState();
 }
 
 class _TimerPageState extends State<TimerPage> {
@@ -38,24 +38,25 @@ class _TimerPageState extends State<TimerPage> {
             _isRunning = false;
             _timer.cancel();
           }
-          if (_counterSeconds <= 0 && _counterMinutes <= 0 && _counterHours <= 0) {
+          if (_counterSeconds <= 0 &&
+              _counterMinutes <= 0 &&
+              _counterHours <= 0) {
             showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Stopwatch'),
-                  content: const Text('Stopwatch has reached its limit.'),
-                  actions: [
-                    TextButton(
-                      child: const Text('OK'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              }
-            );
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Stopwatch'),
+                    content: const Text('Stopwatch has reached its limit.'),
+                    actions: [
+                      TextButton(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                });
             _isRunning = false;
             _timer.cancel();
           }

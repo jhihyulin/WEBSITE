@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:html';
+import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ class ClockPage extends StatefulWidget {
   const ClockPage({super.key});
 
   @override
-  _ClockPageState createState() => _ClockPageState();
+  State<ClockPage> createState() => _ClockPageState();
 }
 
 class _ClockPageState extends State<ClockPage> {
@@ -35,7 +35,7 @@ class _ClockPageState extends State<ClockPage> {
   @override
   void dispose() {
     _timer.cancel();
-    document.exitFullscreen();
+    html.document.exitFullscreen();
     super.dispose();
   }
 
@@ -81,10 +81,10 @@ class _ClockPageState extends State<ClockPage> {
             )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          document.fullscreenElement == null
-              ? document.documentElement!.requestFullscreen()
-              : document.exitFullscreen();
-          document.fullscreenElement == null
+          html.document.fullscreenElement == null
+              ? html.document.documentElement!.requestFullscreen()
+              : html.document.exitFullscreen();
+          html.document.fullscreenElement == null
               ? setState(() {
                   _fullscreen = true;
                 })

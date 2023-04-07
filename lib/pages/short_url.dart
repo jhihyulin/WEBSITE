@@ -16,7 +16,7 @@ class ShortURLPage extends StatefulWidget {
   const ShortURLPage({Key? key}) : super(key: key);
 
   @override
-  _ShortURLPageState createState() => _ShortURLPageState();
+  State<ShortURLPage> createState() => _ShortURLPageState();
 }
 
 class _ShortURLPageState extends State<ShortURLPage> {

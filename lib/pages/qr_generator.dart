@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'dart:html' as html;
+import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class QRGeneratorPage extends StatefulWidget {
   const QRGeneratorPage({super.key});
 
   @override
-  _QRGeneratorPageState createState() => _QRGeneratorPageState();
+  State<QRGeneratorPage> createState() => _QRGeneratorPageState();
 }
 
 class _QRGeneratorPageState extends State<QRGeneratorPage> {

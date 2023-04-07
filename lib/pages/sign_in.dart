@@ -15,7 +15,7 @@ class SignInPage extends StatefulWidget {
     _redirectPage = redirectPage;
   }
   @override
-  _SignInPageState createState() => _SignInPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
 class _SignInPageState extends State<SignInPage> {
@@ -53,7 +53,11 @@ class _SignInPageState extends State<SignInPage> {
         })
         .then((value) => {print('User Data Updated')})
         .catchError((error) => {
-              print('Failed to update user data, will try to create: $error'),
+              if (kDebugMode)
+                {
+                  print(
+                      'Failed to update user data, will try to create: $error')
+                },
               ref
                   .set({
                     'email': user.email,
@@ -71,8 +75,10 @@ class _SignInPageState extends State<SignInPage> {
                     'providerData': providerData,
                   })
                   .then((value) => {print('User Data Created')})
-                  .catchError((error) =>
-                      {print('Failed to set and update user data: $error')})
+                  .catchError((error) => {
+                        if (kDebugMode)
+                          {print('Failed to set and update user data: $error')}
+                      })
             });
   }
 

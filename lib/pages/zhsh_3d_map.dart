@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:html' as html;
-import 'dart:io';
-import 'dart:math';
+import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:flutter_gl/flutter_gl.dart';
-import 'package:three_dart/three3d/helpers/index.dart';
 import 'package:three_dart/three3d/math/vector3.dart';
 import 'package:three_dart/three3d/three.dart' as three_dart;
 import 'package:three_dart/three_dart.dart' as three;
@@ -4039,7 +4035,7 @@ class ZHSH3DMapPage extends StatefulWidget {
   }
 
   @override
-  _ZHSH3DMapPageState createState() => _ZHSH3DMapPageState();
+  State<ZHSH3DMapPage> createState() => _ZHSH3DMapPageState();
 }
 
 class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
@@ -4056,6 +4052,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
   Timer? _navigatorTimer;
   Timer? _devModeTimer;
   Timer? _windowSizeTimer;
+  Timer? _initTimer;
 
   int? fboId;
   late double width;
@@ -4725,10 +4722,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
     initRenderer();
     initPage();
     initObject();
-    Timer(const Duration(seconds: 1), () {
-    setState(() {
-      _initialized = true;
-    });
+    _initTimer = Timer(const Duration(seconds: 1), () {
+      setState(() {
+        _initialized = true;
+      });
     });
   }
 
@@ -5051,6 +5048,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
     _navigatorTimer?.cancel();
     _windowSizeTimer?.cancel();
     _hideFabAnimation?.dispose();
+    _initTimer?.cancel();
 
     super.dispose();
   }

@@ -57,7 +57,7 @@ class StatusPage extends StatefulWidget {
   const StatusPage({super.key});
 
   @override
-  _StatusPageState createState() => _StatusPageState();
+  State<StatusPage> createState() => _StatusPageState();
 }
 
 class _StatusPageState extends State<StatusPage> {

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +9,6 @@ class ThemeProvider with ChangeNotifier {
   static const int dThemeMode = 0; // 0: System 1: Light 2: Dark
   Color _themeColor = dThemeColor;
   int _themeMode = dThemeMode;
-
-  int? _lastUpdateTimeStamp;
-
-  Timer _timer = Timer(const Duration(seconds: 1), () {});
 
   User? _user;
 

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ import 'provider/theme.dart';
 import 'tool.dart';
 import 'firebase_options.dart';
 import 'pages/setting.dart';
+import 'pages/load_failed.dart';
 import 'pages/profile.dart' deferred as profile;
 import 'pages/sign_in.dart' deferred as sign_in;
 import 'pages/status.dart' deferred as status;
@@ -60,34 +62,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return Scaffold(
-                  backgroundColor: Theme.of(context).colorScheme.background,
-                  appBar: AppBar(
-                    title: const Text('Load Failed'),
-                  ),
-                  body: Center(
-                      child: Container(
-                          constraints: const BoxConstraints(maxWidth: 700),
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              Text('Load Failed',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge),
-                              const SizedBox(height: 20),
-                              Text(
-                                snapshot.error.toString(),
-                              ),
-                              const SizedBox(height: 20),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacementNamed(context, '/');
-                                },
-                                child: const Text('Back To Home Page'),
-                              ),
-                            ],
-                          ))));
+              return loadFailedPage(errorMessage: snapshot.error.toString());
             } else {
               return page(context);
             }

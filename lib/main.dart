@@ -80,6 +80,7 @@ class _MyAppState extends State<MyApp> {
                     borderRadius: BorderRadius.all(Radius.circular(16.0)),
                     child: LinearProgressIndicator(
                       minHeight: 20,
+                      // TODO: add load progress
                       value: null,
                     ),
                   ),

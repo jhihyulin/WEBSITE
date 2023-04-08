@@ -91,6 +91,7 @@ class _SignInPageState extends State<SignInPage> {
               : const Text('Sign In to Continue'),
         ),
         body: SignInScreen(
+          breakpoint: 700,
           providers: [
             EmailAuthProvider(),
             PhoneAuthProvider(),

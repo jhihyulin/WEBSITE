@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ import 'provider/theme.dart';
 import 'tool.dart';
 import 'firebase_options.dart';
 import 'pages/setting.dart';
+import 'pages/load_failed.dart';
 import 'pages/profile.dart' deferred as profile;
 import 'pages/sign_in.dart' deferred as sign_in;
 import 'pages/status.dart' deferred as status;
@@ -59,7 +61,11 @@ class _MyAppState extends State<MyApp> {
         future: loadLibrary(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return page(context);
+            if (snapshot.hasError) {
+              return loadFailedPage(errorMessage: snapshot.error.toString());
+            } else {
+              return page(context);
+            }
           } else {
             return Scaffold(
                 backgroundColor: Theme.of(context).colorScheme.background,

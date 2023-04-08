@@ -59,7 +59,38 @@ class _MyAppState extends State<MyApp> {
         future: loadLibrary(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return page(context);
+            if (snapshot.hasError) {
+              return Scaffold(
+                  backgroundColor: Theme.of(context).colorScheme.background,
+                  appBar: AppBar(
+                    title: const Text('Load Failed'),
+                  ),
+                  body: Center(
+                      child: Container(
+                          constraints: const BoxConstraints(maxWidth: 700),
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              Text('Load Failed',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge),
+                              const SizedBox(height: 20),
+                              Text(
+                                snapshot.error.toString(),
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushReplacementNamed(context, '/');
+                                },
+                                child: const Text('Back To Home Page'),
+                              ),
+                            ],
+                          ))));
+            } else {
+              return page(context);
+            }
           } else {
             return Scaffold(
                 backgroundColor: Theme.of(context).colorScheme.background,

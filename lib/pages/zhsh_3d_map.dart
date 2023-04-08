@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/gestures.dart';
 import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter/foundation.dart';
@@ -4302,17 +4303,20 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
         child: SingleChildScrollView(
             child: Column(
           children: [
-            three_jsm.DomLikeListenable(
-                key: _globalKey,
-                builder: (BuildContext context) {
-                  return SizedBox(
-                      width: width,
-                      height: height,
-                      child: Builder(builder: (BuildContext context) {
-                        return HtmlElementView(
-                            viewType: three3dRender.textureId!.toString());
-                      }));
-                }),
+            GestureDetector(
+              onVerticalDragStart: (_) {},
+              child: three_jsm.DomLikeListenable(
+                  key: _globalKey,
+                  builder: (BuildContext context) {
+                    return SizedBox(
+                        width: width,
+                        height: height,
+                        child: Builder(builder: (BuildContext context) {
+                          return HtmlElementView(
+                              viewType: three3dRender.textureId!.toString());
+                        }));
+                  }),
+            ),
             Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(16.0),

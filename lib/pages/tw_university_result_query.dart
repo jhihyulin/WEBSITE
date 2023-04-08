@@ -56,7 +56,7 @@ class _TWUniversityResultQueryPageState
                   TextFormField(
                     controller: inputIdController,
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.link),
+                      prefixIcon: const Icon(Icons.numbers),
                       labelText: '輸入學測應試號碼',
                       hintText: '輸入學測應試號碼',
                       border: OutlineInputBorder(

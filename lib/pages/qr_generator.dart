@@ -68,6 +68,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
           title: const Text('QR Generator'),
         ),
         body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Center(
                 child: Container(
                     padding: const EdgeInsets.all(20),
@@ -130,6 +131,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                           ),
                                                           child:
                                                               SingleChildScrollView(
+                                                            physics:
+                                                                const BouncingScrollPhysics(),
                                                             child: Text.rich(
                                                                 TextSpan(
                                                                     children: [
@@ -162,7 +165,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                                       context)
                                                                   .pop();
                                                             },
-                                                            child: const Text('OK'))
+                                                            child: const Text(
+                                                                'OK'))
                                                       ]);
                                                 });
                                           }),
@@ -223,6 +227,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                           'Background Color'),
                                                       content:
                                                           SingleChildScrollView(
+                                                        physics:
+                                                            const BouncingScrollPhysics(),
                                                         child: ColorPicker(
                                                           pickerColor:
                                                               _backgroundColor,
@@ -248,7 +254,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                                       context)
                                                                   .pop();
                                                             },
-                                                            child: const Text('OK'))
+                                                            child: const Text(
+                                                                'OK'))
                                                       ]);
                                                 });
                                           })
@@ -288,6 +295,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                           'Foreground Color'),
                                                       content:
                                                           SingleChildScrollView(
+                                                        physics:
+                                                            const BouncingScrollPhysics(),
                                                         child: ColorPicker(
                                                           pickerColor:
                                                               _foregroundColor,
@@ -313,7 +322,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                                       context)
                                                                   .pop();
                                                             },
-                                                            child: const Text('OK'))
+                                                            child: const Text(
+                                                                'OK'))
                                                       ]);
                                                 });
                                           }),
@@ -492,31 +502,32 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                           child: RepaintBoundary(
                             key: globalKey,
                             child: QrImage(
-                          data: _data,
-                          version: _version,
-                          size: 200,
-                          gapless: _gapless,
-                          backgroundColor: _backgroundColor,
-                          foregroundColor: _foregroundColor,
-                          padding: EdgeInsets.all(_padding.toDouble()),
-                          embeddedImage: _useEmbeddedImage
-                              ? _embeddedImage ?? const AssetImage(
-                                      'assets/images/logo-512x512.png')
-                              : null,
-                          embeddedImageStyle:
-                              _useEmbeddedImage ? _embeddedImageSize : null,
-                          errorStateBuilder: (cxt, err) {
-                            return Center(
-                              child: Text(
-                                "Uh oh! Something went wrong...\n\n$err",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Colors.red,
-                                ),
-                              ),
-                            );
-                          },
-                          embeddedImageEmitsError: true,
+                              data: _data,
+                              version: _version,
+                              size: 200,
+                              gapless: _gapless,
+                              backgroundColor: _backgroundColor,
+                              foregroundColor: _foregroundColor,
+                              padding: EdgeInsets.all(_padding.toDouble()),
+                              embeddedImage: _useEmbeddedImage
+                                  ? _embeddedImage ??
+                                      const AssetImage(
+                                          'assets/images/logo-512x512.png')
+                                  : null,
+                              embeddedImageStyle:
+                                  _useEmbeddedImage ? _embeddedImageSize : null,
+                              errorStateBuilder: (cxt, err) {
+                                return Center(
+                                  child: Text(
+                                    "Uh oh! Something went wrong...\n\n$err",
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                );
+                              },
+                              embeddedImageEmitsError: true,
                             ),
                           ),
                         ),

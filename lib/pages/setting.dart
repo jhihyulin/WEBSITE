@@ -34,6 +34,7 @@ class _SettingPageState extends State<SettingPage> {
           title: const Text('Setting'),
         ),
         body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Center(
                 child: Container(
                     constraints: BoxConstraints(
@@ -140,6 +141,8 @@ class _SettingPageState extends State<SettingPage> {
                                                         'Theme Color'),
                                                     content:
                                                         SingleChildScrollView(
+                                                      physics:
+                                                          const BouncingScrollPhysics(),
                                                       child: ColorPicker(
                                                         pickerColor: themeColor,
                                                         onColorChanged:

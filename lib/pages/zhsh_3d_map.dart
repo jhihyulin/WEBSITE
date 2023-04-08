@@ -4287,6 +4287,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
         NotificationListener<ScrollNotification>(
             onNotification: _handleScrollNotification,
             child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Container(
                 width: MediaQuery.of(context).size.width / 3,
                 padding: const EdgeInsets.all(16.0),
@@ -4301,28 +4302,30 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage>
     return NotificationListener<ScrollNotification>(
         onNotification: _handleScrollNotification,
         child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
-          children: [
-            GestureDetector(
-              onVerticalDragStart: (_) {},
-              child: three_jsm.DomLikeListenable(
-                  key: _globalKey,
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                        width: width,
-                        height: height,
-                        child: Builder(builder: (BuildContext context) {
-                          return HtmlElementView(
-                              viewType: three3dRender.textureId!.toString());
-                        }));
-                  }),
-            ),
-            Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(16.0),
-                child: _contentWidget())
-          ],
-        )));
+              children: [
+                GestureDetector(
+                  onVerticalDragStart: (_) {},
+                  child: three_jsm.DomLikeListenable(
+                      key: _globalKey,
+                      builder: (BuildContext context) {
+                        return SizedBox(
+                            width: width,
+                            height: height,
+                            child: Builder(builder: (BuildContext context) {
+                              return HtmlElementView(
+                                  viewType:
+                                      three3dRender.textureId!.toString());
+                            }));
+                      }),
+                ),
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.all(16.0),
+                    child: _contentWidget())
+              ],
+            )));
   }
 
   Widget _contentWidget() {

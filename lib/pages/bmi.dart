@@ -66,14 +66,15 @@ class _BMIPageState extends State<BMIPage> {
         title: const Text('BMI'),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Center(
           child: Container(
             constraints: BoxConstraints(
               maxWidth: 700,
               minHeight: MediaQuery.of(context).size.height -
-                      AppBar().preferredSize.height -
-                      MediaQuery.of(context).padding.top -
-                      MediaQuery.of(context).padding.bottom,
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -84,7 +85,6 @@ class _BMIPageState extends State<BMIPage> {
                   child: Column(
                     children: [
                       TextFormField(
-                        
                         controller: _heightController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.height),

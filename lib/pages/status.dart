@@ -83,6 +83,7 @@ class _StatusPageState extends State<StatusPage> {
           title: const Text('Status'),
         ),
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Center(
             child: Container(
                 padding: const EdgeInsets.all(20),

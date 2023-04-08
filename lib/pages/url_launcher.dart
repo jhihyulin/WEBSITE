@@ -49,6 +49,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
           title: const Text('URL Launcher'),
         ),
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Center(
               child: Container(
                   padding: const EdgeInsets.all(20),
@@ -108,12 +109,14 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                                           minWidth: 700,
                                         ),
                                         child: SingleChildScrollView(
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             child: Column(
-                                          children: const [
-                                            Text(
-                                                'Enter a URL and click Launch URL button to open the URL in the browser or your device\'s default app for the URL.'),
-                                          ],
-                                        )),
+                                              children: const [
+                                                Text(
+                                                    'Enter a URL and click Launch URL button to open the URL in the browser or your device\'s default app for the URL.'),
+                                              ],
+                                            )),
                                       ),
                                       actions: [
                                         TextButton(

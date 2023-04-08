@@ -108,6 +108,7 @@ class _ContactPageState extends State<ContactPage> {
         title: const Text('Contact'),
       ),
       body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Center(
               child: Container(
                   padding: const EdgeInsets.all(20),

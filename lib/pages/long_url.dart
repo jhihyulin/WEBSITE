@@ -106,6 +106,7 @@ class _LongURLPageState extends State<LongURLPage> {
             title: const Text('LongURL'),
           ),
           body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Center(
               child: Container(
                   padding: const EdgeInsets.all(20),
@@ -269,6 +270,8 @@ class _LongURLPageState extends State<LongURLPage> {
                                                     ),
                                                     child:
                                                         SingleChildScrollView(
+                                                      physics:
+                                                          const BouncingScrollPhysics(),
                                                       child: ListBody(
                                                         children: [
                                                           ExpansionTile(

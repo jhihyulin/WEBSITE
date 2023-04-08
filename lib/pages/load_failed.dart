@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 class loadFailedPage extends StatelessWidget {
   late String _errorMessage;
-  loadFailedPage({Key? key, required String errorMessage}): super(key: key) {
+  loadFailedPage({Key? key, required String errorMessage}) : super(key: key) {
     _errorMessage = errorMessage;
   }
 
@@ -39,6 +39,7 @@ class loadFailedPage extends StatelessWidget {
                         padding: const EdgeInsets.all(20),
                         constraints: const BoxConstraints(maxHeight: 500),
                         child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
                           child: SelectionArea(
                             child: Text(_errorMessage),
                           ),

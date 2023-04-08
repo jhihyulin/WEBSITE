@@ -56,29 +56,30 @@ class _ClockPageState extends State<ClockPage> {
               fullscreen: _fullscreen,
             )
           : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: Center(
-              child: Container(
-                  padding: const EdgeInsets.all(20),
-                  constraints: BoxConstraints(
-                    maxWidth:
-                        _fullscreen ? MediaQuery.of(context).size.width : 700,
-                    minHeight: MediaQuery.of(context).size.height -
-                        AppBar().preferredSize.height -
-                        MediaQuery.of(context).padding.top -
-                        MediaQuery.of(context).padding.bottom,
-                  ),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Clock(
-                          hour: _hour,
-                          minute: _minute,
-                          second: _second,
-                          blink: _blink,
-                          fullscreen: _fullscreen,
-                        ),
-                      ])),
-            )),
+                child: Container(
+                    padding: const EdgeInsets.all(20),
+                    constraints: BoxConstraints(
+                      maxWidth:
+                          _fullscreen ? MediaQuery.of(context).size.width : 700,
+                      minHeight: MediaQuery.of(context).size.height -
+                          AppBar().preferredSize.height -
+                          MediaQuery.of(context).padding.top -
+                          MediaQuery.of(context).padding.bottom,
+                    ),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Clock(
+                            hour: _hour,
+                            minute: _minute,
+                            second: _second,
+                            blink: _blink,
+                            fullscreen: _fullscreen,
+                          ),
+                        ])),
+              )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           html.document.fullscreenElement == null

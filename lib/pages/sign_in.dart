@@ -49,11 +49,11 @@ class _SignInPageState extends State<SignInPage> {
               user.metadata.lastSignInTime?.millisecondsSinceEpoch,
           'providerData': providerData,
         })
-        .then((value) => {print('User Data Updated')})
+        .then((value) => {debugPrint('User Data Updated')})
         .catchError((error) => {
               if (kDebugMode)
                 {
-                  print(
+                  debugPrint(
                       'Failed to update user data, will try to create: $error')
                 },
               ref
@@ -72,10 +72,13 @@ class _SignInPageState extends State<SignInPage> {
                         user.metadata.lastSignInTime?.microsecondsSinceEpoch,
                     'providerData': providerData,
                   })
-                  .then((value) => {print('User Data Created')})
+                  .then((value) => {debugPrint('User Data Created')})
                   .catchError((error) => {
                         if (kDebugMode)
-                          {print('Failed to set and update user data: $error')}
+                          {
+                            debugPrint(
+                                'Failed to set and update user data: $error')
+                          }
                       })
             });
   }

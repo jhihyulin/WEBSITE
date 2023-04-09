@@ -121,20 +121,32 @@ class _SignInPageState extends State<SignInPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                if (MediaQuery.of(context).size.width <= 700)
-                                  Center(
-                                    child: build,
-                                  ),
+                                // if (MediaQuery.of(context).size.width <= 700)
+                                //   Center(
+                                //     child: build,
+                                //   ),
                                 SizedBox(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Sign In',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge,
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
+                                    width: double.infinity,
+                                    child: Wrap(
+                                      alignment: WrapAlignment.start,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.end,
+                                      children: [
+                                        Text(
+                                          'Sign In',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineLarge,
+                                        ),
+                                        if (_redirectPage != '/profile')
+                                          Text(
+                                            ' to Continue',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
+                                          ),
+                                      ],
+                                    )),
                                 const SizedBox(
                                   height: 20,
                                 ),

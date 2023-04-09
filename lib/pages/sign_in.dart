@@ -85,6 +85,7 @@ class _SignInPageState extends State<SignInPage> {
     Widget build = Container(
         padding: const EdgeInsets.all(10),
         child: Container(
+            constraints: const BoxConstraints(maxWidth: 200),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.0),
             ),
@@ -95,35 +96,107 @@ class _SignInPageState extends State<SignInPage> {
               ? const Text('Sign In')
               : const Text('Sign In to Continue'),
         ),
-        body: SignInScreen(
-          showAuthActionSwitch: false,
-          headerBuilder: (context, provider, action) {
-            return build;
-          },
-          oauthButtonVariant: OAuthButtonVariant.icon_and_text,
-          headerMaxExtent: 200,
-          sideBuilder: (context, provider) {
-            return build;
-          },
-          breakpoint: 700,
-          providers: [
-            // EmailAuthProvider(),
-            GoogleProvider(
-                clientId:
-                    '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com'),
-            TwitterProvider(
-              apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
-              apiSecretKey: 'TWITTER_SECRET',
-            ),
-            FacebookProvider(clientId: '1230943830699268'),
-            PhoneAuthProvider(),
+        body: Row(
+          children: [
+            if (MediaQuery.of(context).size.width > 700)
+              Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: build,
+                  )),
+            Expanded(
+                flex: 1,
+                child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Center(
+                        child: Container(
+                            padding: const EdgeInsets.all(20),
+                            constraints: BoxConstraints(
+                              maxWidth: 500,
+                              minHeight: MediaQuery.of(context).size.height -
+                                  AppBar().preferredSize.height -
+                                  MediaQuery.of(context).padding.top -
+                                  MediaQuery.of(context).padding.bottom,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (MediaQuery.of(context).size.width <= 700)
+                                  Center(
+                                    child: build,
+                                  ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Text(
+                                    'Sign In',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge,
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const GoogleSignInButton(
+                                    clientId:
+                                        '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com',
+                                    loadingIndicator:
+                                        CircularProgressIndicator()),
+                                const TwitterSignInButton(
+                                    apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
+                                    apiSecretKey: 'TWITTER_SECRET',
+                                    loadingIndicator:
+                                        CircularProgressIndicator()),
+                                const FacebookSignInButton(
+                                    clientId: '1230943830699268',
+                                    loadingIndicator:
+                                        CircularProgressIndicator()),
+                                // ElevatedButton.icon(
+                                //   icon: const Icon(Icons.phone),
+                                //   label: const Text('Sign In with Phone'),
+                                //   onPressed: () {
+                                //     Navigator.push(
+                                //         context,
+                                //         MaterialPageRoute(
+                                //             builder: (context) =>
+                                //                 const PhoneInputScreen()));
+                                //   },
+                                // )
+                              ],
+                            )))))
           ],
-          actions: [
-            AuthStateChangeAction<SignedIn>((context, state) {
-              _uploaduserinfo();
-              Navigator.pushReplacementNamed(context, _redirectPage);
-            }),
-          ],
-        ));
+        )
+        // body: SignInScreen(
+        //   showAuthActionSwitch: false,
+        //   headerBuilder: (context, provider, action) {
+        //     return build;
+        //   },
+        //   oauthButtonVariant: OAuthButtonVariant.icon_and_text,
+        //   headerMaxExtent: 200,
+        //   sideBuilder: (context, provider) {
+        //     return build;
+        //   },
+        //   breakpoint: 700,
+        //   providers: [
+        //     // EmailAuthProvider(),
+        //     GoogleProvider(
+        //         clientId:
+        //             '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com'),
+        //     TwitterProvider(
+        //       apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
+        //       apiSecretKey: 'TWITTER_SECRET',
+        //     ),
+        //     FacebookProvider(clientId: '1230943830699268'),
+        //     PhoneAuthProvider(),
+        //   ],
+        //   actions: [
+        //     AuthStateChangeAction<SignedIn>((context, state) {
+        //       _uploaduserinfo();
+        //       Navigator.pushReplacementNamed(context, _redirectPage);
+        //     }),
+        //   ],
+        // )
+        );
   }
 }

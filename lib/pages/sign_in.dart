@@ -107,6 +107,7 @@ class _SignInPageState extends State<SignInPage> {
           },
           breakpoint: 700,
           providers: [
+            // EmailAuthProvider(),
             GoogleProvider(
                 clientId:
                     '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com'),

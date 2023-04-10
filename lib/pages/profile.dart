@@ -27,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         body: ProfileScreen(
           providers: [
-            EmailAuthProvider(),
+            // EmailAuthProvider(),
             PhoneAuthProvider(),
             GoogleProvider(
                 clientId:

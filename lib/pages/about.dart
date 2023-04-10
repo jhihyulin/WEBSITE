@@ -133,122 +133,125 @@ class AboutPage extends StatelessWidget {
         title: const Text('About'),
       ),
       body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Center(
               child: Container(
-        padding: const EdgeInsets.all(20),
-        constraints: BoxConstraints(
-          maxWidth: 700,
-          minHeight: MediaQuery.of(context).size.height -
-              AppBar().preferredSize.height -
-              MediaQuery.of(context).padding.top -
-              MediaQuery.of(context).padding.bottom,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)),
-              child: Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        constraints:
-                            const BoxConstraints(maxWidth: 200, minHeight: 128),
-                        child: const CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                              AssetImage('assets/images/avatar.jpg'),
-                        ),
-                      ),
-                      Container(
-                          constraints: const BoxConstraints(maxWidth: 400),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const ListTile(
-                                  leading: Icon(Icons.badge),
-                                  title: Text("Name"),
-                                  subtitle: Text("Jhih Yu"),
-                                ),
-                                Theme(
-                                    data: theme,
-                                    child: const ExpansionTile(
-                                      leading: Icon(Icons.school),
-                                      title: Text("School"),
-                                      subtitle:
-                                          Text("Zhonghe Senior High School"),
-                                      children: [
-                                        ListTile(
-                                          title: Text(
-                                              "Zhonghe Senior High School"),
-                                          trailing: Text("2020 - 2023"),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              "Tsz-Shiou Senior High School"),
-                                          trailing: Text("2017 - 2020"),
-                                        ),
-                                      ],
-                                    ))
-                              ])),
-                      Container(
-                          padding: const EdgeInsets.all(10),
-                          child: Wrap(
-                            alignment: WrapAlignment.center,
-                            spacing: 10,
-                            runSpacing: 10,
-                            children: [
-                              for (var key in experience.keys)
-                                _isDesktop(context)
-                                    ? Chip(
-                                        avatar: experience[key] as Widget,
-                                        label: Text(key))
-                                    : IconButton(
-                                        onPressed: null,
-                                        icon: Container(
-                                          constraints: const BoxConstraints(
-                                              maxWidth: 25, maxHeight: 25),
-                                          child: experience[key] as Widget,
-                                        ),
-                                        tooltip: key,
-                                      )
-                            ],
-                          ))
-                    ],
-                  )),
+            padding: const EdgeInsets.all(20),
+            constraints: BoxConstraints(
+              maxWidth: 700,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
-            const SizedBox(height: 20),
-            Container(
-                constraints: const BoxConstraints(maxWidth: 700),
-                padding: const EdgeInsets.all(10),
-                child: Wrap(
-                  spacing: 10,
-                  runSpacing: 10,
-                  alignment: WrapAlignment.center,
-                  children: [
-                    for (var key in socialMedia.keys)
-                      _isDesktop(context)
-                          ? ElevatedButton.icon(
-                              onPressed: () => _launchUrl(Uri.parse(
-                                  socialMedia[key]!['url'] as String)),
-                              icon: Icon(socialMedia[key]!['icon'] as IconData),
-                              label: Text(key),
-                            )
-                          : IconButton(
-                              onPressed: () => _launchUrl(Uri.parse(
-                                  socialMedia[key]!['url'] as String)),
-                              icon: Icon(socialMedia[key]!['icon'] as IconData),
-                              tooltip: key,
-                            )
-                  ],
-                ))
-          ],
-        ),
-      ))),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            constraints: const BoxConstraints(
+                                maxWidth: 200, minHeight: 128),
+                            child: const CircleAvatar(
+                              radius: 50,
+                              backgroundImage:
+                                  AssetImage('assets/images/avatar.jpg'),
+                            ),
+                          ),
+                          Container(
+                              constraints: const BoxConstraints(maxWidth: 400),
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const ListTile(
+                                      leading: Icon(Icons.badge),
+                                      title: Text("Name"),
+                                      subtitle: Text("Jhih Yu"),
+                                    ),
+                                    Theme(
+                                        data: theme,
+                                        child: const ExpansionTile(
+                                          leading: Icon(Icons.school),
+                                          title: Text("School"),
+                                          subtitle: Text(
+                                              "Zhonghe Senior High School"),
+                                          children: [
+                                            ListTile(
+                                              title: Text(
+                                                  "Zhonghe Senior High School"),
+                                              trailing: Text("2020 - 2023"),
+                                            ),
+                                            ListTile(
+                                              title: Text(
+                                                  "Tsz-Shiou Senior High School"),
+                                              trailing: Text("2017 - 2020"),
+                                            ),
+                                          ],
+                                        ))
+                                  ])),
+                          Container(
+                              padding: const EdgeInsets.all(10),
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                spacing: 10,
+                                runSpacing: 10,
+                                children: [
+                                  for (var key in experience.keys)
+                                    _isDesktop(context)
+                                        ? Chip(
+                                            avatar: experience[key] as Widget,
+                                            label: Text(key))
+                                        : IconButton(
+                                            onPressed: null,
+                                            icon: Container(
+                                              constraints: const BoxConstraints(
+                                                  maxWidth: 25, maxHeight: 25),
+                                              child: experience[key] as Widget,
+                                            ),
+                                            tooltip: key,
+                                          )
+                                ],
+                              ))
+                        ],
+                      )),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                    constraints: const BoxConstraints(maxWidth: 700),
+                    padding: const EdgeInsets.all(10),
+                    child: Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        for (var key in socialMedia.keys)
+                          _isDesktop(context)
+                              ? ElevatedButton.icon(
+                                  onPressed: () => _launchUrl(Uri.parse(
+                                      socialMedia[key]!['url'] as String)),
+                                  icon: Icon(
+                                      socialMedia[key]!['icon'] as IconData),
+                                  label: Text(key),
+                                )
+                              : IconButton(
+                                  onPressed: () => _launchUrl(Uri.parse(
+                                      socialMedia[key]!['url'] as String)),
+                                  icon: Icon(
+                                      socialMedia[key]!['icon'] as IconData),
+                                  tooltip: key,
+                                )
+                      ],
+                    ))
+              ],
+            ),
+          ))),
     );
   }
 }

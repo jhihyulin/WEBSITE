@@ -310,7 +310,10 @@ class _NavigationControllerState extends State<NavigationController> {
         setState(() {
           _displayPhoto = user.photoURL == null
               ? const Icon(Icons.person)
-              : CircleAvatar(backgroundImage: NetworkImage(user.photoURL!));
+              : Container(
+                  padding: const EdgeInsets.all(5),
+                  child: CircleAvatar(
+                      backgroundImage: NetworkImage(user.photoURL!)));
           _dispayText = user.displayName == null
               ? user.email == null
                   ? user.phoneNumber == null

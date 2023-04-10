@@ -64,6 +64,7 @@ class ToolPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Center(
             child: Container(
                 constraints: BoxConstraints(
@@ -83,12 +84,12 @@ class ToolPage extends StatelessWidget {
                       children: <Widget>[
                         for (var tool in _tools.entries)
                           ElevatedButton.icon(
-                            onPressed: () {
-                              Navigator.pushNamed(context, tool.value['route']);
-                            },
-                            icon: Icon(tool.value['icon']),
-                            label: Text(tool.value['title'])
-                          )
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, tool.value['route']);
+                              },
+                              icon: Icon(tool.value['icon']),
+                              label: Text(tool.value['title']))
                       ],
                     ),
                   ],

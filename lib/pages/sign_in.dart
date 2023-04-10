@@ -35,8 +35,6 @@ class _SignInPageState extends State<SignInPage> {
         'phoneNumber': userInfo.phoneNumber,
       });
     }
-    // print(user.providerData);
-    // print(providerData);
     ref
         .update({
           'email': user.email,
@@ -51,11 +49,11 @@ class _SignInPageState extends State<SignInPage> {
               user.metadata.lastSignInTime?.millisecondsSinceEpoch,
           'providerData': providerData,
         })
-        .then((value) => {print('User Data Updated')})
+        .then((value) => {debugPrint('User Data Updated')})
         .catchError((error) => {
               if (kDebugMode)
                 {
-                  print(
+                  debugPrint(
                       'Failed to update user data, will try to create: $error')
                 },
               ref
@@ -74,16 +72,27 @@ class _SignInPageState extends State<SignInPage> {
                         user.metadata.lastSignInTime?.microsecondsSinceEpoch,
                     'providerData': providerData,
                   })
-                  .then((value) => {print('User Data Created')})
+                  .then((value) => {debugPrint('User Data Created')})
                   .catchError((error) => {
                         if (kDebugMode)
-                          {print('Failed to set and update user data: $error')}
+                          {
+                            debugPrint(
+                                'Failed to set and update user data: $error')
+                          }
                       })
             });
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget build = Container(
+        padding: const EdgeInsets.all(10),
+        child: Container(
+            constraints: const BoxConstraints(maxWidth: 200),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            child: Image.asset('assets/images/logo-512x512.png')));
     return Scaffold(
         appBar: AppBar(
           title: _redirectPage == '/profile'
@@ -91,9 +100,18 @@ class _SignInPageState extends State<SignInPage> {
               : const Text('Sign In to Continue'),
         ),
         body: SignInScreen(
+          showAuthActionSwitch: false,
+          headerBuilder: (context, provider, action) {
+            return build;
+          },
+          oauthButtonVariant: OAuthButtonVariant.icon_and_text,
+          headerMaxExtent: 200,
+          sideBuilder: (context, provider) {
+            return build;
+          },
+          breakpoint: 700,
           providers: [
-            EmailAuthProvider(),
-            PhoneAuthProvider(),
+            // EmailAuthProvider(),
             GoogleProvider(
                 clientId:
                     '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com'),
@@ -101,16 +119,13 @@ class _SignInPageState extends State<SignInPage> {
               apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
               apiSecretKey: 'TWITTER_SECRET',
             ),
-            FacebookProvider(clientId: '1230943830699268')
+            FacebookProvider(clientId: '1230943830699268'),
+            PhoneAuthProvider(),
           ],
           actions: [
             AuthStateChangeAction<SignedIn>((context, state) {
               _uploaduserinfo();
-              if (!state.user!.emailVerified) {
-                Navigator.pushNamed(context, '/verify-email');
-              } else {
-                Navigator.pushReplacementNamed(context, _redirectPage);
-              }
+              Navigator.pushReplacementNamed(context, _redirectPage);
             }),
           ],
         ));

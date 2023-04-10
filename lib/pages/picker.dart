@@ -74,6 +74,10 @@ class _PickerPageState extends State<PickerPage> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(16.0))),
+                                    child: Center(
+                                      // TODO: add turntable
+                                      child: Text('Here will be the turntable'),
+                                    ),
                                   )),
                             ),
                             Container(

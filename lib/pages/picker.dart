@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 
 class PickerPage extends StatefulWidget {
-  PickerPage({Key? key}) : super(key: key);
+  const PickerPage({Key? key}) : super(key: key);
 
   @override
   State<PickerPage> createState() => _PickerPageState();
@@ -11,24 +12,6 @@ class PickerPage extends StatefulWidget {
 
 class _PickerPageState extends State<PickerPage> {
   final TextEditingController _controller = TextEditingController();
-
-  double mathSquare() {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    var appBarHeight = AppBar().preferredSize.height;
-    var padding = 20;
-    if (width >= 640) {
-      if (width / 2 < 320) {
-        return (320 - padding).toDouble();
-      } else if (width / 2 > height - appBarHeight - padding) {
-        return height - appBarHeight - padding;
-      } else {
-        return width / 2 - padding;
-      }
-    } else {
-      return width - padding;
-    }
-  }
 
   List<String> _textList = [];
 
@@ -44,7 +27,95 @@ class _PickerPageState extends State<PickerPage> {
     });
   }
 
-  void spin() {}
+  double _rotate = 0;
+  bool _spined = false;
+  String? _spinedString;
+  Timer? _spinTimer;
+
+  void spin() {
+    var textList = _textList;
+    var textLength = _textList.length;
+    var random = Random();
+    var randomInt = random.nextInt(textLength);
+    var spinNumber = random.nextInt(3) + 3;
+    var anAngle = 360 ~/ textLength;
+    var halfAngle = anAngle ~/ 2;
+    var speed = 10;
+    var ramdomValue = random.nextDouble() * halfAngle;
+    _spinTimer?.cancel();
+    _spinTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      if (_rotate >= 360) {
+        setState(() {
+          _rotate = 0;
+        });
+        spinNumber--;
+      } else {
+        if (spinNumber <= 0 &&
+            _rotate >= randomInt * 360 ~/ textLength &&
+            _rotate <= randomInt * 360 ~/ textLength + anAngle) {
+          setState(() {
+            _rotate = randomInt * anAngle + ramdomValue;
+            _spinedString = textList[randomInt];
+            _spined = true;
+          });
+          _spinTimer?.cancel();
+          return;
+        } else {
+          setState(() {
+            _rotate += speed;
+          });
+        }
+      }
+    });
+  }
+
+  bool _isDesktop() {
+    return MediaQuery.of(context).size.width >= 640;
+  }
+
+  double mathSquare() {
+    var width = MediaQuery.of(context).size.width;
+    if (_isDesktop()) {
+      if (width / 32 * 19 > MediaQuery.of(context).size.height - AppBar().preferredSize.height) {
+        return MediaQuery.of(context).size.height - AppBar().preferredSize.height;
+      } else {
+        return width / 32 * 19;
+      }
+    } else {
+      return width / 24 * 19;
+    }
+  }
+
+  double mathPin() {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    var appBarHeight = AppBar().preferredSize.height;
+    var padding = 20;
+    if (_isDesktop()) {
+      return width / 32 * 5;
+    } else {
+      return width / 24 * 5;
+    }
+  }
+
+  double mathActionArea() {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    var appBarHeight = AppBar().preferredSize.height;
+    var padding = 20;
+    if (_isDesktop()) {
+      return width / 32 * 8;
+    } else {
+      return width;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _spinTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,55 +142,51 @@ class _PickerPageState extends State<PickerPage> {
                           children: [
                             Container(
                               padding: const EdgeInsets.all(10),
-                              constraints: BoxConstraints(
-                                minWidth:
-                                    MediaQuery.of(context).size.width < 320
-                                        ? MediaQuery.of(context).size.width
-                                        : 320,
-                                maxWidth: MediaQuery.of(context).size.width >=
-                                        640
-                                    ? MediaQuery.of(context).size.width / 2 <
-                                            320
-                                        ? 320
-                                        : MediaQuery.of(context).size.width / 2
-                                    : MediaQuery.of(context).size.width,
-                              ),
-                              child: SizedBox(
-                                  width: mathSquare(),
-                                  height: mathSquare(),
-                                  child: Card(
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(16.0))),
-                                    child: Container(
-                                        padding: const EdgeInsets.all(30),
+                              width: mathSquare() + mathPin(),
+                              height: mathSquare(),
+                              child: Card(
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(16.0))),
+                                  child: Row(children: [
+                                    SizedBox(
+                                      width: mathSquare() - 20,
+                                      height: mathSquare() - 20,
+                                      child: Container(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Center(
+                                              child: RotationTransition(
+                                            turns: AlwaysStoppedAnimation(
+                                                -_rotate / 360),
+                                            child: CustomPaint(
+                                              size: Size(
+                                                  mathSquare() - 40,
+                                                  mathSquare() - 40),
+                                              painter: MyPainter(
+                                                  context: context,
+                                                  textList: _textList),
+                                            ),
+                                          ))),
+                                    ),
+                                    SizedBox(
+                                        width: mathPin() - 20,
+                                        height: mathPin() - 20,
                                         child: Center(
+                                            child: Container(
+                                          padding: const EdgeInsets.all(10),
                                           child: CustomPaint(
-                                            size: Size(mathSquare() - 60,
-                                                mathSquare() - 60),
-                                            painter: MyPainter(
-                                                context: context,
-                                                textList: _textList),
+                                            size: Size(
+                                                mathPin() - 40,
+                                                mathPin() - 40),
+                                            painter:
+                                                PinPainter(context: context),
                                           ),
-                                        )),
-                                  )),
+                                        )))
+                                  ])),
                             ),
                             Container(
                                 padding: const EdgeInsets.all(10),
-                                constraints: BoxConstraints(
-                                  minWidth:
-                                      MediaQuery.of(context).size.width < 320
-                                          ? MediaQuery.of(context).size.width
-                                          : 320,
-                                  maxWidth: MediaQuery.of(context).size.width >=
-                                          640
-                                      ? MediaQuery.of(context).size.width / 3 <
-                                              320
-                                          ? 320
-                                          : MediaQuery.of(context).size.width /
-                                              3
-                                      : MediaQuery.of(context).size.width,
-                                ),
+                                width: mathActionArea(),
                                 child: Card(
                                     shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
@@ -153,10 +220,26 @@ class _PickerPageState extends State<PickerPage> {
                                               children: [
                                                 // TODO: add in batch future
                                                 ElevatedButton.icon(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      spin();
+                                                    },
                                                     icon:
                                                         const Icon(Icons.start),
-                                                    label: const Text('Spin'))
+                                                    label: const Text('Spin')),
+                                                Text(_spined
+                                                    ? 'Result: $_spinedString'
+                                                    : ''),
+                                                // Slider(
+                                                //   value: _rotate.toDouble(),
+                                                //   min: 0,
+                                                //   max: 360,
+                                                //   label: _rotate.toString(),
+                                                //   onChanged: (value) {
+                                                //     setState(() {
+                                                //       _rotate = value.toInt();
+                                                //     });
+                                                //   },
+                                                // ),
                                               ],
                                             )
                                           ],
@@ -221,8 +304,8 @@ class MyPainter extends CustomPainter {
           ..style = PaintingStyle.fill;
         canvas.drawArc(
             Rect.fromCircle(center: center, radius: size.width / 2 - 10),
-            preAngle, // start angle
-            angle - preAngle, // sweep angle
+            preAngle,
+            angle - preAngle,
             true, // use center
             splitCirclePainter);
       }
@@ -237,27 +320,73 @@ class MyPainter extends CustomPainter {
         canvas.save();
         canvas.rotate(angle + aAngle / 2);
         final textPainter = TextPainter(
+          textAlign: TextAlign.end,
           text: TextSpan(
             text: textList[i],
-            style: TextStyle(color: Colors.black, fontSize: textLength > 20 ? textLength > 40 ? textLength > 80 ? textLength > 160 ? 2 : 4 : 8 : 16 : 32),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+                fontSize: textLength > 20
+                    ? textLength > 40
+                        ? textLength > 80
+                            ? textLength > 160
+                                ? 2
+                                : 4
+                            : 8
+                        : 16
+                    : 32),
           ),
           textDirection: TextDirection.ltr,
         );
         textPainter.layout();
-        textPainter.paint(canvas, center.translate(0, -size.height / 2 - textPainter.height / 2));
+        textPainter.paint(
+            canvas,
+            center.translate(-textPainter.width - 20,
+                -size.height / 2 - textPainter.height / 2));
         canvas.restore();
       }
     } else {
       final textPainter = TextPainter(
         text: TextSpan(
           text: 'No Data',
-          style: TextStyle(color: Colors.black, fontSize: 32),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onBackground, fontSize: 32),
         ),
         textDirection: TextDirection.ltr,
       );
       textPainter.layout();
-      textPainter.paint(canvas, center.translate(-textPainter.width / 2, -textPainter.height / 2));
+      textPainter.paint(canvas,
+          center.translate(-textPainter.width / 2, -textPainter.height / 2));
     }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
+class PinPainter extends CustomPainter {
+  BuildContext context;
+
+  PinPainter({required this.context});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var width = size.width;
+    var height = size.height;
+
+    var paint = Paint()
+      ..color = Theme.of(context).colorScheme.primary
+      ..strokeWidth = 2
+      ..style = PaintingStyle.fill;
+
+    // generate left pointing pointer
+    var leftPointerPath = Path();
+    leftPointerPath.moveTo(width, height / 2 - 10);
+    leftPointerPath.lineTo(width, height / 2 + 10);
+    leftPointerPath.lineTo(0, height / 2);
+    leftPointerPath.close();
+    canvas.drawPath(leftPointerPath, paint);
   }
 
   @override

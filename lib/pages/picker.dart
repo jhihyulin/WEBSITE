@@ -33,12 +33,14 @@ class _PickerPageState extends State<PickerPage> {
   String? _spinedString;
   Timer? _spinTimer;
   bool _spinning = false;
+  static const int _rotateSpeed = 30;
 
   void spin() {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     onChange();
+    setState(() {});
     setState(() {
       _spinning = true;
     });
@@ -47,40 +49,73 @@ class _PickerPageState extends State<PickerPage> {
     var random = Random();
     var randomInt = random.nextInt(textLength);
     var spinNumber = random.nextInt(3) + 3;
-    var anAngle = 360 ~/ textLength;
-    var halfAngle = anAngle ~/ 2;
-    var speed = 10;
-    var ramdomValue = random.nextDouble() * halfAngle;
+    var anAngle = 360 / textLength;
+    var halfAngle = anAngle / 2;
+    var ramdomDouble = random.nextDouble();
     _spinTimer?.cancel();
+    var currentRotateSpeed = _rotateSpeed.toDouble();
     _spinTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
       if (_rotate >= 360) {
         setState(() {
           _rotate = 0;
         });
         spinNumber--;
+        setState(() {
+          _rotate += currentRotateSpeed;
+        });
       } else {
-        if (spinNumber <= 0 &&
-            _rotate >= randomInt * 360 ~/ textLength &&
-            _rotate <= randomInt * 360 ~/ textLength + anAngle) {
-          var st = textList[randomInt];
-          var newList = [];
-          for (var i = 0; i < textList.length; i++) {
-            if (i != randomInt) {
-              newList.add(textList[i]);
+        if (spinNumber <= 0) {
+          if (_rotate >= randomInt * anAngle &&
+              _rotate <= randomInt * anAngle + anAngle) {
+            var st = textList[randomInt];
+            var newList = [];
+            for (var i = 0; i < textList.length; i++) {
+              if (i != randomInt) {
+                newList.add(textList[i]);
+              }
             }
+            var canRotate = randomInt * anAngle + anAngle - _rotate;
+            var latestRotate = _rotate + random.nextDouble() * canRotate;
+            setState(() {
+              _rotate = latestRotate;
+              _spinedString = st;
+              _controller.text = newList.join('\n');
+              _spined = true;
+              _spinning = false;
+            });
+            print(
+                'spined: $_spinedString, randomInt: $randomInt, rotate: $_rotate, randInt: $randomInt, anAngle: $anAngle, halfAngle: $halfAngle, ramdomValue: $ramdomDouble');
+            _spinTimer?.cancel();
+            return;
+          } else {
+            setState(() {
+              currentRotateSpeed =
+                  currentRotateSpeed * 0.95 < 1 ? 1 : currentRotateSpeed * 0.95;
+              _rotate += currentRotateSpeed;
+            });
+          }
+        } else {
+          double newRotateSpeed = spinNumber >= 2
+              ? currentRotateSpeed + 1
+              : spinNumber == 1
+                  ? currentRotateSpeed * 0.95
+                  : randomInt * anAngle + halfAngle > 180
+                      ? _rotateSpeed * 0.9
+                      : randomInt * anAngle + halfAngle > 90
+                          ? _rotateSpeed * 0.8
+                          : randomInt * anAngle + halfAngle > 45
+                              ? _rotateSpeed * 0.6
+                              : randomInt * anAngle + halfAngle > 30
+                                  ? _rotateSpeed * 0.4
+                                  : randomInt * anAngle + halfAngle > 15
+                                      ? _rotateSpeed * 0.2
+                                      : _rotateSpeed * 0.1;
+          if (newRotateSpeed < 1) {
+            newRotateSpeed = 1;
           }
           setState(() {
-            _rotate = randomInt * anAngle + ramdomValue;
-            _spinedString = st;
-            _controller.text = newList.join('\n');
-            _spined = true;
-            _spinning = false;
-          });
-          _spinTimer?.cancel();
-          return;
-        } else {
-          setState(() {
-            _rotate += speed;
+            currentRotateSpeed = newRotateSpeed;
+            _rotate += currentRotateSpeed;
           });
         }
       }
@@ -167,13 +202,14 @@ class _PickerPageState extends State<PickerPage> {
                                       width: mathSquare() - 20,
                                       height: mathSquare() - 20,
                                       child: Container(
-                                          padding: const EdgeInsets.all(10),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 10, 0, 10),
                                           child: Center(
                                               child: RotationTransition(
                                             turns: AlwaysStoppedAnimation(
                                                 -_rotate / 360),
                                             child: CustomPaint(
-                                              size: Size(mathSquare() - 40,
+                                              size: Size(mathSquare() - 30,
                                                   mathSquare() - 40),
                                               painter: MyPainter(
                                                   context: context,
@@ -186,10 +222,11 @@ class _PickerPageState extends State<PickerPage> {
                                         height: mathPin() - 20,
                                         child: Center(
                                             child: Container(
-                                          padding: const EdgeInsets.all(10),
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 10, 10, 10),
                                           child: CustomPaint(
                                             size: Size(
-                                                mathPin() - 40, mathPin() - 40),
+                                                mathPin() - 30, mathPin() - 40),
                                             painter:
                                                 PinPainter(context: context),
                                           ),
@@ -214,9 +251,6 @@ class _PickerPageState extends State<PickerPage> {
                                                     padding:
                                                         const EdgeInsets.all(
                                                             10),
-                                                    height: (mathActionArea() -
-                                                            20) /
-                                                        3,
                                                     child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -383,7 +417,7 @@ class MyPainter extends CustomPainter {
           ..strokeWidth = 2
           ..style = PaintingStyle.fill;
         canvas.drawArc(
-            Rect.fromCircle(center: center, radius: size.width / 2 - 10),
+            Rect.fromCircle(center: center, radius: size.width / 2),
             preAngle,
             angle - preAngle,
             true, // use center

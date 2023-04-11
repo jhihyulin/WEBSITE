@@ -62,11 +62,14 @@ class _StatusPageState extends State<StatusPage> {
     launchUrl(uri);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        backgroundColor: Theme.of(context).colorScheme.errorContainer,
         content: SelectionArea(
-          child: Text('Can\'t open in NewTab, this is the URL: $url'),
+          child: Text('Error: Failed to open in new tab, the URL is: $url',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer)),
         ),
         showCloseIcon: true,
-        closeIconColor: Theme.of(context).colorScheme.error,
+        closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 10),
         shape: const RoundedRectangleBorder(

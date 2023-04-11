@@ -10,35 +10,31 @@ class URLLauncherPage extends StatefulWidget {
 
 class _URLLauncherPageState extends State<URLLauncherPage> {
   final TextEditingController inputURLController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
-  _launchURL() {
-    String url = inputURLController.text;
-    if (url.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('URL is Empty'),
-          showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.error,
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 10),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0))),
-        ),
-      );
+  _launchURL() async {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
-    launchUrl(Uri.parse(url));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('URL Launch Failed'),
-        showCloseIcon: true,
-        closeIconColor: Theme.of(context).colorScheme.error,
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 10),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0))),
-      ),
-    );
+    String url = inputURLController.text;
+    if (!await launchUrl(Uri.parse(url))) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+            content: Text('Error: URL Launch Failed',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onErrorContainer)),
+            showCloseIcon: true,
+            closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 10),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16.0))),
+          ),
+        );
+      }
+    }
     return;
   }
 
@@ -63,24 +59,33 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextField(
-                        controller: inputURLController,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.link),
-                          labelText: 'Enter URL',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
+                      Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a URL';
+                            }
+                            return null;
+                          },
+                          controller: inputURLController,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.link),
+                            labelText: 'Enter URL',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () {
+                                inputURLController.clear();
+                              },
+                            ),
                           ),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              inputURLController.clear();
-                            },
-                          ),
+                          onFieldSubmitted: (value) {
+                            _launchURL();
+                          },
                         ),
-                        onSubmitted: (value) {
-                          _launchURL();
-                        },
                       ),
                       const SizedBox(
                         height: 20,

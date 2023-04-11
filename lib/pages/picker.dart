@@ -291,7 +291,7 @@ class _PickerPageState extends State<PickerPage> {
                                                   enabled: !_spinning,
                                                   labelText: 'Name List',
                                                   hintText:
-                                                      'Newline to separate',
+                                                      'Newline to split',
                                                   prefixIcon: const Icon(
                                                       Icons.text_fields),
                                                   border:

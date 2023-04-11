@@ -41,7 +41,7 @@ class _PickerPageState extends State<PickerPage> {
     setState(() {
       _spinning = true;
     });
-    var textList = _textList;
+    final textList = _textList;
     var textLength = _textList.length;
     var random = Random();
     var randomInt = random.nextInt(textLength);
@@ -61,11 +61,17 @@ class _PickerPageState extends State<PickerPage> {
         if (spinNumber <= 0 &&
             _rotate >= randomInt * 360 ~/ textLength &&
             _rotate <= randomInt * 360 ~/ textLength + anAngle) {
+          var st = textList[randomInt];
+          var newList = [];
+          for (var i = 0; i < textList.length; i++) {
+            if (i != randomInt) {
+              newList.add(textList[i]);
+            }
+          }
           setState(() {
             _rotate = randomInt * anAngle + ramdomValue;
-            _spinedString = textList[randomInt];
-            _textList = textList..removeAt(randomInt);
-            _controller.text = _textList.join('\n');
+            _spinedString = st;
+            _controller.text = newList.join('\n');
             _spined = true;
             _spinning = false;
           });
@@ -243,8 +249,8 @@ class _PickerPageState extends State<PickerPage> {
                                                                         color: Colors
                                                                             .red))
                                                                 : _spined
-                                                                    ? _textList
-                                                                            .isNotEmpty && _spined
+                                                                    ? _textList.isNotEmpty &&
+                                                                            _spined
                                                                         ? const Text(
                                                                             'Next')
                                                                         : const Text(

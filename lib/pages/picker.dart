@@ -31,8 +31,12 @@ class _PickerPageState extends State<PickerPage> {
   bool _spined = false;
   String? _spinedString;
   Timer? _spinTimer;
+  bool _spinning = false;
 
   void spin() {
+    setState(() {
+      _spinning = true;
+    });
     var textList = _textList;
     var textLength = _textList.length;
     var random = Random();
@@ -57,6 +61,7 @@ class _PickerPageState extends State<PickerPage> {
             _rotate = randomInt * anAngle + ramdomValue;
             _spinedString = textList[randomInt];
             _spined = true;
+            _spinning = false;
           });
           _spinTimer?.cancel();
           return;
@@ -195,13 +200,14 @@ class _PickerPageState extends State<PickerPage> {
                                                   TextInputType.multiline,
                                               maxLines: 15,
                                               minLines: 5,
-                                              decoration: const InputDecoration(
+                                              decoration: InputDecoration(
+                                                enabled: !_spinning,
                                                   labelText: 'Name List',
                                                   hintText:
                                                       'Newline to separate',
                                                   prefixIcon:
-                                                      Icon(Icons.text_fields),
-                                                  border: OutlineInputBorder(
+                                                      const Icon(Icons.text_fields),
+                                                  border: const OutlineInputBorder(
                                                       borderRadius:
                                                           BorderRadius.all(
                                                               Radius.circular(

@@ -241,33 +241,30 @@ class _PickerPageState extends State<PickerPage> {
                                                       ],
                                                     )),
                                                 SizedBox(
-                                                    width: (mathActionArea() -
-                                                            20) /
-                                                        3,
-                                                    height: (mathActionArea() -
-                                                            20) /
-                                                        3,
-                                                    child: Offstage(
-                                                      offstage: !_spined,
-                                                      child: Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(10),
-                                                          child: FittedBox(
-                                                              fit: BoxFit
-                                                                  .fitWidth,
-                                                              child: Chip(
-                                                                  label: Text(
-                                                                '$_spinedString',
-                                                                style:
-                                                                    const TextStyle(
-                                                                        fontSize:
-                                                                            48),
-                                                                maxLines: 1,
-                                                              )))),
-                                                    ))
+                                                  width:
+                                                      (mathActionArea() - 20) /
+                                                          3,
+                                                  height:
+                                                      (mathActionArea() - 20) /
+                                                          3,
+                                                  child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: FittedBox(
+                                                          fit: BoxFit.fitWidth,
+                                                          child: Chip(
+                                                              label: Text(
+                                                            _spinedString ?? '  ',
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        48),
+                                                            maxLines: 1,
+                                                          )))),
+                                                )
                                               ],
                                             ),
                                             const SizedBox(height: 20),

@@ -209,8 +209,8 @@ class _PickerPageState extends State<PickerPage> {
                                             turns: AlwaysStoppedAnimation(
                                                 -_rotate / 360),
                                             child: CustomPaint(
-                                              size: Size(mathSquare() - 30,
-                                                  mathSquare() - 40),
+                                              size: Size(mathSquare() - 60,
+                                                  mathSquare() - 60),
                                               painter: MyPainter(
                                                   context: context,
                                                   textList: _textList),
@@ -529,8 +529,12 @@ class _PickerPageState extends State<PickerPage> {
                                                                         .toString());
                                                                   }
                                                                   _controller
-                                                                          .text =
-                                                                      _controller.text == '' ? tL.join('\n') : '${_controller.text}\n${tL.join('\n')}';
+                                                                      .text = _controller
+                                                                              .text ==
+                                                                          ''
+                                                                      ? tL.join(
+                                                                          '\n')
+                                                                      : '${_controller.text}\n${tL.join('\n')}';
                                                                   onChange();
                                                                   setState(
                                                                       () {});

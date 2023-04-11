@@ -75,9 +75,11 @@ class _PickerPageState extends State<PickerPage> {
 
   double mathSquare() {
     var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    var appBarHeight = AppBar().preferredSize.height;
     if (_isDesktop()) {
-      if (width / 32 * 19 > MediaQuery.of(context).size.height - AppBar().preferredSize.height) {
-        return MediaQuery.of(context).size.height - AppBar().preferredSize.height;
+      if (width / 32 * 19 > height - appBarHeight) {
+        return height - appBarHeight;
       } else {
         return width / 32 * 19;
       }
@@ -88,9 +90,6 @@ class _PickerPageState extends State<PickerPage> {
 
   double mathPin() {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    var appBarHeight = AppBar().preferredSize.height;
-    var padding = 20;
     if (_isDesktop()) {
       return width / 32 * 5;
     } else {
@@ -100,9 +99,6 @@ class _PickerPageState extends State<PickerPage> {
 
   double mathActionArea() {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    var appBarHeight = AppBar().preferredSize.height;
-    var padding = 20;
     if (_isDesktop()) {
       return width / 32 * 8;
     } else {
@@ -159,8 +155,7 @@ class _PickerPageState extends State<PickerPage> {
                                             turns: AlwaysStoppedAnimation(
                                                 -_rotate / 360),
                                             child: CustomPaint(
-                                              size: Size(
-                                                  mathSquare() - 40,
+                                              size: Size(mathSquare() - 40,
                                                   mathSquare() - 40),
                                               painter: MyPainter(
                                                   context: context,
@@ -176,8 +171,7 @@ class _PickerPageState extends State<PickerPage> {
                                           padding: const EdgeInsets.all(10),
                                           child: CustomPaint(
                                             size: Size(
-                                                mathPin() - 40,
-                                                mathPin() - 40),
+                                                mathPin() - 40, mathPin() - 40),
                                             painter:
                                                 PinPainter(context: context),
                                           ),
@@ -229,17 +223,6 @@ class _PickerPageState extends State<PickerPage> {
                                                 Text(_spined
                                                     ? 'Result: $_spinedString'
                                                     : ''),
-                                                // Slider(
-                                                //   value: _rotate.toDouble(),
-                                                //   min: 0,
-                                                //   max: 360,
-                                                //   label: _rotate.toString(),
-                                                //   onChanged: (value) {
-                                                //     setState(() {
-                                                //       _rotate = value.toInt();
-                                                //     });
-                                                //   },
-                                                // ),
                                               ],
                                             )
                                           ],
@@ -296,7 +279,6 @@ class MyPainter extends CustomPainter {
         var textLength = textList.length;
         var preAngle = (2 * pi / textLength) * (i - 1);
         var angle = (2 * pi / textLength) * i;
-        var nextAngle = (2 * pi / textLength) * (i + 1);
         // split circle
         final splitCirclePainter = Paint()
           ..color = color
@@ -312,10 +294,8 @@ class MyPainter extends CustomPainter {
       canvas.translate(size.width / 2, size.height / 2);
       for (var i = 0; i < textList.length; i++) {
         var textLength = textList.length;
-        var preAngle = (2 * pi / textLength) * (i - 1);
         var angle = (2 * pi / textLength) * i;
         var aAngle = (2 * pi / textLength);
-        var nextAngle = (2 * pi / textLength) * (i + 1);
         // text
         canvas.save();
         canvas.rotate(angle + aAngle / 2);

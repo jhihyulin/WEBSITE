@@ -530,7 +530,7 @@ class _PickerPageState extends State<PickerPage> {
                                                                   }
                                                                   _controller
                                                                           .text =
-                                                                      '${_controller.text}\n${tL.join('\n')}';
+                                                                      _controller.text == '' ? tL.join('\n') : '${_controller.text}\n${tL.join('\n')}';
                                                                   onChange();
                                                                   setState(
                                                                       () {});

@@ -641,7 +641,7 @@ class MyPainter extends CustomPainter {
         ..strokeWidth = 2
         ..style = PaintingStyle.fill;
       canvas.drawArc(
-          Rect.fromCircle(center: center, radius: size.width / 2 - 10),
+          Rect.fromCircle(center: center, radius: size.width / 2),
           0,
           2 * pi,
           true, // use center

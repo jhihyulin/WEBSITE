@@ -194,6 +194,83 @@ class _PickerPageState extends State<PickerPage> {
                                         padding: const EdgeInsets.all(10),
                                         child: Column(
                                           children: [
+                                            Wrap(
+                                              alignment: WrapAlignment.center,
+                                              children: [
+                                                Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    height: (mathActionArea() -
+                                                            20) /
+                                                        3,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        ElevatedButton.icon(
+                                                            onPressed: _spinning
+                                                                ? () {
+                                                                    _spinTimer
+                                                                        ?.cancel();
+                                                                    setState(
+                                                                        () {
+                                                                      _spinning =
+                                                                          false;
+                                                                    });
+                                                                  }
+                                                                : () {
+                                                                    spin();
+                                                                  },
+                                                            icon: _spinning
+                                                                ? const Icon(
+                                                                    Icons.stop,
+                                                                    color: Colors
+                                                                        .red)
+                                                                : const Icon(Icons
+                                                                    .play_arrow),
+                                                            label: _spinning
+                                                                ? const Text(
+                                                                    'Stop',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .red))
+                                                                : const Text(
+                                                                    'Spin'))
+                                                      ],
+                                                    )),
+                                                SizedBox(
+                                                    width: (mathActionArea() -
+                                                            20) /
+                                                        3,
+                                                    height: (mathActionArea() -
+                                                            20) /
+                                                        3,
+                                                    child: Offstage(
+                                                      offstage: !_spined,
+                                                      child: Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(10),
+                                                          child: FittedBox(
+                                                              fit: BoxFit
+                                                                  .fitWidth,
+                                                              child: Chip(
+                                                                  label: Text(
+                                                                '$_spinedString',
+                                                                style:
+                                                                    const TextStyle(
+                                                                        fontSize:
+                                                                            48),
+                                                                maxLines: 1,
+                                                              )))),
+                                                    ))
+                                              ],
+                                            ),
+                                            const SizedBox(height: 20),
                                             TextField(
                                               controller: _controller,
                                               keyboardType:
@@ -201,36 +278,20 @@ class _PickerPageState extends State<PickerPage> {
                                               maxLines: 15,
                                               minLines: 5,
                                               decoration: InputDecoration(
-                                                enabled: !_spinning,
+                                                  enabled: !_spinning,
                                                   labelText: 'Name List',
                                                   hintText:
                                                       'Newline to separate',
-                                                  prefixIcon:
-                                                      const Icon(Icons.text_fields),
-                                                  border: const OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  16.0)))),
+                                                  prefixIcon: const Icon(
+                                                      Icons.text_fields),
+                                                  border:
+                                                      const OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      16.0)))),
                                               onChanged: (value) => onChange(),
                                             ),
-                                            const SizedBox(height: 20),
-                                            Wrap(
-                                              spacing: 10,
-                                              children: [
-                                                // TODO: add in batch future
-                                                ElevatedButton.icon(
-                                                    onPressed: () {
-                                                      spin();
-                                                    },
-                                                    icon:
-                                                        const Icon(Icons.start),
-                                                    label: const Text('Spin')),
-                                                Text(_spined
-                                                    ? 'Result: $_spinedString'
-                                                    : ''),
-                                              ],
-                                            )
                                           ],
                                         )))),
                           ],

@@ -196,9 +196,9 @@ class _PickerPageState extends State<PickerPage> {
                                               maxLines: 15,
                                               minLines: 5,
                                               decoration: const InputDecoration(
-                                                  labelText: 'Data',
+                                                  labelText: 'Name List',
                                                   hintText:
-                                                      'Use newline to separate',
+                                                      'Newline to separate',
                                                   prefixIcon:
                                                       Icon(Icons.text_fields),
                                                   border: OutlineInputBorder(

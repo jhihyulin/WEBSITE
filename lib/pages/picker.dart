@@ -12,7 +12,10 @@ class PickerPage extends StatefulWidget {
 
 class _PickerPageState extends State<PickerPage> {
   final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller2 = TextEditingController();
+  final TextEditingController _controller3 = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
 
   List<String> _textList = [];
 
@@ -51,7 +54,6 @@ class _PickerPageState extends State<PickerPage> {
     var spinNumber = random.nextInt(3) + 3;
     var anAngle = 360 / textLength;
     var halfAngle = anAngle / 2;
-    var ramdomDouble = random.nextDouble();
     _spinTimer?.cancel();
     var currentRotateSpeed = _rotateSpeed.toDouble();
     _spinTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
@@ -83,8 +85,6 @@ class _PickerPageState extends State<PickerPage> {
               _spined = true;
               _spinning = false;
             });
-            print(
-                'spined: $_spinedString, randomInt: $randomInt, rotate: $_rotate, randInt: $randomInt, anAngle: $anAngle, halfAngle: $halfAngle, ramdomValue: $ramdomDouble');
             _spinTimer?.cancel();
             return;
           } else {
@@ -243,9 +243,13 @@ class _PickerPageState extends State<PickerPage> {
                                     child: Container(
                                         padding: const EdgeInsets.all(10),
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Wrap(
                                               alignment: WrapAlignment.center,
+                                              crossAxisAlignment:
+                                                  WrapCrossAlignment.center,
                                               children: [
                                                 Container(
                                                     padding:
@@ -363,7 +367,181 @@ class _PickerPageState extends State<PickerPage> {
                                                 onChanged: (value) =>
                                                     onChange(),
                                               ),
-                                            )
+                                            ),
+                                            const SizedBox(height: 20),
+                                            Text('Generate Number',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelLarge),
+                                            const SizedBox(height: 10),
+                                            Form(
+                                                key: _formKey2,
+                                                child: Wrap(
+                                                  alignment:
+                                                      WrapAlignment.center,
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.center,
+                                                  spacing: 5,
+                                                  runSpacing: 5,
+                                                  children: [
+                                                    Container(
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                              minWidth: 50,
+                                                              maxWidth: 100),
+                                                      child: TextFormField(
+                                                        validator: (value) {
+                                                          if (value == null ||
+                                                              value.isEmpty) {
+                                                            return 'Required';
+                                                          } else if (int
+                                                                  .tryParse(
+                                                                      value) ==
+                                                              null) {
+                                                            return 'Only number';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        controller:
+                                                            _controller2,
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        decoration:
+                                                            InputDecoration(
+                                                                enabled:
+                                                                    !_spinning,
+                                                                labelText:
+                                                                    'Min',
+                                                                hintText: 'Min',
+                                                                border:
+                                                                    const OutlineInputBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          16.0),
+                                                                ))),
+                                                        onChanged: (value) =>
+                                                            onChange(),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Container(
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                              minWidth: 50,
+                                                              maxWidth: 100),
+                                                      child: TextFormField(
+                                                        validator: (value) {
+                                                          if (value == null ||
+                                                              value.isEmpty) {
+                                                            return 'Required';
+                                                          } else if (int
+                                                                  .tryParse(
+                                                                      value) ==
+                                                              null) {
+                                                            return 'Only number';
+                                                          }
+                                                          return null;
+                                                        },
+                                                        controller:
+                                                            _controller3,
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
+                                                        decoration:
+                                                            InputDecoration(
+                                                                enabled:
+                                                                    !_spinning,
+                                                                labelText:
+                                                                    'Max',
+                                                                hintText: 'Max',
+                                                                border:
+                                                                    const OutlineInputBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          16.0),
+                                                                ))),
+                                                        onChanged: (value) =>
+                                                            onChange(),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Container(
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                              minWidth: 50),
+                                                      child: IconButton(
+                                                        tooltip: 'Add',
+                                                        onPressed: _spinning
+                                                            ? null
+                                                            : () {
+                                                                if (_formKey2
+                                                                    .currentState!
+                                                                    .validate()) {
+                                                                  if (int.parse(
+                                                                          _controller2
+                                                                              .text) >
+                                                                      int.parse(
+                                                                          _controller3
+                                                                              .text)) {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        backgroundColor: Theme.of(context)
+                                                                            .colorScheme
+                                                                            .errorContainer,
+                                                                        content:
+                                                                            Text(
+                                                                          'Error: Min must be less than Max',
+                                                                          style:
+                                                                              TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+                                                                        ),
+                                                                        showCloseIcon:
+                                                                            true,
+                                                                        closeIconColor: Theme.of(context)
+                                                                            .colorScheme
+                                                                            .onErrorContainer,
+                                                                        behavior:
+                                                                            SnackBarBehavior.floating,
+                                                                        duration:
+                                                                            const Duration(seconds: 10),
+                                                                        shape: const RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.all(Radius.circular(16.0))),
+                                                                      ),
+                                                                    );
+                                                                    return;
+                                                                  }
+                                                                  var tL = [];
+                                                                  for (int i = int.parse(
+                                                                          _controller2
+                                                                              .text);
+                                                                      i <=
+                                                                          int.parse(
+                                                                              _controller3.text);
+                                                                      i++) {
+                                                                    tL.add(i
+                                                                        .toString());
+                                                                  }
+                                                                  _controller
+                                                                          .text =
+                                                                      '${_controller.text}\n${tL.join('\n')}';
+                                                                  onChange();
+                                                                  setState(
+                                                                      () {});
+                                                                }
+                                                              },
+                                                        icon: const Icon(
+                                                            Icons.add),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ))
                                           ],
                                         )))),
                           ],

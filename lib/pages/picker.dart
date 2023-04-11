@@ -278,6 +278,16 @@ class _PickerPageState extends State<PickerPage> {
                                               maxLines: 15,
                                               minLines: 5,
                                               decoration: InputDecoration(
+                                                  suffix: IconButton(
+                                                      onPressed: () {
+                                                        _controller.clear();
+                                                        _textList = [];
+                                                        _spinedString = '';
+                                                        _spined = false;
+                                                        onChange();
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.clear)),
                                                   enabled: !_spinning,
                                                   labelText: 'Name List',
                                                   hintText:

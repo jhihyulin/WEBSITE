@@ -246,84 +246,78 @@ class _PickerPageState extends State<PickerPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Wrap(
-                                              alignment: WrapAlignment.center,
-                                              crossAxisAlignment:
-                                                  WrapCrossAlignment.center,
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
-                                                Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        ElevatedButton.icon(
-                                                            onPressed: _spinning
-                                                                ? () {
-                                                                    _spinTimer
-                                                                        ?.cancel();
-                                                                    setState(
-                                                                        () {
-                                                                      _spinning =
-                                                                          false;
-                                                                    });
-                                                                  }
-                                                                : () {
-                                                                    spin();
-                                                                  },
-                                                            icon: _spinning
-                                                                ? const Icon(
-                                                                    Icons.stop,
-                                                                    color: Colors
-                                                                        .red)
-                                                                : const Icon(Icons
-                                                                    .play_arrow),
-                                                            label: _spinning
-                                                                ? const Text(
-                                                                    'Stop',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .red))
-                                                                : _spined
-                                                                    ? _textList.isNotEmpty &&
-                                                                            _spined
-                                                                        ? const Text(
-                                                                            'Next')
-                                                                        : const Text(
-                                                                            'Spin')
-                                                                    : const Text(
-                                                                        'Spin')),
-                                                      ],
-                                                    )),
                                                 SizedBox(
                                                   width:
-                                                      (mathActionArea() - 20) /
-                                                          3,
+                                                      mathActionArea() / 2 - 30,
                                                   height:
-                                                      (mathActionArea() - 20) /
-                                                          3,
-                                                  child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10),
-                                                      child: FittedBox(
-                                                          fit: BoxFit.fitWidth,
-                                                          child: Chip(
-                                                              label: Text(
-                                                            _spinedString ??
-                                                                '  ',
-                                                            style:
-                                                                const TextStyle(
-                                                                    fontSize:
-                                                                        48),
-                                                            maxLines: 1,
-                                                          )))),
-                                                )
+                                                      mathActionArea() / 2 - 30,
+                                                  child: IconButton(
+                                                      onPressed: _spinning
+                                                          ? () {
+                                                              _spinTimer
+                                                                  ?.cancel();
+                                                              setState(() {
+                                                                _spinning =
+                                                                    false;
+                                                                _spined = false;
+                                                                _spinedString =
+                                                                    '';
+                                                              });
+                                                            }
+                                                          : () {
+                                                              spin();
+                                                            },
+                                                      icon: _spinning
+                                                          ? const Icon(
+                                                              Icons.stop)
+                                                          : const Icon(
+                                                              Icons.play_arrow),
+                                                      color: _spinning
+                                                          ? Colors.red
+                                                          : Colors.greenAccent,
+                                                      tooltip: _spinning
+                                                          ? 'Stop'
+                                                          : _spined
+                                                              ? _textList.isNotEmpty &&
+                                                                      _spined
+                                                                  ? 'Next'
+                                                                  : 'Spin'
+                                                              : 'Spin'),
+                                                ),
+                                                Offstage(
+                                                    offstage:
+                                                        !_spinning && !_spined,
+                                                    child: Container(
+                                                        width: mathActionArea() /
+                                                                2 -
+                                                            30,
+                                                        height:
+                                                            mathActionArea() /
+                                                                    2 -
+                                                                30,
+                                                        alignment:
+                                                            Alignment.center,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10),
+                                                        child: _spinning
+                                                            ? const CircularProgressIndicator()
+                                                            : FittedBox(
+                                                                fit: BoxFit
+                                                                    .fitWidth,
+                                                                child: Chip(
+                                                                    label: Text(
+                                                                  _spinedString ??
+                                                                      '',
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          128),
+                                                                  maxLines: 1,
+                                                                ))))),
                                               ],
                                             ),
                                             const SizedBox(height: 20),
@@ -369,26 +363,21 @@ class _PickerPageState extends State<PickerPage> {
                                               ),
                                             ),
                                             const SizedBox(height: 20),
-                                            Text('Generate Number',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelLarge),
+                                            Container(
+                                              alignment: Alignment.centerLeft,
+                                              width: double.infinity,
+                                              child: Text('Generate Number',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .labelLarge),
+                                            ),
                                             const SizedBox(height: 10),
                                             Form(
                                                 key: _formKey2,
-                                                child: Wrap(
-                                                  alignment:
-                                                      WrapAlignment.center,
-                                                  crossAxisAlignment:
-                                                      WrapCrossAlignment.center,
-                                                  spacing: 5,
-                                                  runSpacing: 5,
+                                                child: Row(
                                                   children: [
-                                                    Container(
-                                                      constraints:
-                                                          const BoxConstraints(
-                                                              minWidth: 50,
-                                                              maxWidth: 100),
+                                                    Expanded(
+                                                      flex: 2,
                                                       child: TextFormField(
                                                         validator: (value) {
                                                           if (value == null ||
@@ -427,11 +416,8 @@ class _PickerPageState extends State<PickerPage> {
                                                       ),
                                                     ),
                                                     const SizedBox(width: 10),
-                                                    Container(
-                                                      constraints:
-                                                          const BoxConstraints(
-                                                              minWidth: 50,
-                                                              maxWidth: 100),
+                                                    Expanded(
+                                                      flex: 2,
                                                       child: TextFormField(
                                                         validator: (value) {
                                                           if (value == null ||
@@ -470,10 +456,8 @@ class _PickerPageState extends State<PickerPage> {
                                                       ),
                                                     ),
                                                     const SizedBox(width: 10),
-                                                    Container(
-                                                      constraints:
-                                                          const BoxConstraints(
-                                                              minWidth: 50),
+                                                    Expanded(
+                                                      flex: 1,
                                                       child: IconButton(
                                                         tooltip: 'Add',
                                                         onPressed: _spinning

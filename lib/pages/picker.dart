@@ -619,11 +619,11 @@ class MyPainter extends CustomPainter {
                     ? textLength > 40
                         ? textLength > 80
                             ? textLength > 160
-                                ? 2
-                                : 4
-                            : 8
-                        : 16
-                    : 32),
+                                ? 10.125
+                                : 13.5
+                            : 18
+                        : 36
+                    : 64),
           ),
           textDirection: TextDirection.ltr,
         );

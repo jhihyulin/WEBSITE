@@ -59,6 +59,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.school,
       'route': '/twuniversityresultquery',
     },
+    'picker': {
+      'title': 'Picker',
+      'icon': Icons.list,
+      'route': '/picker',
+    },
   };
 
   @override

@@ -38,6 +38,7 @@ class _PickerPageState extends State<PickerPage> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    onChange();
     setState(() {
       _spinning = true;
     });

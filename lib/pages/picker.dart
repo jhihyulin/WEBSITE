@@ -243,8 +243,12 @@ class _PickerPageState extends State<PickerPage> {
                                                                         color: Colors
                                                                             .red))
                                                                 : _spined
-                                                                    ? const Text(
-                                                                        'Next')
+                                                                    ? _textList
+                                                                            .isEmpty
+                                                                        ? const Text(
+                                                                            'Spin')
+                                                                        : const Text(
+                                                                            'Next')
                                                                     : const Text(
                                                                         'Spin')),
                                                       ],

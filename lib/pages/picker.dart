@@ -242,13 +242,6 @@ class MyPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // final paint = Paint()
-    //   ..color = Theme.of(context).buttonTheme.colorScheme!.primary
-    //   ..strokeWidth = 5
-    //   ..style = PaintingStyle.fill;
-    // canvas.drawCircle(
-    //     Offset(size.width / 2, size.height / 2), size.height / 2, paint);
-
     var center = Offset(size.width / 2, size.height / 2);
 
     List<MaterialColor> colors = [
@@ -325,17 +318,17 @@ class MyPainter extends CustomPainter {
         canvas.restore();
       }
     } else {
-      final textPainter = TextPainter(
-        text: TextSpan(
-          text: 'No Data',
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground, fontSize: 32),
-        ),
-        textDirection: TextDirection.ltr,
-      );
-      textPainter.layout();
-      textPainter.paint(canvas,
-          center.translate(-textPainter.width / 2, -textPainter.height / 2));
+      // retuen a Colors.amber circle
+      final splitCirclePainter = Paint()
+        ..color = colors[0]
+        ..strokeWidth = 2
+        ..style = PaintingStyle.fill;
+      canvas.drawArc(
+          Rect.fromCircle(center: center, radius: size.width / 2 - 10),
+          0,
+          2 * pi,
+          true, // use center
+          splitCirclePainter);
     }
   }
 

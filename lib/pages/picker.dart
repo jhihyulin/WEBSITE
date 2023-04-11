@@ -12,6 +12,7 @@ class PickerPage extends StatefulWidget {
 
 class _PickerPageState extends State<PickerPage> {
   final TextEditingController _controller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   List<String> _textList = [];
 
@@ -34,6 +35,9 @@ class _PickerPageState extends State<PickerPage> {
   bool _spinning = false;
 
   void spin() {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
     setState(() {
       _spinning = true;
     });
@@ -60,6 +64,8 @@ class _PickerPageState extends State<PickerPage> {
           setState(() {
             _rotate = randomInt * anAngle + ramdomValue;
             _spinedString = textList[randomInt];
+            _textList = textList..removeAt(randomInt);
+            _controller.text = _textList.join('\n');
             _spined = true;
             _spinning = false;
           });
@@ -236,8 +242,11 @@ class _PickerPageState extends State<PickerPage> {
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .red))
-                                                                : const Text(
-                                                                    'Spin'))
+                                                                : _spined
+                                                                    ? const Text(
+                                                                        'Next')
+                                                                    : const Text(
+                                                                        'Spin')),
                                                       ],
                                                     )),
                                                 SizedBox(
@@ -257,7 +266,8 @@ class _PickerPageState extends State<PickerPage> {
                                                           fit: BoxFit.fitWidth,
                                                           child: Chip(
                                                               label: Text(
-                                                            _spinedString ?? '  ',
+                                                            _spinedString ??
+                                                                '  ',
                                                             style:
                                                                 const TextStyle(
                                                                     fontSize:
@@ -268,36 +278,47 @@ class _PickerPageState extends State<PickerPage> {
                                               ],
                                             ),
                                             const SizedBox(height: 20),
-                                            TextField(
-                                              controller: _controller,
-                                              keyboardType:
-                                                  TextInputType.multiline,
-                                              maxLines: 15,
-                                              minLines: 5,
-                                              decoration: InputDecoration(
-                                                  suffix: IconButton(
-                                                      onPressed: () {
-                                                        _controller.clear();
-                                                        _textList = [];
-                                                        _spinedString = '';
-                                                        _spined = false;
-                                                        onChange();
-                                                      },
-                                                      icon: const Icon(
-                                                          Icons.clear)),
-                                                  enabled: !_spinning,
-                                                  labelText: 'Name List',
-                                                  hintText: 'Newline to split',
-                                                  prefixIcon: const Icon(
-                                                      Icons.text_fields),
-                                                  border:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      16.0)))),
-                                              onChanged: (value) => onChange(),
-                                            ),
+                                            Form(
+                                              key: _formKey,
+                                              child: TextFormField(
+                                                validator: (value) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
+                                                    return 'Please enter some text';
+                                                  }
+                                                  return null;
+                                                },
+                                                controller: _controller,
+                                                keyboardType:
+                                                    TextInputType.multiline,
+                                                maxLines: 15,
+                                                minLines: 5,
+                                                decoration: InputDecoration(
+                                                    suffix: IconButton(
+                                                        onPressed: () {
+                                                          _controller.clear();
+                                                          _textList = [];
+                                                          _spinedString = '';
+                                                          _spined = false;
+                                                          onChange();
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.clear)),
+                                                    enabled: !_spinning,
+                                                    labelText: 'Name List',
+                                                    hintText:
+                                                        'Newline to split',
+                                                    prefixIcon: const Icon(
+                                                        Icons.text_fields),
+                                                    border: const OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    16.0)))),
+                                                onChanged: (value) =>
+                                                    onChange(),
+                                              ),
+                                            )
                                           ],
                                         )))),
                           ],

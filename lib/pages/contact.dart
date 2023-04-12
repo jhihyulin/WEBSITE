@@ -76,9 +76,12 @@ class _ContactPageState extends State<ContactPage> {
           _loading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: const Text('Error Notifying Admin!'),
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          content: Text('Error: Failed to send notification to Admin.',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer)),
           showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.error,
+          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 10),
           shape: const RoundedRectangleBorder(

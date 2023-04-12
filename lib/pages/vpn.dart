@@ -100,9 +100,12 @@ class _VPNPageState extends State<VPNPage> {
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error: $error'),
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          content: Text('Error: $error',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer)),
           showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.error,
+          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 10),
           shape: const RoundedRectangleBorder(
@@ -142,9 +145,12 @@ class _VPNPageState extends State<VPNPage> {
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error: $error'),
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          content: Text('Error: $error',
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer)),
           showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.error,
+          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 10),
           shape: const RoundedRectangleBorder(
@@ -362,12 +368,18 @@ class _VPNPageState extends State<VPNPage> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
-                                            content: const Text(
-                                                'Error: Copy failed'),
+                                            backgroundColor: Theme.of(context)
+                                                .colorScheme
+                                                .errorContainer,
+                                            content: Text('Error: Copy failed',
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onErrorContainer)),
                                             showCloseIcon: true,
                                             closeIconColor: Theme.of(context)
                                                 .colorScheme
-                                                .error,
+                                                .onErrorContainer,
                                             behavior: SnackBarBehavior.floating,
                                             duration:
                                                 const Duration(seconds: 10),

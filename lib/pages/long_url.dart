@@ -230,13 +230,22 @@ class _LongURLPageState extends State<LongURLPage> {
                                             .catchError((error) => {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(SnackBar(
-                                                    content:
-                                                        Text('Error: $error'),
+                                                    backgroundColor:
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .errorContainer,
+                                                    content: Text(
+                                                        'Error: $error',
+                                                        style: TextStyle(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .onErrorContainer)),
                                                     showCloseIcon: true,
                                                     closeIconColor:
                                                         Theme.of(context)
                                                             .colorScheme
-                                                            .error,
+                                                            .onErrorContainer,
                                                     behavior: SnackBarBehavior
                                                         .floating,
                                                     duration: const Duration(

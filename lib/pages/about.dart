@@ -118,11 +118,40 @@ Map<String, Object> experience = {
   'Solid Edge': Image.asset('assets/images/solidedge.png'),
 };
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
 
+  @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
   bool _isDesktop(BuildContext context) {
     return MediaQuery.of(context).size.width > 640 ? true : false;
+  }
+
+  void _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+            content: SelectionArea(
+              child: Text('Error: Failed to open in new tab, the URL is: $url',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onErrorContainer)),
+            ),
+            showCloseIcon: true,
+            closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 10),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16.0))),
+          ),
+        );
+      }
+      throw Exception('Could not launch $url');
+    }
   }
 
   @override
@@ -253,11 +282,5 @@ class AboutPage extends StatelessWidget {
             ),
           ))),
     );
-  }
-}
-
-Future<void> _launchUrl(Uri url) async {
-  if (!await launchUrl(url)) {
-    throw Exception('Could not launch $url');
   }
 }

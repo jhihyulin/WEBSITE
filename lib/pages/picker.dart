@@ -52,11 +52,20 @@ class _PickerPageState extends State<PickerPage> {
     var random = Random();
     var randomInt = random.nextInt(textLength);
     var spinNumber = random.nextInt(3) + 3;
+    var originalSpinNumber = spinNumber;
     var anAngle = 360 / textLength;
-    var halfAngle = anAngle / 2;
+    var targetAngle = anAngle * randomInt + random.nextDouble() * anAngle;
+    var allNeedToRotateAngle = originalSpinNumber * 360 + randomInt * anAngle;
     _spinTimer?.cancel();
     var currentRotateSpeed = _rotateSpeed.toDouble();
     _spinTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+      var needToRotateAngle = allNeedToRotateAngle -
+          (originalSpinNumber - spinNumber) * 360 -
+          _rotate;
+      currentRotateSpeed = sqrt((needToRotateAngle / 360) < 0.0001
+              ? 0.0001
+              : (needToRotateAngle / 360)) *
+          _rotateSpeed;
       if (_rotate >= 360) {
         setState(() {
           _rotate = 0;
@@ -67,8 +76,7 @@ class _PickerPageState extends State<PickerPage> {
         });
       } else {
         if (spinNumber <= 0) {
-          if (_rotate >= randomInt * anAngle &&
-              _rotate <= randomInt * anAngle + anAngle) {
+          if (_rotate >= targetAngle) {
             var st = textList[randomInt];
             var newList = [];
             for (var i = 0; i < textList.length; i++) {
@@ -76,10 +84,7 @@ class _PickerPageState extends State<PickerPage> {
                 newList.add(textList[i]);
               }
             }
-            var canRotate = randomInt * anAngle + anAngle - _rotate;
-            var latestRotate = _rotate + random.nextDouble() * canRotate;
             setState(() {
-              _rotate = latestRotate;
               _spinedString = st;
               _controller.text = newList.join('\n');
               _spined = true;
@@ -89,32 +94,11 @@ class _PickerPageState extends State<PickerPage> {
             return;
           } else {
             setState(() {
-              currentRotateSpeed =
-                  currentRotateSpeed * 0.95 < 1 ? 1 : currentRotateSpeed * 0.95;
               _rotate += currentRotateSpeed;
             });
           }
         } else {
-          double newRotateSpeed = spinNumber >= 2
-              ? currentRotateSpeed + 1
-              : spinNumber == 1
-                  ? currentRotateSpeed * 0.95
-                  : randomInt * anAngle + halfAngle > 180
-                      ? _rotateSpeed * 0.9
-                      : randomInt * anAngle + halfAngle > 90
-                          ? _rotateSpeed * 0.8
-                          : randomInt * anAngle + halfAngle > 45
-                              ? _rotateSpeed * 0.6
-                              : randomInt * anAngle + halfAngle > 30
-                                  ? _rotateSpeed * 0.4
-                                  : randomInt * anAngle + halfAngle > 15
-                                      ? _rotateSpeed * 0.2
-                                      : _rotateSpeed * 0.1;
-          if (newRotateSpeed < 1) {
-            newRotateSpeed = 1;
-          }
           setState(() {
-            currentRotateSpeed = newRotateSpeed;
             _rotate += currentRotateSpeed;
           });
         }
@@ -276,9 +260,10 @@ class _PickerPageState extends State<PickerPage> {
                                                               Icons.stop)
                                                           : const Icon(
                                                               Icons.play_arrow),
+                                                      iconSize: 64,
                                                       color: _spinning
                                                           ? Colors.red
-                                                          : Colors.greenAccent,
+                                                          : Colors.green,
                                                       tooltip: _spinning
                                                           ? 'Stop'
                                                           : _spined
@@ -334,7 +319,7 @@ class _PickerPageState extends State<PickerPage> {
                                                 controller: _controller,
                                                 keyboardType:
                                                     TextInputType.multiline,
-                                                maxLines: 15,
+                                                maxLines: 10,
                                                 minLines: 5,
                                                 decoration: InputDecoration(
                                                     suffix: IconButton(
@@ -570,10 +555,24 @@ class MyPainter extends CustomPainter {
       Colors.yellow,
     ];
 
+    // shadow
+    canvas.drawShadow(
+        Path()
+          ..moveTo(0, 0)
+          ..addArc(Rect.fromCircle(center: center, radius: size.width / 2), 0,
+              2 * pi),
+        Colors.black,
+        10,
+        true);
+
     var textLength = textList.length;
     if (textLength != 0) {
+      // split circle
       for (var i = 0; i < textList.length; i++) {
         var color = colors[i >= colors.length ? i % colors.length : i];
+        if (i % colors.length == 0 && i >= colors.length) {
+          color = colors[2];
+        }
         var textLength = textList.length;
         var preAngle = (2 * pi / textLength) * (i - 1);
         var angle = (2 * pi / textLength) * i;
@@ -590,6 +589,10 @@ class MyPainter extends CustomPainter {
             splitCirclePainter);
       }
       canvas.translate(size.width / 2, size.height / 2);
+      double fontSize = (1 / textLength * size.width * 2) > size.width / 2
+          ? size.width / 2
+          : (1 / textLength * size.width * 2);
+      // text
       for (var i = 0; i < textList.length; i++) {
         var textLength = textList.length;
         var angle = (2 * pi / textLength) * i;
@@ -603,22 +606,14 @@ class MyPainter extends CustomPainter {
             text: textList[i],
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onBackground,
-                fontSize: textLength > 20
-                    ? textLength > 40
-                        ? textLength > 80
-                            ? textLength > 160
-                                ? 10.125
-                                : 13.5
-                            : 18
-                        : 36
-                    : 64),
+                fontSize: fontSize),
           ),
           textDirection: TextDirection.ltr,
         );
         textPainter.layout();
         textPainter.paint(
             canvas,
-            center.translate(-textPainter.width - 20,
+            center.translate(-textPainter.width - 2,
                 -size.height / 2 - textPainter.height / 2));
         canvas.restore();
       }
@@ -658,12 +653,15 @@ class PinPainter extends CustomPainter {
       ..strokeWidth = 2
       ..style = PaintingStyle.fill;
 
-    // generate left pointing pointer
+    // left pointing pointer
     var leftPointerPath = Path();
     leftPointerPath.moveTo(width, height / 2 - 10);
     leftPointerPath.lineTo(width, height / 2 + 10);
     leftPointerPath.lineTo(0, height / 2);
     leftPointerPath.close();
+    // shadow
+    canvas.drawShadow(leftPointerPath, Colors.black, 10, true);
+    // draw pointer
     canvas.drawPath(leftPointerPath, paint);
   }
 

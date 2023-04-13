@@ -48,6 +48,7 @@ class _SettingPageState extends State<SettingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Card(
+                          clipBehavior: Clip.antiAlias,
                           child: Theme(
                               data: theme,
                               child: ExpansionTile(
@@ -209,90 +210,92 @@ class _SettingPageState extends State<SettingPage> {
                               )),
                         ),
                         Card(
+                            clipBehavior: Clip.antiAlias,
                             child: Theme(
-                          data: theme,
-                          child: ExpansionTile(
-                            leading: const Icon(Icons.info),
-                            initiallyExpanded: false,
-                            title: const Text('About'),
-                            children: [
-                              ListTile(
-                                  leading: const Icon(Icons.handyman),
-                                  title: Wrap(
-                                      alignment: WrapAlignment.start,
-                                      runAlignment: WrapAlignment.center,
-                                      children: [
-                                        InkWell(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            child: Container(
-                                              padding: const EdgeInsets.all(15),
-                                              child: const Image(
-                                                  image: AssetImage(
-                                                      'assets/images/BuiltWithFlutter.png'),
-                                                  height: 30),
-                                            ),
-                                            onTap: () {
-                                              launchUrl(Uri.parse(
-                                                  'https://flutter.dev'));
-                                            }),
-                                        InkWell(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            child: const Image(
-                                                image: AssetImage(
-                                                    'assets/images/BuiltWithFirebaseLightRemoveBackground.png'),
-                                                height: 60),
-                                            onTap: () {
-                                              launchUrl(Uri.parse(
-                                                  'https://firebase.google.com'));
-                                            }),
-                                      ])),
-                              ListTile(
-                                  leading: const Icon(Icons.code),
-                                  title: const Text('License'),
-                                  subtitle: const Text('MIT License'),
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.open_in_new),
-                                    onPressed: () {
-                                      launchUrl(Uri.parse(
-                                          'https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE'));
-                                    },
-                                  )),
-                              ListTile(
-                                  leading: const Icon(Logo.github),
-                                  title: const Text('Repository'),
-                                  subtitle: const Text('jhihyulin/WEBSITE'),
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.open_in_new),
-                                    onPressed: () {
-                                      launchUrl(Uri.parse(
-                                          'https://github.com/jhihyulin/WEBSITE'));
-                                    },
-                                  )),
-                              ListTile(
-                                  leading: const Icon(Icons.email),
-                                  title: const Text('Contact'),
-                                  subtitle: Container(
-                                      alignment: Alignment.centerLeft,
-                                      child: const SelectionArea(
-                                        child: Text('JY@jhihyulin.live'),
+                              data: theme,
+                              child: ExpansionTile(
+                                leading: const Icon(Icons.info),
+                                initiallyExpanded: false,
+                                title: const Text('About'),
+                                children: [
+                                  ListTile(
+                                      leading: const Icon(Icons.handyman),
+                                      title: Wrap(
+                                          alignment: WrapAlignment.start,
+                                          runAlignment: WrapAlignment.center,
+                                          children: [
+                                            InkWell(
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.all(15),
+                                                  child: const Image(
+                                                      image: AssetImage(
+                                                          'assets/images/BuiltWithFlutter.png'),
+                                                      height: 30),
+                                                ),
+                                                onTap: () {
+                                                  launchUrl(Uri.parse(
+                                                      'https://flutter.dev'));
+                                                }),
+                                            InkWell(
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                                child: const Image(
+                                                    image: AssetImage(
+                                                        'assets/images/BuiltWithFirebaseLightRemoveBackground.png'),
+                                                    height: 60),
+                                                onTap: () {
+                                                  launchUrl(Uri.parse(
+                                                      'https://firebase.google.com'));
+                                                }),
+                                          ])),
+                                  ListTile(
+                                      leading: const Icon(Icons.code),
+                                      title: const Text('License'),
+                                      subtitle: const Text('MIT License'),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.open_in_new),
+                                        onPressed: () {
+                                          launchUrl(Uri.parse(
+                                              'https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE'));
+                                        },
                                       )),
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.open_in_new),
-                                    onPressed: () {
-                                      launchUrl(Uri.parse(
-                                          'mailto:JY@jhihyulin.live'));
-                                    },
-                                  )),
-                              const Text(
-                                  'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 12)),
-                            ],
-                          ),
-                        ))
+                                  ListTile(
+                                      leading: const Icon(Logo.github),
+                                      title: const Text('Repository'),
+                                      subtitle: const Text('jhihyulin/WEBSITE'),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.open_in_new),
+                                        onPressed: () {
+                                          launchUrl(Uri.parse(
+                                              'https://github.com/jhihyulin/WEBSITE'));
+                                        },
+                                      )),
+                                  ListTile(
+                                      leading: const Icon(Icons.email),
+                                      title: const Text('Contact'),
+                                      subtitle: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: const SelectionArea(
+                                            child: Text('JY@jhihyulin.live'),
+                                          )),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.open_in_new),
+                                        onPressed: () {
+                                          launchUrl(Uri.parse(
+                                              'mailto:JY@jhihyulin.live'));
+                                        },
+                                      )),
+                                  const Text(
+                                      'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 12)),
+                                ],
+                              ),
+                            ))
                       ],
                     )))));
   }

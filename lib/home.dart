@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                         displayFullTextOnTap: true,
                         animatedTexts: [
                           TypewriterAnimatedText(
-                            '\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}',
+                            '\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}',// \u{200B} is a zero-width space
                             textAlign: TextAlign.center,
                             speed: const Duration(milliseconds: 200),
                             textStyle: TextStyle(

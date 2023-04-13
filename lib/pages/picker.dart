@@ -55,7 +55,7 @@ class _PickerPageState extends State<PickerPage> {
     var originalSpinNumber = spinNumber;
     var anAngle = 360 / textLength;
     var targetAngle = anAngle * randomInt + random.nextDouble() * anAngle;
-    var allNeedToRotateAngle = originalSpinNumber * 360 + randomInt * anAngle;
+    var allNeedToRotateAngle = originalSpinNumber * 360 + targetAngle;
     _spinTimer?.cancel();
     var currentRotateSpeed = _rotateSpeed.toDouble();
     _spinTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
@@ -589,14 +589,15 @@ class MyPainter extends CustomPainter {
             splitCirclePainter);
       }
       canvas.translate(size.width / 2, size.height / 2);
-      double fontSize = (1 / textLength * size.width * 2) > size.width / 2
-          ? size.width / 2
-          : (1 / textLength * size.width * 2);
       // text
       for (var i = 0; i < textList.length; i++) {
-        var textLength = textList.length;
         var angle = (2 * pi / textLength) * i;
         var aAngle = (2 * pi / textLength);
+        double fontSize = textList[i].isEmpty
+            ? 0
+            : (2 / textList.length * size.width) > size.width / 2
+                ? size.width / 2 * 1 / textList[i].length
+                : (2 / textList.length * size.width) * 1 / textList[i].length;
         // text
         canvas.save();
         canvas.rotate(angle + aAngle / 2);
@@ -613,7 +614,7 @@ class MyPainter extends CustomPainter {
         textPainter.layout();
         textPainter.paint(
             canvas,
-            center.translate(-textPainter.width - 2,
+            center.translate(-textPainter.width - 10,
                 -size.height / 2 - textPainter.height / 2));
         canvas.restore();
       }

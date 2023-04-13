@@ -596,8 +596,8 @@ class MyPainter extends CustomPainter {
         double fontSize = textList[i].isEmpty
             ? 0
             : (2 / textList.length * size.width) > size.width / 2
-                ? size.width / 2 * 1 / textList[i].length
-                : (2 / textList.length * size.width) * 1 / textList[i].length;
+                ? size.width / 2 * 1 / textList[i].length * 0.8
+                : (2 / textList.length * size.width) * 1 / textList[i].length * 0.8;
         // text
         canvas.save();
         canvas.rotate(angle + aAngle / 2);

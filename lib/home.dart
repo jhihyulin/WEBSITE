@@ -37,12 +37,15 @@ class _HomePageState extends State<HomePage> {
                         displayFullTextOnTap: true,
                         animatedTexts: [
                           TypewriterAnimatedText(
-                            '\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}',// \u{200B} is a zero-width space
+                            '\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}', // \u{200B} is a zero-width space
                             textAlign: TextAlign.center,
                             speed: const Duration(milliseconds: 200),
                             textStyle: TextStyle(
                               // fontFamily: GoogleFonts.firaCode().fontFamily,
-                              fontSize: Theme.of(context).textTheme.displayLarge?.fontSize,
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge
+                                  ?.fontSize,
                             ),
                           ),
                           TypewriterAnimatedText(
@@ -51,7 +54,10 @@ class _HomePageState extends State<HomePage> {
                             speed: const Duration(milliseconds: 50),
                             textStyle: TextStyle(
                               fontFamily: GoogleFonts.firaCode().fontFamily,
-                              fontSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall
+                                  ?.fontSize,
                             ),
                           ),
                         ],

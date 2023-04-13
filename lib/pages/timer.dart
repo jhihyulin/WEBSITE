@@ -144,12 +144,16 @@ class _TimerPageState extends State<TimerPage> {
                             label: Text('$_counterHours H'),
                           ),
                           TextButton(
-                            onPressed: _isRunning || _mode != 'countdown'
+                            onPressed: _isRunning ||
+                                    _mode != 'countdown' ||
+                                    _counterHours == 0
                                 ? null
                                 : () {
                                     setState(() {
                                       if (_counterHours > 0) {
-                                        _counterHours -= 1;
+                                        _counterHours = _counterHours < 1
+                                            ? 0
+                                            : _counterHours - 1;
                                       }
                                     });
                                   },
@@ -174,12 +178,16 @@ class _TimerPageState extends State<TimerPage> {
                             label: Text('$_counterMinutes M'),
                           ),
                           TextButton(
-                            onPressed: _isRunning || _mode != 'countdown'
+                            onPressed: _isRunning ||
+                                    _mode != 'countdown' ||
+                                    _counterMinutes == 0
                                 ? null
                                 : () {
                                     setState(() {
                                       if (_counterMinutes > 0) {
-                                        _counterMinutes -= 1;
+                                        _counterMinutes = _counterMinutes < 1
+                                            ? 0
+                                            : _counterMinutes - 1;
                                       }
                                     });
                                   },
@@ -205,12 +213,16 @@ class _TimerPageState extends State<TimerPage> {
                                 Text('${_counterSeconds.toStringAsFixed(2)} S'),
                           ),
                           TextButton(
-                            onPressed: _isRunning || _mode != 'countdown'
+                            onPressed: _isRunning ||
+                                    _mode != 'countdown' ||
+                                    _counterSeconds == 0
                                 ? null
                                 : () {
                                     setState(() {
                                       if (_counterSeconds > 0) {
-                                        _counterSeconds -= 1;
+                                        _counterSeconds = _counterSeconds < 1
+                                            ? 0.00
+                                            : _counterSeconds - 1;
                                       }
                                     });
                                   },
@@ -228,7 +240,8 @@ class _TimerPageState extends State<TimerPage> {
                         ),
                         labelText: 'Mode',
                       ),
-                      child: DropdownButton(
+                      child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
                         value: _mode,
                         isExpanded: true,
                         items: const [
@@ -246,7 +259,7 @@ class _TimerPageState extends State<TimerPage> {
                             _mode = value!;
                           });
                         },
-                      )),
+                      ))),
                   const SizedBox(height: 20),
                   Wrap(
                     alignment: WrapAlignment.center,

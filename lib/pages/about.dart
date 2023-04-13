@@ -206,24 +206,29 @@ class _AboutPageState extends State<AboutPage> {
                                     ),
                                     Theme(
                                         data: theme,
-                                        child: const ExpansionTile(
-                                          leading: Icon(Icons.school),
-                                          title: Text("School"),
-                                          subtitle: Text(
-                                              "Zhonghe Senior High School"),
-                                          children: [
-                                            ListTile(
-                                              title: Text(
+                                        child: const Card(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(16.0))),
+                                            clipBehavior: Clip.antiAlias,
+                                            child: ExpansionTile(
+                                              leading: Icon(Icons.school),
+                                              title: Text("School"),
+                                              subtitle: Text(
                                                   "Zhonghe Senior High School"),
-                                              trailing: Text("2020 - 2023"),
-                                            ),
-                                            ListTile(
-                                              title: Text(
-                                                  "Tsz-Shiou Senior High School"),
-                                              trailing: Text("2017 - 2020"),
-                                            ),
-                                          ],
-                                        ))
+                                              children: [
+                                                ListTile(
+                                                  title: Text(
+                                                      "Zhonghe Senior High School"),
+                                                  trailing: Text("2020 - 2023"),
+                                                ),
+                                                ListTile(
+                                                  title: Text(
+                                                      "Tsz-Shiou Senior High School"),
+                                                  trailing: Text("2017 - 2020"),
+                                                ),
+                                              ],
+                                            )))
                                   ])),
                           Container(
                               padding: const EdgeInsets.all(10),

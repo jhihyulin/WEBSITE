@@ -104,17 +104,21 @@ class _MyAppState extends State<MyApp> {
               title: websiteName,
               theme: ThemeData(
                   useMaterial3: true,
+                  fontFamily: GoogleFonts.roboto().fontFamily,
                   fontFamilyFallback: [
+                    GoogleFonts.montserrat().fontFamily ?? '',
                     GoogleFonts.notoSans().fontFamily ?? '',
-                    GoogleFonts.notoSerif().fontFamily ?? '',
+                    GoogleFonts.lato().fontFamily ?? '',
                   ],
                   brightness: Brightness.light,
                   colorSchemeSeed: themeColor),
               darkTheme: ThemeData(
                   useMaterial3: true,
+                  fontFamily: GoogleFonts.roboto().fontFamily,
                   fontFamilyFallback: [
+                    GoogleFonts.montserrat().fontFamily ?? '',
                     GoogleFonts.notoSans().fontFamily ?? '',
-                    GoogleFonts.notoSerif().fontFamily ?? '',
+                    GoogleFonts.lato().fontFamily ?? '',
                   ],
                   brightness: Brightness.dark,
                   colorSchemeSeed: themeColor),

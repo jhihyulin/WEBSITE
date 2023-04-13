@@ -3,14 +3,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class PickerPage extends StatefulWidget {
-  const PickerPage({Key? key}) : super(key: key);
+class SpinWheelPage extends StatefulWidget {
+  const SpinWheelPage({Key? key}) : super(key: key);
 
   @override
-  State<PickerPage> createState() => _PickerPageState();
+  State<SpinWheelPage> createState() => _SpinWheelPageState();
 }
 
-class _PickerPageState extends State<PickerPage> {
+class _SpinWheelPageState extends State<SpinWheelPage> {
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
@@ -155,7 +155,7 @@ class _PickerPageState extends State<PickerPage> {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Picker'),
+          title: const Text('Spin Wheel'),
         ),
         body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

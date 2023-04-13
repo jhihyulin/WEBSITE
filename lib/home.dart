@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 String text1 =
-    'Hi~\nWelcome to my website!\nI am a high school student from Taiwan.';
+    'Hi~\nWelcome to my website\nI am a high school student from Taiwan.';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -33,8 +34,9 @@ class HomePage extends StatelessWidget {
                             text1,
                             textAlign: TextAlign.center,
                             speed: const Duration(milliseconds: 50),
-                            textStyle: const TextStyle(
-                              fontSize: 30.0,
+                            textStyle: TextStyle(
+                              fontFamily: GoogleFonts.firaCode().fontFamily,
+                              fontSize: Theme.of(context).textTheme.displaySmall?.fontSize,
                             ),
                           ),
                         ],

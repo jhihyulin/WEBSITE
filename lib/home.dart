@@ -3,7 +3,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 String text1 =
-    'Hi~\nWelcome to my website\nI am a high school student from Taiwan.';
+    'Hi~\nWelcome to My Website\nI am a High School Student from Taiwan.';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                         displayFullTextOnTap: true,
                         animatedTexts: [
                           TypewriterAnimatedText(
-                            '\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}', // \u{200B} is a zero-width space
+                            '\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}', // \u{200B} is a zero-width space
                             textAlign: TextAlign.center,
                             speed: const Duration(milliseconds: 200),
                             textStyle: TextStyle(
@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
                                   .displayLarge
                                   ?.fontSize,
                             ),
+                            cursor: '|',
                           ),
                           TypewriterAnimatedText(
                             text1,
@@ -59,6 +60,7 @@ class _HomePageState extends State<HomePage> {
                                   .displaySmall
                                   ?.fontSize,
                             ),
+                            cursor: '|',
                           ),
                         ],
                       ),

@@ -59,10 +59,10 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.school,
       'route': '/twuniversityresultquery',
     },
-    'picker': {
-      'title': 'Picker',
+    'spinwheel': {
+      'title': 'Spin Wheel',
       'icon': Icons.list,
-      'route': '/picker',
+      'route': '/spinwheel',
     },
   };
 

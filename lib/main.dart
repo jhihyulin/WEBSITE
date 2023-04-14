@@ -30,7 +30,7 @@ import 'pages/zhsh_3d_map.dart' deferred as zhsh_3d_map;
 import 'pages/not_found.dart' deferred as not_found;
 import 'pages/tw_university_result_query.dart'
     deferred as tw_university_result_query;
-import 'pages/picker.dart' deferred as picker;
+import 'pages/spin_wheel.dart' deferred as spin_wheel;
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 640;
@@ -250,9 +250,9 @@ class _MyAppState extends State<MyApp> {
                       });
                     }
                     break;
-                  case '/picker':
-                    builder = dealPage(picker.loadLibrary, (context) {
-                      return picker.PickerPage();
+                  case '/spinwheel':
+                    builder = dealPage(spin_wheel.loadLibrary, (context) {
+                      return spin_wheel.SpinWheelPage();
                     });
                     break;
                   case '/setting':

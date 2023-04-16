@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ToolPage extends StatelessWidget {
-  ToolPage({super.key});
+class ToolPage extends StatefulWidget {
+  const ToolPage({super.key});
+  
+  @override
+  State<ToolPage> createState() => _ToolPageState();
+}
 
+class _ToolPageState extends State<ToolPage> {
   final Map<String, Map<String, dynamic>> _tools = {
     'status': {
       'title': 'Status',

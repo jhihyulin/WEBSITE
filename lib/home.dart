@@ -38,7 +38,8 @@ class _HomePageState extends State<HomePage> {
                         animatedTexts: [
                           TypewriterAnimatedText(
                             // TRY Fix UNKOWN Error'
-                            ' ',// \u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}', // \u{200B} is a zero-width space
+                            'DEBUGGING TEST TEST',
+                            // \u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}', // \u{200B} is a zero-width space
                             textAlign: TextAlign.center,
                             speed: const Duration(milliseconds: 200),
                             textStyle: TextStyle(

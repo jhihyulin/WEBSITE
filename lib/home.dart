@@ -5,14 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 String text1 =
     'Hi~\nWelcome to My Website\nI am a High School Student from Taiwan.';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -37,9 +32,7 @@ class _HomePageState extends State<HomePage> {
                         displayFullTextOnTap: true,
                         animatedTexts: [
                           TypewriterAnimatedText(
-                            // TRY Fix UNKOWN Error'
-                            'DEBUGGING TEST TEST',
-                            // \u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}', // \u{200B} is a zero-width space
+                            '\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}', // \u{200B} is a zero-width space
                             textAlign: TextAlign.center,
                             speed: const Duration(milliseconds: 200),
                             textStyle: TextStyle(

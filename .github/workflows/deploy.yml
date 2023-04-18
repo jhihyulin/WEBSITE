@@ -3,12 +3,12 @@ on:
   push:
     branches:
       - deploy
+permissions:
+  contents: read
+  deployments: write
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
     name: Publish to Cloudflare Pages
     steps:
       - name: Checkout

@@ -11,20 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Preview to Cloudflare Pages
     steps:
-      - name: Comment Preview Start
-        if: github.event_name != 'push'
-        uses: mshick/add-pr-comment@v2
-        with:
-          message-id: cloudflare-deploy
-          message: |
-            ### <span aria-hidden="true">🚧</span> Deploy Preview building...
-
-            |  Name | Link |
-            |---------------------------------|------------------------|
-            |<span aria-hidden="true">🔨</span> Latest commit | ${{ github.sha }} |
-            |<span aria-hidden="true">🔍</span> Latest deploy log | ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} |
-            ---
-
       - name: Checkout
         uses: actions/checkout@v3
 

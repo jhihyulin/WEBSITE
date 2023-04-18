@@ -1,8 +1,6 @@
-name: Deploy to Firebase Hosting on merge
+name: Preview to Firebase Hosting on merge
 on:
-  push:
-    branches:
-      - deploy
+  pull_request: ~
 jobs:
   preview:
     runs-on: ubuntu-latest

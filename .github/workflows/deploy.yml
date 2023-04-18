@@ -1,0 +1,37 @@
+name: Deploy to Firebase Hosting on merge
+on:
+  push:
+    branches:
+      - deploy
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Publish to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+            channel: 'stable'
+      - run: flutter pub get
+      - run: flutter config --enable-web
+      - run: flutter build web --web-renderer canvaskit
+
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: web-build
+          path: build/web
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_TOKEN }}
+          accountId: ${{ CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ CLOUDFLARE_PROJECT_NAME }}
+          directory: build/web
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

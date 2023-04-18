@@ -42,6 +42,7 @@ jobs:
           path: build/web
 
       - name: Preview to Cloudflare Pages
+        id: cloudflare
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_TOKEN }}

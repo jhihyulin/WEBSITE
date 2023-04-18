@@ -5,6 +5,7 @@ permissions:
   checks: write
   contents: read
   pull-requests: write
+  deployments: write
 jobs:
   preview:
     runs-on: ubuntu-latest

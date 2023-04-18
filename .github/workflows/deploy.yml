@@ -35,3 +35,4 @@ jobs:
           projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
           directory: build/web
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: production

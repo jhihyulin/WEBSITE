@@ -1,13 +1,13 @@
 name: Preview to Firebase Hosting on merge
 on:
   pull_request: ~
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
 jobs:
   preview:
     runs-on: ubuntu-latest
-    permissions:
-      checks: write
-      contents: read
-      pull-requests: write
     name: Preview to Cloudflare Pages
     steps:
       - name: Checkout

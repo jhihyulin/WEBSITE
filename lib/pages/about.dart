@@ -146,6 +146,7 @@ class _AboutPageState extends State<AboutPage> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     getGitHubPinnedRepo();
@@ -288,6 +289,7 @@ class _AboutPageState extends State<AboutPage> {
                     for (var key in _pinnedData)
                       SizedBox(
                           width: _isDesktop(context) ? 320 : double.infinity,
+                          height: 160,
                           child: Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16)),
@@ -298,28 +300,50 @@ class _AboutPageState extends State<AboutPage> {
                                   child: Container(
                                       padding: const EdgeInsets.all(20),
                                       child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('${key['owner']}/${key['repo']}',
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onBackground)),
-                                          const SizedBox(height: 10),
-                                          Offstage(
-                                            offstage:
-                                                key['description'] == null,
-                                            child: Column(children: [
-                                              Text(
-                                                utf8.decode(key['description']
-                                                    .toString()
-                                                    .codeUnits),
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(children: [
+                                                const Icon(Logo.github),
+                                                const SizedBox(width: 10),
+                                                Text(
+                                                  '${key['owner']}/${key['repo']}',
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onBackground),
+                                                  maxLines: 1,
+                                                ),
+                                              ]),
                                               const SizedBox(height: 10),
-                                            ]),
+                                              Offstage(
+                                                offstage:
+                                                    key['description'] == null,
+                                                child: Column(children: [
+                                                  Text(
+                                                    utf8.decode(
+                                                        key['description']
+                                                            .toString()
+                                                            .codeUnits),
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onBackground
+                                                            .withOpacity(0.6)),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                ]),
+                                              ),
+                                            ],
                                           ),
                                           Row(
                                             mainAxisAlignment:

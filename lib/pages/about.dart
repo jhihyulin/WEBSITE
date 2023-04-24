@@ -134,14 +134,16 @@ class _AboutPageState extends State<AboutPage> {
   }
 
   List _pinnedData = [];
+  bool _ghLoaded = false;
 
-  getGitHubPinnedRepo() {
+  getGitHubPinnedRepo() async {
     var uri =
         Uri.parse('https://gh-pinned-repos.egoist.dev/?username=jhihyulin');
     http.get(uri).then((response) {
       var data = jsonDecode(response.body);
       setState(() {
         _pinnedData = data;
+        _ghLoaded = true;
       });
     });
   }
@@ -151,8 +153,6 @@ class _AboutPageState extends State<AboutPage> {
     super.initState();
     getGitHubPinnedRepo();
   }
-
-  // List getGitHubPinnedRepo = [{"owner":"jhihyulin","repo":"WEBSITE","link":"https://github.com/jhihyulin/WEBSITE","description":"My Personal Website","image":"https://opengraph.githubassets.com/1/jhihyulin/WEBSITE","website":"https://jhihyulin.live","language":"Dart","languageColor":"#00B4AB","stars":"2","forks":0},{"owner":"jhihyulin","repo":"TW-University-result-query","link":"https://github.com/jhihyulin/TW-University-result-query","description":"可用應試號碼查詢大學、科大第一階段結果或繁星推薦結果","image":"https://opengraph.githubassets.com/1/jhihyulin/TW-University-result-query","language":"Python","languageColor":"#3572A5","stars":"2","forks":0},{"owner":"jhihyulin","repo":"ShortURL","link":"https://github.com/jhihyulin/ShortURL","description":"A simple Short URL service deploy on deta.sh","image":"https://opengraph.githubassets.com/1/jhihyulin/ShortURL","language":"Python","languageColor":"#3572A5","stars":"1","forks":0},{"owner":"jhihyulin","repo":"remote_robotic_arm","link":"https://github.com/jhihyulin/remote_robotic_arm","description":"A simple remote-controlle robotic arm controlled by a joystick and servo motors.","image":"https://opengraph.githubassets.com/1/jhihyulin/remote_robotic_arm","language":"C++","languageColor":"#f34b7d","stars":"1","forks":0},{"owner":"jhihyulin","repo":"LongURL","link":"https://github.com/jhihyulin/LongURL","description":"A simple Long URL service deploy on deta.sh","image":"https://opengraph.githubassets.com/1/jhihyulin/LongURL","language":"Python","languageColor":"#3572A5","stars":0,"forks":0},{"owner":"jhihyulin","repo":"Kuai-Kuai","link":"https://github.com/jhihyulin/Kuai-Kuai","description":"數位版乖乖","image":"https://opengraph.githubassets.com/1/jhihyulin/Kuai-Kuai","stars":0,"forks":0}];
 
   void _launchUrl(Uri url) async {
     if (!await launchUrl(url)) {
@@ -281,132 +281,162 @@ class _AboutPageState extends State<AboutPage> {
                       )),
                 ),
                 const SizedBox(height: 20),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 10,
-                  runSpacing: 10,
-                  children: [
-                    for (var key in _pinnedData)
-                      SizedBox(
-                          width: _isDesktop(context) ? 320 : double.infinity,
-                          height: 160,
-                          child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: InkWell(
-                                  borderRadius: BorderRadius.circular(16),
-                                  onTap: () =>
-                                      _launchUrl(Uri.parse(key['link'])),
-                                  child: Container(
-                                      padding: const EdgeInsets.all(20),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(children: [
-                                                const Icon(Logo.github),
-                                                const SizedBox(width: 10),
-                                                Text(
-                                                  '${key['owner']}/${key['repo']}',
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onBackground),
-                                                  maxLines: 1,
-                                                ),
-                                              ]),
-                                              const SizedBox(height: 10),
-                                              Offstage(
-                                                offstage:
-                                                    key['description'] == null,
-                                                child: Column(children: [
-                                                  Text(
-                                                    utf8.decode(
-                                                        key['description']
-                                                            .toString()
-                                                            .codeUnits),
-                                                    maxLines: 2,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onBackground
-                                                            .withOpacity(0.6)),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                ]),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  const Icon(Icons.star_border),
-                                                  Text(' ${key['stars']}'),
-                                                  const SizedBox(width: 10),
-                                                  const Icon(Icons.fork_right),
-                                                  Text(' ${key['forks']}')
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Offstage(
-                                                    offstage:
-                                                        key['languageColor'] ==
-                                                            null,
-                                                    child: Container(
-                                                      width: 10,
-                                                      height: 10,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: key['languageColor'] ==
-                                                                null
-                                                            ? Colors.transparent
-                                                            : Color(int.parse(
-                                                                    key['languageColor']
-                                                                        .toString()
-                                                                        .substring(
-                                                                            1),
-                                                                    radix: 16) +
-                                                                0xFF000000),
+                _ghLoaded
+                    ? Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          for (var key in _pinnedData)
+                            SizedBox(
+                                width:
+                                    _isDesktop(context) ? 320 : double.infinity,
+                                height: 160,
+                                child: Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    child: InkWell(
+                                        borderRadius: BorderRadius.circular(16),
+                                        onTap: () =>
+                                            _launchUrl(Uri.parse(key['link'])),
+                                        child: Container(
+                                            padding: const EdgeInsets.all(20),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(children: [
+                                                      const Icon(Logo.github),
+                                                      const SizedBox(width: 10),
+                                                      Text(
+                                                        '${key['owner']}/${key['repo']}',
+                                                        style: TextStyle(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .onBackground),
+                                                        maxLines: 1,
                                                       ),
-                                                    ),
-                                                  ),
-                                                  Offstage(
-                                                    offstage: key['language'] ==
-                                                            null ||
-                                                        key['languageColor'] ==
-                                                            null,
-                                                    child: const SizedBox(
-                                                        width: 5),
-                                                  ),
-                                                  Offstage(
+                                                    ]),
+                                                    const SizedBox(height: 10),
+                                                    Offstage(
                                                       offstage:
-                                                          key['language'] ==
+                                                          key['description'] ==
                                                               null,
-                                                      child: Text(
-                                                          key['language'] ??
-                                                              'null'))
-                                                ],
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      )))))
-                  ],
-                ),
+                                                      child: Column(children: [
+                                                        Text(
+                                                          utf8.decode(
+                                                              key['description']
+                                                                  .toString()
+                                                                  .codeUnits),
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .onBackground
+                                                                  .withOpacity(
+                                                                      0.6)),
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 10),
+                                                      ]),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        const Icon(
+                                                            Icons.star_border),
+                                                        Text(
+                                                            ' ${key['stars']}'),
+                                                        const SizedBox(
+                                                            width: 10),
+                                                        const Icon(
+                                                            Icons.fork_right),
+                                                        Text(' ${key['forks']}')
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Offstage(
+                                                          offstage:
+                                                              key['languageColor'] ==
+                                                                  null,
+                                                          child: Container(
+                                                            width: 10,
+                                                            height: 10,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color: key['languageColor'] ==
+                                                                      null
+                                                                  ? Colors
+                                                                      .transparent
+                                                                  : Color(int.parse(
+                                                                          key['languageColor'].toString().substring(
+                                                                              1),
+                                                                          radix:
+                                                                              16) +
+                                                                      0xFF000000),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Offstage(
+                                                          offstage:
+                                                              key['language'] ==
+                                                                      null ||
+                                                                  key['languageColor'] ==
+                                                                      null,
+                                                          child: const SizedBox(
+                                                              width: 5),
+                                                        ),
+                                                        Offstage(
+                                                            offstage:
+                                                                key['language'] ==
+                                                                    null,
+                                                            child: Text(
+                                                                key['language'] ??
+                                                                    'null'))
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            )))))
+                        ],
+                      )
+                    : Container(
+                        padding: const EdgeInsets.all(10),
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16.0)),
+                          child: LinearProgressIndicator(
+                            minHeight: 20,
+                            backgroundColor: Theme.of(context).splashColor,
+                            value: null,
+                          ),
+                        ),
+                      ),
                 const SizedBox(height: 20),
                 Container(
                     constraints: const BoxConstraints(maxWidth: 700),

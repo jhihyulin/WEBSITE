@@ -178,6 +178,8 @@ class _AboutPageState extends State<AboutPage> {
     }
   }
 
+  bool _isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
@@ -230,17 +232,24 @@ class _AboutPageState extends State<AboutPage> {
                                     ),
                                     Theme(
                                         data: theme,
-                                        child: const Card(
-                                            shape: RoundedRectangleBorder(
+                                        child: Card(
+                                            shape: const RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(16.0))),
                                             clipBehavior: Clip.antiAlias,
                                             child: ExpansionTile(
-                                              leading: Icon(Icons.school),
-                                              title: Text("School"),
-                                              subtitle: Text(
+                                              onExpansionChanged: (value) {
+                                                setState(() {
+                                                  _isExpanded = value;
+                                                });
+                                              },
+                                              leading: const Icon(Icons.school),
+                                              title: const Text("School"),
+                                              subtitle: _isExpanded
+                                              ? null
+                                              :const Text(
                                                   "Zhonghe Senior High School"),
-                                              children: [
+                                              children: const [
                                                 ListTile(
                                                   title: Text(
                                                       "Zhonghe Senior High School"),

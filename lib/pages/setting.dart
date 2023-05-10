@@ -40,8 +40,7 @@ class _SettingPageState extends State<SettingPage> {
                     constraints: BoxConstraints(
                       maxWidth: 700,
                       minHeight: MediaQuery.of(context).size.height -
-                          AppBar().preferredSize.height -
-                          58, //BottomNavigationBar Height
+                          AppBar().preferredSize.height
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Column(

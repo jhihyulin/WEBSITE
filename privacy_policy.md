@@ -37,4 +37,4 @@
 &emsp;&emsp;本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。
 
 # 八、聯繫管道
-&emsp;&emsp;對於本站之隱私權政策有任何疑問，或者想提出變更、移除個人資料之請求，請前往本網站「[Profile](https://jhihyulin.live/profile)」頁面更改，若無法自行解決，請至「[Contact](https://jhihyulin.live/contact)」頁面提交表單或Email至：<admin@jhihyulin.live>
+&emsp;&emsp;對於本站之隱私權政策有任何疑問，或者想提出變更、移除個人資料之請求，請前往本網站「[Profile](https://jhihyulin.live/profile)」頁面更改，若無法自行解決，請至「[Contact](https://jhihyulin.live/contact)」頁面提交表單或Email至<admin@jhihyulin.live>

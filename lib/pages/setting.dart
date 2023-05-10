@@ -287,19 +287,22 @@ class _SettingPageState extends State<SettingPage> {
                                               'mailto:JY@jhihyulin.live'));
                                         },
                                       )),
+                                  ListTile(
+                                      leading: const Icon(Icons.privacy_tip),
+                                      title: const Text('Privacy Policy'),
+                                      subtitle: const Text('User data privacy protection policy'),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.navigate_next),
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed(
+                                              '/privacypolicy');
+                                        }
+                                      )),
                                   const Text(
                                       'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 12)),
-                                  TextButton.icon(
-                                    icon: const Icon(Icons.privacy_tip),
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed('/privacypolicy');
-                                    },
-                                    label: const Text('Privacy Policy'),
-                                  ),
-                                  
                                 ],
                               ),
                             ))

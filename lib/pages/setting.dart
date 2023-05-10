@@ -292,6 +292,14 @@ class _SettingPageState extends State<SettingPage> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 12)),
+                                  TextButton.icon(
+                                    icon: const Icon(Icons.privacy_tip),
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed('/privacypolicy');
+                                    },
+                                    label: const Text('Privacy Policy'),
+                                  ),
+                                  
                                 ],
                               ),
                             ))

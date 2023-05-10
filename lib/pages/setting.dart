@@ -40,8 +40,7 @@ class _SettingPageState extends State<SettingPage> {
                     constraints: BoxConstraints(
                       maxWidth: 700,
                       minHeight: MediaQuery.of(context).size.height -
-                          AppBar().preferredSize.height -
-                          58, //BottomNavigationBar Height
+                          AppBar().preferredSize.height
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -287,6 +286,17 @@ class _SettingPageState extends State<SettingPage> {
                                           launchUrl(Uri.parse(
                                               'mailto:JY@jhihyulin.live'));
                                         },
+                                      )),
+                                  ListTile(
+                                      leading: const Icon(Icons.privacy_tip),
+                                      title: const Text('Privacy Policy'),
+                                      subtitle: const Text('User data privacy protection policy'),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.navigate_next),
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed(
+                                              '/privacypolicy');
+                                        }
                                       )),
                                   const Text(
                                       'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',

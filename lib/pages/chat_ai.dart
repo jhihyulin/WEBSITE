@@ -8,10 +8,10 @@ class ChatAIPage extends StatefulWidget {
   const ChatAIPage({Key? key}) : super(key: key);
 
   @override
-  State<ChatAIPage> createState() => _chatDataAIPageState();
+  State<ChatAIPage> createState() => _ChatAIPageState();
 }
 
-class _chatDataAIPageState extends State<ChatAIPage> {
+class _ChatAIPageState extends State<ChatAIPage> {
   List<Map<String, String>> _chatData = [];
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _inputController = TextEditingController();
@@ -91,6 +91,7 @@ class _chatDataAIPageState extends State<ChatAIPage> {
       setState(() {
         _generating = false;
       });
+      return null;
     });
     setState(() {
       _chatData.add({
@@ -130,7 +131,7 @@ class _chatDataAIPageState extends State<ChatAIPage> {
             child: Center(
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    constraints: BoxConstraints(maxWidth: 700),
+                    constraints: const BoxConstraints(maxWidth: 700),
                     height: double.infinity,
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
@@ -227,7 +228,7 @@ class _chatDataAIPageState extends State<ChatAIPage> {
             flex: 0,
             child: Container(
                 padding: const EdgeInsets.all(10),
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 700,
                 ),
                 child: Row(
@@ -252,14 +253,14 @@ class _chatDataAIPageState extends State<ChatAIPage> {
                                       children: [
                                         TextField(
                                           controller: tokenInputController,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                               labelText: 'OpenAI Token',
                                               hintText: 'Enter your token'),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
-                                        Container(
+                                        SizedBox(
                                             width: double.infinity,
                                             child: Column(
                                               crossAxisAlignment:
@@ -278,12 +279,12 @@ class _chatDataAIPageState extends State<ChatAIPage> {
                                                     icon: const Icon(
                                                         Icons.open_in_new),
                                                     onPressed: () {
-                                                      launchUrl(Uri.parse(
-                                                          'https://platform.openai.com/account/api-keys'));
+                                                      _launchUrl(
+                                                          'https://platform.openai.com/account/api-keys');
                                                     },
                                                     label: const Text(
                                                         'OpenAI Website')),
-                                                SizedBox(height: 10),
+                                                const SizedBox(height: 10),
                                                 Text(
                                                     'Where will the token be saved?',
                                                     style: TextStyle(
@@ -292,7 +293,7 @@ class _chatDataAIPageState extends State<ChatAIPage> {
                                                                 .textTheme
                                                                 .bodyLarge!
                                                                 .fontSize!)),
-                                                Text(
+                                                const Text(
                                                     'The token will be saved in your browser\'s cookie.'),
                                               ],
                                             ))
@@ -327,6 +328,7 @@ class _chatDataAIPageState extends State<ChatAIPage> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some message';
                           }
+                          return null;
                         },
                         controller: _inputController,
                         keyboardType: TextInputType.multiline,

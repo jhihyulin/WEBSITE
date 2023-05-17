@@ -64,6 +64,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.list,
       'route': '/spinwheel',
     },
+    'chat': {
+      'title': 'Chat',
+      'icon': Icons.chat,
+      'route': '/chat',
+    },
   };
 
   @override

@@ -12,49 +12,7 @@ class ChatAIPage extends StatefulWidget {
 }
 
 class _chatDataAIPageState extends State<ChatAIPage> {
-  List<Map<String, String>> _chatData = [
-    // {'role': 'bot', 'content': 'Hello, how can I help you?'},
-    // {'role': 'user', 'content': 'hihi!!!'},
-    // {
-    //   'role': 'bot',
-    //   'content':
-    //       '1123574576584295087684y8ruidihbvncmd,l,dk9ru8yufbd smxmlxskiedhufrbhfv nmcki9vguhbhvf mdsckdiufhrubj vdnm,regfbhc n9yerhufnjdkm gt8yhufvjndctrhefnjdm !!!!!1'
-    // },
-    // {'role': 'bot', 'content': 'ffffffuuuuuuucccccccckkkkkkkkk'},
-    // {
-    //   'role': 'user',
-    //   'content':
-    //       '1123574576584295087684y8ruidihbvncmd,l,dk9ru8yufbd smxmlxskiedhufrbhfv nmcki9vguhbhvf'
-    // },
-    // {'role': 'bot', 'content': 'Hello, how can I help you?'},
-    // {'role': 'user', 'content': 'hihi!!!'},
-    // {
-    //   'role': 'bot',
-    //   'content':
-    //       '1123574576584295087684y8ruidihbvncmd,l,dk9ru8yufbd smxmlxskiedhufrbhfv nmcki9vguhbhvf mdsckdiufhrubj vdnm,regfbhc n9yerhufnjdkm gt8yhufvjndctrhefnjdm !!!!!1'
-    // },
-    // {'role': 'bot', 'content': 'ffffffuuuuuuucccccccckkkkkkkkk'},
-    // {
-    //   'role': 'user',
-    //   'content':
-    //       '1123574576584295087684y8ruidihbvncmd,l,dk9ru8yufbd smxmlxskiedhufrbhfv nmcki9vguhbhvf'
-    // },
-    // {'role': 'bot', 'content': 'Hello, how can I help you?'},
-    // {'role': 'user', 'content': 'hihi!!!'},
-    // {
-    //   'role': 'bot',
-    //   'content':
-    //       '1123574576584295087684y8ruidihbvncmd,l,dk9ru8yufbd smxmlxskiedhufrbhfv nmcki9vguhbhvf mdsckdiufhrubj vdnm,regfbhc n9yerhufnjdkm gt8yhufvjndctrhefnjdm !!!!!1'
-    // },
-    // {'role': 'bot', 'content': 'ffffffuuuuuuucccccccckkkkkkkkk'},
-    // {
-    //   'role': 'user',
-    //   'content':
-    //       '1123574576584295087684y8ruidihbvncmd,l,dk9ru8yufbd smxmlxskiedhufrbhfv nmcki9vguhbhvf'
-    // }
-  ];
-  // input controller
-  // form key
+  List<Map<String, String>> _chatData = [];
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _inputController = TextEditingController();
   late OpenAI openAI;

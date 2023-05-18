@@ -16,6 +16,7 @@ class ChatAIPage extends StatefulWidget {
 
 class _ChatAIPageState extends State<ChatAIPage> {
   List<Map<String, String>> _chatData = [];
+  final ScrollController _scrollController = ScrollController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _inputController = TextEditingController();
   late OpenAI openAI;
@@ -95,9 +96,13 @@ class _ChatAIPageState extends State<ChatAIPage> {
     setState(() {
       _generating = true;
       _chatData.add({'role': 'user', 'content': message});
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     });
     debugPrint('_chatData: ${_chatData.toString()}');
-
     final request = ChatCompleteText(
         messages: _chatData, maxToken: 400, model: ChatModel.gptTurbo);
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
@@ -128,8 +133,12 @@ class _ChatAIPageState extends State<ChatAIPage> {
         'content': raw.choices[0].message!.content
       });
       _generating = false;
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     });
-
     debugPrint("_chatData: ${_chatData.toString()}");
   }
 
@@ -208,6 +217,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                   constraints: const BoxConstraints(maxWidth: 700),
                   height: double.infinity,
                   child: SingleChildScrollView(
+                    controller: _scrollController,
                     physics: const BouncingScrollPhysics(),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,

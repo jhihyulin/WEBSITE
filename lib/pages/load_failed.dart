@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class loadFailedPage extends StatelessWidget {
+class LoadFailedPage extends StatelessWidget {
   late String _errorMessage;
-  loadFailedPage({Key? key, required String errorMessage}) : super(key: key) {
+  LoadFailedPage({Key? key, required String errorMessage}) : super(key: key) {
     _errorMessage = errorMessage;
   }
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
@@ -38,8 +39,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
   initState() {
     openAI = OpenAI.instance.build(
         token: 'sk-',
-        baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 10)),
-        enableLog: true);
+        baseOption: HttpSetup(receiveTimeout: const Duration(minutes: 1)),
+        enableLog: kDebugMode);
     getToken();
     getSystemMessage();
     initGeneralAnimation();

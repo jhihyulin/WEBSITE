@@ -25,6 +25,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
     }
   }
 
+  String? _systemMessage;
   bool _generating = false;
 
   @override
@@ -34,6 +35,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
         baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
         enableLog: true);
     getToken();
+    getSystemMessage();
     super.initState();
   }
 
@@ -119,6 +121,27 @@ class _ChatAIPageState extends State<ChatAIPage> {
     openAI.setToken(_token ?? 'sk-');
   }
 
+  setSystemMessage(String message) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('systemMessage', message);
+    setState(() {
+      _systemMessage = message;
+      _chatData.clear();
+      _chatData.add({'role': 'system', 'content': _systemMessage!});
+      _chatData.removeWhere((element) => element['content'] == '');
+    });
+  }
+
+  getSystemMessage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _systemMessage = prefs.getString('systemMessage');
+      _chatData.clear();
+      _chatData.add({'role': 'system', 'content': _systemMessage!});
+      _chatData.removeWhere((element) => element['content'] == '');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +189,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                     ),
                                   ],
                                 )
-                              else
+                              else if (i['role'] == 'assistant')
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -188,6 +211,26 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onPrimary),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              else if (i['role'] == 'system')
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: _messageWidth().toDouble()),
+                                      padding: const EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(
+                                          bottom: 5, top: 5),
+                                      child: Text(
+                                        i['content']!,
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground),
                                       ),
                                     ),
                                   ],
@@ -246,73 +289,134 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                   final TextEditingController
                                       tokenInputController =
                                       TextEditingController(text: _token);
-                                  return AlertDialog(
-                                    title: const Text('Chat AI Settings'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        TextField(
-                                          controller: tokenInputController,
-                                          decoration: const InputDecoration(
-                                              labelText: 'OpenAI Token',
-                                              hintText: 'Enter your token'),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        SizedBox(
-                                            width: double.infinity,
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Where to get token?',
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          Theme.of(context)
-                                                              .textTheme
-                                                              .bodyLarge!
-                                                              .fontSize!),
-                                                ),
-                                                ElevatedButton.icon(
-                                                    icon: const Icon(
-                                                        Icons.open_in_new),
-                                                    onPressed: () {
-                                                      _launchUrl(
-                                                          'https://platform.openai.com/account/api-keys');
-                                                    },
-                                                    label: const Text(
-                                                        'OpenAI Website')),
-                                                const SizedBox(height: 10),
-                                                Text(
-                                                    'Where will the token be saved?',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            Theme.of(context)
+                                  final TextEditingController
+                                      systemMessageController =
+                                      TextEditingController(
+                                          text: _systemMessage);
+                                  return StatefulBuilder(
+                                      builder: (context, setState) {
+                                    return AlertDialog(
+                                      title: const Text('Chat AI Settings'),
+                                      content: SingleChildScrollView(
+                                        physics: const BouncingScrollPhysics(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            TextField(
+                                              keyboardType:
+                                                  TextInputType.multiline,
+                                              minLines: 1,
+                                              maxLines: 3,
+                                              controller:
+                                                  systemMessageController,
+                                              decoration: InputDecoration(
+                                                  labelText: 'System Message',
+                                                  hintText:
+                                                      'Enter some environment settings',
+                                                  prefixIcon:
+                                                      const Icon(Icons.description),
+                                                  suffixIcon: IconButton(
+                                                      icon: const Icon(Icons.clear),
+                                                      onPressed: () {
+                                                        systemMessageController
+                                                            .clear();
+                                                      }),
+                                                  border: const OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  16.0)))),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            TextField(
+                                              controller: tokenInputController,
+                                              decoration: InputDecoration(
+                                                  labelText: 'OpenAI Token',
+                                                  hintText: 'Enter your token',
+                                                  prefixIcon: const Icon(Icons.key),
+                                                  suffixIcon: IconButton(
+                                                      icon: const Icon(Icons.clear),
+                                                      onPressed: () {
+                                                        tokenInputController
+                                                            .clear();
+                                                      }),
+                                                  border: const OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  16.0)))),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            SizedBox(
+                                                width: double.infinity,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Where to get token?',
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyLarge!
+                                                                  .fontSize!),
+                                                    ),
+                                                    ElevatedButton.icon(
+                                                        icon: const Icon(
+                                                            Icons.open_in_new),
+                                                        onPressed: () {
+                                                          _launchUrl(
+                                                              'https://platform.openai.com/account/api-keys');
+                                                        },
+                                                        label: const Text(
+                                                            'OpenAI Website')),
+                                                    const SizedBox(height: 10),
+                                                    Text(
+                                                        'Where will the token be saved?',
+                                                        style: TextStyle(
+                                                            fontSize: Theme.of(
+                                                                    context)
                                                                 .textTheme
                                                                 .bodyLarge!
                                                                 .fontSize!)),
-                                                const Text(
-                                                    'The token will be saved in your browser\'s cookie.'),
-                                              ],
-                                            ))
+                                                    const Text(
+                                                        'The token will be saved in your browser\'s cookie.'),
+                                                  ],
+                                                ))
+                                          ],
+                                        ),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('Cancel')),
+                                        TextButton(
+                                            onPressed: () {
+                                              if (_token !=
+                                                  tokenInputController.text) {
+                                                setToken(
+                                                    tokenInputController.text);
+                                              }
+                                              if (_systemMessage !=
+                                                  systemMessageController
+                                                      .text) {
+                                                setSystemMessage(
+                                                    systemMessageController
+                                                        .text);
+                                              }
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text('Save'))
                                       ],
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Cancel')),
-                                      TextButton(
-                                          onPressed: () {
-                                            setToken(tokenInputController.text);
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Save'))
-                                    ],
-                                  );
+                                    );
+                                  });
                                 });
                           }),
                     ),

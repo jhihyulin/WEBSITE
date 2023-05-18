@@ -32,7 +32,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
     openAI = OpenAI.instance.build(
         token: _token ?? 'sk-',
         baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
-        isLog: true);
+        enableLog: true);
     getToken();
     super.initState();
   }

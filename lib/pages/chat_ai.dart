@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -222,7 +223,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         maxWidth: _messageWidth().toDouble()),
                                     padding: const EdgeInsets.all(10),
                                     margin: const EdgeInsets.only(
-                                        top: 5, bottom: 5, left: 50),
+                                        top: 5, bottom: 5),
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -248,20 +249,39 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         maxWidth: _messageWidth().toDouble()),
                                     padding: const EdgeInsets.all(10),
                                     margin: const EdgeInsets.only(
-                                        bottom: 5, top: 5, right: 50),
+                                        bottom: 5, top: 5),
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
                                             .primary,
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    child: Text(
+                                    child: SelectionArea(
+                                        child: Text(
                                       i['content']!,
                                       style: TextStyle(
                                           color: Theme.of(context)
                                               .colorScheme
                                               .onPrimary),
-                                    ),
+                                    )),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.copy),
+                                    onPressed: () {
+                                      Clipboard.setData(
+                                          ClipboardData(text: i['content']!));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('已複製到剪貼簿'),
+                                          showCloseIcon: true,
+                                          behavior: SnackBarBehavior.floating,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(16.0))),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ],
                               )
@@ -270,19 +290,21 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    constraints: BoxConstraints(
-                                        maxWidth: _messageWidth().toDouble()),
-                                    padding: const EdgeInsets.all(10),
-                                    margin: const EdgeInsets.only(
-                                        bottom: 5, top: 5),
-                                    child: Text(
-                                      i['content']!,
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onBackground),
-                                    ),
-                                  ),
+                                      constraints: BoxConstraints(
+                                          maxWidth: _messageWidth().toDouble()),
+                                      padding: const EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(
+                                          bottom: 5, top: 5),
+                                      child: SelectionArea(
+                                          child: SelectionArea(
+                                        child: Text(
+                                          i['content']!,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground),
+                                        ),
+                                      ))),
                                 ],
                               ),
                           _generating

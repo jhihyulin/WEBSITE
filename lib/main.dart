@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return loadFailedPage(errorMessage: snapshot.error.toString());
+              return LoadFailedPage(errorMessage: snapshot.error.toString());
             } else {
               return page(context);
             }

@@ -64,6 +64,11 @@ class ToolPage extends StatelessWidget {
       'icon': Icons.list,
       'route': '/spinwheel',
     },
+    'chatai': {
+      'title': 'Chat AI',
+      'icon': Icons.chat,
+      'route': '/chatai',
+    },
   };
 
   @override

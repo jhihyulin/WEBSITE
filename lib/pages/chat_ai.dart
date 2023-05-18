@@ -35,8 +35,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
   @override
   initState() {
     openAI = OpenAI.instance.build(
-        token: _token ?? 'sk-',
-        baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
+        token: 'sk-',
+        baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 10)),
         enableLog: true);
     getToken();
     getSystemMessage();
@@ -143,8 +143,13 @@ class _ChatAIPageState extends State<ChatAIPage> {
 
   void getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _token = prefs.getString('openAIToken');
-    openAI.setToken(_token ?? 'sk-');
+    String? token = prefs.getString('openAIToken');
+    if (token != null) {
+      openAI.setToken(token);
+      setState(() {
+        _token = token;
+      });
+    }
   }
 
   setSystemMessage(String message) async {
@@ -160,63 +165,128 @@ class _ChatAIPageState extends State<ChatAIPage> {
 
   getSystemMessage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? systemMessage = prefs.getString('systemMessage');
     setState(() {
-      _systemMessage = prefs.getString('systemMessage');
-      _chatData.clear();
-      _chatData.add({'role': 'system', 'content': _systemMessage!});
-      _chatData.removeWhere((element) => element['content'] == '');
+      if (systemMessage != null) {
+        _systemMessage = systemMessage;
+        _chatData.clear();
+        _chatData.add({'role': 'system', 'content': _systemMessage!});
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Chat AI'),
-        ),
-        body: Column(children: [
-          Expanded(
-            flex: 1,
-            child: Center(
-                child: Container(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    constraints: const BoxConstraints(maxWidth: 700),
-                    height: double.infinity,
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            // chat screen
-                            for (var i in _chatData)
-                              if (i['role'] == 'user')
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: _messageWidth().toDouble()),
-                                      padding: const EdgeInsets.all(10),
-                                      margin: const EdgeInsets.only(
-                                          top: 5, bottom: 5, left: 50),
-                                      decoration: BoxDecoration(
+      appBar: AppBar(
+        title: const Text('Chat AI'),
+        actions: [
+          Offstage(
+            offstage: _chatData.isEmpty,
+            child: IconButton(
+              icon: const Icon(Icons.clear),
+              tooltip: 'Clear',
+              onPressed: () {
+                setState(() {
+                  //openAI.cancelAIGenerate();
+                  _chatData.clear();
+                  //_generating = false;
+                  //_chatData.add({'role': 'system', 'content': _systemMessage!});
+                });
+              },
+            ),
+          )
+        ],
+      ),
+      body: Column(children: [
+        Expanded(
+          flex: 1,
+          child: Center(
+              child: Container(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  constraints: const BoxConstraints(maxWidth: 700),
+                  height: double.infinity,
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          // chat screen
+                          for (var i in _chatData)
+                            if (i['role'] == 'user')
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: _messageWidth().toDouble()),
+                                    padding: const EdgeInsets.all(10),
+                                    margin: const EdgeInsets.only(
+                                        top: 5, bottom: 5, left: 50),
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Text(
+                                      i['content']!,
+                                      style: TextStyle(
                                           color: Theme.of(context)
                                               .colorScheme
-                                              .secondary,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Text(
-                                        i['content']!,
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondary),
-                                      ),
+                                              .onSecondary),
                                     ),
-                                  ],
-                                )
-                              else if (i['role'] == 'assistant')
-                                Row(
+                                  ),
+                                ],
+                              )
+                            else if (i['role'] == 'assistant')
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: _messageWidth().toDouble()),
+                                    padding: const EdgeInsets.all(10),
+                                    margin: const EdgeInsets.only(
+                                        bottom: 5, top: 5, right: 50),
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Text(
+                                      i['content']!,
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            else if (i['role'] == 'system')
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: _messageWidth().toDouble()),
+                                    padding: const EdgeInsets.all(10),
+                                    margin: const EdgeInsets.only(
+                                        bottom: 5, top: 5),
+                                    child: Text(
+                                      i['content']!,
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onBackground),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          _generating
+                              ? Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
@@ -232,266 +302,217 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                           borderRadius:
                                               BorderRadius.circular(10)),
                                       child: Text(
-                                        i['content']!,
+                                        _generatingMessage ?? '',
                                         style: TextStyle(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .onPrimary),
+                                                .onPrimary,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ],
                                 )
-                              else if (i['role'] == 'system')
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: _messageWidth().toDouble()),
-                                      padding: const EdgeInsets.all(10),
-                                      margin: const EdgeInsets.only(
-                                          bottom: 5, top: 5),
-                                      child: Text(
-                                        i['content']!,
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onBackground),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                            _generating
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        constraints: BoxConstraints(
-                                            maxWidth:
-                                                _messageWidth().toDouble()),
-                                        padding: const EdgeInsets.all(10),
-                                        margin: const EdgeInsets.only(
-                                            bottom: 5, top: 5, right: 50),
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Text(
-                                          _generatingMessage ?? '',
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .onPrimary,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : Container(),
-                          ]),
-                    ))),
-          ),
-          // input
-          Expanded(
-            flex: 0,
-            child: Container(
-                padding: const EdgeInsets.all(10),
-                constraints: const BoxConstraints(
-                  maxWidth: 700,
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 56,
-                      width: 56,
-                      child: IconButton(
-                          icon: const Icon(Icons.settings),
-                          onPressed: () {
-                            // setting token dialog
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  final TextEditingController
-                                      tokenInputController =
-                                      TextEditingController(text: _token);
-                                  final TextEditingController
-                                      systemMessageController =
-                                      TextEditingController(
-                                          text: _systemMessage);
-                                  return StatefulBuilder(
-                                      builder: (context, setState) {
-                                    return AlertDialog(
-                                      title: const Text('Chat AI Settings'),
-                                      content: SingleChildScrollView(
-                                        physics: const BouncingScrollPhysics(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            TextField(
-                                              keyboardType:
-                                                  TextInputType.multiline,
-                                              minLines: 1,
-                                              maxLines: 3,
-                                              controller:
-                                                  systemMessageController,
-                                              decoration: InputDecoration(
-                                                  labelText: 'System Message',
-                                                  hintText:
-                                                      'Enter some environment settings',
-                                                  prefixIcon: const Icon(
-                                                      Icons.description),
-                                                  suffixIcon: IconButton(
+                              : Container(),
+                        ]),
+                  ))),
+        ),
+        // input
+        Expanded(
+          flex: 0,
+          child: Container(
+              padding: const EdgeInsets.all(10),
+              constraints: const BoxConstraints(
+                maxWidth: 700,
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 56,
+                    width: 56,
+                    child: IconButton(
+                        icon: const Icon(Icons.settings),
+                        tooltip: 'Chat AI Settings',
+                        onPressed: () {
+                          // setting token dialog
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                final TextEditingController
+                                    tokenInputController =
+                                    TextEditingController(text: _token);
+                                final TextEditingController
+                                    systemMessageController =
+                                    TextEditingController(text: _systemMessage);
+                                return StatefulBuilder(
+                                    builder: (context, setState) {
+                                  return AlertDialog(
+                                    title: const Text('Chat AI Settings'),
+                                    content: SingleChildScrollView(
+                                      physics: const BouncingScrollPhysics(),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          TextField(
+                                            keyboardType:
+                                                TextInputType.multiline,
+                                            minLines: 1,
+                                            maxLines: 3,
+                                            controller: systemMessageController,
+                                            decoration: InputDecoration(
+                                                labelText: 'System Message',
+                                                hintText:
+                                                    'Enter some environment settings',
+                                                prefixIcon: const Icon(
+                                                    Icons.description),
+                                                suffixIcon: IconButton(
+                                                    icon:
+                                                        const Icon(Icons.clear),
+                                                    onPressed: () {
+                                                      systemMessageController
+                                                          .clear();
+                                                    }),
+                                                border:
+                                                    const OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    16.0)))),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          TextField(
+                                            controller: tokenInputController,
+                                            decoration: InputDecoration(
+                                                labelText: 'OpenAI Token',
+                                                hintText: 'Enter your token',
+                                                prefixIcon:
+                                                    const Icon(Icons.key),
+                                                suffixIcon: IconButton(
+                                                    icon:
+                                                        const Icon(Icons.clear),
+                                                    onPressed: () {
+                                                      tokenInputController
+                                                          .clear();
+                                                    }),
+                                                border:
+                                                    const OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    16.0)))),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          SizedBox(
+                                              width: double.infinity,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Where to get token?',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge!
+                                                                .fontSize!),
+                                                  ),
+                                                  ElevatedButton.icon(
                                                       icon: const Icon(
-                                                          Icons.clear),
+                                                          Icons.open_in_new),
                                                       onPressed: () {
-                                                        systemMessageController
-                                                            .clear();
-                                                      }),
-                                                  border:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      16.0)))),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            TextField(
-                                              controller: tokenInputController,
-                                              decoration: InputDecoration(
-                                                  labelText: 'OpenAI Token',
-                                                  hintText: 'Enter your token',
-                                                  prefixIcon:
-                                                      const Icon(Icons.key),
-                                                  suffixIcon: IconButton(
-                                                      icon: const Icon(
-                                                          Icons.clear),
-                                                      onPressed: () {
-                                                        tokenInputController
-                                                            .clear();
-                                                      }),
-                                                  border:
-                                                      const OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      16.0)))),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            SizedBox(
-                                                width: double.infinity,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Where to get token?',
+                                                        _launchUrl(
+                                                            'https://platform.openai.com/account/api-keys');
+                                                      },
+                                                      label: const Text(
+                                                          'OpenAI Website')),
+                                                  const SizedBox(height: 10),
+                                                  Text(
+                                                      'Where will the token be saved?',
                                                       style: TextStyle(
                                                           fontSize:
                                                               Theme.of(context)
                                                                   .textTheme
                                                                   .bodyLarge!
-                                                                  .fontSize!),
-                                                    ),
-                                                    ElevatedButton.icon(
-                                                        icon: const Icon(
-                                                            Icons.open_in_new),
-                                                        onPressed: () {
-                                                          _launchUrl(
-                                                              'https://platform.openai.com/account/api-keys');
-                                                        },
-                                                        label: const Text(
-                                                            'OpenAI Website')),
-                                                    const SizedBox(height: 10),
-                                                    Text(
-                                                        'Where will the token be saved?',
-                                                        style: TextStyle(
-                                                            fontSize: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyLarge!
-                                                                .fontSize!)),
-                                                    const Text(
-                                                        'The token will be saved in your browser\'s cookie.'),
-                                                  ],
-                                                ))
-                                          ],
-                                        ),
+                                                                  .fontSize!)),
+                                                  const Text(
+                                                      'The token will be saved in your browser\'s cookie.'),
+                                                ],
+                                              ))
+                                        ],
                                       ),
-                                      actions: [
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Cancel')),
-                                        TextButton(
-                                            onPressed: () {
-                                              if (_token !=
-                                                  tokenInputController.text) {
-                                                setToken(
-                                                    tokenInputController.text);
-                                              }
-                                              if (_systemMessage !=
-                                                  systemMessageController
-                                                      .text) {
-                                                setSystemMessage(
-                                                    systemMessageController
-                                                        .text);
-                                              }
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('Save'))
-                                      ],
-                                    );
-                                  });
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Cancel')),
+                                      TextButton(
+                                          onPressed: () {
+                                            if (_token !=
+                                                tokenInputController.text) {
+                                              setToken(
+                                                  tokenInputController.text);
+                                            }
+                                            if (_systemMessage !=
+                                                systemMessageController.text) {
+                                              setSystemMessage(
+                                                  systemMessageController.text);
+                                            }
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Save'))
+                                    ],
+                                  );
                                 });
-                          }),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                        child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        validator: (value) {
-                          if (_token == null || _token!.isEmpty) {
-                            return 'Please enter your token in setting';
-                          }
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some message';
-                          }
-                          return null;
-                        },
-                        controller: _inputController,
-                        keyboardType: TextInputType.multiline,
-                        minLines: 1,
-                        maxLines: 4,
-                        scrollPhysics: const BouncingScrollPhysics(),
-                        //maxLength: 400,
-                        decoration: InputDecoration(
-                          labelText: 'Chat AI',
-                          hintText: 'Enter your message',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          suffixIcon: IconButton(
-                              icon: const Icon(Icons.send),
-                              onPressed: () {
-                                chat(_inputController.text);
-                              }),
+                              });
+                        }),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                      child: Form(
+                    key: _formKey,
+                    child: TextFormField(
+                      validator: (value) {
+                        if (_token == null || _token!.isEmpty) {
+                          return 'Please enter your token in setting';
+                        }
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some message';
+                        }
+                        return null;
+                      },
+                      controller: _inputController,
+                      keyboardType: TextInputType.multiline,
+                      minLines: 1,
+                      maxLines: 4,
+                      scrollPhysics: const BouncingScrollPhysics(),
+                      //maxLength: 400,
+                      decoration: InputDecoration(
+                        labelText: 'Chat AI',
+                        hintText: 'Enter your message',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
-                        onChanged: (value) {
-                          _formKey.currentState!.validate();
-                        },
+                        suffixIcon: IconButton(
+                            icon: const Icon(Icons.send),
+                            onPressed: () {
+                              chat(_inputController.text);
+                            }),
                       ),
-                    ))
-                  ],
-                )),
-          )
-        ]));
+                      onChanged: (value) {
+                        _formKey.currentState!.validate();
+                      },
+                    ),
+                  ))
+                ],
+              )),
+        )
+      ]),
+    );
   }
 }

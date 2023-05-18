@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
@@ -27,6 +29,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
 
   String? _systemMessage;
   bool _generating = false;
+  String? _generatingMessage;
+  Timer? _timer;
 
   @override
   initState() {
@@ -36,7 +40,29 @@ class _ChatAIPageState extends State<ChatAIPage> {
         enableLog: true);
     getToken();
     getSystemMessage();
+    initGeneralAnimation();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _inputController.dispose();
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void initGeneralAnimation() {
+    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      if ((_generatingMessage ?? '').length < 3) {
+        setState(() {
+          _generatingMessage = '${_generatingMessage ?? ''}．';
+        });
+      } else {
+        setState(() {
+          _generatingMessage = '．';
+        });
+      }
+    });
   }
 
   void _launchUrl(String url) {
@@ -253,11 +279,12 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: Text(
-                                          'Generating...',
+                                          _generatingMessage ?? '',
                                           style: TextStyle(
                                               color: Theme.of(context)
                                                   .colorScheme
-                                                  .onPrimary),
+                                                  .onPrimary,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ],

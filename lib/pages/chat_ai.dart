@@ -313,19 +313,21 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                                   labelText: 'System Message',
                                                   hintText:
                                                       'Enter some environment settings',
-                                                  prefixIcon:
-                                                      const Icon(Icons.description),
+                                                  prefixIcon: const Icon(
+                                                      Icons.description),
                                                   suffixIcon: IconButton(
-                                                      icon: const Icon(Icons.clear),
+                                                      icon: const Icon(
+                                                          Icons.clear),
                                                       onPressed: () {
                                                         systemMessageController
                                                             .clear();
                                                       }),
-                                                  border: const OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  16.0)))),
+                                                  border:
+                                                      const OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      16.0)))),
                                             ),
                                             const SizedBox(
                                               height: 10,
@@ -335,18 +337,21 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                               decoration: InputDecoration(
                                                   labelText: 'OpenAI Token',
                                                   hintText: 'Enter your token',
-                                                  prefixIcon: const Icon(Icons.key),
+                                                  prefixIcon:
+                                                      const Icon(Icons.key),
                                                   suffixIcon: IconButton(
-                                                      icon: const Icon(Icons.clear),
+                                                      icon: const Icon(
+                                                          Icons.clear),
                                                       onPressed: () {
                                                         tokenInputController
                                                             .clear();
                                                       }),
-                                                  border: const OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  16.0)))),
+                                                  border:
+                                                      const OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      16.0)))),
                                             ),
                                             const SizedBox(
                                               height: 10,

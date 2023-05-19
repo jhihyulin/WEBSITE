@@ -187,14 +187,14 @@ class _ChatPageState extends State<ChatPage> {
                                                       _chat[i - 1]['uid']
                                               ? 10
                                               : 0),
-                                          topLeft: Radius.circular(10),
+                                          topLeft: const Radius.circular(10),
                                           bottomRight: Radius.circular(
                                               i == _chat.length - 1 ||
                                                       _chat[i]['uid'] !=
                                                           _chat[i + 1]['uid']
                                                   ? 10
                                                   : 0),
-                                          bottomLeft: Radius.circular(10),
+                                          bottomLeft: const Radius.circular(10),
                                         )),
                                     child: Text(
                                       _chat[i]['message'] as String,
@@ -286,7 +286,7 @@ class _ChatPageState extends State<ChatPage> {
                                                         .primary,
                                                     borderRadius: BorderRadius.only(
                                                         topRight:
-                                                            Radius.circular(10),
+                                                            const Radius.circular(10),
                                                         topLeft: Radius.circular(i == 0 ||
                                                                 _chat[i]['uid'] !=
                                                                     _chat[i - 1]
@@ -294,7 +294,7 @@ class _ChatPageState extends State<ChatPage> {
                                                             ? 10
                                                             : 0),
                                                         bottomRight:
-                                                            Radius.circular(10),
+                                                            const Radius.circular(10),
                                                         bottomLeft: Radius.circular(
                                                             i == _chat.length - 1 ||
                                                                     _chat[i]['uid'] != _chat[i + 1]['uid']

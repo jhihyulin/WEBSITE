@@ -16,7 +16,7 @@ class ChatAIPage extends StatefulWidget {
 }
 
 class _ChatAIPageState extends State<ChatAIPage> {
-  List<Map<String, String>> _chatData = [];
+  late List<Map<String, String>> _chatData;
   final ScrollController _scrollController = ScrollController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _inputController = TextEditingController();
@@ -37,6 +37,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
 
   @override
   initState() {
+    _chatData = <Map<String, String>>[];
     openAI = OpenAI.instance.build(
         token: 'sk-',
         baseOption: HttpSetup(receiveTimeout: const Duration(minutes: 1)),

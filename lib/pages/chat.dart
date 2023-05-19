@@ -21,7 +21,7 @@ class _ChatPageState extends State<ChatPage> {
   List<Map<String, dynamic>> _chat = [];
   int _messageWidth() {
     if (MediaQuery.of(context).size.width < 700) {
-      return MediaQuery.of(context).size.width.toInt() - 200;
+      return MediaQuery.of(context).size.width.toInt() * 2 ~/ 3;
     } else {
       return 500;
     }

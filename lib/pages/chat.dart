@@ -21,6 +21,7 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _inputController = TextEditingController();
   final DatabaseReference _fireBaseDB = FirebaseDatabase.instance.ref();
   StreamSubscription<DatabaseEvent>? _onChatAddedSubscription;
+  Timer? _scrollTimer;
   List<Map<String, dynamic>> _chat = [];
   int _messageWidth() {
     if (MediaQuery.of(context).size.width < 700) {
@@ -54,6 +55,7 @@ class _ChatPageState extends State<ChatPage> {
     _inputController.dispose();
     _onChatAddedSubscription?.cancel();
     _scrollController.dispose();
+    _scrollTimer?.cancel();
     super.dispose();
   }
 
@@ -109,13 +111,14 @@ class _ChatPageState extends State<ChatPage> {
         'photoUrl': photoUrl ?? '',
       });
       _chat.sort((a, b) => a['timestamp'].compareTo(b['timestamp']));
+      _scrollTimer = Timer(
+          const Duration(milliseconds: 100),
+          () => _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.easeOut));
     });
     debugPrint('chatlength ${_chat.length}');
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
   }
 
   void sendChat(message) async {

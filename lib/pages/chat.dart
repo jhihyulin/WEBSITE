@@ -21,7 +21,7 @@ class _ChatPageState extends State<ChatPage> {
   final DatabaseReference _fireBaseDB = FirebaseDatabase.instance.ref();
   StreamSubscription<DatabaseEvent>? _onChatAddedSubscription;
   Timer? _scrollTimer;
-  List<Map<String, dynamic>> _chat = [];
+  late List<Map<String, dynamic>> _chat;
   int _messageWidth() {
     if (MediaQuery.of(context).size.width < 700) {
       return MediaQuery.of(context).size.width.toInt() * 2 ~/ 3;
@@ -45,6 +45,7 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   void initState() {
+    _chat = <Map<String, dynamic>>[];
     initChat();
     super.initState();
   }

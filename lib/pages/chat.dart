@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
@@ -381,10 +380,10 @@ class _ChatPageState extends State<ChatPage> {
                         bottom: 0,
                         right: 0,
                         child: AnimatedSlide(
-                            duration: Duration(milliseconds: 300),
-                            offset: _showFab ? Offset.zero : Offset(0, 2),
+                            duration: const Duration(milliseconds: 300),
+                            offset: _showFab ? Offset.zero : const Offset(0, 2),
                             child: AnimatedOpacity(
-                              duration: Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 300),
                               opacity: _showFab ? 1 : 0,
                               child: FloatingActionButton(
                                   child: const Icon(Icons.arrow_downward),

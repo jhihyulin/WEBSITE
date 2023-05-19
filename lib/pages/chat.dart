@@ -30,6 +30,19 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  bool _showFab = false;
+  bool _handleScrollNotification(UserScrollNotification notification) {
+    final ScrollDirection direction = notification.direction;
+        setState(() {
+          if (direction == ScrollDirection.reverse) {
+            _showFab = false;
+          } else if (direction == ScrollDirection.forward) {
+            _showFab = true;
+          }
+        });
+        return true;
+  }
+
   @override
   void initState() {
     initChat();
@@ -129,7 +142,9 @@ class _ChatPageState extends State<ChatPage> {
                   constraints: const BoxConstraints(maxWidth: 700),
                   height: double.infinity,
                   child: Stack(children: [
-                    SingleChildScrollView(
+                    NotificationListener<UserScrollNotification>(
+      onNotification: _handleScrollNotification,
+            child: SingleChildScrollView(
                       controller: _scrollController,
                       physics: const BouncingScrollPhysics(),
                       child: Column(
@@ -344,18 +359,24 @@ class _ChatPageState extends State<ChatPage> {
                                           ]),
                                     ])
                           ]),
-                    ),
+                    ),),
                     Positioned(
                       bottom: 0,
                       right: 0,
-                      child: FloatingActionButton(
+                      child: AnimatedSlide(
+      duration: Duration(milliseconds: 300),
+      offset: _showFab ? Offset.zero : Offset(0, 2),
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 300),
+        opacity: _showFab ? 1 : 0,
+        child: FloatingActionButton(
                           child: const Icon(Icons.arrow_downward),
                           onPressed: () {
                             _scrollController.animateTo(
                                 _scrollController.position.maxScrollExtent,
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.easeOut);
-                          }),
+                          }),))
                     )
                   ]))),
         ),
@@ -366,6 +387,9 @@ class _ChatPageState extends State<ChatPage> {
               padding: const EdgeInsets.all(10),
               constraints: const BoxConstraints(
                 maxWidth: 700,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
               ),
               child: Form(
                   key: _formKey,

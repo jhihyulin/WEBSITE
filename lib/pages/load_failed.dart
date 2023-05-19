@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class loadFailedPage extends StatelessWidget {
-  late String _errorMessage;
-  loadFailedPage({Key? key, required String errorMessage}) : super(key: key) {
-    _errorMessage = errorMessage;
+class LoadFailedPage extends StatefulWidget {
+  const LoadFailedPage({Key? key, required this.errorMessage})
+      : super(key: key);
+  final String errorMessage;
+
+  @override
+  State<LoadFailedPage> createState() => _LoadFailedPageState();
+}
+
+class _LoadFailedPageState extends State<LoadFailedPage> {
+  late String errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    errorMessage = widget.errorMessage;
   }
 
   @override
@@ -41,7 +53,7 @@ class loadFailedPage extends StatelessWidget {
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
                           child: SelectionArea(
-                            child: Text(_errorMessage),
+                            child: Text(errorMessage),
                           ),
                         ),
                       ),
@@ -61,7 +73,7 @@ class loadFailedPage extends StatelessWidget {
                           child: const Icon(Icons.copy),
                           onPressed: () {
                             Clipboard.setData(
-                                ClipboardData(text: _errorMessage));
+                                ClipboardData(text: errorMessage));
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Copied to clipboard'),

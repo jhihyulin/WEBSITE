@@ -21,9 +21,9 @@ class _ChatPageState extends State<ChatPage> {
   List<Map<String, dynamic>> _chat = [];
   int _messageWidth() {
     if (MediaQuery.of(context).size.width < 700) {
-      return MediaQuery.of(context).size.width.toInt() - 100;
+      return MediaQuery.of(context).size.width.toInt() - 200;
     } else {
-      return 600;
+      return 500;
     }
   }
 
@@ -97,6 +97,7 @@ class _ChatPageState extends State<ChatPage> {
       });
       _chat.sort((a, b) => a['timestamp'].compareTo(b['timestamp']));
     });
+    debugPrint('chatlength ${_chat.length}');
   }
 
   void sendChat(message) async {
@@ -133,8 +134,8 @@ class _ChatPageState extends State<ChatPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
                           // chat screen
-                          for (var i in _chat)
-                            if (i['uid'] ==
+                          for (int i = 0; i < _chat.length; i++)
+                            if (_chat[i]['uid'] ==
                                 FirebaseAuth.instance.currentUser!.uid)
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -148,37 +149,58 @@ class _ChatPageState extends State<ChatPage> {
                                     ),
                                     child: Text(
                                         DateTime.fromMillisecondsSinceEpoch(
-                                                i['timestamp'])
+                                                int.parse(_chat[i]['timestamp']
+                                                    .toString()))
                                             .toString()
                                             .substring(11, 16),
-                                        style:
-                                            TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface,
-                                                fontSize: Theme.of(context)
-                                                    .textTheme
-                                                    .labelLarge
-                                                    ?.fontSize)),
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontSize: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge
+                                                ?.fontSize)),
                                   ),
                                   Container(
                                     constraints: BoxConstraints(
                                         maxWidth: _messageWidth().toDouble()),
                                     padding: const EdgeInsets.all(10),
-                                    margin: const EdgeInsets.only(
-                                        top: 5, bottom: 5),
+                                    margin: EdgeInsets.only(
+                                        top: i == 0 ||
+                                                _chat[i]['uid'] !=
+                                                    _chat[i - 1]['uid']
+                                            ? 5
+                                            : 1,
+                                        bottom: i == _chat.length - 1 ||
+                                                _chat[i]['uid'] !=
+                                                    _chat[i + 1]['uid']
+                                            ? 5
+                                            : 1),
                                     decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .secondary,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                            .primary,
+                                        borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(i == 0 ||
+                                                    _chat[i]['uid'] !=
+                                                        _chat[i - 1]['uid']
+                                                ? 10
+                                                : 0),
+                                            topLeft: Radius.circular(10),
+                                            bottomRight: Radius.circular(
+                                                i == _chat.length - 1 ||
+                                                        _chat[i]['uid'] !=
+                                                            _chat[i + 1]['uid']
+                                                    ? 10
+                                                    : 0),
+                                            bottomLeft: Radius.circular(10),)),
                                     child: Text(
-                                      i['message'],
+                                      _chat[i]['message'] as String,
                                       style: TextStyle(
                                           color: Theme.of(context)
                                               .colorScheme
-                                              .onSecondary),
+                                              .onPrimary),
                                     ),
                                   ),
                                 ],
@@ -197,8 +219,14 @@ class _ChatPageState extends State<ChatPage> {
                                       ),
                                       child: CircleAvatar(
                                         radius: 20,
-                                        backgroundImage:
-                                            NetworkImage(i['photoUrl']),
+                                        backgroundImage: _chat[i]['uid'] !=
+                                                    _chat[i == 0 ? i : i - 1]
+                                                        ['uid'] ||
+                                                i == 0
+                                            ? NetworkImage(
+                                                _chat[i]['photoUrl'] as String)
+                                            : null,
+                                        backgroundColor: Colors.transparent,
                                       ),
                                     ),
                                     const SizedBox(width: 5),
@@ -209,15 +237,19 @@ class _ChatPageState extends State<ChatPage> {
                                             CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Text(i['name'],
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurface,
-                                                  fontSize: Theme.of(context)
-                                                      .textTheme
-                                                      .labelLarge
-                                                      ?.fontSize)),
+                                          if (_chat[i]['uid'] !=
+                                                  _chat[i == 0 ? i : i - 1]
+                                                      ['uid'] ||
+                                              i == 0)
+                                            Text(_chat[i]['name'] as String,
+                                                style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onSurface,
+                                                    fontSize: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge
+                                                        ?.fontSize)),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -230,25 +262,43 @@ class _ChatPageState extends State<ChatPage> {
                                                         .toDouble()),
                                                 padding:
                                                     const EdgeInsets.all(10),
-                                                margin: const EdgeInsets.only(
-                                                    top: 5, bottom: 5),
+                                                margin: EdgeInsets.only(
+                                                    top: i == 0 ||
+                                                            _chat[i]['uid'] !=
+                                                                _chat[i - 1]
+                                                                    ['uid']
+                                                        ? 5
+                                                        : 1,
+                                                    bottom: i ==
+                                                                _chat.length -
+                                                                    1 ||
+                                                            _chat[i]['uid'] !=
+                                                                _chat[i + 1]
+                                                                    ['uid']
+                                                        ? 5
+                                                        : 1),
                                                 decoration: BoxDecoration(
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .primary,
-                                                    borderRadius:
-                                                        const BorderRadius.only(
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    10),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    10),
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    10))),
+                                                    borderRadius: BorderRadius.only(
+                                                        topRight:
+                                                            Radius.circular(10),
+                                                        topLeft: Radius.circular(i == 0 ||
+                                                                _chat[i]['uid'] !=
+                                                                    _chat[i - 1]
+                                                                        ['uid']
+                                                            ? 10
+                                                            : 0),
+                                                        bottomRight:
+                                                            Radius.circular(10),
+                                                        bottomLeft: Radius.circular(
+                                                            i == _chat.length - 1 ||
+                                                                    _chat[i]['uid'] != _chat[i + 1]['uid']
+                                                                ? 10
+                                                                : 0))),
                                                 child: Text(
-                                                  i['message'],
+                                                  _chat[i]['message'] as String,
                                                   style: TextStyle(
                                                       color: Theme.of(context)
                                                           .colorScheme
@@ -262,9 +312,11 @@ class _ChatPageState extends State<ChatPage> {
                                                   left: 5,
                                                 ),
                                                 child: Text(
-                                                    DateTime
-                                                            .fromMillisecondsSinceEpoch(
-                                                                i['timestamp'])
+                                                    DateTime.fromMillisecondsSinceEpoch(
+                                                            int.parse(_chat[i]
+                                                                    [
+                                                                    'timestamp']
+                                                                .toString()))
                                                         .toString()
                                                         .substring(11, 16),
                                                     style: TextStyle(

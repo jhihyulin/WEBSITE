@@ -111,7 +111,11 @@ class _ChatPageState extends State<ChatPage> {
       _chat.sort((a, b) => a['timestamp'].compareTo(b['timestamp']));
     });
     debugPrint('chatlength ${_chat.length}');
-    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
   }
 
   void sendChat(message) async {

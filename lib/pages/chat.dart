@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'sign_in.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
 
@@ -37,6 +39,7 @@ class _ChatPageState extends State<ChatPage> {
   void dispose() {
     _inputController.dispose();
     _onChatAddedSubscription?.cancel();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -55,8 +58,6 @@ class _ChatPageState extends State<ChatPage> {
               i['timestamp'] as int,
               i['photoUrl'] as String);
         }
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
       }
     }, onError: (Object o) {
       final error = o as FirebaseException;
@@ -76,8 +77,6 @@ class _ChatPageState extends State<ChatPage> {
             chat['message'] as String,
             chat['timestamp'] as int,
             chat['photoUrl'] as String);
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
       }
     }, onError: (Object o) {
       final error = o as FirebaseException;
@@ -98,6 +97,8 @@ class _ChatPageState extends State<ChatPage> {
       _chat.sort((a, b) => a['timestamp'].compareTo(b['timestamp']));
     });
     debugPrint('chatlength ${_chat.length}');
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
   }
 
   void sendChat(message) async {
@@ -106,10 +107,10 @@ class _ChatPageState extends State<ChatPage> {
     var uid = user!.uid;
     await _fireBaseDB.child('chat').push().set({
       'uid': uid,
-      'name': user.displayName,
-      'message': message,
+      'name': user.displayName ?? '',
+      'message': message ?? '',
       'timestamp': ServerValue.timestamp,
-      'photoUrl': user.photoURL,
+      'photoUrl': user.photoURL ?? '',
     });
   }
 
@@ -133,10 +134,11 @@ class _ChatPageState extends State<ChatPage> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          // chat screen
                           for (int i = 0; i < _chat.length; i++)
                             if (_chat[i]['uid'] ==
-                                FirebaseAuth.instance.currentUser!.uid)
+                                (FirebaseAuth.instance.currentUser != null
+                                    ? FirebaseAuth.instance.currentUser!.uid
+                                    : ''))
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -285,8 +287,8 @@ class _ChatPageState extends State<ChatPage> {
                                                         .colorScheme
                                                         .primary,
                                                     borderRadius: BorderRadius.only(
-                                                        topRight:
-                                                            const Radius.circular(10),
+                                                        topRight: const Radius.circular(
+                                                            10),
                                                         topLeft: Radius.circular(i == 0 ||
                                                                 _chat[i]['uid'] !=
                                                                     _chat[i - 1]
@@ -294,12 +296,10 @@ class _ChatPageState extends State<ChatPage> {
                                                             ? 10
                                                             : 0),
                                                         bottomRight:
-                                                            const Radius.circular(10),
+                                                            const Radius.circular(
+                                                                10),
                                                         bottomLeft: Radius.circular(
-                                                            i == _chat.length - 1 ||
-                                                                    _chat[i]['uid'] != _chat[i + 1]['uid']
-                                                                ? 10
-                                                                : 0))),
+                                                            i == _chat.length - 1 || _chat[i]['uid'] != _chat[i + 1]['uid'] ? 10 : 0))),
                                                 child: Text(
                                                   _chat[i]['message'] as String,
                                                   style: TextStyle(
@@ -348,44 +348,71 @@ class _ChatPageState extends State<ChatPage> {
                 maxWidth: 700,
               ),
               child: Form(
-                key: _formKey,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some message';
-                    }
-                    return null;
-                  },
-                  controller: _inputController,
-                  keyboardType: TextInputType.multiline,
-                  minLines: 1,
-                  maxLines: 4,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                  //maxLength: 400,
-                  decoration: InputDecoration(
-                    labelText: 'Chat',
-                    hintText: 'Enter your message',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    suffixIcon: IconButton(
-                        icon: const Icon(Icons.send),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            sendChat(_inputController.text);
-                            _inputController.clear();
-                            _scrollController.animateTo(
-                                _scrollController.position.maxScrollExtent,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeOut);
-                          }
-                        }),
-                  ),
-                  onChanged: (value) {
-                    _formKey.currentState!.validate();
-                  },
-                ),
-              )),
+                  key: _formKey,
+                  child: FirebaseAuth.instance.currentUser != null
+                      ? TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some message';
+                            }
+                            return null;
+                          },
+                          controller: _inputController,
+                          keyboardType: TextInputType.multiline,
+                          minLines: 1,
+                          maxLines: 4,
+                          scrollPhysics: const BouncingScrollPhysics(),
+                          //maxLength: 400,
+                          decoration: InputDecoration(
+                            labelText: 'Chat',
+                            hintText: 'Enter your message',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            suffixIcon: IconButton(
+                                icon: const Icon(Icons.send),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    sendChat(_inputController.text);
+                                    _inputController.clear();
+                                    _scrollController.animateTo(
+                                        _scrollController
+                                            .position.maxScrollExtent,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeOut);
+                                  }
+                                }),
+                          ),
+                          onChanged: (value) {
+                            _formKey.currentState!.validate();
+                          },
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                            border: Border.all(
+                                color: Theme.of(context).colorScheme.onSurface),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton.icon(
+                                icon: const Icon(Icons.login),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SignInPage(redirectPage: '/chat')),
+                                  );
+                                },
+                                label: const Text('Sign In to chat'),
+                              ),
+                            ],
+                          ),
+                        ))),
         )
       ]),
     );

@@ -182,19 +182,20 @@ class _ChatPageState extends State<ChatPage> {
                                             .colorScheme
                                             .primary,
                                         borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(i == 0 ||
-                                                    _chat[i]['uid'] !=
-                                                        _chat[i - 1]['uid']
-                                                ? 10
-                                                : 0),
-                                            topLeft: Radius.circular(10),
-                                            bottomRight: Radius.circular(
-                                                i == _chat.length - 1 ||
-                                                        _chat[i]['uid'] !=
-                                                            _chat[i + 1]['uid']
-                                                    ? 10
-                                                    : 0),
-                                            bottomLeft: Radius.circular(10),)),
+                                          topRight: Radius.circular(i == 0 ||
+                                                  _chat[i]['uid'] !=
+                                                      _chat[i - 1]['uid']
+                                              ? 10
+                                              : 0),
+                                          topLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(
+                                              i == _chat.length - 1 ||
+                                                      _chat[i]['uid'] !=
+                                                          _chat[i + 1]['uid']
+                                                  ? 10
+                                                  : 0),
+                                          bottomLeft: Radius.circular(10),
+                                        )),
                                     child: Text(
                                       _chat[i]['message'] as String,
                                       style: TextStyle(
@@ -217,17 +218,19 @@ class _ChatPageState extends State<ChatPage> {
                                         bottom: 5,
                                         left: 5,
                                       ),
-                                      child: CircleAvatar(
-                                        radius: 20,
-                                        backgroundImage: _chat[i]['uid'] !=
-                                                    _chat[i == 0 ? i : i - 1]
-                                                        ['uid'] ||
-                                                i == 0
-                                            ? NetworkImage(
-                                                _chat[i]['photoUrl'] as String)
-                                            : null,
-                                        backgroundColor: Colors.transparent,
-                                      ),
+                                      child: _chat[i]['uid'] !=
+                                                  _chat[i == 0 ? i : i - 1]
+                                                      ['uid'] ||
+                                              i == 0
+                                          ? CircleAvatar(
+                                              radius: 20,
+                                              backgroundImage: NetworkImage(
+                                                  _chat[i]['photoUrl']
+                                                      as String),
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                            )
+                                          : Container(width: 40),
                                     ),
                                     const SizedBox(width: 5),
                                     Column(

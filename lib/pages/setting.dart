@@ -298,6 +298,17 @@ class _SettingPageState extends State<SettingPage> {
                                               '/privacypolicy');
                                         }
                                       )),
+                                  ListTile(
+                                      leading: const Icon(Icons.rule),
+                                      title: const Text('Terms of Service'),
+                                      subtitle: const Text('Terms and conditions of use'),
+                                      trailing: IconButton(
+                                        icon: const Icon(Icons.navigate_next),
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed(
+                                              '/termsofservice');
+                                        }
+                                      )),
                                   const Text(
                                       'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
                                       textAlign: TextAlign.center,

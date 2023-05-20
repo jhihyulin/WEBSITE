@@ -98,11 +98,13 @@ class _ChatAIPageState extends State<ChatAIPage> {
     setState(() {
       _generating = true;
       _chatData.add({'role': 'user', 'content': message});
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
     });
     debugPrint('_chatData: ${_chatData.toString()}');
     final request = ChatCompleteText(
@@ -135,11 +137,13 @@ class _ChatAIPageState extends State<ChatAIPage> {
         'content': raw.choices[0].message!.content
       });
       _generating = false;
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
     });
     debugPrint("_chatData: ${_chatData.toString()}");
   }

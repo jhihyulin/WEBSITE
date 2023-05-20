@@ -32,6 +32,7 @@ import 'pages/tw_university_result_query.dart'
     deferred as tw_university_result_query;
 import 'pages/spin_wheel.dart' deferred as spin_wheel;
 import 'pages/privacy_policy.dart' deferred as privacy_policy;
+import 'pages/chat.dart' deferred as chat;
 import 'pages/chat_ai.dart' deferred as chatai;
 
 const websiteName = 'JHIHYU\'S WEBSITE';
@@ -265,6 +266,11 @@ class _MyAppState extends State<MyApp> {
                   case '/privacypolicy':
                     builder = dealPage(privacy_policy.loadLibrary, (context) {
                       return privacy_policy.PrivacyPolicyPage();
+                    });
+                    break;
+                  case '/chat':
+                    builder = dealPage(chat.loadLibrary, (context) {
+                      return chat.ChatPage();
                     });
                     break;
                   case '/setting':

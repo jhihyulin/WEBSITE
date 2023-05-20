@@ -60,28 +60,29 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void initChat() {
-    _fireBaseDB.child('chat').once().then((event) {
-      if (event.snapshot.value != null) {
-        var chat = event.snapshot.value as Map<String, dynamic>;
-        debugPrint('get chat $chat');
-        for (var i in chat.values) {
-          debugPrint(
-              'get chat ${i['uid']} ${i['name']} ${i['message']} ${i['timestamp']}');
-          addChat(
-              i['uid'] as String,
-              i['name'] as String,
-              i['message'] as String,
-              i['timestamp'] as int,
-              i['photoUrl'] as String);
-        }
-      }
-    }, onError: (Object o) {
-      final error = o as FirebaseException;
-      debugPrint('Error: ${error.code} ${error.message}');
-    });
+    /// listen with onChildAdded, don't need to get all data
+    // _fireBaseDB.child('chat').once().then((event) {
+    //   if (event.snapshot.value != null) {
+    //     var chat = event.snapshot.value as Map<String, dynamic>;
+    //     debugPrint('get chat $chat');
+    //     for (var i in chat.values) {
+    //       debugPrint(
+    //           'get chat ${i['uid']} ${i['name']} ${i['message']} ${i['timestamp']}');
+    //       addChat(
+    //           i['uid'] as String,
+    //           i['name'] as String,
+    //           i['message'] as String,
+    //           i['timestamp'] as int,
+    //           i['photoUrl'] as String);
+    //     }
+    //   }
+    // }, onError: (Object o) {
+    //   final error = o as FirebaseException;
+    //   debugPrint('Error: ${error.code} ${error.message}');
+    // });
 
     _onChatAddedSubscription =
-        _fireBaseDB.child('chat').onChildChanged.listen((event) {
+        _fireBaseDB.child('chat').onChildAdded.listen((event) {
       if (event.snapshot.value != null) {
         var chat = event.snapshot.value as Map<String, dynamic>;
         debugPrint('listened chat $chat');
@@ -111,12 +112,16 @@ class _ChatPageState extends State<ChatPage> {
         'photoUrl': photoUrl ?? '',
       });
       _chat.sort((a, b) => a['timestamp'].compareTo(b['timestamp']));
-      _scrollTimer = Timer(
-          const Duration(milliseconds: 100),
-          () => _scrollController.animateTo(
-              _scrollController.position.maxScrollExtent,
-              duration: const Duration(milliseconds: 100),
-              curve: Curves.easeOut));
+      // if scrollcontroller can use
+      if (_scrollController.hasClients) {
+        _scrollTimer?.cancel();
+        _scrollTimer = Timer(
+            const Duration(milliseconds: 100),
+            () => _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.easeOut));
+      }
     });
     debugPrint('chatlength ${_chat.length}');
   }

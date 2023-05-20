@@ -98,6 +98,7 @@ class _ChatPageState extends State<ChatPage> {
     }, onError: (Object o) {
       final error = o as FirebaseException;
       debugPrint('Error: ${error.code} ${error.message}');
+      showErrorSnackBar('${error.code} ${error.message}');
     });
   }
 
@@ -137,6 +138,23 @@ class _ChatPageState extends State<ChatPage> {
       'timestamp': ServerValue.timestamp,
       'photoUrl': user.photoURL ?? '',
     });
+  }
+
+  void showErrorSnackBar(String error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Theme.of(context).colorScheme.errorContainer,
+        content: Text(error,
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onErrorContainer)),
+        showCloseIcon: true,
+        closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 10),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+      ),
+    );
   }
 
   @override

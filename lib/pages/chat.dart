@@ -36,7 +36,8 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {
       if (notification.metrics.maxScrollExtent - notification.metrics.pixels >
               100 &&
-          (direction == ScrollDirection.reverse || direction == ScrollDirection.idle)) {
+          (direction == ScrollDirection.reverse ||
+              direction == ScrollDirection.idle)) {
         _showFab = true;
       } else {
         _showFab = false;
@@ -115,15 +116,18 @@ class _ChatPageState extends State<ChatPage> {
         'photoUrl': photoUrl ?? '',
       });
       _chat.sort((a, b) => a['timestamp'].compareTo(b['timestamp']));
-      if (_scrollController.hasClients) {
-        _scrollTimer?.cancel();
-        _scrollTimer = Timer(
-            const Duration(milliseconds: 100),
-            () => _scrollController.animateTo(
-                _scrollController.position.maxScrollExtent,
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.easeOut));
-      }
+      _scrollTimer?.cancel();
+      _scrollTimer = Timer(const Duration(milliseconds: 100), () {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.easeOut);
+          setState(() {
+            _showFab = false;
+          });
+        }
+      });
     });
     debugPrint('chatlength ${_chat.length}');
   }
@@ -420,6 +424,9 @@ class _ChatPageState extends State<ChatPage> {
                                           duration:
                                               const Duration(milliseconds: 500),
                                           curve: Curves.easeOut);
+                                      setState(() {
+                                        _showFab = false;
+                                      });
                                     }
                                   }),
                             )))

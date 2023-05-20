@@ -475,7 +475,9 @@ class _ChatPageState extends State<ChatPage> {
                                 }),
                           ),
                           onChanged: (value) {
-                            _formKey.currentState!.validate();
+                            if (_inputController.text.isNotEmpty) {
+                              _formKey.currentState!.validate();
+                            }
                           },
                         )
                       : Container(

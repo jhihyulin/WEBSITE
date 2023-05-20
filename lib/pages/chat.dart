@@ -34,10 +34,12 @@ class _ChatPageState extends State<ChatPage> {
   bool _handleScrollNotification(UserScrollNotification notification) {
     final ScrollDirection direction = notification.direction;
     setState(() {
-      if (direction == ScrollDirection.reverse) {
-        _showFab = false;
-      } else if (direction == ScrollDirection.forward) {
+      if (notification.metrics.maxScrollExtent - notification.metrics.pixels >
+              100 &&
+          (direction == ScrollDirection.reverse || direction == ScrollDirection.idle)) {
         _showFab = true;
+      } else {
+        _showFab = false;
       }
     });
     return true;
@@ -113,7 +115,6 @@ class _ChatPageState extends State<ChatPage> {
         'photoUrl': photoUrl ?? '',
       });
       _chat.sort((a, b) => a['timestamp'].compareTo(b['timestamp']));
-      // if scrollcontroller can use
       if (_scrollController.hasClients) {
         _scrollTimer?.cancel();
         _scrollTimer = Timer(
@@ -412,12 +413,14 @@ class _ChatPageState extends State<ChatPage> {
                               child: FloatingActionButton(
                                   child: const Icon(Icons.arrow_downward),
                                   onPressed: () {
-                                    _scrollController.animateTo(
-                                        _scrollController
-                                            .position.maxScrollExtent,
-                                        duration:
-                                            const Duration(milliseconds: 500),
-                                        curve: Curves.easeOut);
+                                    if (_scrollController.hasClients) {
+                                      _scrollController.animateTo(
+                                          _scrollController
+                                              .position.maxScrollExtent,
+                                          duration:
+                                              const Duration(milliseconds: 500),
+                                          curve: Curves.easeOut);
+                                    }
                                   }),
                             )))
                   ]))),
@@ -461,12 +464,6 @@ class _ChatPageState extends State<ChatPage> {
                                   if (_formKey.currentState!.validate()) {
                                     sendChat(_inputController.text);
                                     _inputController.clear();
-                                    _scrollController.animateTo(
-                                        _scrollController
-                                            .position.maxScrollExtent,
-                                        duration:
-                                            const Duration(milliseconds: 300),
-                                        curve: Curves.easeOut);
                                   }
                                 }),
                           ),

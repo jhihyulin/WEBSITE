@@ -293,13 +293,13 @@ class _TWUniversityResultQueryPageState
                                                       icon: const Icon(
                                                           Icons.help),
                                                       title: const Text('查無資料'),
-                                                      content: Column(
+                                                      content: const Column(
                                                         mainAxisSize:
                                                             MainAxisSize.min,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
-                                                        children: const [
+                                                        children: [
                                                           Text('可能有以下幾點原因:'),
                                                           Text('1. 輸入錯誤'),
                                                           Text('2. 特殊選才錄取'),

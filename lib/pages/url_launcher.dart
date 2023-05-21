@@ -113,11 +113,11 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                                           maxWidth: 700,
                                           minWidth: 700,
                                         ),
-                                        child: SingleChildScrollView(
+                                        child: const SingleChildScrollView(
                                             physics:
-                                                const BouncingScrollPhysics(),
+                                                BouncingScrollPhysics(),
                                             child: Column(
-                                              children: const [
+                                              children: [
                                                 Text(
                                                     'Enter a URL and click Launch URL button to open the URL in the browser or your device\'s default app for the URL.'),
                                               ],

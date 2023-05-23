@@ -22,5 +22,7 @@
 |Clock|ZHSH 3D Map|
 |![](/.github/preview/setting.png)|![](/.github/preview/twuniversityresultquery.png)|
 |Setting|TW University Result Query|
-|![](/.github/preview/picker.png)|![]()|
-|Picker| |
+|![](/.github/preview/picker.png)|![](/.github/preview/chat.png)|
+|Picker|Chat|
+|![](/.github/preview/chatai.png)| |
+|Chat AI| |

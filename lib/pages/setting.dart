@@ -15,6 +15,7 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  final int _year = DateTime.now().year;
   @override
   Widget build(BuildContext context) {
     int themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
@@ -305,10 +306,10 @@ class _SettingPageState extends State<SettingPage> {
                                       ),
                                     ],
                                   ),
-                                  const Text(
-                                      'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                                  Text(
+                                      'ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.grey, fontSize: 12)),
                                 ],
                               ),

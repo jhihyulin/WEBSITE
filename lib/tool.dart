@@ -66,7 +66,7 @@ class ToolPage extends StatelessWidget {
     },
     'chat': {
       'title': 'Chat',
-      'icon': Icons.chat,
+      'icon': Icons.forum,
       'route': '/chat',
     },
     'chatai': {

@@ -15,6 +15,7 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  final int _year = DateTime.now().year;
   @override
   Widget build(BuildContext context) {
     int themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
@@ -38,10 +39,9 @@ class _SettingPageState extends State<SettingPage> {
             child: Center(
                 child: Container(
                     constraints: BoxConstraints(
-                      maxWidth: 700,
-                      minHeight: MediaQuery.of(context).size.height -
-                          AppBar().preferredSize.height
-                    ),
+                        maxWidth: 700,
+                        minHeight: MediaQuery.of(context).size.height -
+                            AppBar().preferredSize.height),
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -287,32 +287,29 @@ class _SettingPageState extends State<SettingPage> {
                                               'mailto:JY@jhihyulin.live'));
                                         },
                                       )),
-                                  ListTile(
-                                      leading: const Icon(Icons.privacy_tip),
-                                      title: const Text('Privacy Policy'),
-                                      subtitle: const Text('User data privacy protection policy'),
-                                      trailing: IconButton(
-                                        icon: const Icon(Icons.navigate_next),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
                                         onPressed: () {
-                                          Navigator.of(context).pushNamed(
-                                              '/privacypolicy');
-                                        }
-                                      )),
-                                  ListTile(
-                                      leading: const Icon(Icons.rule),
-                                      title: const Text('Terms of Service'),
-                                      subtitle: const Text('Terms and conditions of use'),
-                                      trailing: IconButton(
-                                        icon: const Icon(Icons.navigate_next),
+                                          Navigator.of(context)
+                                              .pushNamed('/privacypolicy');
+                                        },
+                                        child: const Text('Privacy Policy'),
+                                      ),
+                                      ElevatedButton(
                                         onPressed: () {
-                                          Navigator.of(context).pushNamed(
-                                              '/termsofservice');
-                                        }
-                                      )),
-                                  const Text(
-                                      'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                                          Navigator.of(context)
+                                              .pushNamed('/termsofservice');
+                                        },
+                                        child: const Text('Terms of Service'),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                      'ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.grey, fontSize: 12)),
                                 ],
                               ),

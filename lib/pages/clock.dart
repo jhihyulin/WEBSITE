@@ -11,21 +11,29 @@ class ClockPage extends StatefulWidget {
 }
 
 class _ClockPageState extends State<ClockPage> {
-  int _hour = 0;
-  int _minute = 0;
-  int _second = 0;
-  bool _blink = false;
+  int _hour = DateTime.now().hour;
+  int _minute = DateTime.now().minute;
+  int _second = DateTime.now().second;
   bool _fullscreen = false;
   late Timer _timer;
+  bool _is12hr = false;
+
+  double _mathBox() {
+    return (_fullscreen
+            ? MediaQuery.of(context).size.width
+            : MediaQuery.of(context).size.width > 700
+                ? 700
+                : MediaQuery.of(context).size.width) *
+        .25;
+  }
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       DateTime now = DateTime.now();
       setState(() {
-        _blink = !_blink;
-        _hour = now.hour;
+        _hour = _is12hr ? now.hour % 12 : now.hour;
         _minute = now.minute;
         _second = now.second;
       });
@@ -39,6 +47,13 @@ class _ClockPageState extends State<ClockPage> {
     super.dispose();
   }
 
+  void changeHourMode() {
+    setState(() {
+      _is12hr = !_is12hr;
+      _hour = _is12hr ? _hour % 12 : _hour;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,39 +62,100 @@ class _ClockPageState extends State<ClockPage> {
           : AppBar(
               title: const Text('Clock'),
             ),
-      body: _fullscreen
-          ? Clock(
-              hour: _hour,
-              minute: _minute,
-              second: _second,
-              blink: _blink,
-              fullscreen: _fullscreen,
-            )
-          : SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Center(
-                child: Container(
-                    padding: const EdgeInsets.all(20),
-                    constraints: BoxConstraints(
-                      maxWidth:
-                          _fullscreen ? MediaQuery.of(context).size.width : 700,
-                      minHeight: MediaQuery.of(context).size.height -
-                          AppBar().preferredSize.height -
-                          MediaQuery.of(context).padding.top -
-                          MediaQuery.of(context).padding.bottom,
-                    ),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Clock(
-                            hour: _hour,
-                            minute: _minute,
-                            second: _second,
-                            blink: _blink,
-                            fullscreen: _fullscreen,
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(
+            maxWidth: _fullscreen
+                ? MediaQuery.of(context).size.width
+                : MediaQuery.of(context).size.width > 700
+                    ? 700
+                    : MediaQuery.of(context).size.width,
+          ),
+          child: Center(
+              child: Container(
+                  padding: const EdgeInsets.all(10),
+                  height: MediaQuery.of(context).size.height * .75,
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: _mathBox(),
+                        height: _mathBox(),
+                        child: Card(
+                            clipBehavior: Clip.antiAlias,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16.0))),
+                            child: InkWell(
+                              onTap: () => changeHourMode(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: FittedBox(
+                                  child: Text(
+                                    _hour.toString(),
+                                  ),
+                                ),
+                              ),
+                            )),
+                      ),
+                      SizedBox(
+                        width: _mathBox() * .25,
+                        height: _mathBox(),
+                        child: const FittedBox(
+                          alignment: Alignment.center,
+                          child: Text(':'),
+                        ),
+                      ),
+                      SizedBox(
+                        width: _mathBox(),
+                        height: _mathBox(),
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: FittedBox(
+                              child: Text(
+                                _minute.toString(),
+                              ),
+                            ),
                           ),
-                        ])),
-              )),
+                        ),
+                      ),
+                      SizedBox(
+                        width: _mathBox() * .25,
+                        height: _mathBox(),
+                        child: const FittedBox(
+                          alignment: Alignment.center,
+                          child: Text(':'),
+                        ),
+                      ),
+                      SizedBox(
+                        width: _mathBox(),
+                        height: _mathBox(),
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: FittedBox(
+                              child: Text(
+                                _second.toString(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ))),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           html.document.fullscreenElement == null
@@ -96,95 +172,5 @@ class _ClockPageState extends State<ClockPage> {
         child: Icon(_fullscreen ? Icons.fullscreen_exit : Icons.fullscreen),
       ),
     );
-  }
-}
-
-class Clock extends StatelessWidget {
-  final int hour;
-  final int minute;
-  final int second;
-  final bool blink;
-  final bool fullscreen;
-
-  const Clock({
-    Key? key,
-    required this.hour,
-    required this.minute,
-    required this.second,
-    required this.blink,
-    required this.fullscreen,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              constraints: BoxConstraints(
-                maxWidth: fullscreen ? 200 : 100,
-                maxHeight: fullscreen ? 200 : 100,
-              ),
-              child: Card(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(fullscreen ? 40 : 20),
-                  child: Text(
-                    hour.toString(),
-                    style: TextStyle(fontSize: fullscreen ? 60 : 30),
-                  ),
-                ),
-              ),
-            ),
-            Opacity(
-              opacity: blink ? 1 : 0,
-              child: Text(
-                ':',
-                style: TextStyle(fontSize: fullscreen ? 60 : 30),
-              ),
-            ),
-            Container(
-              constraints: BoxConstraints(
-                maxWidth: fullscreen ? 200 : 100,
-                maxHeight: fullscreen ? 200 : 100,
-              ),
-              child: Card(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(fullscreen ? 40 : 20),
-                  child: Text(
-                    minute.toString(),
-                    style: TextStyle(fontSize: fullscreen ? 60 : 30),
-                  ),
-                ),
-              ),
-            ),
-            Opacity(
-              opacity: blink ? 1 : 0,
-              child: Text(
-                ':',
-                style: TextStyle(fontSize: fullscreen ? 60 : 30),
-              ),
-            ),
-            Container(
-              constraints: BoxConstraints(
-                maxWidth: fullscreen ? 200 : 100,
-                maxHeight: fullscreen ? 200 : 100,
-              ),
-              child: Card(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(fullscreen ? 40 : 20),
-                  child: Text(
-                    second.toString(),
-                    style: TextStyle(fontSize: fullscreen ? 60 : 30),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ));
   }
 }

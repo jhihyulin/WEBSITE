@@ -18,6 +18,9 @@ class _TimerPageState extends State<TimerPage> {
   int _counterMinutes = 0;
   int _counterHours = 0;
 
+  int _targetTimeForMilliSeconds = 0;
+  int _lastTimeForMilliSeconds = 0;
+
   double _mathBox() {
     return MediaQuery.of(context).size.width > 700
         ? 700 * .3
@@ -29,62 +32,56 @@ class _TimerPageState extends State<TimerPage> {
       _isRunning = true;
     });
     if (mode == 'countdown') {
-      _timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
-        setState(() {
-          if (_counterSeconds > 0) {
-            _counterSeconds -= 0.01;
-          } else if (_counterMinutes > 0) {
-            _counterMinutes -= 1;
-            _counterSeconds = 59.99;
-          } else if (_counterHours > 0) {
-            _counterHours -= 1;
-            _counterMinutes = 59;
-            _counterSeconds = 59.99;
-          } else {
-            _isRunning = false;
-            _timer.cancel();
-          }
-          if (_counterSeconds <= 0 &&
-              _counterMinutes <= 0 &&
-              _counterHours <= 0) {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Stopwatch'),
-                    content: const Text('Stopwatch has reached its limit.'),
-                    actions: [
-                      TextButton(
-                        child: const Text('OK'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                });
-            _isRunning = false;
-            _timer.cancel();
-          }
-          _counterSeconds < 0 ? _counterSeconds = 0.00 : _counterSeconds;
-        });
+      setState(() {
+        _targetTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch +
+            _counterHours * 3600000 +
+            _counterMinutes * 60000 +
+            (_counterSeconds * 1000).floor();
+        _lastTimeForMilliSeconds =
+            _targetTimeForMilliSeconds - DateTime.now().millisecondsSinceEpoch;
       });
-    } else if (mode == 'stopwatch') {
-      _timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
-        setState(() {
-          if (_counterSeconds < 59.99) {
-            _counterSeconds += 0.01;
-          } else if (_counterMinutes < 59) {
-            _counterMinutes += 1;
-            _counterSeconds = 0.00;
-          } else if (_counterHours < 99) {
-            _counterHours += 1;
+      _timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
+        if (_lastTimeForMilliSeconds > 0) {
+          setState(() {
+            _lastTimeForMilliSeconds = _targetTimeForMilliSeconds -
+                DateTime.now().millisecondsSinceEpoch;
+            _counterHours = (_lastTimeForMilliSeconds / 3600000).floor();
+            _counterMinutes =
+                ((_lastTimeForMilliSeconds % 3600000) / 60000).floor();
+            _counterSeconds =
+                (((_lastTimeForMilliSeconds % 3600000) % 60000) / 1000);
+          });
+        } else {
+          setState(() {
+            _counterHours = 0;
             _counterMinutes = 0;
             _counterSeconds = 0.00;
-          } else {
+            _lastTimeForMilliSeconds = 0;
+            _targetTimeForMilliSeconds = 0;
             _isRunning = false;
-            _timer.cancel();
-          }
+          });
+          _timer.cancel();
+          alert();
+        }
+      });
+    } else if (mode == 'stopwatch') {
+      setState(() {
+        _targetTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch -
+            _counterHours * 3600000 -
+            _counterMinutes * 60000 -
+            (_counterSeconds * 1000).floor();
+        _lastTimeForMilliSeconds =
+            DateTime.now().millisecondsSinceEpoch - _targetTimeForMilliSeconds;
+      });
+      _timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
+        setState(() {
+          _lastTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch -
+              _targetTimeForMilliSeconds;
+          _counterHours = (_lastTimeForMilliSeconds / 3600000).floor();
+          _counterMinutes =
+              ((_lastTimeForMilliSeconds % 3600000) / 60000).floor();
+          _counterSeconds =
+              (((_lastTimeForMilliSeconds % 3600000) % 60000) / 1000);
         });
       });
     }
@@ -93,6 +90,8 @@ class _TimerPageState extends State<TimerPage> {
   void _pauseTimer() {
     setState(() {
       _isRunning = false;
+      _targetTimeForMilliSeconds = 0;
+      _lastTimeForMilliSeconds = 0;
     });
     _timer.cancel();
   }
@@ -103,8 +102,28 @@ class _TimerPageState extends State<TimerPage> {
       _counterSeconds = 0.00;
       _counterMinutes = 0;
       _counterHours = 0;
+      _targetTimeForMilliSeconds = 0;
+      _lastTimeForMilliSeconds = 0;
     });
     _timer.cancel();
+  }
+
+  void alert() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Time UP!'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        });
   }
 
   @override

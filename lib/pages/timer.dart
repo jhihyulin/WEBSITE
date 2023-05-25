@@ -18,6 +18,12 @@ class _TimerPageState extends State<TimerPage> {
   int _counterMinutes = 0;
   int _counterHours = 0;
 
+  double _mathBox() {
+    return MediaQuery.of(context).size.width > 700
+        ? 700 * .3
+        : MediaQuery.of(context).size.width * .3;
+  }
+
   void _startTimer(String mode) {
     setState(() {
       _isRunning = true;
@@ -111,7 +117,6 @@ class _TimerPageState extends State<TimerPage> {
             physics: const BouncingScrollPhysics(),
             child: Center(
                 child: Container(
-              padding: const EdgeInsets.all(20),
               constraints: BoxConstraints(
                 maxWidth: 700,
                 minHeight: MediaQuery.of(context).size.height -
@@ -122,164 +127,314 @@ class _TimerPageState extends State<TimerPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 10,
-                    runSpacing: 10,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: _isRunning || _mode != 'countdown'
-                                ? null
-                                : () {
-                                    setState(() {
-                                      _counterHours += 1;
-                                    });
-                                  },
-                            child: const Icon(Icons.arrow_drop_up),
+                      SizedBox(
+                        width: _mathBox(),
+                        height: _mathBox() * 1.5,
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                flex: 0,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: _mathBox() * 0.25,
+                                  child: TextButton(
+                                    onPressed:
+                                        _isRunning || _mode != 'countdown'
+                                            ? null
+                                            : () {
+                                                setState(() {
+                                                  _counterHours += 1;
+                                                });
+                                              },
+                                    child: const Icon(Icons.arrow_drop_up),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: FittedBox(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: _counterHours
+                                            .toString()
+                                            .toString()
+                                            .padLeft(2, '0'),
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground),
+                                        children: const <TextSpan>[
+                                          TextSpan(
+                                              text: 'h',
+                                              style: TextStyle(fontSize: 10)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 0,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: _mathBox() * 0.25,
+                                  child: TextButton(
+                                    onPressed: _isRunning ||
+                                            _mode != 'countdown' ||
+                                            _counterHours == 0
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              if (_counterHours > 0) {
+                                                _counterHours =
+                                                    _counterHours < 1
+                                                        ? 0
+                                                        : _counterHours - 1;
+                                              }
+                                            });
+                                          },
+                                    child: const Icon(Icons.arrow_drop_down),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Chip(
-                            label: Text('$_counterHours H'),
-                          ),
-                          TextButton(
-                            onPressed: _isRunning ||
-                                    _mode != 'countdown' ||
-                                    _counterHours == 0
-                                ? null
-                                : () {
-                                    setState(() {
-                                      if (_counterHours > 0) {
-                                        _counterHours = _counterHours < 1
-                                            ? 0
-                                            : _counterHours - 1;
-                                      }
-                                    });
-                                  },
-                            child: const Icon(Icons.arrow_drop_down),
-                          ),
-                        ],
+                        ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: _isRunning || _mode != 'countdown'
-                                ? null
-                                : () {
-                                    setState(() {
-                                      _counterMinutes += 1;
-                                    });
-                                  },
-                            child: const Icon(Icons.arrow_drop_up),
+                      SizedBox(
+                        width: _mathBox(),
+                        height: _mathBox() * 1.5,
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                flex: 0,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: _mathBox() * 0.25,
+                                  child: TextButton(
+                                    onPressed:
+                                        _isRunning || _mode != 'countdown'
+                                            ? null
+                                            : () {
+                                                setState(() {
+                                                  _counterMinutes += 1;
+                                                });
+                                              },
+                                    child: const Icon(Icons.arrow_drop_up),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: FittedBox(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: _counterMinutes
+                                            .toString()
+                                            .padLeft(2, '0'),
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground),
+                                        children: const <TextSpan>[
+                                          TextSpan(
+                                              text: 'm',
+                                              style: TextStyle(fontSize: 10)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 0,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: _mathBox() * 0.25,
+                                  child: TextButton(
+                                    onPressed: _isRunning ||
+                                            _mode != 'countdown' ||
+                                            _counterMinutes == 0
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              if (_counterMinutes > 0) {
+                                                _counterMinutes =
+                                                    _counterMinutes < 1
+                                                        ? 0
+                                                        : _counterMinutes - 1;
+                                              }
+                                            });
+                                          },
+                                    child: const Icon(Icons.arrow_drop_down),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Chip(
-                            label: Text('$_counterMinutes M'),
-                          ),
-                          TextButton(
-                            onPressed: _isRunning ||
-                                    _mode != 'countdown' ||
-                                    _counterMinutes == 0
-                                ? null
-                                : () {
-                                    setState(() {
-                                      if (_counterMinutes > 0) {
-                                        _counterMinutes = _counterMinutes < 1
-                                            ? 0
-                                            : _counterMinutes - 1;
-                                      }
-                                    });
-                                  },
-                            child: const Icon(Icons.arrow_drop_down),
-                          ),
-                        ],
+                        ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: _isRunning || _mode != 'countdown'
-                                ? null
-                                : () {
-                                    setState(() {
-                                      _counterSeconds += 1;
-                                    });
-                                  },
-                            child: const Icon(Icons.arrow_drop_up),
+                      SizedBox(
+                        width: _mathBox(),
+                        height: _mathBox() * 1.5,
+                        child: Card(
+                          clipBehavior: Clip.antiAlias,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                flex: 0,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: _mathBox() * 0.25,
+                                  child: TextButton(
+                                    onPressed:
+                                        _isRunning || _mode != 'countdown'
+                                            ? null
+                                            : () {
+                                                setState(() {
+                                                  _counterSeconds += 1;
+                                                });
+                                              },
+                                    child: const Icon(Icons.arrow_drop_up),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: FittedBox(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: _counterSeconds
+                                            .toStringAsFixed(2)
+                                            .padLeft(5, '0'),
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground),
+                                        children: const <TextSpan>[
+                                          TextSpan(
+                                              text: 's',
+                                              style: TextStyle(fontSize: 10)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 0,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  height: _mathBox() * 0.25,
+                                  child: TextButton(
+                                    onPressed: _isRunning ||
+                                            _mode != 'countdown' ||
+                                            _counterSeconds == 0
+                                        ? null
+                                        : () {
+                                            setState(() {
+                                              if (_counterSeconds > 0) {
+                                                _counterSeconds =
+                                                    _counterSeconds < 1
+                                                        ? 0
+                                                        : _counterSeconds - 1;
+                                              }
+                                            });
+                                          },
+                                    child: const Icon(Icons.arrow_drop_down),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Chip(
-                            label:
-                                Text('${_counterSeconds.toStringAsFixed(2)} S'),
-                          ),
-                          TextButton(
-                            onPressed: _isRunning ||
-                                    _mode != 'countdown' ||
-                                    _counterSeconds == 0
-                                ? null
-                                : () {
-                                    setState(() {
-                                      if (_counterSeconds > 0) {
-                                        _counterSeconds = _counterSeconds < 1
-                                            ? 0.00
-                                            : _counterSeconds - 1;
-                                      }
-                                    });
-                                  },
-                            child: const Icon(Icons.arrow_drop_down),
-                          ),
-                        ],
-                      ),
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(height: 20),
-                  InputDecorator(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    ToggleButtons(
+                      borderRadius: BorderRadius.circular(16),
+                      isSelected: [
+                        _mode == 'countdown',
+                        _mode == 'stopwatch',
+                      ],
+                      onPressed: _isRunning
+                          ? null
+                          : (index) {
+                              setState(() {
+                                if (index == 0) {
+                                  _mode = 'countdown';
+                                } else if (index == 1) {
+                                  _mode = 'stopwatch';
+                                }
+                              });
+                            },
+                      children: const <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Countdown'),
                         ),
-                        labelText: 'Mode',
-                      ),
-                      child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                        value: _mode,
-                        isExpanded: true,
-                        items: const [
-                          DropdownMenuItem(
-                            value: 'countdown',
-                            child: Text('Countdown'),
-                          ),
-                          DropdownMenuItem(
-                            value: 'stopwatch',
-                            child: Text('Stopwatch'),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          setState(() {
-                            _mode = value!;
-                          });
-                        },
-                      ))),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Stopwatch'),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(width: 20),
+                    IconButton(
+                      icon: const Icon(Icons.replay),
+                      tooltip: 'Reset',
+                      onPressed: _counterSeconds != 0 ||
+                              _counterMinutes != 0 ||
+                              _counterHours != 0
+                          ? _resetTimer
+                          : null,
+                    ),
+                  ]),
                   const SizedBox(height: 20),
                   Wrap(
                     alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     spacing: 10,
                     runSpacing: 10,
                     children: <Widget>[
                       ElevatedButton.icon(
                         icon: Icon(_isRunning ? Icons.pause : Icons.play_arrow),
                         label: Text(_isRunning ? 'Pause' : 'Start'),
-                        onPressed:
-                            _isRunning ? _pauseTimer : () => _startTimer(_mode),
-                      ),
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.stop),
-                        label: const Text('Reset'),
-                        onPressed: _counterSeconds != 0 ||
-                                _counterMinutes != 0 ||
-                                _counterHours != 0
-                            ? _resetTimer
-                            : null,
+                        onPressed: _counterHours == 0 &&
+                                _counterMinutes == 0 &&
+                                _counterSeconds == 0 &&
+                                _mode == 'countdown'
+                            ? null
+                            : _isRunning
+                                ? _pauseTimer
+                                : () => _startTimer(_mode),
                       ),
                     ],
                   ),

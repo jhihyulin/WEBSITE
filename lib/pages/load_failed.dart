@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:universal_html/html.dart' as html;
 
 class LoadFailedPage extends StatefulWidget {
   const LoadFailedPage({Key? key, required this.errorMessage})
@@ -60,7 +61,8 @@ class _LoadFailedPageState extends State<LoadFailedPage> {
                     ),
                     const SizedBox(height: 20),
                     Wrap(
-                      spacing: 20,
+                      spacing: 10,
+                      runSpacing: 10,
                       alignment: WrapAlignment.center,
                       children: [
                         ElevatedButton(
@@ -85,6 +87,13 @@ class _LoadFailedPageState extends State<LoadFailedPage> {
                               ),
                             );
                           },
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            html.window.location.reload();
+                          },
+                          icon: const Icon(Icons.refresh),
+                          label: const Text('Try To Reload'),
                         )
                       ],
                     )

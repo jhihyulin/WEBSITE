@@ -94,6 +94,8 @@ class ToolPage extends StatelessWidget {
                   children: [
                     Wrap(
                       alignment: WrapAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       spacing: 10,
                       runSpacing: 10,
                       children: <Widget>[

@@ -90,14 +90,40 @@ class _ClockPageState extends State<ClockPage> {
                                     BorderRadius.all(Radius.circular(16.0))),
                             child: InkWell(
                               onTap: () => changeHourMode(),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: FittedBox(
-                                  child: Text(
-                                    _hour.toString(),
+                              child: Stack(children: [
+                                Container(
+                                  width: _mathBox(),
+                                  height: _mathBox(),
+                                  padding: const EdgeInsets.all(10),
+                                  child: FittedBox(
+                                    child: Text(
+                                      _hour.toString().padLeft(2, '0'),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Container(
+                                    width: _mathBox() * .25,
+                                    height: _mathBox() * .25,
+                                    padding: EdgeInsets.all(_mathBox() * .05),
+                                    child: FittedBox(
+                                      child: Text(
+                                        _is12hr
+                                            ? DateTime.now().hour < 12
+                                                ? 'AM'
+                                                : 'PM'
+                                            : '',
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ]),
                             )),
                       ),
                       SizedBox(
@@ -120,7 +146,7 @@ class _ClockPageState extends State<ClockPage> {
                             padding: const EdgeInsets.all(10),
                             child: FittedBox(
                               child: Text(
-                                _minute.toString(),
+                                _minute.toString().padLeft(2, '0'),
                               ),
                             ),
                           ),
@@ -146,7 +172,7 @@ class _ClockPageState extends State<ClockPage> {
                             padding: const EdgeInsets.all(10),
                             child: FittedBox(
                               child: Text(
-                                _second.toString(),
+                                _second.toString().padLeft(2, '0'),
                               ),
                             ),
                           ),

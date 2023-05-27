@@ -41,19 +41,32 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
   <style>
-    .container {
+    .loading {
       width: 100vw;
       height: 100vh;
       display: flex;
-      /* Default Axis is X*/
       justify-content: center;
-      /* Main Axis */
       align-items: center;
-      /* Cross Axis */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
     }
 
-    .indicator {
+    .loader {
       width: 50vw;
+      border: 6px solid;
+      border-radius: 50%;
+      border-left: 12px solid;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
     }
 
     .flutter-loader {
@@ -65,24 +78,54 @@
       margin: 0;
       overflow: hidden;
     }
-  
+
     @media (prefers-color-scheme: light) {
       body {
-        background: #FCFCFC;
+        background: #DEE1E6;
+      }
+
+      .loader {
+        border-color: #DEE1E6;
+        border-left-color: #202124;
       }
     }
 
     @media (prefers-color-scheme: dark) {
       body {
-        background: #272727;
+        background: #202124;
+      }
+
+      .loader {
+        border-color: #202124;
+        border-left-color: #DEE1E6;
+      }
+    }
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
       }
     }
   </style>
 </head>
 
 <body>
-  <div id="loading_indicator" class="container">
-    <embed class="indicator" src="loading.svg" />
+  <div class="loading">
+    <div class="loader"></div>
   </div>
   <script>
     window.addEventListener('load', function (ev) {
@@ -94,10 +137,42 @@
       }).then(function (engineInitializer) {
         return engineInitializer.initializeEngine();
       }).then(function (appRunner) {
-        // remove loading indicator
-        var loadingIndicator = document.getElementById("loading_indicator");
+        var loadingIndicator = document.getElementsByClassName('loading')[0];
         if (loadingIndicator) {
-          loadingIndicator.remove();
+          // hide loading indicator with Fade out effect
+          setTimeout(function () {
+            loadingIndicator.style.opacity = 0.9;
+            setTimeout(function () {
+              loadingIndicator.style.opacity = 0.8;
+              setTimeout(function () {
+                loadingIndicator.style.opacity = 0.7;
+                setTimeout(function () {
+                  loadingIndicator.style.opacity = 0.6;
+                  setTimeout(function () {
+                    loadingIndicator.style.opacity = 0.5;
+                    setTimeout(function () {
+                      loadingIndicator.style.opacity = 0.4;
+                      setTimeout(function () {
+                        loadingIndicator.style.opacity = 0.3;
+                        setTimeout(function () {
+                          loadingIndicator.style.opacity = 0.2;
+                          setTimeout(function () {
+                            loadingIndicator.style.opacity = 0.1;
+                            setTimeout(function () {
+                              loadingIndicator.style.opacity = 0;
+                              setTimeout(function () {
+                                loadingIndicator.style.display = 'none';
+                              }, 5);
+                            }, 10);
+                          }, 15);
+                        }, 20);
+                      }, 25);
+                    }, 30);
+                  }, 35);
+                }, 40);
+              }, 45);
+            }, 50);
+          }, 55);
         }
         return appRunner.runApp();
       });

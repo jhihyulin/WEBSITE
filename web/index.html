@@ -83,6 +83,7 @@
       body {
         background: #DEE1E6;
       }
+
       .loader {
         border-color: #DEE1E6;
         border-left-color: #202124;
@@ -93,6 +94,7 @@
       body {
         background: #202124;
       }
+
       .loader {
         border-color: #202124;
         border-left-color: #DEE1E6;
@@ -103,6 +105,7 @@
       0% {
         -webkit-transform: rotate(0deg);
       }
+
       100% {
         -webkit-transform: rotate(360deg);
       }
@@ -112,6 +115,7 @@
       0% {
         transform: rotate(0deg);
       }
+
       100% {
         transform: rotate(360deg);
       }
@@ -133,12 +137,42 @@
       }).then(function (engineInitializer) {
         return engineInitializer.initializeEngine();
       }).then(function (appRunner) {
-        // hide loading indicator
         var loadingIndicator = document.getElementsByClassName('loading')[0];
         if (loadingIndicator) {
+          // hide loading indicator with Fade out effect
           setTimeout(function () {
-            loadingIndicator.style.display = 'none';
-          }, 1000);
+            loadingIndicator.style.opacity = 0.9;
+            setTimeout(function () {
+              loadingIndicator.style.opacity = 0.8;
+              setTimeout(function () {
+                loadingIndicator.style.opacity = 0.7;
+                setTimeout(function () {
+                  loadingIndicator.style.opacity = 0.6;
+                  setTimeout(function () {
+                    loadingIndicator.style.opacity = 0.5;
+                    setTimeout(function () {
+                      loadingIndicator.style.opacity = 0.4;
+                      setTimeout(function () {
+                        loadingIndicator.style.opacity = 0.3;
+                        setTimeout(function () {
+                          loadingIndicator.style.opacity = 0.2;
+                          setTimeout(function () {
+                            loadingIndicator.style.opacity = 0.1;
+                            setTimeout(function () {
+                              loadingIndicator.style.opacity = 0;
+                              setTimeout(function () {
+                                loadingIndicator.style.display = 'none';
+                              }, 5);
+                            }, 10);
+                          }, 15);
+                        }, 20);
+                      }, 25);
+                    }, 30);
+                  }, 35);
+                }, 40);
+              }, 45);
+            }, 50);
+          }, 55);
         }
         return appRunner.runApp();
       });

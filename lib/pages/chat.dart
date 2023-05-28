@@ -63,27 +63,6 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void initChat() {
-    /// listen with onChildAdded, don't need to get all data
-    // _fireBaseDB.child('chat').once().then((event) {
-    //   if (event.snapshot.value != null) {
-    //     var chat = event.snapshot.value as Map<String, dynamic>;
-    //     debugPrint('get chat $chat');
-    //     for (var i in chat.values) {
-    //       debugPrint(
-    //           'get chat ${i['uid']} ${i['name']} ${i['message']} ${i['timestamp']}');
-    //       addChat(
-    //           i['uid'] as String,
-    //           i['name'] as String,
-    //           i['message'] as String,
-    //           i['timestamp'] as int,
-    //           i['photoUrl'] as String);
-    //     }
-    //   }
-    // }, onError: (Object o) {
-    //   final error = o as FirebaseException;
-    //   debugPrint('Error: ${error.code} ${error.message}');
-    // });
-
     _onChatAddedSubscription =
         _fireBaseDB.child('chat').onChildAdded.listen((event) {
       if (event.snapshot.value != null) {

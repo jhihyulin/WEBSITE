@@ -400,18 +400,6 @@ class _NavigationControllerState extends State<NavigationController> {
               },
             ),
           ),
-          Offstage(
-            offstage: MediaQuery.of(context).size.width >= desktopModeWidth,
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              child: IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/setting');
-                },
-              ),
-            ),
-          )
         ],
       ),
       body: MediaQuery.of(context).size.width < desktopModeWidth

@@ -11,7 +11,7 @@ import 'home.dart';
 import 'provider/theme.dart';
 import 'tool.dart';
 import 'firebase_options.dart';
-import 'pages/setting.dart';
+import 'setting.dart';
 import 'pages/load_failed.dart';
 import 'pages/profile.dart' deferred as profile;
 import 'pages/sign_in.dart' deferred as sign_in;
@@ -280,7 +280,8 @@ class _MyAppState extends State<MyApp> {
                     });
                     break;
                   case '/setting':
-                    builder = (BuildContext context) => const SettingPage();
+                    builder = (BuildContext context) =>
+                        NavigationController(inputIndex: 2);
                     break;
                   case '/tool':
                     builder = (BuildContext context) =>
@@ -359,9 +360,11 @@ class _NavigationControllerState extends State<NavigationController> {
     });
   }
 
-  final List<Widget> pages = [const HomePage(), ToolPage()];
-
-  bool _extended = false;
+  final List<Widget> pages = [
+    const HomePage(),
+    ToolPage(),
+    const SettingPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -401,18 +404,6 @@ class _NavigationControllerState extends State<NavigationController> {
               },
             ),
           ),
-          Offstage(
-            offstage: MediaQuery.of(context).size.width >= desktopModeWidth,
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              child: IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/setting');
-                },
-              ),
-            ),
-          )
         ],
       ),
       body: MediaQuery.of(context).size.width < desktopModeWidth
@@ -422,56 +413,31 @@ class _NavigationControllerState extends State<NavigationController> {
                 SafeArea(
                   child: IntrinsicWidth(
                     child: NavigationRail(
-                        labelType: NavigationRailLabelType.none,
-                        selectedIndex: _currentIndex,
-                        destinations: [
-                          const NavigationRailDestination(
-                            icon: Icon(Icons.home_outlined),
-                            selectedIcon: Icon(Icons.home),
-                            label: Text('Home'),
-                          ),
-                          const NavigationRailDestination(
-                            icon: Icon(Icons.build_outlined),
-                            selectedIcon: Icon(Icons.build),
-                            label: Text('Tool'),
-                          ),
-                          NavigationRailDestination(
-                            icon: TextButton(
-                                onPressed: () {
-                                  setState(() => _extended = !_extended);
-                                },
-                                child: Icon(_extended
-                                    ? Icons.arrow_left
-                                    : Icons.arrow_right)),
-                            label: _extended
-                                ? const Text('Close')
-                                : const Text(''),
-                          ),
-                        ],
-                        extended: _extended,
-                        onDestinationSelected: (int index) {
-                          setState(() {
-                            if (index == 2) {
-                              setState(() => _extended = !_extended);
-                            } else {
-                              _onItemClick(index);
-                            }
-                          });
-                        },
-                        trailing: _extended
-                            ? ElevatedButton.icon(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/setting');
-                                },
-                                icon: const Icon(Icons.settings),
-                                label: const Text('Setting'),
-                              )
-                            : TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/setting');
-                                },
-                                child: const Icon(Icons.settings),
-                              )),
+                      labelType: NavigationRailLabelType.selected,
+                      selectedIndex: _currentIndex,
+                      destinations: const [
+                        NavigationRailDestination(
+                          icon: Icon(Icons.home_outlined),
+                          selectedIcon: Icon(Icons.home),
+                          label: Text('Home'),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(Icons.build_outlined),
+                          selectedIcon: Icon(Icons.build),
+                          label: Text('Tool'),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(Icons.settings_outlined),
+                          selectedIcon: Icon(Icons.settings),
+                          label: Text('Setting'),
+                        ),
+                      ],
+                      onDestinationSelected: (int index) {
+                        setState(() {
+                          _onItemClick(index);
+                        });
+                      },
+                    ),
                   ),
                 ),
                 Expanded(
@@ -480,23 +446,31 @@ class _NavigationControllerState extends State<NavigationController> {
               ],
             ),
       bottomNavigationBar: MediaQuery.of(context).size.width < desktopModeWidth
-          ? BottomNavigationBar(
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
+          ? NavigationBar(
+              labelBehavior:
+                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              selectedIndex: _currentIndex,
+              onDestinationSelected: _onItemClick,
+              destinations: <Widget>[
+                NavigationDestination(
                   icon: _currentIndex == 0
                       ? const Icon(Icons.home)
                       : const Icon(Icons.home_outlined),
                   label: 'Home',
                 ),
-                BottomNavigationBarItem(
+                NavigationDestination(
                   icon: _currentIndex == 1
                       ? const Icon(Icons.build)
                       : const Icon(Icons.build_outlined),
                   label: 'Tool',
                 ),
+                NavigationDestination(
+                  icon: _currentIndex == 2
+                      ? const Icon(Icons.settings)
+                      : const Icon(Icons.settings_outlined),
+                  label: 'Setting',
+                ),
               ],
-              currentIndex: _currentIndex,
-              onTap: _onItemClick,
             )
           : null,
     );

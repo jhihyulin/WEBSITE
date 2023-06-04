@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
                   //maxWidth: 700,
                   minHeight: MediaQuery.of(context).size.height -
                       AppBar().preferredSize.height -
-                      58, //BottomNavigationBar Height
+                      80, //NavigationBar Height
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

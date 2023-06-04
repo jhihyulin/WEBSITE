@@ -279,6 +279,10 @@ class _MyAppState extends State<MyApp> {
                       return chat.ChatPage();
                     });
                     break;
+                  case '/setting':
+                    builder = (BuildContext context) =>
+                        NavigationController(inputIndex: 2);
+                    break;
                   case '/tool':
                     builder = (BuildContext context) =>
                         NavigationController(inputIndex: 1);

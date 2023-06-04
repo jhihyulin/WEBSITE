@@ -35,11 +35,11 @@ class _SettingPageState extends State<SettingPage> {
         child: Center(
             child: Container(
                 constraints: BoxConstraints(
-                    maxWidth: 700,
-                    minHeight: MediaQuery.of(context).size.height -
+                  maxWidth: 700,
+                  minHeight: MediaQuery.of(context).size.height -
                       AppBar().preferredSize.height -
                       80, //NavigationBar Height
-                      ),
+                ),
                 padding: const EdgeInsets.all(10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -111,14 +111,8 @@ class _SettingPageState extends State<SettingPage> {
                               ListTile(
                                 leading: const Icon(Icons.color_lens),
                                 title: const Text('Theme Color'),
-                                subtitle: Text(themeColor
-                                    .toString()
-                                    .replaceAll('Color(0xff', '')
-                                    .replaceAll(
-                                        'MaterialColor(primary value: ', '')
-                                    .replaceAll(
-                                        'ColorSwatch(primary value: ', '')
-                                    .replaceAll(')', '')),
+                                subtitle: Text(
+                                    '#${themeColor.toString().replaceAll('Color(0xff', '').replaceAll('MaterialColor(primary value: ', '').replaceAll('ColorSwatch(primary value: ', '').replaceAll(')', '')}'),
                                 trailing: InkWell(
                                     borderRadius: BorderRadius.circular(16),
                                     child: Container(

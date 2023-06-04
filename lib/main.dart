@@ -480,23 +480,25 @@ class _NavigationControllerState extends State<NavigationController> {
               ],
             ),
       bottomNavigationBar: MediaQuery.of(context).size.width < desktopModeWidth
-          ? BottomNavigationBar(
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
+          ? NavigationBar(
+              labelBehavior:
+                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              selectedIndex: _currentIndex,
+              onDestinationSelected: _onItemClick,
+              destinations: <Widget>[
+                NavigationDestination(
                   icon: _currentIndex == 0
                       ? const Icon(Icons.home)
                       : const Icon(Icons.home_outlined),
                   label: 'Home',
                 ),
-                BottomNavigationBarItem(
+                NavigationDestination(
                   icon: _currentIndex == 1
                       ? const Icon(Icons.build)
                       : const Icon(Icons.build_outlined),
                   label: 'Tool',
                 ),
               ],
-              currentIndex: _currentIndex,
-              onTap: _onItemClick,
             )
           : null,
     );

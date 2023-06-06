@@ -84,7 +84,7 @@ class ToolPage extends StatelessWidget {
             child: Container(
                 constraints: BoxConstraints(
                   maxWidth: 700,
-                  minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - 80, //NavigationBar Height
+                  minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - (MediaQuery.of(context).size.width > 700 ? 0 : 80), //NavigationBar Height
                 ),
                 padding: const EdgeInsets.all(10),
                 child: Column(

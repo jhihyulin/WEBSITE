@@ -36,7 +36,7 @@ import 'pages/chat.dart' deferred as chat;
 import 'pages/chat_ai.dart' deferred as chatai;
 
 const websiteName = 'JHIHYU\'S WEBSITE';
-const desktopModeWidth = 640;
+const desktopModeWidth = 700;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

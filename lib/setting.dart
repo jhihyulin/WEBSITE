@@ -233,8 +233,7 @@ class _SettingPageState extends State<SettingPage> {
                                   ),
                                 ],
                               ),
-                              Text('ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE',
-                                  textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                              Text('ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE', textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey, fontSize: 12)),
                             ],
                           ),
                         ))

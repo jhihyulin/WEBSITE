@@ -51,7 +51,9 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
     var renderKey = globalKey;
     final RenderRepaintBoundary boundary = renderKey.currentContext?.findRenderObject()! as RenderRepaintBoundary;
     final ui.Image image = await boundary.toImage(pixelRatio: 3);
-    final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    final ByteData? byteData = await image.toByteData(
+      format: ui.ImageByteFormat.png,
+    );
     final anchor = html.AnchorElement(href: 'data:image/png;base64,${base64Encode(byteData!.buffer.asUint8List())}');
     anchor.download = 'QRCode.png';
     anchor.click();

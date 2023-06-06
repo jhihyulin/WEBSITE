@@ -75,8 +75,14 @@ class _LongURLPageState extends State<LongURLPage> {
                   showCloseIcon: true,
                   closeIconColor: Theme.of(context).colorScheme.error,
                   behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 10),
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  duration: const Duration(
+                    seconds: 10,
+                  ),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16.0),
+                    ),
+                  ),
                 )),
               });
     } else {
@@ -211,18 +217,31 @@ class _LongURLPageState extends State<LongURLPage> {
                                           content: Text('Copied to clipboard'),
                                           showCloseIcon: true,
                                           behavior: SnackBarBehavior.floating,
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(16.0),
+                                            ),
+                                          ),
                                         ))
                                       })
                                   .catchError((error) => {
                                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                           backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                                          content: Text('Error: $error', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+                                          content: Text(
+                                            'Error: $error',
+                                            style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+                                          ),
                                           showCloseIcon: true,
                                           closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
                                           behavior: SnackBarBehavior.floating,
-                                          duration: const Duration(seconds: 10),
-                                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                                          duration: const Duration(
+                                            seconds: 10,
+                                          ),
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(16.0),
+                                            ),
+                                          ),
                                         ))
                                       });
                             },

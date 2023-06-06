@@ -266,14 +266,20 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                 child: SelectionArea(
                                   child: Text(
                                     i['content']!,
-                                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                                    style: TextStyle(
+                                      color: Theme.of(context).colorScheme.onPrimary,
+                                    ),
                                   ),
                                 ),
                               ),
                               IconButton(
                                 icon: const Icon(Icons.copy),
                                 onPressed: () {
-                                  Clipboard.setData(ClipboardData(text: i['content']!));
+                                  Clipboard.setData(
+                                    ClipboardData(
+                                      text: i['content']!,
+                                    ),
+                                  );
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text('已複製到剪貼簿'),
@@ -325,7 +331,11 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                     maxWidth: _messageWidth().toDouble(),
                                   ),
                                   padding: const EdgeInsets.all(10),
-                                  margin: const EdgeInsets.only(bottom: 5, top: 5, right: 50),
+                                  margin: const EdgeInsets.only(
+                                    bottom: 5,
+                                    top: 5,
+                                    right: 50,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).colorScheme.primary,
                                     borderRadius: BorderRadius.circular(10),

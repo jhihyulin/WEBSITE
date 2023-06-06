@@ -32,13 +32,24 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
             content: SelectionArea(
-              child: Text('Error: Failed to open in new tab, the URL is: $url', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+              child: Text(
+                'Error: Failed to open in new tab, the URL is: $url',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer,
+                ),
+              ),
             ),
             showCloseIcon: true,
             closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
             behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 10),
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            duration: const Duration(
+              seconds: 10,
+            ),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16.0),
+              ),
+            ),
           ),
         );
       }

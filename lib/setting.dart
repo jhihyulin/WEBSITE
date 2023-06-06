@@ -28,7 +28,9 @@ class _SettingPageState extends State<SettingPage> {
     Color themeColor = Provider.of<ThemeProvider>(context, listen: true).themeColor;
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
-    final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
+    final theme = Theme.of(context).copyWith(
+      dividerColor: Colors.transparent,
+    );
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Center(
@@ -178,7 +180,10 @@ class _SettingPageState extends State<SettingPage> {
                               borderRadius: BorderRadius.circular(16),
                               child: Container(
                                 padding: const EdgeInsets.all(15),
-                                child: const Image(image: AssetImage('assets/images/BuiltWithFlutter.png'), height: 30),
+                                child: const Image(
+                                  image: AssetImage('assets/images/BuiltWithFlutter.png'),
+                                  height: 30,
+                                ),
                               ),
                               onTap: () {
                                 launchUrl(Uri.parse('https://flutter.dev'));
@@ -186,7 +191,10 @@ class _SettingPageState extends State<SettingPage> {
                             ),
                             InkWell(
                               borderRadius: BorderRadius.circular(16),
-                              child: const Image(image: AssetImage('assets/images/BuiltWithFirebaseLightRemoveBackground.png'), height: 60),
+                              child: const Image(
+                                image: AssetImage('assets/images/BuiltWithFirebaseLightRemoveBackground.png'),
+                                height: 60,
+                              ),
                               onTap: () {
                                 launchUrl(Uri.parse('https://firebase.google.com'));
                               },
@@ -249,7 +257,14 @@ class _SettingPageState extends State<SettingPage> {
                           ),
                         ],
                       ),
-                      Text('ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE', textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                      Text(
+                        'ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
                     ],
                   ),
                 ),

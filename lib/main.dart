@@ -292,7 +292,10 @@ class _MyAppState extends State<MyApp> {
                     return not_found.NotFoundPage();
                   });
               }
-              return MaterialPageRoute(builder: builder, settings: settings);
+              return MaterialPageRoute(
+                builder: builder,
+                settings: settings,
+              );
             },
             debugShowCheckedModeBanner: false,
           );
@@ -339,7 +342,14 @@ class _NavigationControllerState extends State<NavigationController> {
           print('User is signed in!');
         }
         setState(() {
-          _displayPhoto = user.photoURL == null ? const Icon(Icons.person) : Container(padding: const EdgeInsets.all(5), child: CircleAvatar(backgroundImage: NetworkImage(user.photoURL!)));
+          _displayPhoto = user.photoURL == null
+              ? const Icon(Icons.person)
+              : Container(
+                  padding: const EdgeInsets.all(5),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(user.photoURL!),
+                  ),
+                );
           _dispayText = user.displayName == null
               ? user.email == null
                   ? user.phoneNumber == null
@@ -352,7 +362,11 @@ class _NavigationControllerState extends State<NavigationController> {
     });
   }
 
-  final List<Widget> pages = [const HomePage(), ToolPage(), const SettingPage()];
+  final List<Widget> pages = [
+    const HomePage(),
+    ToolPage(),
+    const SettingPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +382,9 @@ class _NavigationControllerState extends State<NavigationController> {
               }
               return AnimatedOpacity(
                 opacity: frame == null ? 0 : 1,
-                duration: const Duration(seconds: 1),
+                duration: const Duration(
+                  seconds: 1,
+                ),
                 curve: Curves.easeOut,
                 child: child,
               );
@@ -394,7 +410,10 @@ class _NavigationControllerState extends State<NavigationController> {
         ],
       ),
       body: MediaQuery.of(context).size.width < desktopModeWidth
-          ? IndexedStack(index: _currentIndex, children: pages)
+          ? IndexedStack(
+              index: _currentIndex,
+              children: pages,
+            )
           : Row(
               children: [
                 SafeArea(
@@ -428,7 +447,10 @@ class _NavigationControllerState extends State<NavigationController> {
                   ),
                 ),
                 Expanded(
-                  child: IndexedStack(index: _currentIndex, children: pages),
+                  child: IndexedStack(
+                    index: _currentIndex,
+                    children: pages,
+                  ),
                 ),
               ],
             ),

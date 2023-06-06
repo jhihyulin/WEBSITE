@@ -246,7 +246,9 @@ class _TimerPageState extends State<TimerPage> {
                                   child: RichText(
                                     text: TextSpan(
                                       text: _counterMinutes.toString().padLeft(2, '0'),
-                                      style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+                                      style: TextStyle(
+                                        color: Theme.of(context).colorScheme.onBackground,
+                                      ),
                                       children: const <TextSpan>[
                                         TextSpan(
                                           text: 'm',

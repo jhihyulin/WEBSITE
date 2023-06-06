@@ -70,8 +70,14 @@ class _ShortURLPageState extends State<ShortURLPage> {
                   showCloseIcon: true,
                   closeIconColor: Theme.of(context).colorScheme.error,
                   behavior: SnackBarBehavior.floating,
-                  duration: const Duration(seconds: 10),
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  duration: const Duration(
+                    seconds: 10,
+                  ),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16.0),
+                    ),
+                  ),
                 )),
               });
     } else {
@@ -226,7 +232,9 @@ class _ShortURLPageState extends State<ShortURLPage> {
                                           backgroundColor: Theme.of(context).colorScheme.errorContainer,
                                           content: Text(
                                             'Error: $error',
-                                            style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+                                            style: TextStyle(
+                                              color: Theme.of(context).colorScheme.onErrorContainer,
+                                            ),
                                           ),
                                           showCloseIcon: true,
                                           closeIconColor: Theme.of(context).colorScheme.onErrorContainer,

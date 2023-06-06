@@ -467,12 +467,16 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
             content: Text(
               'Error: $error',
-              style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onErrorContainer,
+              ),
             ),
             showCloseIcon: true,
             closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
             behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 10),
+            duration: const Duration(
+              seconds: 10,
+            ),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(16.0),

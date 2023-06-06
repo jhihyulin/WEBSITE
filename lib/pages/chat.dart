@@ -89,7 +89,11 @@ class _ChatPageState extends State<ChatPage> {
       _scrollTimer?.cancel();
       _scrollTimer = Timer(const Duration(milliseconds: 100), () {
         if (_scrollController.hasClients) {
-          _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.easeOut,
+          );
           setState(() {
             _showFab = false;
           });
@@ -116,12 +120,21 @@ class _ChatPageState extends State<ChatPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Theme.of(context).colorScheme.errorContainer,
-        content: Text(error, style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+        content: Text(
+          error,
+          style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+        ),
         showCloseIcon: true,
         closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
         behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 10),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+        duration: const Duration(
+          seconds: 10,
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(16.0),
+          ),
+        ),
       ),
     );
   }
@@ -352,7 +365,9 @@ class _ChatPageState extends State<ChatPage> {
                               if (_scrollController.hasClients) {
                                 _scrollController.animateTo(
                                   _scrollController.position.maxScrollExtent,
-                                  duration: const Duration(milliseconds: 500),
+                                  duration: const Duration(
+                                    milliseconds: 500,
+                                  ),
                                   curve: Curves.easeOut,
                                 );
                                 setState(() {
@@ -435,7 +450,9 @@ class _ChatPageState extends State<ChatPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => SignInPage(redirectPage: '/chat'),
+                                    builder: (context) => SignInPage(
+                                      redirectPage: '/chat',
+                                    ),
                                   ),
                                 );
                               },

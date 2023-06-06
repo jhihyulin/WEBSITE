@@ -160,13 +160,22 @@ class _AboutPageState extends State<AboutPage> {
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
             content: SelectionArea(
-              child: Text('Error: Failed to open in new tab, the URL is: $url', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+              child: Text(
+                'Error: Failed to open in new tab, the URL is: $url',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer,
+                ),
+              ),
             ),
             showCloseIcon: true,
             closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 10),
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16.0),
+              ),
+            ),
           ),
         );
       }
@@ -178,7 +187,9 @@ class _AboutPageState extends State<AboutPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
+    final theme = Theme.of(context).copyWith(
+      dividerColor: Colors.transparent,
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('About'),
@@ -216,7 +227,9 @@ class _AboutPageState extends State<AboutPage> {
                           ),
                         ),
                         Container(
-                          constraints: const BoxConstraints(maxWidth: 400),
+                          constraints: const BoxConstraints(
+                            maxWidth: 400,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -447,7 +460,7 @@ class _AboutPageState extends State<AboutPage> {
                               ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),

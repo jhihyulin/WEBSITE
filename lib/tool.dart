@@ -79,34 +79,38 @@ class ToolPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Center(
-            child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: 700,
-                  minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - (MediaQuery.of(context).size.width > 700 ? 0 : 80), //NavigationBar Height
-                ),
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      runAlignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: <Widget>[
-                        for (var tool in _tools.entries)
-                          ElevatedButton.icon(
-                              onPressed: () {
-                                Navigator.pushNamed(context, tool.value['route']);
-                              },
-                              icon: Icon(tool.value['icon']),
-                              label: Text(tool.value['title']))
-                      ],
+      physics: const BouncingScrollPhysics(),
+      child: Center(
+        child: Container(
+          constraints: BoxConstraints(
+            maxWidth: 700,
+            minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - (MediaQuery.of(context).size.width > 700 ? 0 : 80), //NavigationBar Height
+          ),
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Wrap(
+                alignment: WrapAlignment.center,
+                runAlignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 10,
+                runSpacing: 10,
+                children: <Widget>[
+                  for (var tool in _tools.entries)
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(context, tool.value['route']);
+                      },
+                      icon: Icon(tool.value['icon']),
+                      label: Text(tool.value['title']),
                     ),
-                  ],
-                ))));
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

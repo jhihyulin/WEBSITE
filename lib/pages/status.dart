@@ -63,86 +63,107 @@ class _StatusPageState extends State<StatusPage> {
       SnackBar(
         backgroundColor: Theme.of(context).colorScheme.errorContainer,
         content: SelectionArea(
-          child: Text('Error: Failed to open in new tab, the URL is: $url', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+          child: Text(
+            'Error: Failed to open in new tab, the URL is: $url',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onErrorContainer,
+            ),
+          ),
         ),
         showCloseIcon: true,
         closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
         behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 10),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+        duration: const Duration(
+          seconds: 10,
+        ),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(16.0),
+          ),
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
+    final theme = Theme.of(context).copyWith(
+      dividerColor: Colors.transparent,
+    );
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Status'),
-        ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Center(
-            child: Container(
-                padding: const EdgeInsets.all(20),
-                constraints: BoxConstraints(
-                  maxWidth: 700,
-                  minHeight: MediaQuery.of(context).size.height -
-                      AppBar().preferredSize.height -
-                      MediaQuery.of(context).padding.top -
-                      MediaQuery.of(context).padding.bottom,
-                ),
-                child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Card(
-                    clipBehavior: Clip.antiAlias,
-                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                    child: Column(
-                      children: [
-                        for (var status in _status)
-                          Theme(
-                            data: theme,
-                            child: ExpansionTile(
-                              title: Text(status['name']),
-                              subtitle: Text(status['update']),
-                              leading: Icon(status['leading']),
-                              children: [
-                                Container(
-                                    padding: const EdgeInsets.all(10),
-                                    child: ListTile(
-                                      subtitle: Wrap(
-                                        spacing: 10,
-                                        runSpacing: 10,
-                                        children: [
-                                          Chip(
-                                            label: Text(status['provider']),
-                                          ),
-                                          for (var item in status['status'].entries)
-                                            if (item.key != 'Main')
-                                              ElevatedButton(
-                                                onPressed: item.value == null
-                                                    ? null
-                                                    : () {
-                                                        _launchUrl(item.value);
-                                                      },
-                                                child: Text(item.key),
-                                              ),
-                                        ],
-                                      ),
-                                      trailing: IconButton(
-                                          icon: const Icon(Icons.open_in_new),
-                                          onPressed: () {
-                                            _launchUrl(status['url']);
-                                          }),
-                                    ))
-                              ],
-                            ),
-                          )
-                      ],
+      appBar: AppBar(
+        title: const Text('Status'),
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            constraints: BoxConstraints(
+              maxWidth: 700,
+              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Card(
+                  clipBehavior: Clip.antiAlias,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16.0),
                     ),
-                  )
-                ])),
+                  ),
+                  child: Column(
+                    children: [
+                      for (var status in _status)
+                        Theme(
+                          data: theme,
+                          child: ExpansionTile(
+                            title: Text(status['name']),
+                            subtitle: Text(status['update']),
+                            leading: Icon(status['leading']),
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                child: ListTile(
+                                  subtitle: Wrap(
+                                    spacing: 10,
+                                    runSpacing: 10,
+                                    children: [
+                                      Chip(
+                                        label: Text(status['provider']),
+                                      ),
+                                      for (var item in status['status'].entries)
+                                        if (item.key != 'Main')
+                                          ElevatedButton(
+                                            onPressed: item.value == null
+                                                ? null
+                                                : () {
+                                                    _launchUrl(item.value);
+                                                  },
+                                            child: Text(item.key),
+                                          ),
+                                    ],
+                                  ),
+                                  trailing: IconButton(
+                                    icon: const Icon(Icons.open_in_new),
+                                    onPressed: () {
+                                      _launchUrl(status['url']);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

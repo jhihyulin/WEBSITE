@@ -71,10 +71,7 @@ class _BMIPageState extends State<BMIPage> {
           child: Container(
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height -
-                  AppBar().preferredSize.height -
-                  MediaQuery.of(context).padding.top -
-                  MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
             ),
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -88,7 +85,11 @@ class _BMIPageState extends State<BMIPage> {
                         controller: _heightController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.height),
-                          border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16.0),
+                            ),
+                          ),
                           labelText: 'Height',
                           suffixIcon: ToggleButtons(
                             borderRadius: BorderRadius.circular(16),
@@ -125,7 +126,11 @@ class _BMIPageState extends State<BMIPage> {
                         controller: _weightController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.scale),
-                          border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16.0),
+                            ),
+                          ),
                           labelText: 'Weight',
                           suffixIcon: ToggleButtons(
                             borderRadius: BorderRadius.circular(16),

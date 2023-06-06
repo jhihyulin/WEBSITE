@@ -36,9 +36,11 @@ class _ProfilePageState extends State<ProfilePage> {
             FacebookProvider(clientId: '1230943830699268')
           ],
           actions: [
-            SignedOutAction((context) {
-              Navigator.pushReplacementNamed(context, '/signin');
-            }),
+            SignedOutAction(
+              (context) {
+                Navigator.pushReplacementNamed(context, '/signin');
+              },
+            ),
           ],
         ),
       );

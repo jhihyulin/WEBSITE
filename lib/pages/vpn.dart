@@ -120,8 +120,7 @@ class _VPNPageState extends State<VPNPage> {
     // print(uid);
     // print(token);
     // print(serverId);
-    await http.post(getToken,
-        body: jsonEncode({'firebase_uid': uid, 'token': token, 'server_id': serverId}), headers: {'Content-Type': 'application/json'}).then((value) {
+    await http.post(getToken, body: jsonEncode({'firebase_uid': uid, 'token': token, 'server_id': serverId}), headers: {'Content-Type': 'application/json'}).then((value) {
       var data = jsonDecode(value.body);
       setState(() {
         _accessUrlController.text = data['access_url'] + '#' + data['display_name'];
@@ -206,201 +205,242 @@ class _VPNPageState extends State<VPNPage> {
       return SignInPage(redirectPage: '/vpn');
     } else {
       return Scaffold(
-          appBar: AppBar(
-            title: const Text('VPN'),
-          ),
-          body: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Center(
-                child: Container(
-                    padding: const EdgeInsets.all(20),
-                    constraints: BoxConstraints(
-                      maxWidth: 700,
-                      minHeight: MediaQuery.of(context).size.height -
-                          AppBar().preferredSize.height -
-                          MediaQuery.of(context).padding.top -
-                          MediaQuery.of(context).padding.bottom,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Offstage(
-                            offstage: _initing,
-                            child: InputDecorator(
-                                decoration: InputDecoration(
-                                  labelText: 'VPN Server',
-                                  prefixIcon: const Icon(Icons.dns),
-                                  labelStyle: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurface,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                ),
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton(
-                                    items: _items,
-                                    value: _selectedServerId,
-                                    onChanged: _loading
-                                        ? null
-                                        : (value) {
-                                            if (value == _defaultSelect) {
-                                              setState(() {
-                                                _getResponse = false;
-                                                _selectedServerId = value.toString();
-                                                _resetValue();
-                                              });
-                                              return;
-                                            } else {
-                                              setState(() {
-                                                _loading = true;
-                                                _getResponse = false;
-                                                _selectedServerId = value.toString();
-                                                _getKey(value.toString());
-                                              });
-                                            }
-                                          },
-                                  ),
-                                ))),
-                        Offstage(
-                          offstage: _initing,
-                          child: const SizedBox(height: 20),
+        appBar: AppBar(
+          title: const Text('VPN'),
+        ),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              constraints: BoxConstraints(
+                maxWidth: 700,
+                minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Offstage(
+                    offstage: _initing,
+                    child: InputDecorator(
+                      decoration: InputDecoration(
+                        labelText: 'VPN Server',
+                        prefixIcon: const Icon(Icons.dns),
+                        labelStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
-                        Offstage(
-                          offstage: !_loading && _selectedServerId == _defaultSelect,
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                                child: LinearProgressIndicator(
-                                  minHeight: 20,
-                                  backgroundColor: Theme.of(context).splashColor,
-                                  value: _loading ? null : _dataUsedPercentage / 100,
-                                ),
-                              ),
-                            ],
-                          ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
-                        Offstage(
-                          offstage: _selectedServerId == _defaultSelect || !_getResponse,
-                          child: Column(children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Used: $_usedBytesVisualization'),
-                                Text('Limit: $_useBytesLimitVisualization'),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            TextFormField(
-                              controller: _accessUrlController,
-                              decoration: const InputDecoration(
-                                labelText: 'Access Key',
-                                prefixIcon: Icon(Icons.key),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                                ),
-                              ),
-                              readOnly: true,
-                            ),
-                            const SizedBox(height: 20),
-                            Wrap(spacing: 10, runSpacing: 10, alignment: WrapAlignment.center, children: [
-                              ElevatedButton.icon(
-                                label: const Text('Add To APP'),
-                                icon: const Icon(Icons.vpn_lock),
-                                onPressed: () async {
-                                  final Uri vpnUrl = Uri.parse(_accessUrl);
-                                  if (!await launchUrl(vpnUrl)) {
-                                    throw Exception('Could not launch $_accessUrl');
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          items: _items,
+                          value: _selectedServerId,
+                          onChanged: _loading
+                              ? null
+                              : (value) {
+                                  if (value == _defaultSelect) {
+                                    setState(() {
+                                      _getResponse = false;
+                                      _selectedServerId = value.toString();
+                                      _resetValue();
+                                    });
+                                    return;
+                                  } else {
+                                    setState(() {
+                                      _loading = true;
+                                      _getResponse = false;
+                                      _selectedServerId = value.toString();
+                                      _getKey(value.toString());
+                                    });
                                   }
                                 },
+                        ),
+                      ),
+                    ),
+                  ),
+                  Offstage(
+                    offstage: _initing,
+                    child: const SizedBox(
+                      height: 20,
+                    ),
+                  ),
+                  Offstage(
+                    offstage: !_loading && _selectedServerId == _defaultSelect,
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                          child: LinearProgressIndicator(
+                            minHeight: 20,
+                            backgroundColor: Theme.of(context).splashColor,
+                            value: _loading ? null : _dataUsedPercentage / 100,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Offstage(
+                    offstage: _selectedServerId == _defaultSelect || !_getResponse,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Used: $_usedBytesVisualization'),
+                            Text('Limit: $_useBytesLimitVisualization'),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _accessUrlController,
+                          decoration: const InputDecoration(
+                            labelText: 'Access Key',
+                            prefixIcon: Icon(Icons.key),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16.0),
                               ),
-                              TextButton(
-                                child: const Icon(Icons.copy),
-                                onPressed: () async {
-                                  await Clipboard.setData(ClipboardData(text: _accessUrl)).then((value) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Copied to clipboard'),
-                                        showCloseIcon: true,
-                                        behavior: SnackBarBehavior.floating,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                            ),
+                          ),
+                          readOnly: true,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Wrap(
+                          spacing: 10,
+                          runSpacing: 10,
+                          alignment: WrapAlignment.center,
+                          children: [
+                            ElevatedButton.icon(
+                              label: const Text('Add To APP'),
+                              icon: const Icon(Icons.vpn_lock),
+                              onPressed: () async {
+                                final Uri vpnUrl = Uri.parse(_accessUrl);
+                                if (!await launchUrl(vpnUrl)) {
+                                  throw Exception('Could not launch $_accessUrl');
+                                }
+                              },
+                            ),
+                            TextButton(
+                              child: const Icon(Icons.copy),
+                              onPressed: () async {
+                                await Clipboard.setData(ClipboardData(text: _accessUrl)).then((value) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Copied to clipboard'),
+                                      showCloseIcon: true,
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(16.0),
+                                        ),
                                       ),
-                                    );
-                                  }).catchError((error) {
+                                    ),
+                                  );
+                                }).catchError(
+                                  (error) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                                        content: Text('Error: Copy failed', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+                                        content: Text(
+                                          'Error: Copy failed',
+                                          style: TextStyle(
+                                            color: Theme.of(context).colorScheme.onErrorContainer,
+                                          ),
+                                        ),
                                         showCloseIcon: true,
                                         closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
                                         behavior: SnackBarBehavior.floating,
                                         duration: const Duration(seconds: 10),
-                                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(16.0),
+                                          ),
+                                        ),
                                       ),
                                     );
-                                  });
-                                },
-                              ),
-                              TextButton(
-                                child: const Icon(Icons.help),
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text('How to use Outline VPN?'),
-                                          content: Container(
-                                            constraints: const BoxConstraints(
-                                              maxWidth: 700,
-                                              minWidth: 700,
-                                            ),
-                                            child: SingleChildScrollView(
-                                                physics: const BouncingScrollPhysics(),
-                                                child: (Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  },
+                                );
+                              },
+                            ),
+                            TextButton(
+                              child: const Icon(Icons.help),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('How to use Outline VPN?'),
+                                      content: Container(
+                                        constraints: const BoxConstraints(
+                                          maxWidth: 700,
+                                          minWidth: 700,
+                                        ),
+                                        child: SingleChildScrollView(
+                                          physics: const BouncingScrollPhysics(),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text.rich(
+                                                TextSpan(
                                                   children: [
-                                                    Text.rich(TextSpan(children: [
-                                                      const TextSpan(text: '1. If you don\'t have Outline APP on your device, click '),
-                                                      TextSpan(
-                                                        style: TextStyle(
-                                                          color: Theme.of(context).colorScheme.primary,
-                                                        ),
-                                                        text: 'Install Outline VPN APP',
-                                                        recognizer: TapGestureRecognizer()
-                                                          ..onTap = () {
-                                                            _installOutlineVPN();
-                                                          },
+                                                    const TextSpan(
+                                                      text: '1. If you don\'t have Outline APP on your device, click ',
+                                                    ),
+                                                    TextSpan(
+                                                      style: TextStyle(
+                                                        color: Theme.of(context).colorScheme.primary,
                                                       ),
-                                                      const TextSpan(text: ' to install it.'),
-                                                    ])),
-                                                    const Text('2. Turn back to this page and click "Add To APP"'),
-                                                    const Text('3. Will open Outline VPN APP, click "ADD SERVER"'),
-                                                    const Text('4. Access key will save in Outline APP'),
-                                                    const Text('5. Click "CONNECT" to connect to VPN server'),
-                                                    const Text(
-                                                        '* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
+                                                      text: 'Install Outline VPN APP',
+                                                      recognizer: TapGestureRecognizer()
+                                                        ..onTap = () {
+                                                          _installOutlineVPN();
+                                                        },
+                                                    ),
+                                                    const TextSpan(
+                                                      text: ' to install it.',
+                                                    ),
                                                   ],
-                                                ))),
+                                                ),
+                                              ),
+                                              const Text('2. Turn back to this page and click "Add To APP"'),
+                                              const Text('3. Will open Outline VPN APP, click "ADD SERVER"'),
+                                              const Text('4. Access key will save in Outline APP'),
+                                              const Text('5. Click "CONNECT" to connect to VPN server'),
+                                              const Text('* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
+                                            ],
                                           ),
-                                          actions: [
-                                            TextButton(
-                                              child: const Text('OK'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            )
-                                          ],
-                                        );
-                                      });
-                                },
-                              )
-                            ])
-                          ]),
-                        )
+                                        ),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          child: const Text('OK'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ],
-                    )),
-              )));
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
     }
   }
 }

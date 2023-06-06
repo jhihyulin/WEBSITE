@@ -32,18 +32,7 @@ const Map settingData = {
       'gateSlideDoor': 7, // open0 close10
     }
   },
-  'camera': {
-    'x': -35,
-    'y': 5,
-    'z': 90,
-    'focusX': -10,
-    'focusY': 0,
-    'focusZ': 60,
-    'focusIncreaseX': 25,
-    'focusIncreaseY': 25,
-    'focusIncreaseZ': 25,
-    'focusLerp': 0.25
-  },
+  'camera': {'x': -35, 'y': 5, 'z': 90, 'focusX': -10, 'focusY': 0, 'focusZ': 60, 'focusIncreaseX': 25, 'focusIncreaseY': 25, 'focusIncreaseZ': 25, 'focusLerp': 0.25},
   'controls': {
     'enabled': true,
     'autoRotate': false,
@@ -84,18 +73,7 @@ const Map settingData = {
     'color': 0xa6a7a3,
     'focusColor': 0xaa0000,
     'focusOpacity': 0.5,
-    'name': {
-      'build': '行政大樓==通達樓',
-      'build1': '行政大樓',
-      'build2': '通達樓',
-      'build3': '中和樓',
-      'build4': '至誠樓',
-      'build5': '謙融樓',
-      'build6': '圖書館',
-      'build7': '活動中心',
-      'build8': '游泳池',
-      'build9': '教師宿舍'
-    }
+    'name': {'build': '行政大樓==通達樓', 'build1': '行政大樓', 'build2': '通達樓', 'build3': '中和樓', 'build4': '至誠樓', 'build5': '謙融樓', 'build6': '圖書館', 'build7': '活動中心', 'build8': '游泳池', 'build9': '教師宿舍'}
   },
   'object': {
     'set': {
@@ -169,10 +147,7 @@ const Map settingData = {
       'build1_1f_room1': {
         'name': '學務處',
         'description': '訓育組、社團活動組、衛生組、生輔組、教官',
-        'link': {
-          '學務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs',
-          '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military'
-        },
+        'link': {'學務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs', '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military'},
         'keyword': ['訓育組', '社團活動組', '衛生組', '生輔組', '教官']
       },
       'build1_1f_room2': {
@@ -199,10 +174,7 @@ const Map settingData = {
         'name': '總務處 / 人事室',
         'description': '文書組、事務組、出納組',
         'keyword': ['文書組', '事務組', '出納組', '出納'],
-        'link': {
-          '總務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs',
-          '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel'
-        }
+        'link': {'總務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs', '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel'}
       },
       'build1_3f_room2': {
         'name': '校長室 / 秘書室',
@@ -1879,34 +1851,39 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
           : AppBar(
               title: const Text('ZHSH 3D Map'),
             ),
-      body: Stack(children: [
-        Offstage(
+      body: Stack(
+        children: [
+          Offstage(
             offstage: _initialized,
             child: Center(
               child: Container(
-                  padding: const EdgeInsets.all(20),
-                  constraints: BoxConstraints(
-                    maxWidth: 700,
-                    minHeight: MediaQuery.of(context).size.height -
-                        AppBar().preferredSize.height -
-                        MediaQuery.of(context).padding.top -
-                        MediaQuery.of(context).padding.bottom,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                        child: LinearProgressIndicator(minHeight: 20, backgroundColor: Theme.of(context).splashColor, value: null),
+                padding: const EdgeInsets.all(20),
+                constraints: BoxConstraints(
+                  maxWidth: 700,
+                  minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                      child: LinearProgressIndicator(
+                        minHeight: 20,
+                        backgroundColor: Theme.of(context).splashColor,
+                        value: null,
                       ),
-                    ],
-                  )),
-            )),
-        Offstage(
-          offstage: _initialized == false,
-          child: MediaQuery.of(context).size.width > deskopModeWidth ? _buildDesktop(context) : _buildMobile(context),
-        ),
-      ]),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Offstage(
+            offstage: _initialized == false,
+            child: MediaQuery.of(context).size.width > deskopModeWidth ? _buildDesktop(context) : _buildMobile(context),
+          ),
+        ],
+      ),
       floatingActionButton: _initialized
           ? ScaleTransition(
               scale: _hideFabAnimation!,
@@ -1920,7 +1897,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                 },
                 tooltip: 'reset location',
                 child: const Icon(Icons.home),
-              ))
+              ),
+            )
           : null,
     );
   }
@@ -1931,158 +1909,174 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
         three_jsm.DomLikeListenable(
             key: _globalKey,
             builder: (BuildContext context) {
-              return SizedBox(width: width, height: height, child: HtmlElementView(viewType: three3dRender.textureId!.toString()));
+              return SizedBox(
+                width: width,
+                height: height,
+                child: HtmlElementView(
+                  viewType: three3dRender.textureId!.toString(),
+                ),
+              );
             }),
         NotificationListener<ScrollNotification>(
-            onNotification: _handleScrollNotification,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 3,
-                padding: const EdgeInsets.all(16.0),
-                child: _contentWidget(),
-              ),
-            ))
+          onNotification: _handleScrollNotification,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Container(
+              width: MediaQuery.of(context).size.width / 3,
+              padding: const EdgeInsets.all(16.0),
+              child: _contentWidget(),
+            ),
+          ),
+        ),
       ],
     );
   }
 
   Widget _buildMobile(BuildContext context) {
     return NotificationListener<ScrollNotification>(
-        onNotification: _handleScrollNotification,
-        child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                GestureDetector(
-                  onVerticalDragStart: (_) {},
-                  child: three_jsm.DomLikeListenable(
-                      key: _globalKey,
-                      builder: (BuildContext context) {
-                        return SizedBox(
-                            width: width,
-                            height: height,
-                            child: Builder(builder: (BuildContext context) {
-                              return HtmlElementView(viewType: three3dRender.textureId!.toString());
-                            }));
-                      }),
-                ),
-                Container(width: MediaQuery.of(context).size.width, padding: const EdgeInsets.all(16.0), child: _contentWidget())
-              ],
-            )));
+      onNotification: _handleScrollNotification,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            GestureDetector(
+              onVerticalDragStart: (_) {},
+              child: three_jsm.DomLikeListenable(
+                key: _globalKey,
+                builder: (BuildContext context) {
+                  return SizedBox(
+                      width: width,
+                      height: height,
+                      child: Builder(builder: (BuildContext context) {
+                        return HtmlElementView(
+                          viewType: three3dRender.textureId!.toString(),
+                        );
+                      }));
+                },
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(16.0),
+              child: _contentWidget(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _contentWidget() {
-    return Column(children: [
-      Card(
+    return Column(
+      children: [
+        Card(
           child: Column(
-        children: [
-          Autocomplete<String>(
-            fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
-              return TextField(
-                controller: textEditingController,
-                focusNode: focusNode,
-                onSubmitted: (String value) {
-                  var search = searchRecommend(value, true);
-                  if (search == 'NotFound') {
+            children: [
+              Autocomplete<String>(
+                fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
+                  return TextField(
+                    controller: textEditingController,
+                    focusNode: focusNode,
+                    onSubmitted: (String value) {
+                      var search = searchRecommend(value, true);
+                      if (search == 'NotFound') {
+                        setState(() {
+                          _notFound = true;
+                        });
+                      } else {
+                        setState(() {
+                          _notFound = false;
+                        });
+                      }
+                      onFieldSubmitted();
+                    },
+                    onEditingComplete: onFieldSubmitted,
+                    decoration: InputDecoration(
+                      labelText: '搜尋地點',
+                      hintText: '請輸入關鍵字',
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          textEditingController.clear();
+                        },
+                      ),
+                      border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                      errorText: _notFound ? _notFoundText : null,
+                      errorBorder: _notFound ? OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.error)) : null,
+                    ),
+                  );
+                },
+                optionsBuilder: (TextEditingValue textEditingValue) {
+                  if (textEditingValue.text == '') {
+                    setState(() {
+                      _notFound = false;
+                    });
+                    return const Iterable<String>.empty();
+                  }
+                  var search = searchRecommend(textEditingValue.text, false);
+                  if (search == 'NA') {
+                    setState(() {
+                      _notFound = false;
+                    });
+                    return const Iterable<String>.empty();
+                  } else if (search == 'NotFound') {
                     setState(() {
                       _notFound = true;
                     });
+                    return const Iterable<String>.empty();
                   } else {
                     setState(() {
                       _notFound = false;
                     });
+                    return search;
                   }
-                  onFieldSubmitted();
                 },
-                onEditingComplete: onFieldSubmitted,
-                decoration: InputDecoration(
-                  labelText: '搜尋地點',
-                  hintText: '請輸入關鍵字',
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear),
-                    onPressed: () {
-                      textEditingController.clear();
-                    },
-                  ),
-                  border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                  errorText: _notFound ? _notFoundText : null,
-                  errorBorder: _notFound ? OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.error)) : null,
-                ),
-              );
-            },
-            optionsBuilder: (TextEditingValue textEditingValue) {
-              if (textEditingValue.text == '') {
-                setState(() {
-                  _notFound = false;
-                });
-                return const Iterable<String>.empty();
-              }
-              var search = searchRecommend(textEditingValue.text, false);
-              if (search == 'NA') {
-                setState(() {
-                  _notFound = false;
-                });
-                return const Iterable<String>.empty();
-              } else if (search == 'NotFound') {
-                setState(() {
-                  _notFound = true;
-                });
-                return const Iterable<String>.empty();
-              } else {
-                setState(() {
-                  _notFound = false;
-                });
-                return search;
-              }
-            },
-            onSelected: (String selection) {
-              if (kDebugMode) {
-                print('You just selected Display Name: $selection');
-              }
-              var id = search(selection);
-              if (settingData['controls']['searchFocus'] == true) {
-                focus(id);
-              }
-              // focus(id);
-            },
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                Offstage(
-                  offstage: _selectedLocation == '',
-                  child: ListTile(title: const Text('地點'), trailing: Text(_selectedLocationName)),
-                ),
-                Offstage(
-                  offstage: _selectedLocation == '' ||
-                      mapData[_selectedLocation]!['build'] == null ||
-                      settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
-                  child: ListTile(
-                    title: const Text('建築'),
-                    trailing: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
-                  ),
-                ),
-                Offstage(
-                  offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
-                  child: ListTile(
-                    title: const Text('樓層'),
-                    trailing: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
-                  ),
-                ),
-                Offstage(
-                    offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
-                    child: ListTile(
-                      title: const Text('詳細資訊'),
-                      subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
-                    )),
-                Offstage(
-                    offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null,
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Wrap(
+                onSelected: (String selection) {
+                  if (kDebugMode) {
+                    print('You just selected Display Name: $selection');
+                  }
+                  var id = search(selection);
+                  if (settingData['controls']['searchFocus'] == true) {
+                    focus(id);
+                  }
+                  // focus(id);
+                },
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    Offstage(
+                      offstage: _selectedLocation == '',
+                      child: ListTile(title: const Text('地點'), trailing: Text(_selectedLocationName)),
+                    ),
+                    Offstage(
+                      offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
+                      child: ListTile(
+                        title: const Text('建築'),
+                        trailing: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+                      ),
+                    ),
+                    Offstage(
+                      offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
+                      child: ListTile(
+                        title: const Text('樓層'),
+                        trailing: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
+                      ),
+                    ),
+                    Offstage(
+                      offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
+                      child: ListTile(
+                        title: const Text('詳細資訊'),
+                        subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
+                      ),
+                    ),
+                    Offstage(
+                      offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Wrap(
                           spacing: 10,
                           runSpacing: 10,
                           children: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null
@@ -2097,37 +2091,47 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                                             },
                                       child: Text(link),
                                     ),
-                                ]),
-                    )),
-                const Text('ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE', textAlign: TextAlign.center, style: TextStyle(color: Colors.grey, fontSize: 12)),
-              ],
-            ),
+                                ],
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
-      )),
-      GestureDetector(
-        onTap: _devMode
-            ? () {
-                setState(() {
-                  _devMode = false;
-                });
-                _devModeTimer?.cancel();
-              }
-            : null,
-        onPanCancel: _devModeTimer?.cancel,
-        onPanDown: (DragDownDetails details) {
-          _devModeTimer = Timer(Duration(seconds: settingData['general']['devMode']['openDuration']), () {
-            setState(() {
-              _devMode = true;
-            });
-            _devModeTimer?.cancel();
-          });
-        },
-        child: Chip(
-          label: Text('${settingData['version']['name']}'),
         ),
-      ),
-      Offstage(
+        GestureDetector(
+          onTap: _devMode
+              ? () {
+                  setState(() {
+                    _devMode = false;
+                  });
+                  _devModeTimer?.cancel();
+                }
+              : null,
+          onPanCancel: _devModeTimer?.cancel,
+          onPanDown: (DragDownDetails details) {
+            _devModeTimer = Timer(Duration(seconds: settingData['general']['devMode']['openDuration']), () {
+              setState(() {
+                _devMode = true;
+              });
+              _devModeTimer?.cancel();
+            });
+          },
+          child: Chip(
+            label: Text('${settingData['version']['name']}'),
+          ),
+        ),
+        Offstage(
           offstage: _devMode == false,
           child: Column(
             children: [
@@ -2206,8 +2210,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                 ),
               ),
             ],
-          ))
-    ]);
+          ),
+        ),
+      ],
+    );
   }
 
   render() {
@@ -2266,8 +2272,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
       }
       // description search
       if (settingData['general']['search']['descriptionSearch'] && settingData['object']['set'][i]['descriptionSearch'] != false) {
-        if (settingData['object']['set'][i]['description'] != null &&
-            settingData['object']['set'][i]['description']!.toLowerCase().contains(arg.toLowerCase())) {
+        if (settingData['object']['set'][i]['description'] != null && settingData['object']['set'][i]['description']!.toLowerCase().contains(arg.toLowerCase())) {
           result.add(settingData['object']['set'][i]['name']!);
           continue;
         }
@@ -2328,8 +2333,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
   initPage() {
     scene = three.Scene();
-    scene.background =
-        three.Color(settingData['background']['color'] == 'system' ? Theme.of(context).colorScheme.background.value : settingData['background']['color']);
+    scene.background = three.Color(settingData['background']['color'] == 'system' ? Theme.of(context).colorScheme.background.value : settingData['background']['color']);
     scene.fog = three.FogExp2(0xcccccc, 0.002);
 
     camera = three.PerspectiveCamera(60, width / height, 1, 1000);
@@ -2366,8 +2370,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
     // ground
     if (!_groundHelper) {
-      var mesh = three.Mesh(three.PlaneGeometry(settingData['ground']['width'], settingData['ground']['length']),
-          three.MeshPhongMaterial({'color': settingData['ground']['color']}));
+      var mesh = three.Mesh(three.PlaneGeometry(settingData['ground']['width'], settingData['ground']['length']), three.MeshPhongMaterial({'color': settingData['ground']['color']}));
       mesh.rotation.x = -three.Math.pi / 2;
       mesh.castShadow = false;
       mesh.receiveShadow = true;
@@ -2388,9 +2391,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
         geo.translate(0, 0.5, 0);
       }
       var material = three.MeshPhysicalMaterial({
-        'color': settingData['buildings']['randomColor'] == true
-            ? (three.Math.random() * 0xffffff).toInt()
-            : settingData['object']['set'][i]!['color'] ?? settingData['buildings']['color'],
+        'color': settingData['buildings']['randomColor'] == true ? (three.Math.random() * 0xffffff).toInt() : settingData['object']['set'][i]!['color'] ?? settingData['buildings']['color'],
         'flatShading': false,
         'roughness': 0.1,
         'metalness': 0.1,
@@ -2575,9 +2576,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
       }
       if (i is three.Mesh) {
         i.material = three.MeshPhysicalMaterial({
-          'color': settingData['buildings']['randomColor'] == true
-              ? (three.Math.random() * 0xffffff).toInt()
-              : settingData['object']['set'][i.name]!['color'] ?? settingData['buildings']['color'],
+          'color': settingData['buildings']['randomColor'] == true ? (three.Math.random() * 0xffffff).toInt() : settingData['object']['set'][i.name]!['color'] ?? settingData['buildings']['color'],
           'flatShading': false,
           'opacity': mapData[i.name]!['opacity'] ?? 1,
           'roughness': 0.1,

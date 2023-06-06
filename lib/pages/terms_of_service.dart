@@ -32,13 +32,24 @@ class _TermsOfServicePageState extends State<TermsOfServicePage> {
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
             content: SelectionArea(
-              child: Text('Error: Failed to open in new tab, the URL is: $url', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+              child: Text(
+                'Error: Failed to open in new tab, the URL is: $url',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer,
+                ),
+              ),
             ),
             showCloseIcon: true,
             closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
             behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 10),
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            duration: const Duration(
+              seconds: 10,
+            ),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16.0),
+              ),
+            ),
           ),
         );
       }
@@ -56,37 +67,42 @@ class _TermsOfServicePageState extends State<TermsOfServicePage> {
         physics: const BouncingScrollPhysics(),
         child: Center(
           child: Container(
-              height: MediaQuery.of(context).size.height - AppBar().preferredSize.height,
-              width: MediaQuery.of(context).size.width,
-              constraints: const BoxConstraints(maxWidth: 700),
-              padding: const EdgeInsets.all(10),
-              child: FutureBuilder(
-                future: _loadMarkdownData(),
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Markdown(
-                      onTapLink: (text, href, title) {
-                        _launchUrl(Uri.parse(href ?? ''));
-                      },
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      selectable: true,
-                      data: snapshot.data,
-                    );
-                  } else {
-                    return Center(
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                        child: LinearProgressIndicator(
-                          minHeight: 20,
-                          backgroundColor: Theme.of(context).splashColor,
-                          value: null,
-                        ),
+            height: MediaQuery.of(context).size.height - AppBar().preferredSize.height,
+            width: MediaQuery.of(context).size.width,
+            constraints: const BoxConstraints(
+              maxWidth: 700,
+            ),
+            padding: const EdgeInsets.all(10),
+            child: FutureBuilder(
+              future: _loadMarkdownData(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return Markdown(
+                    onTapLink: (text, href, title) {
+                      _launchUrl(Uri.parse(href ?? ''));
+                    },
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    selectable: true,
+                    data: snapshot.data,
+                  );
+                } else {
+                  return Center(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(16.0),
                       ),
-                    );
-                  }
-                },
-              )),
+                      child: LinearProgressIndicator(
+                        minHeight: 20,
+                        backgroundColor: Theme.of(context).splashColor,
+                        value: null,
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
         ),
       ),
     );

@@ -73,44 +73,55 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     Widget build = Container(
-        padding: const EdgeInsets.all(10),
-        child: Container(
-            constraints: const BoxConstraints(maxWidth: 200),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Image.asset('assets/images/logo-512x512.png')));
-    return Scaffold(
-        appBar: AppBar(
-          title: _redirectPage == '/profile' ? const Text('Sign In') : const Text('Sign In to Continue'),
+      padding: const EdgeInsets.all(10),
+      child: Container(
+        constraints: const BoxConstraints(
+          maxWidth: 200,
         ),
-        body: SignInScreen(
-          showAuthActionSwitch: false,
-          headerBuilder: (context, provider, action) {
-            return build;
-          },
-          oauthButtonVariant: OAuthButtonVariant.icon_and_text,
-          headerMaxExtent: 200,
-          sideBuilder: (context, provider) {
-            return build;
-          },
-          breakpoint: 700,
-          providers: [
-            // EmailAuthProvider(),
-            GoogleProvider(clientId: '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com'),
-            TwitterProvider(
-              apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
-              apiSecretKey: 'TWITTER_SECRET',
-            ),
-            FacebookProvider(clientId: '1230943830699268'),
-            PhoneAuthProvider(),
-          ],
-          actions: [
-            AuthStateChangeAction<SignedIn>((context, state) {
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: Image.asset('assets/images/logo-512x512.png'),
+      ),
+    );
+    return Scaffold(
+      appBar: AppBar(
+        title: _redirectPage == '/profile' ? const Text('Sign In') : const Text('Sign In to Continue'),
+      ),
+      body: SignInScreen(
+        showAuthActionSwitch: false,
+        headerBuilder: (context, provider, action) {
+          return build;
+        },
+        oauthButtonVariant: OAuthButtonVariant.icon_and_text,
+        headerMaxExtent: 200,
+        sideBuilder: (context, provider) {
+          return build;
+        },
+        breakpoint: 700,
+        providers: [
+          // EmailAuthProvider(),
+          GoogleProvider(
+            clientId: '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com',
+          ),
+          TwitterProvider(
+            apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',
+            apiSecretKey: 'TWITTER_SECRET',
+          ),
+          FacebookProvider(
+            clientId: '1230943830699268',
+          ),
+          PhoneAuthProvider(),
+        ],
+        actions: [
+          AuthStateChangeAction<SignedIn>(
+            (context, state) {
               _uploaduserinfo();
               Navigator.pushReplacementNamed(context, _redirectPage);
-            }),
-          ],
-        ));
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

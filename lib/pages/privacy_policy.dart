@@ -56,37 +56,42 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
         physics: const BouncingScrollPhysics(),
         child: Center(
           child: Container(
-              height: MediaQuery.of(context).size.height - AppBar().preferredSize.height,
-              width: MediaQuery.of(context).size.width,
-              constraints: const BoxConstraints(maxWidth: 700),
-              padding: const EdgeInsets.all(10),
-              child: FutureBuilder(
-                future: _loadMarkdownData(),
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Markdown(
-                      onTapLink: (text, href, title) {
-                        _launchUrl(Uri.parse(href ?? ''));
-                      },
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      selectable: true,
-                      data: snapshot.data,
-                    );
-                  } else {
-                    return Center(
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                        child: LinearProgressIndicator(
-                          minHeight: 20,
-                          backgroundColor: Theme.of(context).splashColor,
-                          value: null,
-                        ),
+            height: MediaQuery.of(context).size.height - AppBar().preferredSize.height,
+            width: MediaQuery.of(context).size.width,
+            constraints: const BoxConstraints(
+              maxWidth: 700,
+            ),
+            padding: const EdgeInsets.all(10),
+            child: FutureBuilder(
+              future: _loadMarkdownData(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return Markdown(
+                    onTapLink: (text, href, title) {
+                      _launchUrl(Uri.parse(href ?? ''));
+                    },
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    selectable: true,
+                    data: snapshot.data,
+                  );
+                } else {
+                  return Center(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(16.0),
                       ),
-                    );
-                  }
-                },
-              )),
+                      child: LinearProgressIndicator(
+                        minHeight: 20,
+                        backgroundColor: Theme.of(context).splashColor,
+                        value: null,
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
         ),
       ),
     );

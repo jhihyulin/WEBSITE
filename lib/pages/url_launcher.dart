@@ -22,15 +22,12 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
-            content: Text('Error: URL Launch Failed',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onErrorContainer)),
+            content: Text('Error: URL Launch Failed', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
             showCloseIcon: true,
             closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 10),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
           ),
         );
       }
@@ -114,8 +111,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                                           minWidth: 700,
                                         ),
                                         child: const SingleChildScrollView(
-                                            physics:
-                                                BouncingScrollPhysics(),
+                                            physics: BouncingScrollPhysics(),
                                             child: Column(
                                               children: [
                                                 Text(

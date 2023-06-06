@@ -28,8 +28,7 @@ import 'pages/qr_generator.dart' deferred as qr_generator;
 import 'pages/clock.dart' deferred as clock;
 import 'pages/zhsh_3d_map.dart' deferred as zhsh_3d_map;
 import 'pages/not_found.dart' deferred as not_found;
-import 'pages/tw_university_result_query.dart'
-    deferred as tw_university_result_query;
+import 'pages/tw_university_result_query.dart' deferred as tw_university_result_query;
 import 'pages/spin_wheel.dart' deferred as spin_wheel;
 import 'pages/privacy_policy.dart' deferred as privacy_policy;
 import 'pages/terms_of_service.dart' deferred as terms_of_service;
@@ -59,8 +58,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget Function(BuildContext) dealPage(
-      Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
+  Widget Function(BuildContext) dealPage(Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
     return (BuildContext context) => FutureBuilder(
         future: loadLibrary(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -239,18 +237,14 @@ class _MyAppState extends State<MyApp> {
                     break;
                   case '/twuniversityresultquery':
                     if (parameters != null) {
-                      builder = dealPage(tw_university_result_query.loadLibrary,
-                          (context) {
-                        return tw_university_result_query
-                            .TWUniversityResultQueryPage(
+                      builder = dealPage(tw_university_result_query.loadLibrary, (context) {
+                        return tw_university_result_query.TWUniversityResultQueryPage(
                           id: parameters!['id'] ?? '',
                         );
                       });
                     } else {
-                      builder = dealPage(tw_university_result_query.loadLibrary,
-                          (context) {
-                        return tw_university_result_query
-                            .TWUniversityResultQueryPage();
+                      builder = dealPage(tw_university_result_query.loadLibrary, (context) {
+                        return tw_university_result_query.TWUniversityResultQueryPage();
                       });
                     }
                     break;
@@ -280,16 +274,13 @@ class _MyAppState extends State<MyApp> {
                     });
                     break;
                   case '/setting':
-                    builder = (BuildContext context) =>
-                        NavigationController(inputIndex: 2);
+                    builder = (BuildContext context) => NavigationController(inputIndex: 2);
                     break;
                   case '/tool':
-                    builder = (BuildContext context) =>
-                        NavigationController(inputIndex: 1);
+                    builder = (BuildContext context) => NavigationController(inputIndex: 1);
                     break;
                   case '/':
-                    builder = (BuildContext context) =>
-                        NavigationController(inputIndex: 0);
+                    builder = (BuildContext context) => NavigationController(inputIndex: 0);
                     break;
                   default:
                     builder = dealPage(not_found.loadLibrary, (context) {
@@ -344,10 +335,7 @@ class _NavigationControllerState extends State<NavigationController> {
         setState(() {
           _displayPhoto = user.photoURL == null
               ? const Icon(Icons.person)
-              : Container(
-                  padding: const EdgeInsets.all(5),
-                  child: CircleAvatar(
-                      backgroundImage: NetworkImage(user.photoURL!)));
+              : Container(padding: const EdgeInsets.all(5), child: CircleAvatar(backgroundImage: NetworkImage(user.photoURL!)));
           _dispayText = user.displayName == null
               ? user.email == null
                   ? user.phoneNumber == null
@@ -360,11 +348,7 @@ class _NavigationControllerState extends State<NavigationController> {
     });
   }
 
-  final List<Widget> pages = [
-    const HomePage(),
-    ToolPage(),
-    const SettingPage()
-  ];
+  final List<Widget> pages = [const HomePage(), ToolPage(), const SettingPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -374,8 +358,7 @@ class _NavigationControllerState extends State<NavigationController> {
           padding: const EdgeInsets.all(5),
           child: Image.asset(
             'assets/images/logo-180x180.png',
-            frameBuilder: (BuildContext context, Widget child, int? frame,
-                bool wasSynchronouslyLoaded) {
+            frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
               if (wasSynchronouslyLoaded) {
                 return child;
               }
@@ -447,27 +430,20 @@ class _NavigationControllerState extends State<NavigationController> {
             ),
       bottomNavigationBar: MediaQuery.of(context).size.width < desktopModeWidth
           ? NavigationBar(
-              labelBehavior:
-                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
               selectedIndex: _currentIndex,
               onDestinationSelected: _onItemClick,
               destinations: <Widget>[
                 NavigationDestination(
-                  icon: _currentIndex == 0
-                      ? const Icon(Icons.home)
-                      : const Icon(Icons.home_outlined),
+                  icon: _currentIndex == 0 ? const Icon(Icons.home) : const Icon(Icons.home_outlined),
                   label: 'Home',
                 ),
                 NavigationDestination(
-                  icon: _currentIndex == 1
-                      ? const Icon(Icons.build)
-                      : const Icon(Icons.build_outlined),
+                  icon: _currentIndex == 1 ? const Icon(Icons.build) : const Icon(Icons.build_outlined),
                   label: 'Tool',
                 ),
                 NavigationDestination(
-                  icon: _currentIndex == 2
-                      ? const Icon(Icons.settings)
-                      : const Icon(Icons.settings_outlined),
+                  icon: _currentIndex == 2 ? const Icon(Icons.settings) : const Icon(Icons.settings_outlined),
                   label: 'Setting',
                 ),
               ],

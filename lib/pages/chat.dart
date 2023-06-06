@@ -34,10 +34,8 @@ class _ChatPageState extends State<ChatPage> {
   bool _handleScrollNotification(UserScrollNotification notification) {
     final ScrollDirection direction = notification.direction;
     setState(() {
-      if (notification.metrics.maxScrollExtent - notification.metrics.pixels >
-              100 &&
-          (direction == ScrollDirection.reverse ||
-              direction == ScrollDirection.idle)) {
+      if (notification.metrics.maxScrollExtent - notification.metrics.pixels > 100 &&
+          (direction == ScrollDirection.reverse || direction == ScrollDirection.idle)) {
         _showFab = true;
       } else {
         _showFab = false;
@@ -63,19 +61,12 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void initChat() {
-    _onChatAddedSubscription =
-        _fireBaseDB.child('chat').onChildAdded.listen((event) {
+    _onChatAddedSubscription = _fireBaseDB.child('chat').onChildAdded.listen((event) {
       if (event.snapshot.value != null) {
         var chat = event.snapshot.value as Map<String, dynamic>;
         debugPrint('listened chat $chat');
-        debugPrint(
-            'listened chat ${chat['uid']} ${chat['name']} ${chat['message']} ${chat['timestamp']} ${chat['photoUrl']}');
-        addChat(
-            chat['uid'] as String,
-            chat['name'] as String,
-            chat['message'] as String,
-            chat['timestamp'] as int,
-            chat['photoUrl'] as String);
+        debugPrint('listened chat ${chat['uid']} ${chat['name']} ${chat['message']} ${chat['timestamp']} ${chat['photoUrl']}');
+        addChat(chat['uid'] as String, chat['name'] as String, chat['message'] as String, chat['timestamp'] as int, chat['photoUrl'] as String);
       }
     }, onError: (Object o) {
       final error = o as FirebaseException;
@@ -86,8 +77,7 @@ class _ChatPageState extends State<ChatPage> {
     }, cancelOnError: true);
   }
 
-  void addChat(String? uid, String? name, String? message, int? timestamp,
-      String? photoUrl) {
+  void addChat(String? uid, String? name, String? message, int? timestamp, String? photoUrl) {
     setState(() {
       _chat.add({
         'uid': uid ?? '',
@@ -100,10 +90,7 @@ class _ChatPageState extends State<ChatPage> {
       _scrollTimer?.cancel();
       _scrollTimer = Timer(const Duration(milliseconds: 100), () {
         if (_scrollController.hasClients) {
-          _scrollController.animateTo(
-              _scrollController.position.maxScrollExtent,
-              duration: const Duration(milliseconds: 100),
-              curve: Curves.easeOut);
+          _scrollController.animateTo(_scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
           setState(() {
             _showFab = false;
           });
@@ -130,15 +117,12 @@ class _ChatPageState extends State<ChatPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Theme.of(context).colorScheme.errorContainer,
-        content: Text(error,
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onErrorContainer)),
+        content: Text(error, style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
         showCloseIcon: true,
         closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 10),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
       ),
     );
   }
@@ -166,312 +150,139 @@ class _ChatPageState extends State<ChatPage> {
                         child: _chat.isEmpty
                             ? const Center(
                                 child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)),
+                                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
                                   child: LinearProgressIndicator(
                                     minHeight: 20,
                                     value: null,
                                   ),
                                 ),
                               )
-                            : Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                    for (int i = 0; i < _chat.length; i++)
-                                      if (_chat[i]['uid'] ==
-                                          (FirebaseAuth.instance.currentUser !=
-                                                  null
-                                              ? FirebaseAuth
-                                                  .instance.currentUser!.uid
-                                              : ''))
-                                        Column(children: [
-                                          if (i == 0 ||
-                                              DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).day !=
-                                                  DateTime.fromMillisecondsSinceEpoch(
-                                                          int.parse(_chat[i - 1]
-                                                                  ['timestamp']
-                                                              .toString()))
-                                                      .day)
-                                            Text(
-                                                DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString()))
-                                                    .toString()
-                                                    .substring(0, 10),
+                            : Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+                                for (int i = 0; i < _chat.length; i++)
+                                  if (_chat[i]['uid'] == (FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.uid : ''))
+                                    Column(children: [
+                                      if (i == 0 ||
+                                          DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).day !=
+                                              DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i - 1]['timestamp'].toString())).day)
+                                        Text(DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).toString().substring(0, 10),
+                                            style: TextStyle(
+                                                color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.labelLarge?.fontSize)),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                              top: 5,
+                                              bottom: 5,
+                                              right: 5,
+                                            ),
+                                            child: Text(
+                                                DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).toString().substring(11, 16),
                                                 style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSurface,
-                                                    fontSize: Theme.of(context)
-                                                        .textTheme
-                                                        .labelLarge
-                                                        ?.fontSize)),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
+                                                    color: Theme.of(context).colorScheme.onSurface,
+                                                    fontSize: Theme.of(context).textTheme.labelLarge?.fontSize)),
+                                          ),
+                                          Container(
+                                            constraints: BoxConstraints(maxWidth: _messageWidth().toDouble()),
+                                            padding: const EdgeInsets.all(10),
+                                            margin: EdgeInsets.only(
+                                                top: i == 0 || _chat[i]['uid'] != _chat[i - 1]['uid'] ? 5 : 1,
+                                                bottom: i == _chat.length - 1 || _chat[i]['uid'] != _chat[i + 1]['uid'] ? 5 : 1),
+                                            decoration: BoxDecoration(
+                                                color: Theme.of(context).colorScheme.primary,
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(i == 0 || _chat[i]['uid'] != _chat[i - 1]['uid'] ? 10 : 0),
+                                                  topLeft: const Radius.circular(10),
+                                                  bottomRight: Radius.circular(i == _chat.length - 1 || _chat[i]['uid'] != _chat[i + 1]['uid'] ? 10 : 0),
+                                                  bottomLeft: const Radius.circular(10),
+                                                )),
+                                            child: Text(
+                                              _chat[i]['message'] as String,
+                                              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ])
+                                  else
+                                    Column(children: [
+                                      if (i == 0 ||
+                                          DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).day !=
+                                              DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i - 1]['timestamp'].toString())).day)
+                                        Text(DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).toString().substring(0, 10),
+                                            style: TextStyle(
+                                                color: Theme.of(context).colorScheme.onSurface, fontSize: Theme.of(context).textTheme.labelLarge?.fontSize)),
+                                      Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                        // photo
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                            top: 5,
+                                            bottom: 5,
+                                            left: 5,
+                                          ),
+                                          child: _chat[i]['uid'] != _chat[i == 0 ? i : i - 1]['uid'] || i == 0
+                                              ? CircleAvatar(
+                                                  radius: 20,
+                                                  backgroundImage: NetworkImage(_chat[i]['photoUrl'] as String),
+                                                  backgroundColor: Colors.transparent,
+                                                )
+                                              : Container(width: 40),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                  top: 5,
-                                                  bottom: 5,
-                                                  right: 5,
-                                                ),
-                                                child: Text(
-                                                    DateTime.fromMillisecondsSinceEpoch(
-                                                            int.parse(_chat[i]
-                                                                    [
-                                                                    'timestamp']
-                                                                .toString()))
-                                                        .toString()
-                                                        .substring(11, 16),
+                                              if (_chat[i]['uid'] != _chat[i == 0 ? i : i - 1]['uid'] || i == 0)
+                                                Text(_chat[i]['name'] as String,
                                                     style: TextStyle(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onSurface,
-                                                        fontSize:
-                                                            Theme.of(context)
-                                                                .textTheme
-                                                                .labelLarge
-                                                                ?.fontSize)),
-                                              ),
-                                              Container(
-                                                constraints: BoxConstraints(
-                                                    maxWidth: _messageWidth()
-                                                        .toDouble()),
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                margin: EdgeInsets.only(
-                                                    top: i == 0 ||
-                                                            _chat[i]['uid'] !=
-                                                                _chat[i - 1]
-                                                                    ['uid']
-                                                        ? 5
-                                                        : 1,
-                                                    bottom: i ==
-                                                                _chat.length -
-                                                                    1 ||
-                                                            _chat[i]['uid'] !=
-                                                                _chat[i + 1]
-                                                                    ['uid']
-                                                        ? 5
-                                                        : 1),
-                                                decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topRight: Radius
-                                                          .circular(i == 0 ||
-                                                                  _chat[i][
-                                                                          'uid'] !=
-                                                                      _chat[i -
-                                                                              1]
-                                                                          [
-                                                                          'uid']
-                                                              ? 10
-                                                              : 0),
-                                                      topLeft:
-                                                          const Radius.circular(
-                                                              10),
-                                                      bottomRight: Radius.circular(i ==
-                                                                  _chat.length -
-                                                                      1 ||
-                                                              _chat[i]['uid'] !=
-                                                                  _chat[i + 1]
-                                                                      ['uid']
-                                                          ? 10
-                                                          : 0),
-                                                      bottomLeft:
-                                                          const Radius.circular(
-                                                              10),
-                                                    )),
-                                                child: Text(
-                                                  _chat[i]['message'] as String,
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimary),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ])
-                                      else
-                                        Column(children: [
-                                          if (i == 0 ||
-                                              DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).day !=
-                                                  DateTime.fromMillisecondsSinceEpoch(
-                                                          int.parse(_chat[i - 1]
-                                                                  ['timestamp']
-                                                              .toString()))
-                                                      .day)
-                                            Text(
-                                                DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString()))
-                                                    .toString()
-                                                    .substring(0, 10),
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSurface,
-                                                    fontSize: Theme.of(context)
-                                                        .textTheme
-                                                        .labelLarge
-                                                        ?.fontSize)),
-                                          Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                // photo
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                    top: 5,
-                                                    bottom: 5,
-                                                    left: 5,
+                                                        color: Theme.of(context).colorScheme.onSurface,
+                                                        fontSize: Theme.of(context).textTheme.labelLarge?.fontSize)),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                  Container(
+                                                    constraints: BoxConstraints(maxWidth: _messageWidth().toDouble()),
+                                                    padding: const EdgeInsets.all(10),
+                                                    margin: EdgeInsets.only(
+                                                        top: i == 0 || _chat[i]['uid'] != _chat[i - 1]['uid'] ? 5 : 1,
+                                                        bottom: i == _chat.length - 1 || _chat[i]['uid'] != _chat[i + 1]['uid'] ? 5 : 1),
+                                                    decoration: BoxDecoration(
+                                                        color: Theme.of(context).colorScheme.primary,
+                                                        borderRadius: BorderRadius.only(
+                                                            topRight: const Radius.circular(10),
+                                                            topLeft: Radius.circular(i == 0 || _chat[i]['uid'] != _chat[i - 1]['uid'] ? 10 : 0),
+                                                            bottomRight: const Radius.circular(10),
+                                                            bottomLeft:
+                                                                Radius.circular(i == _chat.length - 1 || _chat[i]['uid'] != _chat[i + 1]['uid'] ? 10 : 0))),
+                                                    child: Text(
+                                                      _chat[i]['message'] as String,
+                                                      style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                                                    ),
                                                   ),
-                                                  child: _chat[i]['uid'] !=
-                                                              _chat[i == 0
-                                                                      ? i
-                                                                      : i - 1]
-                                                                  ['uid'] ||
-                                                          i == 0
-                                                      ? CircleAvatar(
-                                                          radius: 20,
-                                                          backgroundImage:
-                                                              NetworkImage(_chat[
-                                                                          i][
-                                                                      'photoUrl']
-                                                                  as String),
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                        )
-                                                      : Container(width: 40),
-                                                ),
-                                                const SizedBox(width: 5),
-                                                Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      if (_chat[i]['uid'] !=
-                                                              _chat[i == 0
-                                                                      ? i
-                                                                      : i - 1]
-                                                                  ['uid'] ||
-                                                          i == 0)
-                                                        Text(
-                                                            _chat[i]['name']
-                                                                as String,
-                                                            style: TextStyle(
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .colorScheme
-                                                                    .onSurface,
-                                                                fontSize: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .labelLarge
-                                                                    ?.fontSize)),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Container(
-                                                            constraints: BoxConstraints(
-                                                                maxWidth:
-                                                                    _messageWidth()
-                                                                        .toDouble()),
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(10),
-                                                            margin: EdgeInsets.only(
-                                                                top: i == 0 ||
-                                                                        _chat[i]['uid'] !=
-                                                                            _chat[i - 1][
-                                                                                'uid']
-                                                                    ? 5
-                                                                    : 1,
-                                                                bottom: i ==
-                                                                            _chat.length -
-                                                                                1 ||
-                                                                        _chat[i]['uid'] !=
-                                                                            _chat[i +
-                                                                                1]['uid']
-                                                                    ? 5
-                                                                    : 1),
-                                                            decoration: BoxDecoration(
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .colorScheme
-                                                                    .primary,
-                                                                borderRadius: BorderRadius.only(
-                                                                    topRight:
-                                                                        const Radius.circular(
-                                                                            10),
-                                                                    topLeft: Radius.circular(
-                                                                        i == 0 || _chat[i]['uid'] != _chat[i - 1]['uid']
-                                                                            ? 10
-                                                                            : 0),
-                                                                    bottomRight:
-                                                                        const Radius.circular(
-                                                                            10),
-                                                                    bottomLeft:
-                                                                        Radius.circular(i == _chat.length - 1 || _chat[i]['uid'] != _chat[i + 1]['uid'] ? 10 : 0))),
-                                                            child: Text(
-                                                              _chat[i][
-                                                                      'message']
-                                                                  as String,
-                                                              style: TextStyle(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .onPrimary),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                              top: 5,
-                                                              bottom: 5,
-                                                              left: 5,
-                                                            ),
-                                                            child: Text(
-                                                                DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]
-                                                                            [
-                                                                            'timestamp']
-                                                                        .toString()))
-                                                                    .toString()
-                                                                    .substring(
-                                                                        11, 16),
-                                                                style: TextStyle(
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .colorScheme
-                                                                        .onSurface,
-                                                                    fontSize: Theme.of(
-                                                                            context)
-                                                                        .textTheme
-                                                                        .labelLarge
-                                                                        ?.fontSize)),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ]),
-                                              ])
-                                        ])
-                                  ]),
+                                                  Container(
+                                                    margin: const EdgeInsets.only(
+                                                      top: 5,
+                                                      bottom: 5,
+                                                      left: 5,
+                                                    ),
+                                                    child: Text(
+                                                        DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString()))
+                                                            .toString()
+                                                            .substring(11, 16),
+                                                        style: TextStyle(
+                                                            color: Theme.of(context).colorScheme.onSurface,
+                                                            fontSize: Theme.of(context).textTheme.labelLarge?.fontSize)),
+                                                  ),
+                                                ],
+                                              )
+                                            ]),
+                                      ])
+                                    ])
+                              ]),
                       ),
                     ),
                     Positioned(
@@ -487,12 +298,8 @@ class _ChatPageState extends State<ChatPage> {
                                   child: const Icon(Icons.arrow_downward),
                                   onPressed: () {
                                     if (_scrollController.hasClients) {
-                                      _scrollController.animateTo(
-                                          _scrollController
-                                              .position.maxScrollExtent,
-                                          duration:
-                                              const Duration(milliseconds: 500),
-                                          curve: Curves.easeOut);
+                                      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+                                          duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
                                       setState(() {
                                         _showFab = false;
                                       });
@@ -552,8 +359,7 @@ class _ChatPageState extends State<ChatPage> {
                       : Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16.0),
-                            border: Border.all(
-                                color: Theme.of(context).colorScheme.onSurface),
+                            border: Border.all(color: Theme.of(context).colorScheme.onSurface),
                           ),
                           padding: const EdgeInsets.all(10),
                           child: Row(
@@ -564,9 +370,7 @@ class _ChatPageState extends State<ChatPage> {
                                 onPressed: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SignInPage(redirectPage: '/chat')),
+                                    MaterialPageRoute(builder: (context) => SignInPage(redirectPage: '/chat')),
                                   );
                                 },
                                 label: const Text('Sign In to chat'),

@@ -21,10 +21,8 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   final TextEditingController contactEmailController = TextEditingController();
-  final TextEditingController contactMessageController =
-      TextEditingController();
-  final TextEditingController contactSignatureController =
-      TextEditingController();
+  final TextEditingController contactMessageController = TextEditingController();
+  final TextEditingController contactSignatureController = TextEditingController();
   final _messageformKey = GlobalKey<FormState>();
   bool _loading = false;
 
@@ -68,8 +66,7 @@ class _ContactPageState extends State<ContactPage> {
           content: Text('Message Sent Seccessfully.'),
           showCloseIcon: true,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ));
       }).catchError((error) {
         setState(() {
@@ -77,15 +74,12 @@ class _ContactPageState extends State<ContactPage> {
         });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: Text('Error: Failed to send notification to Admin.',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onErrorContainer)),
+          content: Text('Error: Failed to send notification to Admin.', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
           behavior: SnackBarBehavior.floating,
           duration: const Duration(seconds: 10),
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0))),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ));
       });
     }).catchError((error) {
@@ -98,8 +92,7 @@ class _ContactPageState extends State<ContactPage> {
         closeIconColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 10),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
       ));
     });
   }
@@ -134,9 +127,7 @@ class _ContactPageState extends State<ContactPage> {
                               labelText: 'Email',
                               hintText: 'example@domain.com',
                               prefixIcon: Icon(Icons.email),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)))),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0)))),
                           textInputAction: TextInputAction.next,
                         ),
                         const SizedBox(height: 20),
@@ -147,9 +138,7 @@ class _ContactPageState extends State<ContactPage> {
                               labelText: 'Signature',
                               hintText: 'Type your signature here',
                               prefixIcon: Icon(Icons.draw),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)))),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0)))),
                           onSubmitted: (value) => {
                             _sendMessage(),
                           },
@@ -165,9 +154,7 @@ class _ContactPageState extends State<ContactPage> {
                               labelText: 'Message',
                               hintText: 'Type your message here',
                               prefixIcon: Icon(Icons.comment),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)))),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0)))),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Message Is Required';
@@ -185,8 +172,7 @@ class _ContactPageState extends State<ContactPage> {
                         Offstage(
                           offstage: !_loading,
                           child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16.0)),
+                            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                             child: LinearProgressIndicator(
                               minHeight: 20,
                               backgroundColor: Theme.of(context).splashColor,

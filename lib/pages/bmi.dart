@@ -88,16 +88,11 @@ class _BMIPageState extends State<BMIPage> {
                         controller: _heightController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.height),
-                          border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
+                          border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                           labelText: 'Height',
                           suffixIcon: ToggleButtons(
                             borderRadius: BorderRadius.circular(16),
-                            isSelected: [
-                              _heightUnit == 'cm',
-                              _heightUnit == 'in'
-                            ],
+                            isSelected: [_heightUnit == 'cm', _heightUnit == 'in'],
                             onPressed: (index) {
                               setState(() {
                                 if (index == 0) {
@@ -130,16 +125,11 @@ class _BMIPageState extends State<BMIPage> {
                         controller: _weightController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.scale),
-                          border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
+                          border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                           labelText: 'Weight',
                           suffixIcon: ToggleButtons(
                             borderRadius: BorderRadius.circular(16),
-                            isSelected: [
-                              _weightUnit == 'kg',
-                              _weightUnit == 'lb'
-                            ],
+                            isSelected: [_weightUnit == 'kg', _weightUnit == 'lb'],
                             onPressed: (index) {
                               setState(() {
                                 if (index == 0) {
@@ -166,15 +156,13 @@ class _BMIPageState extends State<BMIPage> {
                         },
                       ),
                       Offstage(
-                        offstage: _weightController.text == '' ||
-                            _heightController.text == '',
+                        offstage: _weightController.text == '' || _heightController.text == '',
                         child: const SizedBox(
                           height: 10,
                         ),
                       ),
                       Offstage(
-                        offstage: _weightController.text == '' ||
-                            _heightController.text == '',
+                        offstage: _weightController.text == '' || _heightController.text == '',
                         child: Wrap(
                           spacing: 10,
                           runSpacing: 10,

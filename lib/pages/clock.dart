@@ -85,9 +85,7 @@ class _ClockPageState extends State<ClockPage> {
                         height: _mathBox(),
                         child: Card(
                             clipBehavior: Clip.antiAlias,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16.0))),
+                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                             child: InkWell(
                               onTap: () => changeHourMode(),
                               child: Stack(children: [
@@ -115,10 +113,7 @@ class _ClockPageState extends State<ClockPage> {
                                                 ? 'AM'
                                                 : 'PM'
                                             : '',
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onBackground),
+                                        style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
                                       ),
                                     ),
                                   ),
@@ -139,9 +134,7 @@ class _ClockPageState extends State<ClockPage> {
                         height: _mathBox(),
                         child: Card(
                           clipBehavior: Clip.antiAlias,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
+                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                           child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: FittedBox(
@@ -165,9 +158,7 @@ class _ClockPageState extends State<ClockPage> {
                         height: _mathBox(),
                         child: Card(
                           clipBehavior: Clip.antiAlias,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
+                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                           child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: FittedBox(
@@ -184,9 +175,7 @@ class _ClockPageState extends State<ClockPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          html.document.fullscreenElement == null
-              ? html.document.documentElement!.requestFullscreen()
-              : html.document.exitFullscreen();
+          html.document.fullscreenElement == null ? html.document.documentElement!.requestFullscreen() : html.document.exitFullscreen();
           html.document.fullscreenElement == null
               ? setState(() {
                   _fullscreen = true;

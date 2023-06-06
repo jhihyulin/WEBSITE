@@ -59,13 +59,8 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
     _spinTimer?.cancel();
     var currentRotateSpeed = _rotateSpeed.toDouble();
     _spinTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
-      var needToRotateAngle = allNeedToRotateAngle -
-          (originalSpinNumber - spinNumber) * 360 -
-          _rotate;
-      currentRotateSpeed = sqrt((needToRotateAngle / 360) < 0.0001
-              ? 0.0001
-              : (needToRotateAngle / 360)) *
-          _rotateSpeed;
+      var needToRotateAngle = allNeedToRotateAngle - (originalSpinNumber - spinNumber) * 360 - _rotate;
+      currentRotateSpeed = sqrt((needToRotateAngle / 360) < 0.0001 ? 0.0001 : (needToRotateAngle / 360)) * _rotateSpeed;
       if (_rotate >= 360) {
         setState(() {
           _rotate = 0;
@@ -179,26 +174,19 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                               width: mathSquare() + mathPin(),
                               height: mathSquare(),
                               child: Card(
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0))),
+                                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                                   child: Row(children: [
                                     SizedBox(
                                       width: mathSquare() - 20,
                                       height: mathSquare() - 20,
                                       child: Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              10, 10, 0, 10),
+                                          padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
                                           child: Center(
                                               child: RotationTransition(
-                                            turns: AlwaysStoppedAnimation(
-                                                -_rotate / 360),
+                                            turns: AlwaysStoppedAnimation(-_rotate / 360),
                                             child: CustomPaint(
-                                              size: Size(mathSquare() - 60,
-                                                  mathSquare() - 60),
-                                              painter: MyPainter(
-                                                  context: context,
-                                                  textList: _textList),
+                                              size: Size(mathSquare() - 60, mathSquare() - 60),
+                                              painter: MyPainter(context: context, textList: _textList),
                                             ),
                                           ))),
                                     ),
@@ -207,13 +195,10 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                         height: mathPin() - 20,
                                         child: Center(
                                             child: Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0, 10, 10, 10),
+                                          padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
                                           child: CustomPaint(
-                                            size: Size(
-                                                mathPin() - 30, mathPin() - 40),
-                                            painter:
-                                                PinPainter(context: context),
+                                            size: Size(mathPin() - 30, mathPin() - 40),
+                                            painter: PinPainter(context: context),
                                           ),
                                         )))
                                   ])),
@@ -222,86 +207,57 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                 padding: const EdgeInsets.all(10),
                                 width: mathActionArea(),
                                 child: Card(
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(16.0))),
+                                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                                     child: Container(
                                         padding: const EdgeInsets.all(10),
                                         child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 SizedBox(
-                                                  width:
-                                                      mathActionArea() / 2 - 30,
-                                                  height:
-                                                      mathActionArea() / 2 - 30,
+                                                  width: mathActionArea() / 2 - 30,
+                                                  height: mathActionArea() / 2 - 30,
                                                   child: IconButton(
                                                       onPressed: _spinning
                                                           ? () {
-                                                              _spinTimer
-                                                                  ?.cancel();
+                                                              _spinTimer?.cancel();
                                                               setState(() {
-                                                                _spinning =
-                                                                    false;
+                                                                _spinning = false;
                                                                 _spined = false;
-                                                                _spinedString =
-                                                                    '';
+                                                                _spinedString = '';
                                                               });
                                                             }
                                                           : () {
                                                               spin();
                                                             },
-                                                      icon: _spinning
-                                                          ? const Icon(
-                                                              Icons.stop)
-                                                          : const Icon(
-                                                              Icons.play_arrow),
+                                                      icon: _spinning ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
                                                       iconSize: 64,
-                                                      color: _spinning
-                                                          ? Colors.red
-                                                          : Colors.green,
+                                                      color: _spinning ? Colors.red : Colors.green,
                                                       tooltip: _spinning
                                                           ? 'Stop'
                                                           : _spined
-                                                              ? _textList.isNotEmpty &&
-                                                                      _spined
+                                                              ? _textList.isNotEmpty && _spined
                                                                   ? 'Next'
                                                                   : 'Spin'
                                                               : 'Spin'),
                                                 ),
                                                 Offstage(
-                                                    offstage:
-                                                        !_spinning && !_spined,
+                                                    offstage: !_spinning && !_spined,
                                                     child: Container(
-                                                        width: mathActionArea() /
-                                                                2 -
-                                                            30,
-                                                        height:
-                                                            mathActionArea() /
-                                                                    2 -
-                                                                30,
-                                                        alignment:
-                                                            Alignment.center,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(10),
+                                                        width: mathActionArea() / 2 - 30,
+                                                        height: mathActionArea() / 2 - 30,
+                                                        alignment: Alignment.center,
+                                                        padding: const EdgeInsets.all(10),
                                                         child: _spinning
                                                             ? const CircularProgressIndicator()
                                                             : FittedBox(
-                                                                fit: BoxFit
-                                                                    .fitWidth,
+                                                                fit: BoxFit.fitWidth,
                                                                 child: Chip(
                                                                     label: Text(
-                                                                  _spinedString ??
-                                                                      '',
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          128),
+                                                                  _spinedString ?? '',
+                                                                  style: const TextStyle(fontSize: 128),
                                                                   maxLines: 1,
                                                                 ))))),
                                               ],
@@ -311,15 +267,13 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                               key: _formKey,
                                               child: TextFormField(
                                                 validator: (value) {
-                                                  if (value == null ||
-                                                      value.isEmpty) {
+                                                  if (value == null || value.isEmpty) {
                                                     return 'Please enter some text';
                                                   }
                                                   return null;
                                                 },
                                                 controller: _controller,
-                                                keyboardType:
-                                                    TextInputType.multiline,
+                                                keyboardType: TextInputType.multiline,
                                                 maxLines: 10,
                                                 minLines: 5,
                                                 decoration: InputDecoration(
@@ -331,21 +285,13 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                                           _spined = false;
                                                           onChange();
                                                         },
-                                                        icon: const Icon(
-                                                            Icons.clear)),
+                                                        icon: const Icon(Icons.clear)),
                                                     enabled: !_spinning,
                                                     labelText: 'Name List',
-                                                    hintText:
-                                                        'Newline to split',
-                                                    prefixIcon: const Icon(
-                                                        Icons.text_fields),
-                                                    border: const OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    16.0)))),
-                                                onChanged: (value) =>
-                                                    onChange(),
+                                                    hintText: 'Newline to split',
+                                                    prefixIcon: const Icon(Icons.text_fields),
+                                                    border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0)))),
+                                                onChanged: (value) => onChange(),
                                               ),
                                             ),
                                             // const SizedBo
@@ -353,135 +299,110 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                             Theme(
                                                 data: theme,
                                                 child: Card(
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    shape: const RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    16.0))),
-                                                    child: ExpansionTile(
-                                                        title: const Text(
-                                                            'Generate Number'),
-                                                        children: [
-                                                          Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(10),
-                                                              child: Form(
-                                                                  key:
-                                                                      _formKey2,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            TextFormField(
-                                                                          validator:
-                                                                              (value) {
-                                                                            if (value == null ||
-                                                                                value.isEmpty) {
-                                                                              return 'Required';
-                                                                            } else if (int.tryParse(value) == null) {
-                                                                              return 'Only number';
-                                                                            }
-                                                                            return null;
-                                                                          },
-                                                                          controller:
-                                                                              _controller2,
-                                                                          keyboardType:
-                                                                              TextInputType.number,
-                                                                          decoration: InputDecoration(
-                                                                              enabled: !_spinning,
-                                                                              labelText: 'Min',
-                                                                              hintText: 'Min',
-                                                                              border: const OutlineInputBorder(
-                                                                                  borderRadius: BorderRadius.all(
-                                                                                Radius.circular(16.0),
-                                                                              ))),
-                                                                          onChanged: (value) =>
-                                                                              onChange(),
-                                                                        ),
-                                                                      ),
-                                                                      const SizedBox(
-                                                                          width:
-                                                                              10),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            TextFormField(
-                                                                          validator:
-                                                                              (value) {
-                                                                            if (value == null ||
-                                                                                value.isEmpty) {
-                                                                              return 'Required';
-                                                                            } else if (int.tryParse(value) == null) {
-                                                                              return 'Only number';
-                                                                            }
-                                                                            return null;
-                                                                          },
-                                                                          controller:
-                                                                              _controller3,
-                                                                          keyboardType:
-                                                                              TextInputType.number,
-                                                                          decoration: InputDecoration(
-                                                                              enabled: !_spinning,
-                                                                              labelText: 'Max',
-                                                                              hintText: 'Max',
-                                                                              border: const OutlineInputBorder(
-                                                                                  borderRadius: BorderRadius.all(
-                                                                                Radius.circular(16.0),
-                                                                              ))),
-                                                                          onChanged: (value) =>
-                                                                              onChange(),
-                                                                        ),
-                                                                      ),
-                                                                      const SizedBox(
-                                                                          width:
-                                                                              10),
-                                                                      Expanded(
-                                                                        flex: 1,
-                                                                        child:
-                                                                            IconButton(
-                                                                          tooltip:
-                                                                              'Add',
-                                                                          onPressed: _spinning
-                                                                              ? null
-                                                                              : () {
-                                                                                  if (_formKey2.currentState!.validate()) {
-                                                                                    if (int.parse(_controller2.text) > int.parse(_controller3.text)) {
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(
-                                                                                        SnackBar(
-                                                                                          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                                                                                          content: Text(
-                                                                                            'Error: Min must be less than Max',
-                                                                                            style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
-                                                                                          ),
-                                                                                          showCloseIcon: true,
-                                                                                          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-                                                                                          behavior: SnackBarBehavior.floating,
-                                                                                          duration: const Duration(seconds: 10),
-                                                                                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                                                                                        ),
-                                                                                      );
-                                                                                      return;
-                                                                                    }
-                                                                                    var tL = [];
-                                                                                    for (int i = int.parse(_controller2.text); i <= int.parse(_controller3.text); i++) {
-                                                                                      tL.add(i.toString());
-                                                                                    }
-                                                                                    _controller.text = _controller.text == '' ? tL.join('\n') : '${_controller.text}\n${tL.join('\n')}';
-                                                                                    onChange();
-                                                                                    setState(() {});
-                                                                                  }
-                                                                                },
-                                                                          icon:
-                                                                              const Icon(Icons.add),
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  )))
-                                                        ])))
+                                                    clipBehavior: Clip.antiAlias,
+                                                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                                                    child: ExpansionTile(title: const Text('Generate Number'), children: [
+                                                      Container(
+                                                          padding: const EdgeInsets.all(10),
+                                                          child: Form(
+                                                              key: _formKey2,
+                                                              child: Row(
+                                                                children: [
+                                                                  Expanded(
+                                                                    flex: 2,
+                                                                    child: TextFormField(
+                                                                      validator: (value) {
+                                                                        if (value == null || value.isEmpty) {
+                                                                          return 'Required';
+                                                                        } else if (int.tryParse(value) == null) {
+                                                                          return 'Only number';
+                                                                        }
+                                                                        return null;
+                                                                      },
+                                                                      controller: _controller2,
+                                                                      keyboardType: TextInputType.number,
+                                                                      decoration: InputDecoration(
+                                                                          enabled: !_spinning,
+                                                                          labelText: 'Min',
+                                                                          hintText: 'Min',
+                                                                          border: const OutlineInputBorder(
+                                                                              borderRadius: BorderRadius.all(
+                                                                            Radius.circular(16.0),
+                                                                          ))),
+                                                                      onChanged: (value) => onChange(),
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(width: 10),
+                                                                  Expanded(
+                                                                    flex: 2,
+                                                                    child: TextFormField(
+                                                                      validator: (value) {
+                                                                        if (value == null || value.isEmpty) {
+                                                                          return 'Required';
+                                                                        } else if (int.tryParse(value) == null) {
+                                                                          return 'Only number';
+                                                                        }
+                                                                        return null;
+                                                                      },
+                                                                      controller: _controller3,
+                                                                      keyboardType: TextInputType.number,
+                                                                      decoration: InputDecoration(
+                                                                          enabled: !_spinning,
+                                                                          labelText: 'Max',
+                                                                          hintText: 'Max',
+                                                                          border: const OutlineInputBorder(
+                                                                              borderRadius: BorderRadius.all(
+                                                                            Radius.circular(16.0),
+                                                                          ))),
+                                                                      onChanged: (value) => onChange(),
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(width: 10),
+                                                                  Expanded(
+                                                                    flex: 1,
+                                                                    child: IconButton(
+                                                                      tooltip: 'Add',
+                                                                      onPressed: _spinning
+                                                                          ? null
+                                                                          : () {
+                                                                              if (_formKey2.currentState!.validate()) {
+                                                                                if (int.parse(_controller2.text) > int.parse(_controller3.text)) {
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                                                    SnackBar(
+                                                                                      backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                                                                                      content: Text(
+                                                                                        'Error: Min must be less than Max',
+                                                                                        style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
+                                                                                      ),
+                                                                                      showCloseIcon: true,
+                                                                                      closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
+                                                                                      behavior: SnackBarBehavior.floating,
+                                                                                      duration: const Duration(seconds: 10),
+                                                                                      shape: const RoundedRectangleBorder(
+                                                                                          borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                                                                                    ),
+                                                                                  );
+                                                                                  return;
+                                                                                }
+                                                                                var tL = [];
+                                                                                for (int i = int.parse(_controller2.text);
+                                                                                    i <= int.parse(_controller3.text);
+                                                                                    i++) {
+                                                                                  tL.add(i.toString());
+                                                                                }
+                                                                                _controller.text = _controller.text == ''
+                                                                                    ? tL.join('\n')
+                                                                                    : '${_controller.text}\n${tL.join('\n')}';
+                                                                                onChange();
+                                                                                setState(() {});
+                                                                              }
+                                                                            },
+                                                                      icon: const Icon(Icons.add),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              )))
+                                                    ])))
                                           ],
                                         )))),
                           ],
@@ -526,8 +447,7 @@ class MyPainter extends CustomPainter {
     canvas.drawShadow(
         Path()
           ..moveTo(0, 0)
-          ..addArc(Rect.fromCircle(center: center, radius: size.width / 2), 0,
-              2 * pi),
+          ..addArc(Rect.fromCircle(center: center, radius: size.width / 2), 0, 2 * pi),
         Colors.black,
         10,
         true);
@@ -564,10 +484,7 @@ class MyPainter extends CustomPainter {
             ? 0
             : (2 / textList.length * size.width) > size.width / 2
                 ? size.width / 2 * 1 / textList[i].length * 0.8
-                : (2 / textList.length * size.width) *
-                    1 /
-                    textList[i].length *
-                    0.8;
+                : (2 / textList.length * size.width) * 1 / textList[i].length * 0.8;
         // text
         canvas.save();
         canvas.rotate(angle + aAngle / 2);
@@ -575,17 +492,12 @@ class MyPainter extends CustomPainter {
           textAlign: TextAlign.end,
           text: TextSpan(
             text: textList[i],
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: fontSize),
+            style: TextStyle(color: Theme.of(context).colorScheme.onBackground, fontSize: fontSize),
           ),
           textDirection: TextDirection.ltr,
         );
         textPainter.layout();
-        textPainter.paint(
-            canvas,
-            center.translate(-textPainter.width - 10,
-                -size.height / 2 - textPainter.height / 2));
+        textPainter.paint(canvas, center.translate(-textPainter.width - 10, -size.height / 2 - textPainter.height / 2));
         canvas.restore();
       }
     } else {

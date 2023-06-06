@@ -13,8 +13,7 @@ class PrivacyPolicyPage extends StatefulWidget {
 
 class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
   _loadMarkdownData() async {
-    var url =
-        'https://raw.githubusercontent.com/jhihyulin/WEBSITE/main/privacy_policy.md';
+    var url = 'https://raw.githubusercontent.com/jhihyulin/WEBSITE/main/privacy_policy.md';
     var client = http.Client();
     var request = http.Request('GET', Uri.parse(url));
     var response = await client.send(request);
@@ -33,16 +32,13 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
           SnackBar(
             backgroundColor: Theme.of(context).colorScheme.errorContainer,
             content: SelectionArea(
-              child: Text('Error: Failed to open in new tab, the URL is: $url',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.onErrorContainer)),
+              child: Text('Error: Failed to open in new tab, the URL is: $url', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
             ),
             showCloseIcon: true,
             closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
             behavior: SnackBarBehavior.floating,
             duration: const Duration(seconds: 10),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
           ),
         );
       }
@@ -60,8 +56,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
         physics: const BouncingScrollPhysics(),
         child: Center(
           child: Container(
-              height: MediaQuery.of(context).size.height -
-                  AppBar().preferredSize.height,
+              height: MediaQuery.of(context).size.height - AppBar().preferredSize.height,
               width: MediaQuery.of(context).size.width,
               constraints: const BoxConstraints(maxWidth: 700),
               padding: const EdgeInsets.all(10),
@@ -81,8 +76,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   } else {
                     return Center(
                       child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(16.0)),
+                        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                         child: LinearProgressIndicator(
                           minHeight: 20,
                           backgroundColor: Theme.of(context).splashColor,

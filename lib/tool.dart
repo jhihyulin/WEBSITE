@@ -84,9 +84,7 @@ class ToolPage extends StatelessWidget {
             child: Container(
                 constraints: BoxConstraints(
                   maxWidth: 700,
-                  minHeight: MediaQuery.of(context).size.height -
-                      AppBar().preferredSize.height -
-                      80, //NavigationBar Height
+                  minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - 80, //NavigationBar Height
                 ),
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -102,8 +100,7 @@ class ToolPage extends StatelessWidget {
                         for (var tool in _tools.entries)
                           ElevatedButton.icon(
                               onPressed: () {
-                                Navigator.pushNamed(
-                                    context, tool.value['route']);
+                                Navigator.pushNamed(context, tool.value['route']);
                               },
                               icon: Icon(tool.value['icon']),
                               label: Text(tool.value['title']))

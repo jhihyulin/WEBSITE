@@ -17,8 +17,7 @@ class ThemeProvider with ChangeNotifier {
       if (user != null) {
         _user = user;
         // receive Firestore realtime data
-        final docRef =
-            FirebaseFirestore.instance.collection('user').doc(_user!.uid);
+        final docRef = FirebaseFirestore.instance.collection('user').doc(_user!.uid);
         docRef.snapshots().listen((event) {
           if (kDebugMode) {
             print('Remote Firestore Data Changed');

@@ -25,8 +25,7 @@ class _SettingPageState extends State<SettingPage> {
       }
       return false;
     });
-    Color themeColor =
-        Provider.of<ThemeProvider>(context, listen: true).themeColor;
+    Color themeColor = Provider.of<ThemeProvider>(context, listen: true).themeColor;
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent);
@@ -36,9 +35,7 @@ class _SettingPageState extends State<SettingPage> {
             child: Container(
                 constraints: BoxConstraints(
                   maxWidth: 700,
-                  minHeight: MediaQuery.of(context).size.height -
-                      AppBar().preferredSize.height -
-                      80, //NavigationBar Height
+                  minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - 80, //NavigationBar Height
                 ),
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -54,17 +51,11 @@ class _SettingPageState extends State<SettingPage> {
                             title: const Text('General'),
                             children: [
                               ListTile(
-                                leading: user != null
-                                    ? const Icon(Icons.sync)
-                                    : const Icon(Icons.sync_disabled),
-                                title: user != null
-                                    ? const Text('Logged in')
-                                    : const Text('Logged out'),
+                                leading: user != null ? const Icon(Icons.sync) : const Icon(Icons.sync_disabled),
+                                title: user != null ? const Text('Logged in') : const Text('Logged out'),
                                 subtitle: user != null
-                                    ? const Text(
-                                        'Settings will sync to your account, and take effect on all devices immediately.')
-                                    : const Text(
-                                        'Login to sync settings to your account.'),
+                                    ? const Text('Settings will sync to your account, and take effect on all devices immediately.')
+                                    : const Text('Login to sync settings to your account.'),
                               ),
                               ListTile(
                                 leading: themeMode == 0
@@ -83,22 +74,15 @@ class _SettingPageState extends State<SettingPage> {
                                   isSelected: themeModeIsSelected,
                                   onPressed: (int index) {
                                     setState(() {
-                                      for (int buttonIndex = 0;
-                                          buttonIndex <
-                                              themeModeIsSelected.length;
-                                          buttonIndex++) {
+                                      for (int buttonIndex = 0; buttonIndex < themeModeIsSelected.length; buttonIndex++) {
                                         if (buttonIndex == index) {
-                                          themeModeIsSelected[buttonIndex] =
-                                              true;
+                                          themeModeIsSelected[buttonIndex] = true;
                                           themeMode = buttonIndex;
                                         } else {
-                                          themeModeIsSelected[buttonIndex] =
-                                              false;
+                                          themeModeIsSelected[buttonIndex] = false;
                                         }
                                       }
-                                      Provider.of<ThemeProvider>(context,
-                                              listen: false)
-                                          .setThemeMode(themeMode);
+                                      Provider.of<ThemeProvider>(context, listen: false).setThemeMode(themeMode);
                                     });
                                   },
                                   children: const [
@@ -128,11 +112,9 @@ class _SettingPageState extends State<SettingPage> {
                                           context: context,
                                           builder: (context) {
                                             return AlertDialog(
-                                                title:
-                                                    const Text('Theme Color'),
+                                                title: const Text('Theme Color'),
                                                 content: SingleChildScrollView(
-                                                  physics:
-                                                      const BouncingScrollPhysics(),
+                                                  physics: const BouncingScrollPhysics(),
                                                   child: ColorPicker(
                                                     pickerColor: themeColor,
                                                     onColorChanged: (color) {
@@ -140,8 +122,7 @@ class _SettingPageState extends State<SettingPage> {
                                                         themeColor = color;
                                                       });
                                                     },
-                                                    pickerAreaHeightPercent:
-                                                        0.8,
+                                                    pickerAreaHeightPercent: 0.8,
                                                     enableAlpha: false,
                                                   ),
                                                 ),
@@ -149,39 +130,21 @@ class _SettingPageState extends State<SettingPage> {
                                                   TextButton(
                                                       onPressed: () {
                                                         setState(() {
-                                                          themeColor = Provider
-                                                                  .of<ThemeProvider>(
-                                                                      context,
-                                                                      listen:
-                                                                          false)
-                                                              .defaultThemeColor;
-                                                          Provider.of<ThemeProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .setThemeColor(
-                                                                  themeColor);
-                                                          Navigator.of(context)
-                                                              .pop();
+                                                          themeColor = Provider.of<ThemeProvider>(context, listen: false).defaultThemeColor;
+                                                          Provider.of<ThemeProvider>(context, listen: false).setThemeColor(themeColor);
+                                                          Navigator.of(context).pop();
                                                         });
                                                       },
-                                                      child:
-                                                          const Text('Reset')),
+                                                      child: const Text('Reset')),
                                                   TextButton(
                                                       onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
+                                                        Navigator.of(context).pop();
                                                       },
-                                                      child:
-                                                          const Text('Cancel')),
+                                                      child: const Text('Cancel')),
                                                   TextButton(
                                                       onPressed: () {
-                                                        Provider.of<ThemeProvider>(
-                                                                context,
-                                                                listen: false)
-                                                            .setThemeColor(
-                                                                themeColor);
-                                                        Navigator.of(context)
-                                                            .pop();
+                                                        Provider.of<ThemeProvider>(context, listen: false).setThemeColor(themeColor);
+                                                        Navigator.of(context).pop();
                                                       },
                                                       child: const Text('OK'))
                                                 ]);
@@ -202,36 +165,23 @@ class _SettingPageState extends State<SettingPage> {
                             children: [
                               ListTile(
                                   leading: const Icon(Icons.handyman),
-                                  title: Wrap(
-                                      alignment: WrapAlignment.start,
-                                      runAlignment: WrapAlignment.center,
-                                      children: [
-                                        InkWell(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            child: Container(
-                                              padding: const EdgeInsets.all(15),
-                                              child: const Image(
-                                                  image: AssetImage(
-                                                      'assets/images/BuiltWithFlutter.png'),
-                                                  height: 30),
-                                            ),
-                                            onTap: () {
-                                              launchUrl(Uri.parse(
-                                                  'https://flutter.dev'));
-                                            }),
-                                        InkWell(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                            child: const Image(
-                                                image: AssetImage(
-                                                    'assets/images/BuiltWithFirebaseLightRemoveBackground.png'),
-                                                height: 60),
-                                            onTap: () {
-                                              launchUrl(Uri.parse(
-                                                  'https://firebase.google.com'));
-                                            }),
-                                      ])),
+                                  title: Wrap(alignment: WrapAlignment.start, runAlignment: WrapAlignment.center, children: [
+                                    InkWell(
+                                        borderRadius: BorderRadius.circular(16),
+                                        child: Container(
+                                          padding: const EdgeInsets.all(15),
+                                          child: const Image(image: AssetImage('assets/images/BuiltWithFlutter.png'), height: 30),
+                                        ),
+                                        onTap: () {
+                                          launchUrl(Uri.parse('https://flutter.dev'));
+                                        }),
+                                    InkWell(
+                                        borderRadius: BorderRadius.circular(16),
+                                        child: const Image(image: AssetImage('assets/images/BuiltWithFirebaseLightRemoveBackground.png'), height: 60),
+                                        onTap: () {
+                                          launchUrl(Uri.parse('https://firebase.google.com'));
+                                        }),
+                                  ])),
                               ListTile(
                                   leading: const Icon(Icons.code),
                                   title: const Text('License'),
@@ -239,8 +189,7 @@ class _SettingPageState extends State<SettingPage> {
                                   trailing: IconButton(
                                     icon: const Icon(Icons.open_in_new),
                                     onPressed: () {
-                                      launchUrl(Uri.parse(
-                                          'https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE'));
+                                      launchUrl(Uri.parse('https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE'));
                                     },
                                   )),
                               ListTile(
@@ -250,8 +199,7 @@ class _SettingPageState extends State<SettingPage> {
                                   trailing: IconButton(
                                     icon: const Icon(Icons.open_in_new),
                                     onPressed: () {
-                                      launchUrl(Uri.parse(
-                                          'https://github.com/jhihyulin/WEBSITE'));
+                                      launchUrl(Uri.parse('https://github.com/jhihyulin/WEBSITE'));
                                     },
                                   )),
                               ListTile(
@@ -265,8 +213,7 @@ class _SettingPageState extends State<SettingPage> {
                                   trailing: IconButton(
                                     icon: const Icon(Icons.open_in_new),
                                     onPressed: () {
-                                      launchUrl(Uri.parse(
-                                          'mailto:JY@jhihyulin.live'));
+                                      launchUrl(Uri.parse('mailto:JY@jhihyulin.live'));
                                     },
                                   )),
                               Row(
@@ -274,25 +221,20 @@ class _SettingPageState extends State<SettingPage> {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('/privacypolicy');
+                                      Navigator.of(context).pushNamed('/privacypolicy');
                                     },
                                     child: const Text('Privacy Policy'),
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('/termsofservice');
+                                      Navigator.of(context).pushNamed('/termsofservice');
                                     },
                                     child: const Text('Terms of Service'),
                                   ),
                                 ],
                               ),
-                              Text(
-                                  'ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE',
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      color: Colors.grey, fontSize: 12)),
+                              Text('ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE',
+                                  textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey, fontSize: 12)),
                             ],
                           ),
                         ))

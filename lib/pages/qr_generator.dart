@@ -49,14 +49,10 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
 
   void _createImageFromRenderKey() async {
     var renderKey = globalKey;
-    final RenderRepaintBoundary boundary =
-        renderKey.currentContext?.findRenderObject()! as RenderRepaintBoundary;
+    final RenderRepaintBoundary boundary = renderKey.currentContext?.findRenderObject()! as RenderRepaintBoundary;
     final ui.Image image = await boundary.toImage(pixelRatio: 3);
-    final ByteData? byteData =
-        await image.toByteData(format: ui.ImageByteFormat.png);
-    final anchor = html.AnchorElement(
-        href:
-            'data:image/png;base64,${base64Encode(byteData!.buffer.asUint8List())}');
+    final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    final anchor = html.AnchorElement(href: 'data:image/png;base64,${base64Encode(byteData!.buffer.asUint8List())}');
     anchor.download = 'QRCode.png';
     anchor.click();
   }
@@ -80,8 +76,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                   MediaQuery.of(context).padding.top -
                   MediaQuery.of(context).padding.bottom,
             ),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               TextFormField(
                   controller: _textEditingController,
                   decoration: InputDecoration(
@@ -109,8 +104,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                 data: theme,
                 child: Card(
                   clipBehavior: Clip.antiAlias,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                   child: ExpansionTile(
                     title: const Text('Advanced'),
                     children: [
@@ -126,45 +120,34 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                              title: const Text(
-                                                  'What about version?'),
+                                              title: const Text('What about version?'),
                                               content: Container(
-                                                  constraints:
-                                                      const BoxConstraints(
+                                                  constraints: const BoxConstraints(
                                                     maxWidth: 700,
                                                     minWidth: 700,
                                                   ),
                                                   child: SingleChildScrollView(
-                                                    physics:
-                                                        const BouncingScrollPhysics(),
-                                                    child: Text.rich(
-                                                        TextSpan(children: [
+                                                    physics: const BouncingScrollPhysics(),
+                                                    child: Text.rich(TextSpan(children: [
                                                       const TextSpan(
                                                           text:
                                                               'The symbol versions of QR Code range from Version 1 to Version 40. Each version has a different module configuration or number of modules. (The module refers to the black and white dots that make up QR Code.)"Module configuration" refers to the number of modules contained in a symbol, commencing with Version 1 (21 × 21 modules) up to Version 40 (177 × 177 modules). Each higher version number comprises 4 additional modules per side.\nSource: '),
                                                       TextSpan(
                                                         style: TextStyle(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .primary,
+                                                          color: Theme.of(context).colorScheme.primary,
                                                         ),
-                                                        text:
-                                                            'https://www.qrcode.com/en/about/version.html',
-                                                        recognizer:
-                                                            TapGestureRecognizer()
-                                                              ..onTap = () {
-                                                                launchUrl(Uri.parse(
-                                                                    'https://www.qrcode.com/en/about/version.html'));
-                                                              },
+                                                        text: 'https://www.qrcode.com/en/about/version.html',
+                                                        recognizer: TapGestureRecognizer()
+                                                          ..onTap = () {
+                                                            launchUrl(Uri.parse('https://www.qrcode.com/en/about/version.html'));
+                                                          },
                                                       )
                                                     ])),
                                                   )),
                                               actions: [
                                                 TextButton(
                                                     onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
+                                                      Navigator.of(context).pop();
                                                     },
                                                     child: const Text('OK'))
                                               ]);
@@ -221,11 +204,9 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                              title: const Text(
-                                                  'Background Color'),
+                                              title: const Text('Background Color'),
                                               content: SingleChildScrollView(
-                                                physics:
-                                                    const BouncingScrollPhysics(),
+                                                physics: const BouncingScrollPhysics(),
                                                 child: ColorPicker(
                                                   pickerColor: _backgroundColor,
                                                   onColorChanged: (color) {
@@ -243,8 +224,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                       setState(() {
                                                         _generate();
                                                       });
-                                                      Navigator.of(context)
-                                                          .pop();
+                                                      Navigator.of(context).pop();
                                                     },
                                                     child: const Text('OK'))
                                               ]);
@@ -280,11 +260,9 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                         context: context,
                                         builder: (context) {
                                           return AlertDialog(
-                                              title: const Text(
-                                                  'Foreground Color'),
+                                              title: const Text('Foreground Color'),
                                               content: SingleChildScrollView(
-                                                physics:
-                                                    const BouncingScrollPhysics(),
+                                                physics: const BouncingScrollPhysics(),
                                                 child: ColorPicker(
                                                   pickerColor: _foregroundColor,
                                                   onColorChanged: (color) {
@@ -302,8 +280,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                       setState(() {
                                                         _generate();
                                                       });
-                                                      Navigator.of(context)
-                                                          .pop();
+                                                      Navigator.of(context).pop();
                                                     },
                                                     child: const Text('OK'))
                                               ]);
@@ -313,8 +290,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                           )),
                       ListTile(
                           title: const Text('Gapless'),
-                          subtitle: const Text(
-                              'Adds an extra pixel in size to prevent gaps'),
+                          subtitle: const Text('Adds an extra pixel in size to prevent gaps'),
                           trailing: Switch(
                             value: _gapless,
                             onChanged: (value) {
@@ -385,50 +361,31 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                   icon: const Icon(Icons.refresh),
                                   onPressed: () {
                                     setState(() {
-                                      _embeddedImageSize =
-                                          const QrEmbeddedImageStyle(
-                                              size: Size(30, 30));
+                                      _embeddedImageSize = const QrEmbeddedImageStyle(size: Size(30, 30));
                                       _generate();
                                     });
                                   },
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.remove),
-                                  onPressed: _embeddedImageSize.size !=
-                                          const Size(0, 0)
+                                  onPressed: _embeddedImageSize.size != const Size(0, 0)
                                       ? () {
                                           setState(() {
-                                            _embeddedImageSize =
-                                                (_embeddedImageSize.size !=
-                                                        const Size(0, 0)
-                                                    ? QrEmbeddedImageStyle(
-                                                        size: Size(
-                                                            _embeddedImageSize
-                                                                    .size!
-                                                                    .width -
-                                                                1,
-                                                            _embeddedImageSize
-                                                                    .size!
-                                                                    .height -
-                                                                1))
-                                                    : null)!;
+                                            _embeddedImageSize = (_embeddedImageSize.size != const Size(0, 0)
+                                                ? QrEmbeddedImageStyle(size: Size(_embeddedImageSize.size!.width - 1, _embeddedImageSize.size!.height - 1))
+                                                : null)!;
                                             _generate();
                                           });
                                         }
                                       : null,
                                 ),
-                                Text(
-                                    '${_embeddedImageSize.size!.width.toInt()}x${_embeddedImageSize.size!.height.toInt()}'),
+                                Text('${_embeddedImageSize.size!.width.toInt()}x${_embeddedImageSize.size!.height.toInt()}'),
                                 IconButton(
                                   icon: const Icon(Icons.add),
                                   onPressed: () {
                                     setState(() {
-                                      _embeddedImageSize = QrEmbeddedImageStyle(
-                                          size: Size(
-                                              _embeddedImageSize.size!.width +
-                                                  1,
-                                              _embeddedImageSize.size!.height +
-                                                  1));
+                                      _embeddedImageSize =
+                                          QrEmbeddedImageStyle(size: Size(_embeddedImageSize.size!.width + 1, _embeddedImageSize.size!.height + 1));
                                       _generate();
                                     });
                                   },
@@ -456,13 +413,10 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                     icon: const Icon(Icons.image),
                                     label: const Text('Select Image'),
                                     onPressed: () async {
-                                      var pickedFile =
-                                          await _imagePicker.pickImage(
-                                              source: ImageSource.gallery);
+                                      var pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
                                       if (pickedFile != null) {
                                         setState(() {
-                                          _embeddedImage =
-                                              NetworkImage(pickedFile.path);
+                                          _embeddedImage = NetworkImage(pickedFile.path);
                                           _generate();
                                         });
                                       }
@@ -480,9 +434,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                           ],
                           onPressed: (index) {
                             setState(() {
-                              _selectModuleShape = index == 0
-                                  ? QrDataModuleShape.circle
-                                  : QrDataModuleShape.square;
+                              _selectModuleShape = index == 0 ? QrDataModuleShape.circle : QrDataModuleShape.square;
                               _generate();
                             });
                           },
@@ -515,12 +467,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                       color: _foregroundColor,
                     ),
                     padding: EdgeInsets.all(_padding.toDouble()),
-                    embeddedImage: _useEmbeddedImage
-                        ? _embeddedImage ??
-                            const AssetImage('assets/images/logo-512x512.png')
-                        : null,
-                    embeddedImageStyle:
-                        _useEmbeddedImage ? _embeddedImageSize : null,
+                    embeddedImage: _useEmbeddedImage ? _embeddedImage ?? const AssetImage('assets/images/logo-512x512.png') : null,
+                    embeddedImageStyle: _useEmbeddedImage ? _embeddedImageSize : null,
                     errorStateBuilder: (cxt, err) {
                       return Center(
                         child: Text(

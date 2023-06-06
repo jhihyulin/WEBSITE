@@ -52,14 +52,8 @@ class _ShortURLPageState extends State<ShortURLPage> {
       String token = await user.getIdToken();
       await http
           .post(sURLServerCreate,
-              body: jsonEncode({
-                'firebase_uid': uid,
-                'original_url': sURLURLController.text
-              }),
-              headers: {
-                'Content-Type': 'application/json',
-                'X-Firebase-AppCheck': token
-              })
+              body: jsonEncode({'firebase_uid': uid, 'original_url': sURLURLController.text}),
+              headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token})
           .then((value) => {
                 setState(() {
                   _surl = jsonDecode(value.body)['url'];
@@ -79,8 +73,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                   closeIconColor: Theme.of(context).colorScheme.error,
                   behavior: SnackBarBehavior.floating,
                   duration: const Duration(seconds: 10),
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
                 )),
               });
     } else {
@@ -114,147 +107,104 @@ class _ShortURLPageState extends State<ShortURLPage> {
                   ),
                   child: Form(
                       key: _sURLFormKey,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            TextFormField(
-                              controller: sURLURLController,
-                              keyboardType: TextInputType.url,
-                              decoration: const InputDecoration(
-                                  labelText: 'URL',
-                                  hintText: 'https://example.com',
-                                  prefixIcon: Icon(Icons.link),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0)))),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'URL is required';
-                                } else if (!Uri.parse(value).isAbsolute) {
-                                  return 'URL is invalid';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              onTapOutside: (event) => {
-                                _sURLFormKey.currentState!.validate(),
-                              },
-                              onFieldSubmitted: (event) => {
-                                _createURL(),
-                              },
-                            ),
-                            Offstage(
-                                offstage: !_loading,
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 20),
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(16.0)),
-                                      child: LinearProgressIndicator(
-                                        minHeight: 20,
-                                        backgroundColor:
-                                            Theme.of(context).splashColor,
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                            Offstage(
-                                offstage: !_loaded,
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 20),
-                                    TextFormField(
-                                      controller: sURLsURLController,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Short URL',
-                                        prefixIcon: Icon(Icons.link),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(16.0)),
-                                        ),
-                                      ),
-                                      readOnly: true,
-                                    ),
-                                  ],
-                                )),
-                            const SizedBox(height: 20),
-                            Wrap(
-                                spacing: 10,
-                                runSpacing: 10,
-                                alignment: WrapAlignment.center,
-                                children: [
-                                  Offstage(
-                                    offstage: _loading,
-                                    child: ElevatedButton.icon(
-                                      onPressed: _createURL,
-                                      label: _loaded
-                                          ? const Text('Recreate')
-                                          : const Text('Create Short URL'),
-                                      icon: _loaded
-                                          ? const Icon(Icons.refresh)
-                                          : const Icon(Icons.add),
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                        TextFormField(
+                          controller: sURLURLController,
+                          keyboardType: TextInputType.url,
+                          decoration: const InputDecoration(
+                              labelText: 'URL',
+                              hintText: 'https://example.com',
+                              prefixIcon: Icon(Icons.link),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0)))),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'URL is required';
+                            } else if (!Uri.parse(value).isAbsolute) {
+                              return 'URL is invalid';
+                            } else {
+                              return null;
+                            }
+                          },
+                          onTapOutside: (event) => {
+                            _sURLFormKey.currentState!.validate(),
+                          },
+                          onFieldSubmitted: (event) => {
+                            _createURL(),
+                          },
+                        ),
+                        Offstage(
+                            offstage: !_loading,
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                                  child: LinearProgressIndicator(
+                                    minHeight: 20,
+                                    backgroundColor: Theme.of(context).splashColor,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        Offstage(
+                            offstage: !_loaded,
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                TextFormField(
+                                  controller: sURLsURLController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Short URL',
+                                    prefixIcon: Icon(Icons.link),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
                                     ),
                                   ),
-                                  Offstage(
-                                    offstage: !_loaded,
-                                    child: ElevatedButton.icon(
-                                      label: const Text('Copy'),
-                                      icon: const Icon(Icons.copy),
-                                      onPressed: () {
-                                        Clipboard.setData(
-                                                ClipboardData(text: _surl))
-                                            .then((value) => {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                          const SnackBar(
-                                                    content: Text(
-                                                        'Copied to clipboard'),
-                                                    showCloseIcon: true,
-                                                    behavior: SnackBarBehavior
-                                                        .floating,
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    16.0))),
-                                                  ))
-                                                })
-                                            .catchError((error) => {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(SnackBar(
-                                                    backgroundColor:
-                                                        Theme.of(context)
-                                                            .colorScheme
-                                                            .errorContainer,
-                                                    content: Text(
-                                                        'Error: $error',
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .onErrorContainer)),
-                                                    showCloseIcon: true,
-                                                    closeIconColor:
-                                                        Theme.of(context)
-                                                            .colorScheme
-                                                            .onErrorContainer,
-                                                    behavior: SnackBarBehavior
-                                                        .floating,
-                                                    duration: const Duration(
-                                                        seconds: 10),
-                                                    shape: const RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    16.0))),
-                                                  ))
-                                                });
-                                      },
-                                    ),
-                                  )
-                                ]),
-                          ]))),
+                                  readOnly: true,
+                                ),
+                              ],
+                            )),
+                        const SizedBox(height: 20),
+                        Wrap(spacing: 10, runSpacing: 10, alignment: WrapAlignment.center, children: [
+                          Offstage(
+                            offstage: _loading,
+                            child: ElevatedButton.icon(
+                              onPressed: _createURL,
+                              label: _loaded ? const Text('Recreate') : const Text('Create Short URL'),
+                              icon: _loaded ? const Icon(Icons.refresh) : const Icon(Icons.add),
+                            ),
+                          ),
+                          Offstage(
+                            offstage: !_loaded,
+                            child: ElevatedButton.icon(
+                              label: const Text('Copy'),
+                              icon: const Icon(Icons.copy),
+                              onPressed: () {
+                                Clipboard.setData(ClipboardData(text: _surl))
+                                    .then((value) => {
+                                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                            content: Text('Copied to clipboard'),
+                                            showCloseIcon: true,
+                                            behavior: SnackBarBehavior.floating,
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                                          ))
+                                        })
+                                    .catchError((error) => {
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                                            content: Text('Error: $error', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+                                            showCloseIcon: true,
+                                            closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
+                                            behavior: SnackBarBehavior.floating,
+                                            duration: const Duration(seconds: 10),
+                                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                                          ))
+                                        });
+                              },
+                            ),
+                          )
+                        ]),
+                      ]))),
             )),
       );
     }

@@ -5,7 +5,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'provider/theme.dart';
-import 'plugins/logo_icons.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -214,7 +214,7 @@ class _SettingPageState extends State<SettingPage> {
                         ),
                       ),
                       ListTile(
-                        leading: const Icon(Logo.github),
+                        leading: const Icon(FontAwesome.github),
                         title: const Text('Repository'),
                         subtitle: const Text('jhihyulin/WEBSITE'),
                         trailing: IconButton(

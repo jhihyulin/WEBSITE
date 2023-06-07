@@ -4,56 +4,56 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
-import '../plugins/logo_icons.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
     'url': 'https://github.com/jhihyulin',
-    'icon': Logo.github,
+    'icon': FontAwesome.github,
   },
   'LinkedIn': {
     'url': 'https://linkedin.com/in/jhihyulin',
-    'icon': Logo.linkedin,
+    'icon': FontAwesome.linkedin,
   },
   'GitLab': {
     'url': 'https://gitlab.com/jhihyulin',
-    'icon': Logo.gitlab,
+    'icon': FontAwesome.gitlab,
   },
   'Twitter': {
     'url': 'https://twitter.com/jhih_yu_lin',
-    'icon': Logo.twitter,
+    'icon': FontAwesome.twitter,
   },
   'Facebook': {
     'url': 'https://facebook.com/jhihyu0414',
-    'icon': Logo.facebook,
+    'icon': FontAwesome.facebook,
   },
   'Instagram': {
     'url': 'https://instagram.com/jhih_yu_lin',
-    'icon': Logo.instagram,
+    'icon': FontAwesome.instagram,
   },
   'YouTube': {
     'url': 'https://youtube.com/@jhihyulin',
-    'icon': Logo.youtube,
+    'icon': FontAwesome.youtube,
   },
   'Twitch': {
     'url': 'https://twitch.tv/jhih_yu_lin',
-    'icon': Logo.twitch,
+    'icon': FontAwesome.twitch,
   },
   'Google Developer': {
     'url': 'https://g.dev/jhihyulin',
-    'icon': Logo.google_developers,
+    'icon': FontAwesome.google,
   },
   'StackOverflow': {
     'url': 'https://stackoverflow.com/users/15607217/jhih-yu-lin',
-    'icon': Logo.stack_overflow,
+    'icon': FontAwesome.stack_overflow,
   },
   'Spotify': {
     'url': 'https://open.spotify.com/user/ylde507yo3uxfvshedazdr88n',
-    'icon': Logo.spotify,
+    'icon': FontAwesome.spotify,
   },
   'Medium': {
     'url': 'https://medium.com/@jhihyulin',
-    'icon': Logo.medium_brand,
+    'icon': FontAwesome.medium,
   },
   'Email': {
     'url': 'mailto:jy@jhihyulin.live',
@@ -61,39 +61,39 @@ Map<String, Map<String, Object>> socialMedia = {
   },
   'Telegram': {
     'url': 'https://t.me/jhihyulin',
-    'icon': Logo.telegram,
+    'icon': FontAwesome.telegram,
   },
   'SoundCloud': {
     'url': 'https://soundcloud.com/jhihyulin',
-    'icon': Logo.soundcloud,
+    'icon': FontAwesome.soundcloud,
   },
   'Pinterest': {
     'url': 'https://pinterest.com/jhih_yu_lin',
-    'icon': Logo.pinterest,
+    'icon': FontAwesome.pinterest,
   },
   'Discord': {
     'url': 'https://discord.com/users/561051528065187862',
-    'icon': Logo.discord,
+    'icon': FontAwesome.discord,
   },
   'Tumblr': {
     'url': 'https://tumblr.com/jhihyulin',
-    'icon': Logo.tumblr,
+    'icon': FontAwesome.tumblr,
   },
   'Reddit': {
     'url': 'https://reddit.com/user/Economy_Scene_3191',
-    'icon': Logo.reddit,
+    'icon': FontAwesome.reddit,
   },
   'Steam': {
     'url': 'https://steamcommunity.com/id/SageT5678',
-    'icon': Logo.steam,
+    'icon': FontAwesome.steam,
   },
   'Snapchat': {
     'url': 'https://snapchat.com/add/jhihyul',
-    'icon': Logo.snapchat,
+    'icon': FontAwesome.square_snapchat,
   },
   'Slack': {
     'url': 'https://jhihyulin.slack.com',
-    'icon': Logo.slack,
+    'icon': FontAwesome.slack,
   },
 };
 
@@ -334,7 +334,7 @@ class _AboutPageState extends State<AboutPage> {
                                           children: [
                                             Row(
                                               children: [
-                                                const Icon(Logo.github),
+                                                const Icon(FontAwesome.github),
                                                 const SizedBox(
                                                   width: 10,
                                                 ),

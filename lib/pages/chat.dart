@@ -5,8 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 
-import 'sign_in.dart';
-
+import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
 
 class ChatPage extends StatefulWidget {

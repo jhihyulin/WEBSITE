@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'sign_in.dart';
+import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
 
 const String serverDomainVPN = 'vpn.jhihyulin.live';

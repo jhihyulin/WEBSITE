@@ -7,6 +7,8 @@ import 'package:flutter/rendering.dart';
 
 import 'sign_in.dart';
 
+import '../widget/scaffold_messenger.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
 
@@ -70,7 +72,7 @@ class _ChatPageState extends State<ChatPage> {
     }, onError: (Object o) {
       final error = o as FirebaseException;
       debugPrint('Error: ${error.code} ${error.message}');
-      showErrorSnackBar('${error.code} ${error.message}');
+      CustomScaffoldMessenger.showErrorMessageSnackBar(context, '${error.code} ${error.message}');
     }, onDone: () {
       debugPrint('Done');
     }, cancelOnError: true);
@@ -114,29 +116,6 @@ class _ChatPageState extends State<ChatPage> {
       'timestamp': ServerValue.timestamp,
       'photoUrl': user.photoURL ?? '',
     });
-  }
-
-  void showErrorSnackBar(String error) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.errorContainer,
-        content: Text(
-          error,
-          style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
-        ),
-        showCloseIcon: true,
-        closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(
-          seconds: 10,
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(16.0),
-          ),
-        ),
-      ),
-    );
   }
 
   @override

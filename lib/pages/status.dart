@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../widget/scaffold_messenger.dart';
+
 Set<Map<String, dynamic>> _status = {
   {
     'name': 'All Service',
@@ -59,30 +61,7 @@ class _StatusPageState extends State<StatusPage> {
   void _launchUrl(String url) {
     Uri uri = Uri.parse(url);
     launchUrl(uri);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.errorContainer,
-        content: SelectionArea(
-          child: Text(
-            'Error: Failed to open in new tab, the URL is: $url',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onErrorContainer,
-            ),
-          ),
-        ),
-        showCloseIcon: true,
-        closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(
-          seconds: 10,
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(16.0),
-          ),
-        ),
-      ),
-    );
+    CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Failed to open in new tab, the URL is: $url');
   }
 
   @override

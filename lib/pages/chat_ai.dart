@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../widget/scaffold_messenger.dart';
+
 class ChatAIPage extends StatefulWidget {
   const ChatAIPage({Key? key}) : super(key: key);
 
@@ -66,22 +68,13 @@ class _ChatAIPageState extends State<ChatAIPage> {
     });
   }
 
-  void _launchUrl(String url) {
+  void _launchUrl(String url) async {
     Uri uri = Uri.parse(url);
-    launchUrl(uri);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.errorContainer,
-        content: SelectionArea(
-          child: Text('Error: Failed to open in new tab, the URL is: $url', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
-        ),
-        showCloseIcon: true,
-        closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 10),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-      ),
-    );
+    if (!await launchUrl(uri)) {
+      if (mounted) {
+        CustomScaffoldMessenger.showMessageSnackBar(context, 'Cannot open url: $url');
+      }
+    }
   }
 
   void chat(String message) async {
@@ -103,19 +96,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
     debugPrint('_chatData: ${_chatData.toString()}');
     final request = ChatCompleteText(messages: _chatData, maxToken: 400, model: ChatModel.gptTurbo);
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: SelectionArea(
-            child: Text('Error: ${e.toString()}', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
-          ),
-          showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 10),
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-        ),
-      );
+      CustomScaffoldMessenger.showMessageSnackBar(context, 'Error: ${e.toString()}');
       setState(() {
         _generating = false;
       });
@@ -280,18 +261,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                       text: i['content']!,
                                     ),
                                   );
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('已複製到剪貼簿'),
-                                      showCloseIcon: true,
-                                      behavior: SnackBarBehavior.floating,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                      ),
-                                    ),
-                                  );
+                                  CustomScaffoldMessenger.showMessageSnackBar(context, '已複製到剪貼簿');
                                 },
                               ),
                             ],

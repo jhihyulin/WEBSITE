@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'sign_in.dart';
+import '../widget/scaffold_messenger.dart';
 
 const String serverDomainVPN = 'vpn.jhihyulin.live';
 const String serverURLVPN1 = '/server_list';
@@ -98,26 +99,7 @@ class _VPNPageState extends State<VPNPage> {
         _loading = false;
         _initing = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: Text(
-            'Error: $error',
-            style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
-          ),
-          showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(
-            seconds: 10,
-          ),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(16.0),
-            ),
-          ),
-        ),
-      );
+      CustomScaffoldMessenger.showErrorMessageSnackBar(context, error);
     });
   }
 
@@ -145,26 +127,7 @@ class _VPNPageState extends State<VPNPage> {
         _getResponse = false;
         _loading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: Text(
-            'Error: $error',
-            style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
-          ),
-          showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(
-            seconds: 10,
-          ),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(16.0),
-            ),
-          ),
-        ),
-      );
+      CustomScaffoldMessenger.showErrorMessageSnackBar(context, error);
     });
   }
 
@@ -348,42 +311,10 @@ class _VPNPageState extends State<VPNPage> {
                               child: const Icon(Icons.copy),
                               onPressed: () async {
                                 await Clipboard.setData(ClipboardData(text: _accessUrl)).then((value) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Copied to clipboard'),
-                                      showCloseIcon: true,
-                                      behavior: SnackBarBehavior.floating,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                      ),
-                                    ),
-                                  );
+                                  CustomScaffoldMessenger.showMessageSnackBar(context, 'Copied to clipboard');
                                 }).catchError(
                                   (error) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                                        content: Text(
-                                          'Error: Copy failed',
-                                          style: TextStyle(
-                                            color: Theme.of(context).colorScheme.onErrorContainer,
-                                          ),
-                                        ),
-                                        showCloseIcon: true,
-                                        closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-                                        behavior: SnackBarBehavior.floating,
-                                        duration: const Duration(
-                                          seconds: 10,
-                                        ),
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(16.0),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                    CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
                                   },
                                 );
                               },

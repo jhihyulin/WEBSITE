@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../widget/scaffold_messenger.dart';
+
 class URLLauncherPage extends StatefulWidget {
   const URLLauncherPage({super.key});
 
@@ -19,17 +21,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
     String url = inputURLController.text;
     if (!await launchUrl(Uri.parse(url))) {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Theme.of(context).colorScheme.errorContainer,
-            content: Text('Error: URL Launch Failed', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
-            showCloseIcon: true,
-            closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 10),
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-          ),
-        );
+        CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: URL Launch Failed');
       }
     }
     return;

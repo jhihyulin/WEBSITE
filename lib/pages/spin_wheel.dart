@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../widget/scaffold_messenger.dart';
+
 class SpinWheelPage extends StatefulWidget {
   const SpinWheelPage({Key? key}) : super(key: key);
 
@@ -415,28 +417,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                                       : () {
                                                           if (_formKey2.currentState!.validate()) {
                                                             if (int.parse(_controller2.text) > int.parse(_controller3.text)) {
-                                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                                SnackBar(
-                                                                  backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                                                                  content: Text(
-                                                                    'Error: Min must be less than Max',
-                                                                    style: TextStyle(
-                                                                      color: Theme.of(context).colorScheme.onErrorContainer,
-                                                                    ),
-                                                                  ),
-                                                                  showCloseIcon: true,
-                                                                  closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-                                                                  behavior: SnackBarBehavior.floating,
-                                                                  duration: const Duration(
-                                                                    seconds: 10,
-                                                                  ),
-                                                                  shape: const RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.all(
-                                                                      Radius.circular(16.0),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
+                                                              CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Min must be less than Max');
                                                               return;
                                                             }
                                                             var tL = [];

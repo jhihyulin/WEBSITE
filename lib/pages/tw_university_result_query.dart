@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
+import '../widget/scaffold_messenger.dart';
+
 String _id = '';
 
 class TWUniversityResultQueryPage extends StatefulWidget {
@@ -28,6 +30,10 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
   Map<dynamic, dynamic> _stardata = {};
   Map<dynamic, dynamic> _udata = {};
   Map<dynamic, dynamic> _tudata = {};
+
+  void shoeCopiedMessage() {
+    CustomScaffoldMessenger.showMessageSnackBar(context, '已複製到剪貼簿');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,18 +116,6 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                         text: utf8.decode(_name.toString().codeUnits),
                                       ),
                                     );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('已複製到剪貼簿'),
-                                        showCloseIcon: true,
-                                        behavior: SnackBarBehavior.floating,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(16.0),
-                                          ),
-                                        ),
-                                      ),
-                                    );
                                   },
                                 ),
                                 subtitle: Text(
@@ -146,18 +140,7 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                         text: data.join('\n'),
                                       ),
                                     );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('已複製到剪貼簿'),
-                                        showCloseIcon: true,
-                                        behavior: SnackBarBehavior.floating,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(16.0),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                    shoeCopiedMessage();
                                   },
                                 ),
                                 subtitle: Column(
@@ -188,18 +171,7 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                         text: data.join('\n'),
                                       ),
                                     );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('已複製到剪貼簿'),
-                                        showCloseIcon: true,
-                                        behavior: SnackBarBehavior.floating,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(16.0),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                    shoeCopiedMessage();
                                   },
                                 ),
                                 subtitle: Column(
@@ -232,18 +204,7 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                         ),
                                       ),
                                     );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('已複製到剪貼簿'),
-                                        showCloseIcon: true,
-                                        behavior: SnackBarBehavior.floating,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(16.0),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                                    shoeCopiedMessage();
                                   },
                                 ),
                                 subtitle: Column(
@@ -341,18 +302,7 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                   ].join('\n').replaceAll('\nfalse', '').replaceAll('false\n', ''),
                                 ),
                               );
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('已複製到剪貼簿'),
-                                  showCloseIcon: true,
-                                  behavior: SnackBarBehavior.floating,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(16.0),
-                                    ),
-                                  ),
-                                ),
-                              );
+                              shoeCopiedMessage();
                             },
                           ),
                         ),
@@ -364,18 +314,7 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                               Clipboard.setData(
                                 ClipboardData(text: 'https://jhihyulin.live/TWUniversityResultQuery?id=$_id'),
                               );
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('已複製網址到剪貼簿'),
-                                  showCloseIcon: true,
-                                  behavior: SnackBarBehavior.floating,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(16.0),
-                                    ),
-                                  ),
-                                ),
-                              );
+                              shoeCopiedMessage();
                             },
                           ),
                         ),
@@ -462,28 +401,7 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
           _tudata = tudata;
         });
       }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Theme.of(context).colorScheme.errorContainer,
-            content: Text(
-              'Error: $error',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onErrorContainer,
-              ),
-            ),
-            showCloseIcon: true,
-            closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(
-              seconds: 10,
-            ),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(16.0),
-              ),
-            ),
-          ),
-        );
+        CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
         setState(() {
           _loading = false;
           _loaded = false;

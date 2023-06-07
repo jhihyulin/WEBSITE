@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:universal_html/html.dart' as html;
 
+import '../widget/scaffold_messenger.dart';
+
 class LoadFailedPage extends StatefulWidget {
   const LoadFailedPage({Key? key, required this.errorMessage}) : super(key: key);
   final String errorMessage;
@@ -83,18 +85,7 @@ class _LoadFailedPageState extends State<LoadFailedPage> {
                       Clipboard.setData(
                         ClipboardData(text: errorMessage),
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Copied to clipboard'),
-                          showCloseIcon: true,
-                          behavior: SnackBarBehavior.floating,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(16.0),
-                            ),
-                          ),
-                        ),
-                      );
+                      CustomScaffoldMessenger.showMessageSnackBar(context, 'Copied to clipboard.');
                     },
                   ),
                   ElevatedButton.icon(

@@ -368,6 +368,12 @@ class _NavigationControllerState extends State<NavigationController> {
     const SettingPage(),
   ];
 
+  final List<String> pageRoute = [
+    '/',
+    '/tool',
+    '/setting',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -410,9 +416,11 @@ class _NavigationControllerState extends State<NavigationController> {
         ],
       ),
       body: MediaQuery.of(context).size.width < desktopModeWidth
-          ? IndexedStack(
-              index: _currentIndex,
-              children: pages,
+          ? AnimatedSwitcher(
+              duration: const Duration(
+                milliseconds: 500,
+              ),
+              child: pages[_currentIndex],
             )
           : Row(
               children: [
@@ -447,9 +455,11 @@ class _NavigationControllerState extends State<NavigationController> {
                   ),
                 ),
                 Expanded(
-                  child: IndexedStack(
-                    index: _currentIndex,
-                    children: pages,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(
+                      milliseconds: 500,
+                    ),
+                    child: pages[_currentIndex],
                   ),
                 ),
               ],

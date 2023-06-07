@@ -6,6 +6,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:universal_html/html.dart' as html;
 
 import 'home.dart';
 import 'provider/theme.dart';
@@ -28,8 +29,7 @@ import 'pages/qr_generator.dart' deferred as qr_generator;
 import 'pages/clock.dart' deferred as clock;
 import 'pages/zhsh_3d_map.dart' deferred as zhsh_3d_map;
 import 'pages/not_found.dart' deferred as not_found;
-import 'pages/tw_university_result_query.dart'
-    deferred as tw_university_result_query;
+import 'pages/tw_university_result_query.dart' deferred as tw_university_result_query;
 import 'pages/spin_wheel.dart' deferred as spin_wheel;
 import 'pages/privacy_policy.dart' deferred as privacy_policy;
 import 'pages/terms_of_service.dart' deferred as terms_of_service;
@@ -37,7 +37,7 @@ import 'pages/chat.dart' deferred as chat;
 import 'pages/chat_ai.dart' deferred as chatai;
 
 const websiteName = 'JHIHYU\'S WEBSITE';
-const desktopModeWidth = 640;
+const desktopModeWidth = 700;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,259 +59,249 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget Function(BuildContext) dealPage(
-      Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
+  Widget Function(BuildContext) dealPage(Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
     return (BuildContext context) => FutureBuilder(
-        future: loadLibrary(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              return LoadFailedPage(errorMessage: snapshot.error.toString());
+          future: loadLibrary(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return LoadFailedPage(errorMessage: snapshot.error.toString());
+              } else {
+                return page(context);
+              }
             } else {
-              return page(context);
-            }
-          } else {
-            return Scaffold(
+              return Scaffold(
                 backgroundColor: Theme.of(context).colorScheme.background,
                 appBar: AppBar(
                   title: const Text('Loading...'),
                 ),
                 body: Center(
-                    child: Container(
-                  constraints: const BoxConstraints(maxWidth: 700),
-                  padding: const EdgeInsets.all(20),
-                  child: const ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                    child: LinearProgressIndicator(
-                      minHeight: 20,
-                      value: null,
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 700),
+                    padding: const EdgeInsets.all(20),
+                    child: const ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                      child: LinearProgressIndicator(
+                        minHeight: 20,
+                        value: null,
+                      ),
                     ),
                   ),
-                )));
-          }
-        });
+                ),
+              );
+            }
+          },
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<ThemeProvider>(
-            create: (context) => ThemeProvider(),
-          ),
-        ],
-        child: Consumer<ThemeProvider>(
-          builder: (context, themeProvider, child) {
-            Color themeColor = themeProvider.themeColor;
-            int themeMode = themeProvider.themeMode;
-            return MaterialApp(
-              title: websiteName,
-              theme: ThemeData(
-                  useMaterial3: true,
-                  fontFamily: GoogleFonts.roboto().fontFamily,
-                  fontFamilyFallback: [
-                    GoogleFonts.montserrat().fontFamily ?? '',
-                    GoogleFonts.notoSans().fontFamily ?? '',
-                    GoogleFonts.lato().fontFamily ?? '',
-                  ],
-                  brightness: Brightness.light,
-                  colorSchemeSeed: themeColor),
-              darkTheme: ThemeData(
-                  useMaterial3: true,
-                  fontFamily: GoogleFonts.roboto().fontFamily,
-                  fontFamilyFallback: [
-                    GoogleFonts.montserrat().fontFamily ?? '',
-                    GoogleFonts.notoSans().fontFamily ?? '',
-                    GoogleFonts.lato().fontFamily ?? '',
-                  ],
-                  brightness: Brightness.dark,
-                  colorSchemeSeed: themeColor),
-              themeMode: themeMode == 0
-                  ? ThemeMode.system
-                  : themeMode == 1
-                      ? ThemeMode.light
-                      : ThemeMode.dark,
-              home: Scaffold(
-                body: NavigationController(),
-              ),
-              onGenerateRoute: (RouteSettings settings) {
-                String? name = settings.name;
-                WidgetBuilder? builder;
-                Map<String, String>? parameters;
-                // analyze parameters
-                if (name!.contains(RegExp(r'.*[?].*[=].*'))) {
-                  name.split(RegExp(r'[?&]')).forEach((String parameter) {
-                    if (RegExp(r'.*[=].*').allMatches(parameter).isNotEmpty) {
-                      List<String> parameterList = parameter.split('=');
-                      parameters = {
-                        ...parameters ?? {},
-                        // ignore parameter case
-                        parameterList[0].toLowerCase(): parameterList[1]
-                      };
-                    }
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (context) => ThemeProvider(),
+        ),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          Color themeColor = themeProvider.themeColor;
+          int themeMode = themeProvider.themeMode;
+          return MaterialApp(
+            title: websiteName,
+            theme: ThemeData(
+              useMaterial3: true,
+              fontFamily: GoogleFonts.roboto().fontFamily,
+              fontFamilyFallback: [
+                GoogleFonts.montserrat().fontFamily ?? '',
+                GoogleFonts.notoSans().fontFamily ?? '',
+                GoogleFonts.lato().fontFamily ?? '',
+              ],
+              brightness: Brightness.light,
+              colorSchemeSeed: themeColor,
+            ),
+            darkTheme: ThemeData(
+              useMaterial3: true,
+              fontFamily: GoogleFonts.roboto().fontFamily,
+              fontFamilyFallback: [
+                GoogleFonts.montserrat().fontFamily ?? '',
+                GoogleFonts.notoSans().fontFamily ?? '',
+                GoogleFonts.lato().fontFamily ?? '',
+              ],
+              brightness: Brightness.dark,
+              colorSchemeSeed: themeColor,
+            ),
+            themeMode: themeMode == 0
+                ? ThemeMode.system
+                : themeMode == 1
+                    ? ThemeMode.light
+                    : ThemeMode.dark,
+            home: Scaffold(
+              body: NavigationController(),
+            ),
+            onGenerateRoute: (RouteSettings settings) {
+              String? name = settings.name;
+              WidgetBuilder? builder;
+              Map<String, String>? parameters;
+              // analyze parameters
+              if (name!.contains(RegExp(r'.*[?].*[=].*'))) {
+                name.split(RegExp(r'[?&]')).forEach((String parameter) {
+                  if (RegExp(r'.*[=].*').allMatches(parameter).isNotEmpty) {
+                    List<String> parameterList = parameter.split('=');
+                    parameters = {
+                      ...parameters ?? {},
+                      // ignore parameter case
+                      parameterList[0].toLowerCase(): parameterList[1]
+                    };
+                  }
+                });
+              }
+              // ignore all query parameters
+              name = name.replaceAll(RegExp(r'[?].*'), '');
+              // ignore URL case
+              name = name.toLowerCase();
+              if (kDebugMode) {
+                print('Route Name: $name, Parameters: $parameters');
+              }
+              switch (name) {
+                case '/profile':
+                  builder = dealPage(profile.loadLibrary, (context) {
+                    return profile.ProfilePage();
                   });
-                }
-                // ignore all query parameters
-                name = name.replaceAll(RegExp(r'[?].*'), '');
-                // ignore URL case
-                name = name.toLowerCase();
-                if (kDebugMode) {
-                  print('Route Name: $name, Parameters: $parameters');
-                }
-                switch (name) {
-                  case '/profile':
-                    builder = dealPage(profile.loadLibrary, (context) {
-                      return profile.ProfilePage();
+                  break;
+                case '/signin':
+                  builder = dealPage(sign_in.loadLibrary, (context) {
+                    return sign_in.SignInPage();
+                  });
+                  break;
+                case '/status':
+                  builder = dealPage(status.loadLibrary, (context) {
+                    return status.StatusPage();
+                  });
+                  break;
+                case '/vpn':
+                  builder = dealPage(vpn.loadLibrary, (context) {
+                    return vpn.VPNPage();
+                  });
+                  break;
+                case '/shorturl':
+                  builder = dealPage(short_url.loadLibrary, (context) {
+                    return short_url.ShortURLPage();
+                  });
+                  break;
+                case '/longurl':
+                  builder = dealPage(long_url.loadLibrary, (context) {
+                    return long_url.LongURLPage();
+                  });
+                  break;
+                case '/contact':
+                  builder = dealPage(contact.loadLibrary, (context) {
+                    return contact.ContactPage();
+                  });
+                  break;
+                case '/about':
+                  builder = dealPage(about.loadLibrary, (context) {
+                    return about.AboutPage();
+                  });
+                  break;
+                case '/bmi':
+                  builder = dealPage(bmi.loadLibrary, (context) {
+                    return bmi.BMIPage();
+                  });
+                  break;
+                case '/timer':
+                  builder = dealPage(timer.loadLibrary, (context) {
+                    return timer.TimerPage();
+                  });
+                  break;
+                case '/urllauncher':
+                  builder = dealPage(url_launcher.loadLibrary, (context) {
+                    return url_launcher.URLLauncherPage();
+                  });
+                  break;
+                case '/qrgenerator':
+                  builder = dealPage(qr_generator.loadLibrary, (context) {
+                    return qr_generator.QRGeneratorPage();
+                  });
+                  break;
+                case '/clock':
+                  builder = dealPage(clock.loadLibrary, (context) {
+                    return clock.ClockPage();
+                  });
+                  break;
+                case '/zhsh3dmap':
+                  if (parameters != null) {
+                    builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
+                      return zhsh_3d_map.ZHSH3DMapPage(
+                        embededMode: parameters!['embededmode'] == 'true',
+                      );
                     });
-                    break;
-                  case '/signin':
-                    builder = dealPage(sign_in.loadLibrary, (context) {
-                      return sign_in.SignInPage();
+                  } else {
+                    builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
+                      return zhsh_3d_map.ZHSH3DMapPage();
                     });
-                    break;
-                  case '/status':
-                    builder = dealPage(status.loadLibrary, (context) {
-                      return status.StatusPage();
+                  }
+                  break;
+                case '/twuniversityresultquery':
+                  if (parameters != null) {
+                    builder = dealPage(tw_university_result_query.loadLibrary, (context) {
+                      return tw_university_result_query.TWUniversityResultQueryPage(
+                        id: parameters!['id'] ?? '',
+                      );
                     });
-                    break;
-                  case '/vpn':
-                    builder = dealPage(vpn.loadLibrary, (context) {
-                      return vpn.VPNPage();
+                  } else {
+                    builder = dealPage(tw_university_result_query.loadLibrary, (context) {
+                      return tw_university_result_query.TWUniversityResultQueryPage();
                     });
-                    break;
-                  case '/shorturl':
-                    builder = dealPage(short_url.loadLibrary, (context) {
-                      return short_url.ShortURLPage();
-                    });
-                    break;
-                  case '/longurl':
-                    builder = dealPage(long_url.loadLibrary, (context) {
-                      return long_url.LongURLPage();
-                    });
-                    break;
-                  case '/contact':
-                    builder = dealPage(contact.loadLibrary, (context) {
-                      return contact.ContactPage();
-                    });
-                    break;
-                  case '/about':
-                    builder = dealPage(about.loadLibrary, (context) {
-                      return about.AboutPage();
-                    });
-                    break;
-                  case '/bmi':
-                    builder = dealPage(bmi.loadLibrary, (context) {
-                      return bmi.BMIPage();
-                    });
-                    break;
-                  case '/timer':
-                    builder = dealPage(timer.loadLibrary, (context) {
-                      return timer.TimerPage();
-                    });
-                    break;
-                  case '/urllauncher':
-                    builder = dealPage(url_launcher.loadLibrary, (context) {
-                      return url_launcher.URLLauncherPage();
-                    });
-                    break;
-                  case '/qrgenerator':
-                    builder = dealPage(qr_generator.loadLibrary, (context) {
-                      return qr_generator.QRGeneratorPage();
-                    });
-                    break;
-                  case '/clock':
-                    builder = dealPage(clock.loadLibrary, (context) {
-                      return clock.ClockPage();
-                    });
-                    break;
-                  case '/zhsh3dmap':
-                    if (parameters != null) {
-                      builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
-                        return zhsh_3d_map.ZHSH3DMapPage(
-                          embededMode: parameters!['embededmode'] == 'true',
-                        );
-                      });
-                    } else {
-                      builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
-                        return zhsh_3d_map.ZHSH3DMapPage();
-                      });
-                    }
-                    break;
-                  case '/twuniversityresultquery':
-                    if (parameters != null) {
-                      builder = dealPage(tw_university_result_query.loadLibrary,
-                          (context) {
-                        return tw_university_result_query
-                            .TWUniversityResultQueryPage(
-                          id: parameters!['id'] ?? '',
-                        );
-                      });
-                    } else {
-                      builder = dealPage(tw_university_result_query.loadLibrary,
-                          (context) {
-                        return tw_university_result_query
-                            .TWUniversityResultQueryPage();
-                      });
-                    }
-                    break;
-                  case '/spinwheel':
-                    builder = dealPage(spin_wheel.loadLibrary, (context) {
-                      return spin_wheel.SpinWheelPage();
-                    });
-                    break;
-                  case '/chatai':
-                    builder = dealPage(chatai.loadLibrary, (context) {
-                      return chatai.ChatAIPage();
-                    });
-                    break;
-                  case '/privacypolicy':
-                    builder = dealPage(privacy_policy.loadLibrary, (context) {
-                      return privacy_policy.PrivacyPolicyPage();
-                    });
-                    break;
-                  case '/termsofservice':
-                    builder = dealPage(terms_of_service.loadLibrary, (context) {
-                      return terms_of_service.TermsOfServicePage();
-                    });
-                    break;
-                  case '/chat':
-                    builder = dealPage(chat.loadLibrary, (context) {
-                      return chat.ChatPage();
-                    });
-                    break;
-                  case '/setting':
-                    builder = (BuildContext context) =>
-                        NavigationController(inputIndex: 2);
-                    break;
-                  case '/tool':
-                    builder = (BuildContext context) =>
-                        NavigationController(inputIndex: 1);
-                    break;
-                  case '/':
-                    builder = (BuildContext context) =>
-                        NavigationController(inputIndex: 0);
-                    break;
-                  default:
-                    builder = dealPage(not_found.loadLibrary, (context) {
-                      return not_found.NotFoundPage();
-                    });
-                }
-                return MaterialPageRoute(builder: builder, settings: settings);
-              },
-              debugShowCheckedModeBanner: false,
-            );
-          },
-        ));
+                  }
+                  break;
+                case '/spinwheel':
+                  builder = dealPage(spin_wheel.loadLibrary, (context) {
+                    return spin_wheel.SpinWheelPage();
+                  });
+                  break;
+                case '/chatai':
+                  builder = dealPage(chatai.loadLibrary, (context) {
+                    return chatai.ChatAIPage();
+                  });
+                  break;
+                case '/privacypolicy':
+                  builder = dealPage(privacy_policy.loadLibrary, (context) {
+                    return privacy_policy.PrivacyPolicyPage();
+                  });
+                  break;
+                case '/termsofservice':
+                  builder = dealPage(terms_of_service.loadLibrary, (context) {
+                    return terms_of_service.TermsOfServicePage();
+                  });
+                  break;
+                case '/chat':
+                  builder = dealPage(chat.loadLibrary, (context) {
+                    return chat.ChatPage();
+                  });
+                  break;
+                case '/':
+                  builder = (BuildContext context) => NavigationController();
+                  break;
+                default:
+                  builder = dealPage(not_found.loadLibrary, (context) {
+                    return not_found.NotFoundPage();
+                  });
+              }
+              return MaterialPageRoute(
+                builder: builder,
+                settings: settings,
+              );
+            },
+            debugShowCheckedModeBanner: false,
+          );
+        },
+      ),
+    );
   }
 }
 
-int _currentIndex = 0;
-
 class NavigationController extends StatefulWidget {
-  final int inputIndex;
-  NavigationController({Key? key, this.inputIndex = 0}) : super(key: key) {
-    _currentIndex = inputIndex;
-  }
+  const NavigationController({Key? key}) : super(key: key);
 
   @override
   State<NavigationController> createState() => _NavigationControllerState();
@@ -320,6 +310,7 @@ class NavigationController extends StatefulWidget {
 class _NavigationControllerState extends State<NavigationController> {
   Widget _displayPhoto = const Icon(Icons.login);
   Widget _dispayText = const Text('Sign In');
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -347,7 +338,9 @@ class _NavigationControllerState extends State<NavigationController> {
               : Container(
                   padding: const EdgeInsets.all(5),
                   child: CircleAvatar(
-                      backgroundImage: NetworkImage(user.photoURL!)));
+                    backgroundImage: NetworkImage(user.photoURL!),
+                  ),
+                );
           _dispayText = user.displayName == null
               ? user.email == null
                   ? user.phoneNumber == null
@@ -363,7 +356,7 @@ class _NavigationControllerState extends State<NavigationController> {
   final List<Widget> pages = [
     const HomePage(),
     ToolPage(),
-    const SettingPage()
+    const SettingPage(),
   ];
 
   @override
@@ -374,14 +367,15 @@ class _NavigationControllerState extends State<NavigationController> {
           padding: const EdgeInsets.all(5),
           child: Image.asset(
             'assets/images/logo-180x180.png',
-            frameBuilder: (BuildContext context, Widget child, int? frame,
-                bool wasSynchronouslyLoaded) {
+            frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
               if (wasSynchronouslyLoaded) {
                 return child;
               }
               return AnimatedOpacity(
                 opacity: frame == null ? 0 : 1,
-                duration: const Duration(seconds: 1),
+                duration: const Duration(
+                  seconds: 1,
+                ),
                 curve: Curves.easeOut,
                 child: child,
               );
@@ -407,7 +401,12 @@ class _NavigationControllerState extends State<NavigationController> {
         ],
       ),
       body: MediaQuery.of(context).size.width < desktopModeWidth
-          ? IndexedStack(index: _currentIndex, children: pages)
+          ? AnimatedSwitcher(
+              duration: const Duration(
+                milliseconds: 500,
+              ),
+              child: pages[_currentIndex],
+            )
           : Row(
               children: [
                 SafeArea(
@@ -441,33 +440,31 @@ class _NavigationControllerState extends State<NavigationController> {
                   ),
                 ),
                 Expanded(
-                  child: IndexedStack(index: _currentIndex, children: pages),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(
+                      milliseconds: 500,
+                    ),
+                    child: pages[_currentIndex],
+                  ),
                 ),
               ],
             ),
       bottomNavigationBar: MediaQuery.of(context).size.width < desktopModeWidth
           ? NavigationBar(
-              labelBehavior:
-                  NavigationDestinationLabelBehavior.onlyShowSelected,
+              labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
               selectedIndex: _currentIndex,
               onDestinationSelected: _onItemClick,
               destinations: <Widget>[
                 NavigationDestination(
-                  icon: _currentIndex == 0
-                      ? const Icon(Icons.home)
-                      : const Icon(Icons.home_outlined),
+                  icon: _currentIndex == 0 ? const Icon(Icons.home) : const Icon(Icons.home_outlined),
                   label: 'Home',
                 ),
                 NavigationDestination(
-                  icon: _currentIndex == 1
-                      ? const Icon(Icons.build)
-                      : const Icon(Icons.build_outlined),
+                  icon: _currentIndex == 1 ? const Icon(Icons.build) : const Icon(Icons.build_outlined),
                   label: 'Tool',
                 ),
                 NavigationDestination(
-                  icon: _currentIndex == 2
-                      ? const Icon(Icons.settings)
-                      : const Icon(Icons.settings_outlined),
+                  icon: _currentIndex == 2 ? const Icon(Icons.settings) : const Icon(Icons.settings_outlined),
                   label: 'Setting',
                 ),
               ],

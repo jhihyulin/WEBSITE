@@ -72,121 +72,129 @@ class _ClockPageState extends State<ClockPage> {
                     : MediaQuery.of(context).size.width,
           ),
           child: Center(
-              child: Container(
-                  padding: const EdgeInsets.all(10),
-                  height: MediaQuery.of(context).size.height * .75,
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: _mathBox(),
-                        height: _mathBox(),
-                        child: Card(
-                            clipBehavior: Clip.antiAlias,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16.0))),
-                            child: InkWell(
-                              onTap: () => changeHourMode(),
-                              child: Stack(children: [
-                                Container(
-                                  width: _mathBox(),
-                                  height: _mathBox(),
-                                  padding: const EdgeInsets.all(10),
-                                  child: FittedBox(
-                                    child: Text(
-                                      _hour.toString().padLeft(2, '0'),
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              height: MediaQuery.of(context).size.height * .75,
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: _mathBox(),
+                    height: _mathBox(),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
+                      ),
+                      child: InkWell(
+                        onTap: () => changeHourMode(),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: _mathBox(),
+                              height: _mathBox(),
+                              padding: const EdgeInsets.all(10),
+                              child: FittedBox(
+                                child: Text(
+                                  _hour.toString().padLeft(2, '0'),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                width: _mathBox() * .25,
+                                height: _mathBox() * .25,
+                                padding: EdgeInsets.all(_mathBox() * .05),
+                                child: FittedBox(
+                                  child: Text(
+                                    _is12hr
+                                        ? DateTime.now().hour < 12
+                                            ? 'AM'
+                                            : 'PM'
+                                        : '',
+                                    style: TextStyle(
+                                      color: Theme.of(context).colorScheme.onBackground,
                                     ),
                                   ),
                                 ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Container(
-                                    width: _mathBox() * .25,
-                                    height: _mathBox() * .25,
-                                    padding: EdgeInsets.all(_mathBox() * .05),
-                                    child: FittedBox(
-                                      child: Text(
-                                        _is12hr
-                                            ? DateTime.now().hour < 12
-                                                ? 'AM'
-                                                : 'PM'
-                                            : '',
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onBackground),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            )),
-                      ),
-                      SizedBox(
-                        width: _mathBox() * .25,
-                        height: _mathBox(),
-                        child: const FittedBox(
-                          alignment: Alignment.center,
-                          child: Text(':'),
-                        ),
-                      ),
-                      SizedBox(
-                        width: _mathBox(),
-                        height: _mathBox(),
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: FittedBox(
-                              child: Text(
-                                _minute.toString().padLeft(2, '0'),
                               ),
                             ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: _mathBox() * .25,
+                    height: _mathBox(),
+                    child: const FittedBox(
+                      alignment: Alignment.center,
+                      child: Text(':'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: _mathBox(),
+                    height: _mathBox(),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: FittedBox(
+                          child: Text(
+                            _minute.toString().padLeft(2, '0'),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: _mathBox() * .25,
-                        height: _mathBox(),
-                        child: const FittedBox(
-                          alignment: Alignment.center,
-                          child: Text(':'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: _mathBox() * .25,
+                    height: _mathBox(),
+                    child: const FittedBox(
+                      alignment: Alignment.center,
+                      child: Text(':'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: _mathBox(),
+                    height: _mathBox(),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
                         ),
                       ),
-                      SizedBox(
-                        width: _mathBox(),
-                        height: _mathBox(),
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: FittedBox(
-                              child: Text(
-                                _second.toString().padLeft(2, '0'),
-                              ),
-                            ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: FittedBox(
+                          child: Text(
+                            _second.toString().padLeft(2, '0'),
                           ),
                         ),
                       ),
-                    ],
-                  ))),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          html.document.fullscreenElement == null
-              ? html.document.documentElement!.requestFullscreen()
-              : html.document.exitFullscreen();
+          html.document.fullscreenElement == null ? html.document.documentElement!.requestFullscreen() : html.document.exitFullscreen();
           html.document.fullscreenElement == null
               ? setState(() {
                   _fullscreen = true;

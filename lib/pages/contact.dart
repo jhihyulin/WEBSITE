@@ -21,10 +21,8 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   final TextEditingController contactEmailController = TextEditingController();
-  final TextEditingController contactMessageController =
-      TextEditingController();
-  final TextEditingController contactSignatureController =
-      TextEditingController();
+  final TextEditingController contactMessageController = TextEditingController();
+  final TextEditingController contactSignatureController = TextEditingController();
   final _messageformKey = GlobalKey<FormState>();
   bool _loading = false;
 
@@ -69,7 +67,10 @@ class _ContactPageState extends State<ContactPage> {
           showCloseIcon: true,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            borderRadius: BorderRadius.all(
+              Radius.circular(16.0),
+            ),
+          ),
         ));
       }).catchError((error) {
         setState(() {
@@ -77,15 +78,23 @@ class _ContactPageState extends State<ContactPage> {
         });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: Text('Error: Failed to send notification to Admin.',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onErrorContainer)),
+          content: Text(
+            'Error: Failed to send notification to Admin.',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onErrorContainer,
+            ),
+          ),
           showCloseIcon: true,
           closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
           behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 10),
+          duration: const Duration(
+            seconds: 10,
+          ),
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(16.0))),
+            borderRadius: BorderRadius.all(
+              Radius.circular(16.0),
+            ),
+          ),
         ));
       });
     }).catchError((error) {
@@ -97,9 +106,14 @@ class _ContactPageState extends State<ContactPage> {
         showCloseIcon: true,
         closeIconColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 10),
+        duration: const Duration(
+          seconds: 10,
+        ),
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0))),
+          borderRadius: BorderRadius.all(
+            Radius.circular(16.0),
+          ),
+        ),
       ));
     });
   }
@@ -111,120 +125,140 @@ class _ContactPageState extends State<ContactPage> {
         title: const Text('Contact'),
       ),
       body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Center(
-              child: Container(
-                  padding: const EdgeInsets.all(20),
-                  constraints: BoxConstraints(
-                    maxWidth: 700,
-                    minHeight: MediaQuery.of(context).size.height -
-                        AppBar().preferredSize.height -
-                        MediaQuery.of(context).padding.top -
-                        MediaQuery.of(context).padding.bottom,
+        physics: const BouncingScrollPhysics(),
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            constraints: BoxConstraints(
+              maxWidth: 700,
+              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+            ),
+            child: Form(
+              key: _messageformKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextField(
+                    controller: contactEmailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                      hintText: 'example@domain.com',
+                      prefixIcon: Icon(Icons.email),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
+                      ),
+                    ),
+                    textInputAction: TextInputAction.next,
                   ),
-                  child: Form(
-                    key: _messageformKey,
-                    child: Column(
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                    controller: contactSignatureController,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                      labelText: 'Signature',
+                      hintText: 'Type your signature here',
+                      prefixIcon: Icon(Icons.draw),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
+                      ),
+                    ),
+                    onSubmitted: (value) => {
+                      _sendMessage(),
+                    },
+                    textInputAction: TextInputAction.next,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: contactMessageController,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 10,
+                    decoration: const InputDecoration(
+                      labelText: 'Message',
+                      hintText: 'Type your message here',
+                      prefixIcon: Icon(Icons.comment),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Message Is Required';
+                      }
+                      return null;
+                    },
+                    onTapOutside: (event) => {
+                      _messageformKey.currentState!.validate(),
+                    },
+                  ),
+                  Offstage(
+                    offstage: !_loading,
+                    child: const SizedBox(
+                      height: 20,
+                    ),
+                  ),
+                  Offstage(
+                    offstage: !_loading,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(16.0),
+                      ),
+                      child: LinearProgressIndicator(
+                        minHeight: 20,
+                        backgroundColor: Theme.of(context).splashColor,
+                      ),
+                    ),
+                  ),
+                  Offstage(
+                    offstage: _loading,
+                    child: const SizedBox(
+                      height: 20,
+                    ),
+                  ),
+                  Offstage(
+                    offstage: _loading,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        TextField(
-                          controller: contactEmailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                              labelText: 'Email',
-                              hintText: 'example@domain.com',
-                              prefixIcon: Icon(Icons.email),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)))),
-                          textInputAction: TextInputAction.next,
-                        ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: contactSignatureController,
-                          keyboardType: TextInputType.text,
-                          decoration: const InputDecoration(
-                              labelText: 'Signature',
-                              hintText: 'Type your signature here',
-                              prefixIcon: Icon(Icons.draw),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)))),
-                          onSubmitted: (value) => {
-                            _sendMessage(),
-                          },
-                          textInputAction: TextInputAction.next,
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          controller: contactMessageController,
-                          keyboardType: TextInputType.multiline,
-                          minLines: 1,
-                          maxLines: 10,
-                          decoration: const InputDecoration(
-                              labelText: 'Message',
-                              hintText: 'Type your message here',
-                              prefixIcon: Icon(Icons.comment),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0)))),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Message Is Required';
-                            }
-                            return null;
-                          },
-                          onTapOutside: (event) => {
-                            _messageformKey.currentState!.validate(),
+                      children: [
+                        ElevatedButton.icon(
+                          label: const Text('Clear'),
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            contactEmailController.clear();
+                            contactMessageController.clear();
+                            contactSignatureController.clear();
                           },
                         ),
-                        Offstage(
-                          offstage: !_loading,
-                          child: const SizedBox(height: 20),
+                        const SizedBox(
+                          width: 20,
                         ),
-                        Offstage(
-                          offstage: !_loading,
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16.0)),
-                            child: LinearProgressIndicator(
-                              minHeight: 20,
-                              backgroundColor: Theme.of(context).splashColor,
-                            ),
-                          ),
-                        ),
-                        Offstage(
-                          offstage: _loading,
-                          child: const SizedBox(height: 20),
-                        ),
-                        Offstage(
-                          offstage: _loading,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton.icon(
-                                label: const Text('Clear'),
-                                icon: const Icon(Icons.clear),
-                                onPressed: () {
-                                  contactEmailController.clear();
-                                  contactMessageController.clear();
-                                  contactSignatureController.clear();
-                                },
-                              ),
-                              const SizedBox(width: 20),
-                              ElevatedButton.icon(
-                                label: const Text('Send'),
-                                icon: const Icon(Icons.send),
-                                onPressed: () {
-                                  _sendMessage();
-                                },
-                              ),
-                            ],
-                          ),
+                        ElevatedButton.icon(
+                          label: const Text('Send'),
+                          icon: const Icon(Icons.send),
+                          onPressed: () {
+                            _sendMessage();
+                          },
                         ),
                       ],
                     ),
-                  )))),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

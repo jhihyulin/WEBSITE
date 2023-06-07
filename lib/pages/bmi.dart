@@ -71,10 +71,7 @@ class _BMIPageState extends State<BMIPage> {
           child: Container(
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height -
-                  AppBar().preferredSize.height -
-                  MediaQuery.of(context).padding.top -
-                  MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
             ),
             padding: const EdgeInsets.all(10),
             child: Column(
@@ -89,15 +86,14 @@ class _BMIPageState extends State<BMIPage> {
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.height),
                           border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16.0),
+                            ),
+                          ),
                           labelText: 'Height',
                           suffixIcon: ToggleButtons(
                             borderRadius: BorderRadius.circular(16),
-                            isSelected: [
-                              _heightUnit == 'cm',
-                              _heightUnit == 'in'
-                            ],
+                            isSelected: [_heightUnit == 'cm', _heightUnit == 'in'],
                             onPressed: (index) {
                               setState(() {
                                 if (index == 0) {
@@ -131,15 +127,14 @@ class _BMIPageState extends State<BMIPage> {
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.scale),
                           border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16.0))),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(16.0),
+                            ),
+                          ),
                           labelText: 'Weight',
                           suffixIcon: ToggleButtons(
                             borderRadius: BorderRadius.circular(16),
-                            isSelected: [
-                              _weightUnit == 'kg',
-                              _weightUnit == 'lb'
-                            ],
+                            isSelected: [_weightUnit == 'kg', _weightUnit == 'lb'],
                             onPressed: (index) {
                               setState(() {
                                 if (index == 0) {
@@ -166,15 +161,13 @@ class _BMIPageState extends State<BMIPage> {
                         },
                       ),
                       Offstage(
-                        offstage: _weightController.text == '' ||
-                            _heightController.text == '',
+                        offstage: _weightController.text == '' || _heightController.text == '',
                         child: const SizedBox(
                           height: 10,
                         ),
                       ),
                       Offstage(
-                        offstage: _weightController.text == '' ||
-                            _heightController.text == '',
+                        offstage: _weightController.text == '' || _heightController.text == '',
                         child: Wrap(
                           spacing: 10,
                           runSpacing: 10,

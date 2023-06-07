@@ -279,14 +279,8 @@ class _MyAppState extends State<MyApp> {
                     return chat.ChatPage();
                   });
                   break;
-                case '/setting':
-                  builder = (BuildContext context) => NavigationController(inputIndex: 2);
-                  break;
-                case '/tool':
-                  builder = (BuildContext context) => NavigationController(inputIndex: 1);
-                  break;
                 case '/':
-                  builder = (BuildContext context) => NavigationController(inputIndex: 0);
+                  builder = (BuildContext context) => NavigationController();
                   break;
                 default:
                   builder = dealPage(not_found.loadLibrary, (context) {
@@ -306,13 +300,8 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-int _currentIndex = 0;
-
 class NavigationController extends StatefulWidget {
-  final int inputIndex;
-  NavigationController({Key? key, this.inputIndex = 0}) : super(key: key) {
-    _currentIndex = inputIndex;
-  }
+  const NavigationController({Key? key}) : super(key: key);
 
   @override
   State<NavigationController> createState() => _NavigationControllerState();
@@ -321,6 +310,7 @@ class NavigationController extends StatefulWidget {
 class _NavigationControllerState extends State<NavigationController> {
   Widget _displayPhoto = const Icon(Icons.login);
   Widget _dispayText = const Text('Sign In');
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -367,12 +357,6 @@ class _NavigationControllerState extends State<NavigationController> {
     const HomePage(),
     ToolPage(),
     const SettingPage(),
-  ];
-
-  final List<String> pageRoute = [
-    '/',
-    '/tool',
-    '/setting',
   ];
 
   @override
@@ -493,6 +477,5 @@ class _NavigationControllerState extends State<NavigationController> {
     setState(() {
       _currentIndex = index;
     });
-    html.window.history.pushState(null, '', pageRoute[index]);
   }
 }

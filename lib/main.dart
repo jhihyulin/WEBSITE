@@ -135,7 +135,7 @@ class _MyAppState extends State<MyApp> {
                 : themeMode == 1
                     ? ThemeMode.light
                     : ThemeMode.dark,
-            home: Scaffold(
+            home: const Scaffold(
               body: NavigationController(),
             ),
             onGenerateRoute: (RouteSettings settings) {
@@ -280,7 +280,7 @@ class _MyAppState extends State<MyApp> {
                   });
                   break;
                 case '/':
-                  builder = (BuildContext context) => NavigationController();
+                  builder = (BuildContext context) => const NavigationController();
                   break;
                 default:
                   builder = dealPage(not_found.loadLibrary, (context) {

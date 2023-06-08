@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../provider/theme.dart';
 import '../widget/expansion_tile.dart';
+import '../widget/launch_url.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -179,7 +179,7 @@ class _SettingPageState extends State<SettingPage> {
                               ),
                             ),
                             onTap: () {
-                              launchUrl(Uri.parse('https://flutter.dev'));
+                              CustomLaunchUrl.launch(context, 'https://flutter.dev');
                             },
                           ),
                           InkWell(
@@ -189,7 +189,7 @@ class _SettingPageState extends State<SettingPage> {
                               height: 60,
                             ),
                             onTap: () {
-                              launchUrl(Uri.parse('https://firebase.google.com'));
+                              CustomLaunchUrl.launch(context, 'https://firebase.google.com');
                             },
                           ),
                         ],
@@ -202,7 +202,7 @@ class _SettingPageState extends State<SettingPage> {
                       trailing: IconButton(
                         icon: const Icon(Icons.open_in_new),
                         onPressed: () {
-                          launchUrl(Uri.parse('https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE'));
+                          CustomLaunchUrl.launch(context, 'https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE');
                         },
                       ),
                     ),
@@ -213,7 +213,7 @@ class _SettingPageState extends State<SettingPage> {
                       trailing: IconButton(
                         icon: const Icon(Icons.open_in_new),
                         onPressed: () {
-                          launchUrl(Uri.parse('https://github.com/jhihyulin/WEBSITE'));
+                          CustomLaunchUrl.launch(context, 'https://github.com/jhihyulin/WEBSITE');
                         },
                       ),
                     ),
@@ -229,7 +229,7 @@ class _SettingPageState extends State<SettingPage> {
                       trailing: IconButton(
                         icon: const Icon(Icons.open_in_new),
                         onPressed: () {
-                          launchUrl(Uri.parse('mailto:JY@jhihyulin.live'));
+                          CustomLaunchUrl.launch(context, 'mailto:JY@jhihyulin.live');
                         },
                       ),
                     ),

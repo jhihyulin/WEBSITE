@@ -5,13 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/launch_url.dart';
 
 const String serverDomainVPN = 'vpn.jhihyulin.live';
 const String serverURLVPN1 = '/server_list';
@@ -158,25 +158,25 @@ class _VPNPageState extends State<VPNPage> {
     }
     switch (os) {
       case 'android':
-        await launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=org.outline.android.client'));
+        CustomLaunchUrl.launch(context, 'https://play.google.com/store/apps/details?id=org.outline.android.client');
         break;
       case 'ios':
-        await launchUrl(Uri.parse('https://apps.apple.com/app/outline-vpn/id1356177741'));
+        CustomLaunchUrl.launch(context, 'https://apps.apple.com/app/outline-vpn/id1356177741');
         break;
       case 'mac':
-        await launchUrl(Uri.parse('https://itunes.apple.com/app/outline-vpn-client/id1356178125'));
+        CustomLaunchUrl.launch(context, 'https://itunes.apple.com/app/outline-vpn-client/id1356178125');
         break;
       case 'windows':
-        await launchUrl(Uri.parse('https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe'));
+        CustomLaunchUrl.launch(context, 'https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe');
         break;
       case 'chromeos':
-        await launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=org.outline.android.client'));
+        CustomLaunchUrl.launch(context, 'https://play.google.com/store/apps/details?id=org.outline.android.client');
         break;
       case 'linux':
-        await launchUrl(Uri.parse('https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage'));
+        CustomLaunchUrl.launch(context, 'https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage');
         break;
       case 'unknown':
-        await launchUrl(Uri.parse('https://getoutline.org/zh-TW/get-started/#step-3'));
+        CustomLaunchUrl.launch(context, 'https://getoutline.org/zh-TW/get-started/#step-3');
         break;
     }
   }
@@ -295,10 +295,7 @@ class _VPNPageState extends State<VPNPage> {
                               label: const Text('Add To APP'),
                               icon: const Icon(Icons.vpn_lock),
                               onPressed: () async {
-                                final Uri vpnUrl = Uri.parse(_accessUrl);
-                                if (!await launchUrl(vpnUrl)) {
-                                  throw Exception('Could not launch $_accessUrl');
-                                }
+                                CustomLaunchUrl.launch(context, _accessUrl);
                               },
                             ),
                             TextButton(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../widget/scaffold_messenger.dart';
+import '../widget/launch_url.dart';
 
 class URLLauncherPage extends StatefulWidget {
   const URLLauncherPage({super.key});
@@ -13,19 +12,6 @@ class URLLauncherPage extends StatefulWidget {
 class _URLLauncherPageState extends State<URLLauncherPage> {
   final TextEditingController inputURLController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  _launchURL() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    String url = inputURLController.text;
-    if (!await launchUrl(Uri.parse(url))) {
-      if (context.mounted) {
-        CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: URL Launch Failed');
-      }
-    }
-    return;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +55,9 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                       ),
                     ),
                     onFieldSubmitted: (value) {
-                      _launchURL();
+                      if (_formKey.currentState!.validate()) {
+                        CustomLaunchUrl.launch(context, inputURLController.text);
+                      }
                     },
                   ),
                 ),
@@ -84,7 +72,11 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                     ElevatedButton.icon(
                       icon: const Icon(Icons.rocket_launch),
                       label: const Text('Launch URL'),
-                      onPressed: _launchURL,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          CustomLaunchUrl.launch(context, inputURLController.text);
+                        }
+                      },
                     ),
                     TextButton(
                       child: const Icon(Icons.help),

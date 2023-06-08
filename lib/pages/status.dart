@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../widget/scaffold_messenger.dart';
 import '../widget/expansion_tile.dart';
+import '../widget/launch_url.dart';
 
 Set<Map<String, dynamic>> _status = {
   {
@@ -59,12 +58,6 @@ class StatusPage extends StatefulWidget {
 }
 
 class _StatusPageState extends State<StatusPage> {
-  void _launchUrl(String url) {
-    Uri uri = Uri.parse(url);
-    launchUrl(uri);
-    CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Failed to open in new tab, the URL is: $url');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +107,7 @@ class _StatusPageState extends State<StatusPage> {
                                           onPressed: item.value == null
                                               ? null
                                               : () {
-                                                  _launchUrl(item.value);
+                                                  CustomLaunchUrl.launch(context, item.value);
                                                 },
                                           child: Text(item.key),
                                         ),
@@ -123,7 +116,7 @@ class _StatusPageState extends State<StatusPage> {
                                 trailing: IconButton(
                                   icon: const Icon(Icons.open_in_new),
                                   onPressed: () {
-                                    _launchUrl(status['url']);
+                                    CustomLaunchUrl.launch(context, status['url']);
                                   },
                                 ),
                               ),

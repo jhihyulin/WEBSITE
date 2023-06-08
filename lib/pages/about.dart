@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:icons_plus/icons_plus.dart';
 
-import '../widget/scaffold_messenger.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/launch_url.dart';
+// CustomLaunchUrl.launch(context, 
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
@@ -156,15 +156,6 @@ class _AboutPageState extends State<AboutPage> {
     getGitHubPinnedRepo();
   }
 
-  void _launchUrl(Uri url) async {
-    if (!await launchUrl(url)) {
-      if (context.mounted) {
-        CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Failed to open in new tab, the URL is: $url');
-      }
-      throw Exception('Could not launch $url');
-    }
-  }
-
   bool _isExpanded = false;
 
   @override
@@ -298,7 +289,7 @@ class _AboutPageState extends State<AboutPage> {
                                 ),
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(16),
-                                  onTap: () => _launchUrl(Uri.parse(key['link'])),
+                                  onTap: () => CustomLaunchUrl.launch(context, key['link']),
                                   child: Container(
                                     padding: const EdgeInsets.all(20),
                                     child: Column(
@@ -416,12 +407,12 @@ class _AboutPageState extends State<AboutPage> {
                       for (var key in socialMedia.keys)
                         _isDesktop(context)
                             ? ElevatedButton.icon(
-                                onPressed: () => _launchUrl(Uri.parse(socialMedia[key]!['url'] as String)),
+                                onPressed: () => CustomLaunchUrl.launch(context, socialMedia[key]!['url'] as String),
                                 icon: Icon(socialMedia[key]!['icon'] as IconData),
                                 label: Text(key),
                               )
                             : IconButton(
-                                onPressed: () => _launchUrl(Uri.parse(socialMedia[key]!['url'] as String)),
+                                onPressed: () => CustomLaunchUrl.launch(context, socialMedia[key]!['url'] as String),
                                 icon: Icon(socialMedia[key]!['icon'] as IconData),
                                 tooltip: key,
                               ),

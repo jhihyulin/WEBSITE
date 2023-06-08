@@ -10,9 +10,9 @@ import 'package:three_dart/three3d/math/vector3.dart';
 import 'package:three_dart/three3d/three.dart' as three_dart;
 import 'package:three_dart/three_dart.dart' as three;
 import 'package:three_dart_jsm/three_dart_jsm.dart' as three_jsm;
-import 'package:url_launcher/url_launcher.dart';
 
 import '../widget/linear_progress_indicator.dart';
+import '../widget/launch_url.dart';
 
 const int deskopModeWidth = 640;
 
@@ -2082,7 +2082,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                                       onPressed: settingData['object']['set'][_selectedLocation]['link'][link].isEmpty
                                           ? null
                                           : () {
-                                              launchUrl(Uri.parse(settingData['object']['set'][_selectedLocation]['link'][link]));
+                                              CustomLaunchUrl.launch(context, settingData['object']['set'][_selectedLocation]['link'][link]);
                                             },
                                       child: Text(link),
                                     ),

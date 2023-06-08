@@ -9,9 +9,9 @@ import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../widget/expansion_tile.dart';
+import '../widget/launch_url.dart';
 
 class QRGeneratorPage extends StatefulWidget {
   const QRGeneratorPage({super.key});
@@ -150,7 +150,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                   text: 'https://www.qrcode.com/en/about/version.html',
                                                   recognizer: TapGestureRecognizer()
                                                     ..onTap = () {
-                                                      launchUrl(Uri.parse('https://www.qrcode.com/en/about/version.html'));
+                                                      CustomLaunchUrl.launch(context, 'https://www.qrcode.com/en/about/version.html');
                                                     },
                                                 ),
                                               ],

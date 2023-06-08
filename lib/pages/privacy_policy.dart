@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/launch_url.dart';
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({Key? key}) : super(key: key);
@@ -25,15 +24,6 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
       return responseBody;
     } else {
       return 'Error: ${response.statusCode}';
-    }
-  }
-
-  void _launchUrl(Uri url) async {
-    if (!await launchUrl(url)) {
-      if (context.mounted) {
-        CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Failed to open in new tab, the URL is: $url');
-      }
-      throw Exception('Could not launch $url');
     }
   }
 
@@ -59,7 +49,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                 if (snapshot.hasData) {
                   return Markdown(
                     onTapLink: (text, href, title) {
-                      _launchUrl(Uri.parse(href ?? ''));
+                      CustomLaunchUrl.launch(context, href ?? '');
                     },
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,

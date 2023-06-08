@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
@@ -11,6 +10,7 @@ import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/launch_url.dart';
 
 const String lURLServerDomain = 'l.jhihyulin.live';
 const String lURLServerURL1 = '/create';
@@ -288,7 +288,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                                           text: 'admin@jhihyulin.live',
                                                           recognizer: TapGestureRecognizer()
                                                             ..onTap = () {
-                                                              launchUrl(Uri.parse('mailto:admin@jhihyulin.live?subject=%5BLong%20URL%5D%20Bug%20Report'));
+                                                              CustomLaunchUrl.launch(context, 'mailto:admin@jhihyulin.live?subject=%5BLong%20URL%5D%20Bug%20Report');
                                                             },
                                                         ),
                                                         const TextSpan(text: ' for help.'),

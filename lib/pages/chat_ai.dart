@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../widget/scaffold_messenger.dart';
+import '../widget/launch_url.dart';
 
 class ChatAIPage extends StatefulWidget {
   const ChatAIPage({Key? key}) : super(key: key);
@@ -66,15 +66,6 @@ class _ChatAIPageState extends State<ChatAIPage> {
         });
       }
     });
-  }
-
-  void _launchUrl(String url) async {
-    Uri uri = Uri.parse(url);
-    if (!await launchUrl(uri)) {
-      if (mounted) {
-        CustomScaffoldMessenger.showMessageSnackBar(context, 'Cannot open url: $url');
-      }
-    }
   }
 
   void chat(String message) async {
@@ -417,7 +408,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                               ElevatedButton.icon(
                                                 icon: const Icon(Icons.open_in_new),
                                                 onPressed: () {
-                                                  _launchUrl('https://platform.openai.com/account/api-keys');
+                                                  CustomLaunchUrl.launch(context, 'https://platform.openai.com/account/api-keys');
                                                 },
                                                 label: const Text('OpenAI Website'),
                                               ),

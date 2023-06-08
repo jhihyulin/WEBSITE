@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../widget/linear_progress_indicator.dart';
+import '../widget/launch_url.dart';
 
 class TermsOfServicePage extends StatefulWidget {
   const TermsOfServicePage({Key? key}) : super(key: key);
@@ -22,38 +23,6 @@ class _TermsOfServicePageState extends State<TermsOfServicePage> {
       return responseBody;
     } else {
       return 'Error: ${response.statusCode}';
-    }
-  }
-
-  void _launchUrl(Uri url) async {
-    if (!await launchUrl(url)) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Theme.of(context).colorScheme.errorContainer,
-            content: SelectionArea(
-              child: Text(
-                'Error: Failed to open in new tab, the URL is: $url',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onErrorContainer,
-                ),
-              ),
-            ),
-            showCloseIcon: true,
-            closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(
-              seconds: 10,
-            ),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(16.0),
-              ),
-            ),
-          ),
-        );
-      }
-      throw Exception('Could not launch $url');
     }
   }
 
@@ -79,7 +48,7 @@ class _TermsOfServicePageState extends State<TermsOfServicePage> {
                 if (snapshot.hasData) {
                   return Markdown(
                     onTapLink: (text, href, title) {
-                      _launchUrl(Uri.parse(href ?? ''));
+                      CustomLaunchUrl.launch(context, href ?? '');
                     },
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
@@ -87,17 +56,8 @@ class _TermsOfServicePageState extends State<TermsOfServicePage> {
                     data: snapshot.data,
                   );
                 } else {
-                  return Center(
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                      child: LinearProgressIndicator(
-                        minHeight: 20,
-                        backgroundColor: Theme.of(context).splashColor,
-                        value: null,
-                      ),
-                    ),
+                  return const Center(
+                    child: CustomLinearProgressIndicator(),
                   );
                 }
               },

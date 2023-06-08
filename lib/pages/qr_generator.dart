@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:universal_html/html.dart' as html;
 
+import 'package:universal_html/html.dart' as html;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../widget/expansion_tile.dart';
+import '../widget/launch_url.dart';
 
 class QRGeneratorPage extends StatefulWidget {
   const QRGeneratorPage({super.key});
@@ -61,9 +63,6 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).copyWith(
-      dividerColor: Colors.transparent,
-    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('QR Generator'),
@@ -107,163 +106,290 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Theme(
-                  data: theme,
-                  child: Card(
-                    clipBehavior: Clip.antiAlias,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
+                Card(
+                  clipBehavior: Clip.antiAlias,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16.0),
                     ),
-                    child: ExpansionTile(
-                      title: const Text('Advanced'),
-                      children: [
-                        ListTile(
-                          title: const Text('Version'),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.help),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text('What about version?'),
-                                        content: Container(
-                                          constraints: const BoxConstraints(
-                                            maxWidth: 700,
-                                            minWidth: 700,
-                                          ),
-                                          child: SingleChildScrollView(
-                                            physics: const BouncingScrollPhysics(),
-                                            child: Text.rich(
-                                              TextSpan(
-                                                children: [
-                                                  const TextSpan(
-                                                    text:
-                                                        'The symbol versions of QR Code range from Version 1 to Version 40. Each version has a different module configuration or number of modules. (The module refers to the black and white dots that make up QR Code.)"Module configuration" refers to the number of modules contained in a symbol, commencing with Version 1 (21 × 21 modules) up to Version 40 (177 × 177 modules). Each higher version number comprises 4 additional modules per side.\nSource: ',
+                  ),
+                  child: CustomExpansionTile(
+                    title: const Text('Advanced'),
+                    children: [
+                      ListTile(
+                        title: const Text('Version'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.help),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('What about version?'),
+                                      content: Container(
+                                        constraints: const BoxConstraints(
+                                          maxWidth: 700,
+                                          minWidth: 700,
+                                        ),
+                                        child: SingleChildScrollView(
+                                          physics: const BouncingScrollPhysics(),
+                                          child: Text.rich(
+                                            TextSpan(
+                                              children: [
+                                                const TextSpan(
+                                                  text:
+                                                      'The symbol versions of QR Code range from Version 1 to Version 40. Each version has a different module configuration or number of modules. (The module refers to the black and white dots that make up QR Code.)"Module configuration" refers to the number of modules contained in a symbol, commencing with Version 1 (21 × 21 modules) up to Version 40 (177 × 177 modules). Each higher version number comprises 4 additional modules per side.\nSource: ',
+                                                ),
+                                                TextSpan(
+                                                  style: TextStyle(
+                                                    color: Theme.of(context).colorScheme.primary,
                                                   ),
-                                                  TextSpan(
-                                                    style: TextStyle(
-                                                      color: Theme.of(context).colorScheme.primary,
-                                                    ),
-                                                    text: 'https://www.qrcode.com/en/about/version.html',
-                                                    recognizer: TapGestureRecognizer()
-                                                      ..onTap = () {
-                                                        launchUrl(Uri.parse('https://www.qrcode.com/en/about/version.html'));
-                                                      },
-                                                  ),
-                                                ],
-                                              ),
+                                                  text: 'https://www.qrcode.com/en/about/version.html',
+                                                  recognizer: TapGestureRecognizer()
+                                                    ..onTap = () {
+                                                      CustomLaunchUrl.launch(context, 'https://www.qrcode.com/en/about/version.html');
+                                                    },
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                              DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  value: _versionSelect,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _version = value as int;
-                                      _versionSelect = value;
-                                      _generate();
-                                    });
-                                  },
-                                  items: [
-                                    const DropdownMenuItem(
-                                      value: QrVersions.auto,
-                                      child: Text('Auto'),
-                                    ),
-                                    for (var i = 1; i <= 40; i++)
-                                      DropdownMenuItem(
-                                        value: i,
-                                        child: Text('$i'),
                                       ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Background Color'),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.refresh),
-                                onPressed: () {
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                value: _versionSelect,
+                                onChanged: (value) {
                                   setState(() {
-                                    _backgroundColor = Colors.white;
+                                    _version = value as int;
+                                    _versionSelect = value;
                                     _generate();
                                   });
                                 },
-                              ),
-                              InkWell(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: _backgroundColor,
-                                    borderRadius: BorderRadius.circular(16),
+                                items: [
+                                  const DropdownMenuItem(
+                                    value: QrVersions.auto,
+                                    child: Text('Auto'),
                                   ),
-                                ),
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text('Background Color'),
-                                        content: SingleChildScrollView(
-                                          physics: const BouncingScrollPhysics(),
-                                          child: ColorPicker(
-                                            pickerColor: _backgroundColor,
-                                            onColorChanged: (color) {
-                                              setState(() {
-                                                _backgroundColor = color;
-                                              });
-                                            },
-                                            pickerAreaHeightPercent: 0.8,
-                                            enableAlpha: true,
-                                          ),
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                _generate();
-                                              });
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
+                                  for (var i = 1; i <= 40; i++)
+                                    DropdownMenuItem(
+                                      value: i,
+                                      child: Text('$i'),
+                                    ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        ListTile(
-                          title: const Text('Foreground Color'),
+                      ),
+                      ListTile(
+                        title: const Text('Background Color'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () {
+                                setState(() {
+                                  _backgroundColor = Colors.white;
+                                  _generate();
+                                });
+                              },
+                            ),
+                            InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: _backgroundColor,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              ),
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Background Color'),
+                                      content: SingleChildScrollView(
+                                        physics: const BouncingScrollPhysics(),
+                                        child: ColorPicker(
+                                          pickerColor: _backgroundColor,
+                                          onColorChanged: (color) {
+                                            setState(() {
+                                              _backgroundColor = color;
+                                            });
+                                          },
+                                          pickerAreaHeightPercent: 0.8,
+                                          enableAlpha: true,
+                                        ),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _generate();
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Foreground Color'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () {
+                                setState(() {
+                                  _foregroundColor = Colors.black;
+                                  _generate();
+                                });
+                              },
+                            ),
+                            InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: _foregroundColor,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              ),
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text('Foreground Color'),
+                                      content: SingleChildScrollView(
+                                        physics: const BouncingScrollPhysics(),
+                                        child: ColorPicker(
+                                          pickerColor: _foregroundColor,
+                                          onColorChanged: (color) {
+                                            setState(() {
+                                              _foregroundColor = color;
+                                            });
+                                          },
+                                          pickerAreaHeightPercent: 0.8,
+                                          enableAlpha: false,
+                                        ),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _generate();
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Gapless'),
+                        subtitle: const Text('Adds an extra pixel in size to prevent gaps'),
+                        trailing: Switch(
+                          value: _gapless,
+                          onChanged: (value) {
+                            setState(() {
+                              _gapless = value;
+                              _generate();
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Padding'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () {
+                                setState(() {
+                                  _padding = 10;
+                                  _generate();
+                                });
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.remove),
+                              onPressed: _padding > 0
+                                  ? () {
+                                      setState(() {
+                                        _padding--;
+                                        _generate();
+                                      });
+                                    }
+                                  : null,
+                            ),
+                            Text('$_padding'),
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              onPressed: _padding < 100
+                                  ? () {
+                                      setState(() {
+                                        _padding++;
+                                        _generate();
+                                      });
+                                    }
+                                  : null,
+                            ),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Use Embedded Image'),
+                        trailing: Switch(
+                          value: _useEmbeddedImage,
+                          onChanged: (value) {
+                            setState(() {
+                              _useEmbeddedImage = value;
+                              _generate();
+                            });
+                          },
+                        ),
+                      ),
+                      Offstage(
+                        offstage: !_useEmbeddedImage,
+                        child: ListTile(
+                          title: const Text('Embedded Image Size'),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -271,239 +397,109 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                 icon: const Icon(Icons.refresh),
                                 onPressed: () {
                                   setState(() {
-                                    _foregroundColor = Colors.black;
-                                    _generate();
-                                  });
-                                },
-                              ),
-                              InkWell(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: _foregroundColor,
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                ),
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text('Foreground Color'),
-                                        content: SingleChildScrollView(
-                                          physics: const BouncingScrollPhysics(),
-                                          child: ColorPicker(
-                                            pickerColor: _foregroundColor,
-                                            onColorChanged: (color) {
-                                              setState(() {
-                                                _foregroundColor = color;
-                                              });
-                                            },
-                                            pickerAreaHeightPercent: 0.8,
-                                            enableAlpha: false,
-                                          ),
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                _generate();
-                                              });
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Gapless'),
-                          subtitle: const Text('Adds an extra pixel in size to prevent gaps'),
-                          trailing: Switch(
-                            value: _gapless,
-                            onChanged: (value) {
-                              setState(() {
-                                _gapless = value;
-                                _generate();
-                              });
-                            },
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Padding'),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.refresh),
-                                onPressed: () {
-                                  setState(() {
-                                    _padding = 10;
+                                    _embeddedImageSize = const QrEmbeddedImageStyle(
+                                      size: Size(30, 30),
+                                    );
                                     _generate();
                                   });
                                 },
                               ),
                               IconButton(
                                 icon: const Icon(Icons.remove),
-                                onPressed: _padding > 0
+                                onPressed: _embeddedImageSize.size != const Size(0, 0)
                                     ? () {
                                         setState(() {
-                                          _padding--;
+                                          _embeddedImageSize = (_embeddedImageSize.size != const Size(0, 0)
+                                              ? QrEmbeddedImageStyle(
+                                                  size: Size(
+                                                    _embeddedImageSize.size!.width - 1,
+                                                    _embeddedImageSize.size!.height - 1,
+                                                  ),
+                                                )
+                                              : null)!;
                                           _generate();
                                         });
                                       }
                                     : null,
                               ),
-                              Text('$_padding'),
+                              Text('${_embeddedImageSize.size!.width.toInt()}x${_embeddedImageSize.size!.height.toInt()}'),
                               IconButton(
                                 icon: const Icon(Icons.add),
-                                onPressed: _padding < 100
-                                    ? () {
-                                        setState(() {
-                                          _padding++;
-                                          _generate();
-                                        });
-                                      }
-                                    : null,
+                                onPressed: () {
+                                  setState(() {
+                                    _embeddedImageSize = QrEmbeddedImageStyle(
+                                      size: Size(
+                                        _embeddedImageSize.size!.width + 1,
+                                        _embeddedImageSize.size!.height + 1,
+                                      ),
+                                    );
+                                    _generate();
+                                  });
+                                },
                               ),
                             ],
                           ),
                         ),
-                        ListTile(
-                          title: const Text('Use Embedded Image'),
-                          trailing: Switch(
-                            value: _useEmbeddedImage,
-                            onChanged: (value) {
-                              setState(() {
-                                _useEmbeddedImage = value;
-                                _generate();
-                              });
-                            },
-                          ),
-                        ),
-                        Offstage(
-                          offstage: !_useEmbeddedImage,
-                          child: ListTile(
-                            title: const Text('Embedded Image Size'),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.refresh),
-                                  onPressed: () {
+                      ),
+                      Offstage(
+                        offstage: !_useEmbeddedImage,
+                        child: ListTile(
+                          title: const Text('Embedded Image'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.refresh),
+                                onPressed: () {
+                                  setState(() {
+                                    _embeddedImage = null;
+                                    _generate();
+                                  });
+                                },
+                              ),
+                              ElevatedButton.icon(
+                                icon: const Icon(Icons.image),
+                                label: const Text('Select Image'),
+                                onPressed: () async {
+                                  var pickedFile = await _imagePicker.pickImage(
+                                    source: ImageSource.gallery,
+                                  );
+                                  if (pickedFile != null) {
                                     setState(() {
-                                      _embeddedImageSize = const QrEmbeddedImageStyle(
-                                        size: Size(30, 30),
-                                      );
+                                      _embeddedImage = NetworkImage(pickedFile.path);
                                       _generate();
                                     });
-                                  },
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.remove),
-                                  onPressed: _embeddedImageSize.size != const Size(0, 0)
-                                      ? () {
-                                          setState(() {
-                                            _embeddedImageSize = (_embeddedImageSize.size != const Size(0, 0)
-                                                ? QrEmbeddedImageStyle(
-                                                    size: Size(
-                                                      _embeddedImageSize.size!.width - 1,
-                                                      _embeddedImageSize.size!.height - 1,
-                                                    ),
-                                                  )
-                                                : null)!;
-                                            _generate();
-                                          });
-                                        }
-                                      : null,
-                                ),
-                                Text('${_embeddedImageSize.size!.width.toInt()}x${_embeddedImageSize.size!.height.toInt()}'),
-                                IconButton(
-                                  icon: const Icon(Icons.add),
-                                  onPressed: () {
-                                    setState(() {
-                                      _embeddedImageSize = QrEmbeddedImageStyle(
-                                        size: Size(
-                                          _embeddedImageSize.size!.width + 1,
-                                          _embeddedImageSize.size!.height + 1,
-                                        ),
-                                      );
-                                      _generate();
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Offstage(
-                          offstage: !_useEmbeddedImage,
-                          child: ListTile(
-                            title: const Text('Embedded Image'),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.refresh),
-                                  onPressed: () {
-                                    setState(() {
-                                      _embeddedImage = null;
-                                      _generate();
-                                    });
-                                  },
-                                ),
-                                ElevatedButton.icon(
-                                  icon: const Icon(Icons.image),
-                                  label: const Text('Select Image'),
-                                  onPressed: () async {
-                                    var pickedFile = await _imagePicker.pickImage(
-                                      source: ImageSource.gallery,
-                                    );
-                                    if (pickedFile != null) {
-                                      setState(() {
-                                        _embeddedImage = NetworkImage(pickedFile.path);
-                                        _generate();
-                                      });
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        ListTile(
-                          title: const Text('Module Shape'),
-                          trailing: ToggleButtons(
-                            borderRadius: BorderRadius.circular(16),
-                            isSelected: [
-                              _selectModuleShape == QrDataModuleShape.circle,
-                              _selectModuleShape == QrDataModuleShape.square,
-                            ],
-                            onPressed: (index) {
-                              setState(() {
-                                _selectModuleShape = index == 0 ? QrDataModuleShape.circle : QrDataModuleShape.square;
-                                _generate();
-                              });
-                            },
-                            children: const <Widget>[
-                              Icon(Icons.circle),
-                              Icon(Icons.square),
+                                  }
+                                },
+                              ),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                      ),
+                      ListTile(
+                        title: const Text('Module Shape'),
+                        trailing: ToggleButtons(
+                          borderRadius: BorderRadius.circular(16),
+                          isSelected: [
+                            _selectModuleShape == QrDataModuleShape.circle,
+                            _selectModuleShape == QrDataModuleShape.square,
+                          ],
+                          onPressed: (index) {
+                            setState(() {
+                              _selectModuleShape = index == 0 ? QrDataModuleShape.circle : QrDataModuleShape.square;
+                              _generate();
+                            });
+                          },
+                          children: const <Widget>[
+                            Icon(Icons.circle),
+                            Icon(Icons.square),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(

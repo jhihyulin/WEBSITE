@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../widget/scaffold_messenger.dart';
+import '../widget/launch_url.dart';
 
 class ChatAIPage extends StatefulWidget {
   const ChatAIPage({Key? key}) : super(key: key);
@@ -66,24 +67,6 @@ class _ChatAIPageState extends State<ChatAIPage> {
     });
   }
 
-  void _launchUrl(String url) {
-    Uri uri = Uri.parse(url);
-    launchUrl(uri);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.errorContainer,
-        content: SelectionArea(
-          child: Text('Error: Failed to open in new tab, the URL is: $url', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
-        ),
-        showCloseIcon: true,
-        closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 10),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-      ),
-    );
-  }
-
   void chat(String message) async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -103,19 +86,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
     debugPrint('_chatData: ${_chatData.toString()}');
     final request = ChatCompleteText(messages: _chatData, maxToken: 400, model: ChatModel.gptTurbo);
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: SelectionArea(
-            child: Text('Error: ${e.toString()}', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
-          ),
-          showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 10),
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-        ),
-      );
+      CustomScaffoldMessenger.showMessageSnackBar(context, 'Error: ${e.toString()}');
       setState(() {
         _generating = false;
       });
@@ -280,18 +251,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                       text: i['content']!,
                                     ),
                                   );
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('已複製到剪貼簿'),
-                                      showCloseIcon: true,
-                                      behavior: SnackBarBehavior.floating,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0),
-                                        ),
-                                      ),
-                                    ),
-                                  );
+                                  CustomScaffoldMessenger.showMessageSnackBar(context, '已複製到剪貼簿');
                                 },
                               ),
                             ],
@@ -447,7 +407,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                               ElevatedButton.icon(
                                                 icon: const Icon(Icons.open_in_new),
                                                 onPressed: () {
-                                                  _launchUrl('https://platform.openai.com/account/api-keys');
+                                                  CustomLaunchUrl.launch(context, 'https://platform.openai.com/account/api-keys');
                                                 },
                                                 label: const Text('OpenAI Website'),
                                               ),

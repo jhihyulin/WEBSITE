@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
-import 'sign_in.dart';
+import '../pages/sign_in.dart';
+import '../widget/scaffold_messenger.dart';
+import '../widget/linear_progress_indicator.dart';
 
 const String sURLServerDomain = 's.jhihyulin.live';
 const String sURLServerURL1 = '/create';
@@ -65,20 +67,7 @@ class _ShortURLPageState extends State<ShortURLPage> {
                   _loading = false;
                   _loaded = false;
                 }),
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Error: $error'),
-                  showCloseIcon: true,
-                  closeIconColor: Theme.of(context).colorScheme.error,
-                  behavior: SnackBarBehavior.floating,
-                  duration: const Duration(
-                    seconds: 10,
-                  ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16.0),
-                    ),
-                  ),
-                )),
+                CustomScaffoldMessenger.showErrorMessageSnackBar(context, error),
               });
     } else {
       setState(() {
@@ -144,18 +133,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                     ),
                     Offstage(
                       offstage: !_loading,
-                      child: Column(
+                      child: const Column(
                         children: [
-                          const SizedBox(
+                          SizedBox(
                             height: 20,
                           ),
-                          ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                            child: LinearProgressIndicator(
-                              minHeight: 20,
-                              backgroundColor: Theme.of(context).splashColor,
-                            ),
-                          ),
+                          CustomLinearProgressIndicator(),
                         ],
                       ),
                     ),
@@ -211,44 +194,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                               )
                                   .then(
                                     (value) => {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          content: Text('Copied to clipboard'),
-                                          showCloseIcon: true,
-                                          behavior: SnackBarBehavior.floating,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(16.0),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      CustomScaffoldMessenger.showMessageSnackBar(context, 'Copied to clipboard'),
                                     },
                                   )
                                   .catchError(
                                     (error) => {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                                          content: Text(
-                                            'Error: $error',
-                                            style: TextStyle(
-                                              color: Theme.of(context).colorScheme.onErrorContainer,
-                                            ),
-                                          ),
-                                          showCloseIcon: true,
-                                          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-                                          behavior: SnackBarBehavior.floating,
-                                          duration: const Duration(
-                                            seconds: 10,
-                                          ),
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(16.0),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      CustomScaffoldMessenger.showErrorMessageSnackBar(context, error),
                                     },
                                   );
                             },

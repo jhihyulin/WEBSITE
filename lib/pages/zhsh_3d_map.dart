@@ -1,16 +1,17 @@
 import 'dart:async';
-import 'package:universal_html/html.dart' as html;
 
+import 'package:universal_html/html.dart' as html;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 import 'package:flutter_gl/flutter_gl.dart';
 import 'package:three_dart/three3d/math/vector3.dart';
 import 'package:three_dart/three3d/three.dart' as three_dart;
 import 'package:three_dart/three_dart.dart' as three;
 import 'package:three_dart_jsm/three_dart_jsm.dart' as three_jsm;
-import 'package:url_launcher/url_launcher.dart';
+
+import '../widget/linear_progress_indicator.dart';
+import '../widget/launch_url.dart';
 
 const int deskopModeWidth = 640;
 
@@ -1862,17 +1863,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                   maxWidth: 700,
                   minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
                 ),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                      child: LinearProgressIndicator(
-                        minHeight: 20,
-                        backgroundColor: Theme.of(context).splashColor,
-                        value: null,
-                      ),
-                    ),
+                    CustomLinearProgressIndicator(),
                   ],
                 ),
               ),
@@ -2087,7 +2081,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                                       onPressed: settingData['object']['set'][_selectedLocation]['link'][link].isEmpty
                                           ? null
                                           : () {
-                                              launchUrl(Uri.parse(settingData['object']['set'][_selectedLocation]['link'][link]));
+                                              CustomLaunchUrl.launch(context, settingData['object']['set'][_selectedLocation]['link'][link]);
                                             },
                                       child: Text(link),
                                     ),

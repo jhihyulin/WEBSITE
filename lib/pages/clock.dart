@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:universal_html/html.dart' as html;
 
+import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 
 class ClockPage extends StatefulWidget {

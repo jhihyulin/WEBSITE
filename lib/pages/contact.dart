@@ -6,6 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
+import '../widget/scaffold_messenger.dart';
+import '../widget/linear_progress_indicator.dart';
+
 const String reportEmail = 'admin@jhihyulin.live';
 const String contactDomain = 'api.jhihyulin.live';
 const String contactURL = '/contact';
@@ -62,59 +65,18 @@ class _ContactPageState extends State<ContactPage> {
         setState(() {
           _loading = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Message Sent Seccessfully.'),
-          showCloseIcon: true,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(16.0),
-            ),
-          ),
-        ));
+        CustomScaffoldMessenger.showMessageSnackBar(context, 'Message Sent Seccessfully.');
       }).catchError((error) {
         setState(() {
           _loading = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: Text(
-            'Error: Failed to send notification to Admin.',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onErrorContainer,
-            ),
-          ),
-          showCloseIcon: true,
-          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(
-            seconds: 10,
-          ),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(16.0),
-            ),
-          ),
-        ));
+        CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
       });
     }).catchError((error) {
       setState(() {
         _loading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: const Text('Error Sending Message!'),
-        showCloseIcon: true,
-        closeIconColor: Theme.of(context).colorScheme.error,
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(
-          seconds: 10,
-        ),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(16.0),
-          ),
-        ),
-      ));
+      CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
     });
   }
 
@@ -210,15 +172,7 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                   Offstage(
                     offstage: !_loading,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                      child: LinearProgressIndicator(
-                        minHeight: 20,
-                        backgroundColor: Theme.of(context).splashColor,
-                      ),
-                    ),
+                    child: const CustomLinearProgressIndicator(),
                   ),
                   Offstage(
                     offstage: _loading,

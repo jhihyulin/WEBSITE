@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../widget/launch_url.dart';
 
 class URLLauncherPage extends StatefulWidget {
   const URLLauncherPage({super.key});
@@ -11,29 +12,6 @@ class URLLauncherPage extends StatefulWidget {
 class _URLLauncherPageState extends State<URLLauncherPage> {
   final TextEditingController inputURLController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  _launchURL() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    String url = inputURLController.text;
-    if (!await launchUrl(Uri.parse(url))) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Theme.of(context).colorScheme.errorContainer,
-            content: Text('Error: URL Launch Failed', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
-            showCloseIcon: true,
-            closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-            behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 10),
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-          ),
-        );
-      }
-    }
-    return;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +55,9 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                       ),
                     ),
                     onFieldSubmitted: (value) {
-                      _launchURL();
+                      if (_formKey.currentState!.validate()) {
+                        CustomLaunchUrl.launch(context, inputURLController.text);
+                      }
                     },
                   ),
                 ),
@@ -92,7 +72,11 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                     ElevatedButton.icon(
                       icon: const Icon(Icons.rocket_launch),
                       label: const Text('Launch URL'),
-                      onPressed: _launchURL,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          CustomLaunchUrl.launch(context, inputURLController.text);
+                        }
+                      },
                     ),
                     TextButton(
                       child: const Icon(Icons.help),

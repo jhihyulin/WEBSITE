@@ -6,35 +6,35 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:universal_html/html.dart' as html;
 
-import 'home.dart';
-import 'provider/theme.dart';
-import 'tool.dart';
-import 'firebase_options.dart';
-import 'setting.dart';
-import 'pages/load_failed.dart';
-import 'pages/profile.dart' deferred as profile;
-import 'pages/sign_in.dart' deferred as sign_in;
-import 'pages/status.dart' deferred as status;
-import 'pages/vpn.dart' deferred as vpn;
-import 'pages/short_url.dart' deferred as short_url;
-import 'pages/long_url.dart' deferred as long_url;
-import 'pages/contact.dart' deferred as contact;
-import 'pages/about.dart' deferred as about;
-import 'pages/bmi.dart' deferred as bmi;
-import 'pages/timer.dart' deferred as timer;
-import 'pages/url_launcher.dart' deferred as url_launcher;
-import 'pages/qr_generator.dart' deferred as qr_generator;
-import 'pages/clock.dart' deferred as clock;
-import 'pages/zhsh_3d_map.dart' deferred as zhsh_3d_map;
-import 'pages/not_found.dart' deferred as not_found;
-import 'pages/tw_university_result_query.dart' deferred as tw_university_result_query;
-import 'pages/spin_wheel.dart' deferred as spin_wheel;
-import 'pages/privacy_policy.dart' deferred as privacy_policy;
-import 'pages/terms_of_service.dart' deferred as terms_of_service;
-import 'pages/chat.dart' deferred as chat;
-import 'pages/chat_ai.dart' deferred as chatai;
+import '../home.dart';
+import '../provider/theme.dart';
+import '../tool.dart';
+import '../firebase_options.dart';
+import '../setting.dart';
+import '../pages/load_failed.dart';
+import '../pages/profile.dart' deferred as profile;
+import '../pages/sign_in.dart' deferred as sign_in;
+import '../pages/status.dart' deferred as status;
+import '../pages/vpn.dart' deferred as vpn;
+import '../pages/short_url.dart' deferred as short_url;
+import '../pages/long_url.dart' deferred as long_url;
+import '../pages/contact.dart' deferred as contact;
+import '../pages/about.dart' deferred as about;
+import '../pages/bmi.dart' deferred as bmi;
+import '../pages/timer.dart' deferred as timer;
+import '../pages/url_launcher.dart' deferred as url_launcher;
+import '../pages/qr_generator.dart' deferred as qr_generator;
+import '../pages/clock.dart' deferred as clock;
+import '../pages/zhsh_3d_map.dart' deferred as zhsh_3d_map;
+import '../pages/not_found.dart' deferred as not_found;
+import '../pages/tw_university_result_query.dart' deferred as tw_university_result_query;
+import '../pages/spin_wheel.dart' deferred as spin_wheel;
+import '../pages/privacy_policy.dart' deferred as privacy_policy;
+import '../pages/terms_of_service.dart' deferred as terms_of_service;
+import '../pages/chat.dart' deferred as chat;
+import '../pages/chat_ai.dart' deferred as chatai;
+import '../pages/loading.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 700;
@@ -70,25 +70,7 @@ class _MyAppState extends State<MyApp> {
                 return page(context);
               }
             } else {
-              return Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.background,
-                appBar: AppBar(
-                  title: const Text('Loading...'),
-                ),
-                body: Center(
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 700),
-                    padding: const EdgeInsets.all(20),
-                    child: const ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                      child: LinearProgressIndicator(
-                        minHeight: 20,
-                        value: null,
-                      ),
-                    ),
-                  ),
-                ),
-              );
+              return const LoadingPage();
             }
           },
         );
@@ -135,7 +117,7 @@ class _MyAppState extends State<MyApp> {
                 : themeMode == 1
                     ? ThemeMode.light
                     : ThemeMode.dark,
-            home: Scaffold(
+            home: const Scaffold(
               body: NavigationController(),
             ),
             onGenerateRoute: (RouteSettings settings) {
@@ -280,7 +262,7 @@ class _MyAppState extends State<MyApp> {
                   });
                   break;
                 case '/':
-                  builder = (BuildContext context) => NavigationController();
+                  builder = (BuildContext context) => const NavigationController();
                   break;
                 default:
                   builder = dealPage(not_found.loadLibrary, (context) {

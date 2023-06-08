@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 
-import 'sign_in.dart';
+import '../pages/sign_in.dart';
+import '../widget/scaffold_messenger.dart';
+import '../widget/expansion_tile.dart';
+import '../widget/linear_progress_indicator.dart';
+import '../widget/launch_url.dart';
 
 const String lURLServerDomain = 'l.jhihyulin.live';
 const String lURLServerURL1 = '/create';
@@ -70,20 +73,7 @@ class _LongURLPageState extends State<LongURLPage> {
                   _loading = false;
                   _loaded = false;
                 }),
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Error: $error'),
-                  showCloseIcon: true,
-                  closeIconColor: Theme.of(context).colorScheme.error,
-                  behavior: SnackBarBehavior.floating,
-                  duration: const Duration(
-                    seconds: 10,
-                  ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16.0),
-                    ),
-                  ),
-                )),
+                CustomScaffoldMessenger.showErrorMessageSnackBar(context, error)
               });
     } else {
       setState(() {
@@ -147,20 +137,12 @@ class _LongURLPageState extends State<LongURLPage> {
                     ),
                     Offstage(
                       offstage: !_loading,
-                      child: Column(
+                      child: const Column(
                         children: [
-                          const SizedBox(
+                          SizedBox(
                             height: 20,
                           ),
-                          ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(16.0),
-                            ),
-                            child: LinearProgressIndicator(
-                              minHeight: 20,
-                              backgroundColor: Theme.of(context).splashColor,
-                            ),
-                          ),
+                          CustomLinearProgressIndicator(),
                         ],
                       ),
                     ),
@@ -213,36 +195,10 @@ class _LongURLPageState extends State<LongURLPage> {
                             onPressed: () {
                               Clipboard.setData(ClipboardData(text: _lurl))
                                   .then((value) => {
-                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                          content: Text('Copied to clipboard'),
-                                          showCloseIcon: true,
-                                          behavior: SnackBarBehavior.floating,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(16.0),
-                                            ),
-                                          ),
-                                        ))
+                                        CustomScaffoldMessenger.showMessageSnackBar(context, 'Copied to clipboard'),
                                       })
                                   .catchError((error) => {
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                                          content: Text(
-                                            'Error: $error',
-                                            style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
-                                          ),
-                                          showCloseIcon: true,
-                                          closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
-                                          behavior: SnackBarBehavior.floating,
-                                          duration: const Duration(
-                                            seconds: 10,
-                                          ),
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(16.0),
-                                            ),
-                                          ),
-                                        ))
+                                        CustomScaffoldMessenger.showErrorMessageSnackBar(context, error),
                                       });
                             },
                           ),
@@ -266,7 +222,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                         physics: const BouncingScrollPhysics(),
                                         child: ListBody(
                                           children: [
-                                            ExpansionTile(
+                                            CustomExpansionTile(
                                               leading: const Icon(Icons.http),
                                               title: const Text('HTTP 414'),
                                               subtitle: const Text('Request-URI Too Large'),
@@ -332,7 +288,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                                           text: 'admin@jhihyulin.live',
                                                           recognizer: TapGestureRecognizer()
                                                             ..onTap = () {
-                                                              launchUrl(Uri.parse('mailto:admin@jhihyulin.live?subject=%5BLong%20URL%5D%20Bug%20Report'));
+                                                              CustomLaunchUrl.launch(context, 'mailto:admin@jhihyulin.live?subject=%5BLong%20URL%5D%20Bug%20Report');
                                                             },
                                                         ),
                                                         const TextSpan(text: ' for help.'),

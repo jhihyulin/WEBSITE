@@ -34,7 +34,7 @@ import '../pages/privacy_policy.dart' deferred as privacy_policy;
 import '../pages/terms_of_service.dart' deferred as terms_of_service;
 import '../pages/chat.dart' deferred as chat;
 import '../pages/chat_ai.dart' deferred as chatai;
-import '../widget/linear_progress_indicator.dart';
+import '../pages/loading.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 700;
@@ -70,19 +70,7 @@ class _MyAppState extends State<MyApp> {
                 return page(context);
               }
             } else {
-              return Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.background,
-                appBar: AppBar(
-                  title: const Text('Loading...'),
-                ),
-                body: Center(
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 700),
-                    padding: const EdgeInsets.all(20),
-                    child: const CustomLinearProgressIndicator(),
-                  ),
-                ),
-              );
+              return const LoadingPage();
             }
           },
         );

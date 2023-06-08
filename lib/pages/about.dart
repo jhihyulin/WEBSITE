@@ -7,7 +7,6 @@ import 'package:icons_plus/icons_plus.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
-// CustomLaunchUrl.launch(context, 
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {

@@ -59,7 +59,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget Function(BuildContext) dealPage(Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
+  Widget Function(BuildContext) loadPage(Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
     return (BuildContext context) => FutureBuilder(
           future: loadLibrary(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -146,118 +146,118 @@ class _MyAppState extends State<MyApp> {
               }
               switch (name) {
                 case '/profile':
-                  builder = dealPage(profile.loadLibrary, (context) {
+                  builder = loadPage(profile.loadLibrary, (context) {
                     return profile.ProfilePage();
                   });
                   break;
                 case '/signin':
-                  builder = dealPage(sign_in.loadLibrary, (context) {
+                  builder = loadPage(sign_in.loadLibrary, (context) {
                     return sign_in.SignInPage();
                   });
                   break;
                 case '/status':
-                  builder = dealPage(status.loadLibrary, (context) {
+                  builder = loadPage(status.loadLibrary, (context) {
                     return status.StatusPage();
                   });
                   break;
                 case '/vpn':
-                  builder = dealPage(vpn.loadLibrary, (context) {
+                  builder = loadPage(vpn.loadLibrary, (context) {
                     return vpn.VPNPage();
                   });
                   break;
                 case '/shorturl':
-                  builder = dealPage(short_url.loadLibrary, (context) {
+                  builder = loadPage(short_url.loadLibrary, (context) {
                     return short_url.ShortURLPage();
                   });
                   break;
                 case '/longurl':
-                  builder = dealPage(long_url.loadLibrary, (context) {
+                  builder = loadPage(long_url.loadLibrary, (context) {
                     return long_url.LongURLPage();
                   });
                   break;
                 case '/contact':
-                  builder = dealPage(contact.loadLibrary, (context) {
+                  builder = loadPage(contact.loadLibrary, (context) {
                     return contact.ContactPage();
                   });
                   break;
                 case '/about':
-                  builder = dealPage(about.loadLibrary, (context) {
+                  builder = loadPage(about.loadLibrary, (context) {
                     return about.AboutPage();
                   });
                   break;
                 case '/bmi':
-                  builder = dealPage(bmi.loadLibrary, (context) {
+                  builder = loadPage(bmi.loadLibrary, (context) {
                     return bmi.BMIPage();
                   });
                   break;
                 case '/timer':
-                  builder = dealPage(timer.loadLibrary, (context) {
+                  builder = loadPage(timer.loadLibrary, (context) {
                     return timer.TimerPage();
                   });
                   break;
                 case '/urllauncher':
-                  builder = dealPage(url_launcher.loadLibrary, (context) {
+                  builder = loadPage(url_launcher.loadLibrary, (context) {
                     return url_launcher.URLLauncherPage();
                   });
                   break;
                 case '/qrgenerator':
-                  builder = dealPage(qr_generator.loadLibrary, (context) {
+                  builder = loadPage(qr_generator.loadLibrary, (context) {
                     return qr_generator.QRGeneratorPage();
                   });
                   break;
                 case '/clock':
-                  builder = dealPage(clock.loadLibrary, (context) {
+                  builder = loadPage(clock.loadLibrary, (context) {
                     return clock.ClockPage();
                   });
                   break;
                 case '/zhsh3dmap':
                   if (parameters != null) {
-                    builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
+                    builder = loadPage(zhsh_3d_map.loadLibrary, (context) {
                       return zhsh_3d_map.ZHSH3DMapPage(
                         embededMode: parameters!['embededmode'] == 'true',
                       );
                     });
                   } else {
-                    builder = dealPage(zhsh_3d_map.loadLibrary, (context) {
+                    builder = loadPage(zhsh_3d_map.loadLibrary, (context) {
                       return zhsh_3d_map.ZHSH3DMapPage();
                     });
                   }
                   break;
                 case '/twuniversityresultquery':
                   if (parameters != null) {
-                    builder = dealPage(tw_university_result_query.loadLibrary, (context) {
+                    builder = loadPage(tw_university_result_query.loadLibrary, (context) {
                       return tw_university_result_query.TWUniversityResultQueryPage(
                         id: parameters!['id'] ?? '',
                       );
                     });
                   } else {
-                    builder = dealPage(tw_university_result_query.loadLibrary, (context) {
+                    builder = loadPage(tw_university_result_query.loadLibrary, (context) {
                       return tw_university_result_query.TWUniversityResultQueryPage();
                     });
                   }
                   break;
                 case '/spinwheel':
-                  builder = dealPage(spin_wheel.loadLibrary, (context) {
+                  builder = loadPage(spin_wheel.loadLibrary, (context) {
                     return spin_wheel.SpinWheelPage();
                   });
                   break;
                 case '/chatai':
-                  builder = dealPage(chatai.loadLibrary, (context) {
+                  builder = loadPage(chatai.loadLibrary, (context) {
                     return chatai.ChatAIPage();
                   });
                   break;
                 case '/privacypolicy':
-                  builder = dealPage(privacy_policy.loadLibrary, (context) {
+                  builder = loadPage(privacy_policy.loadLibrary, (context) {
                     return privacy_policy.PrivacyPolicyPage();
                   });
                   break;
                 case '/termsofservice':
-                  builder = dealPage(terms_of_service.loadLibrary, (context) {
+                  builder = loadPage(terms_of_service.loadLibrary, (context) {
                     return terms_of_service.TermsOfServicePage();
                   });
                   break;
                 case '/chat':
-                  builder = dealPage(chat.loadLibrary, (context) {
+                  builder = loadPage(chat.loadLibrary, (context) {
                     return chat.ChatPage();
                   });
                   break;
@@ -265,7 +265,7 @@ class _MyAppState extends State<MyApp> {
                   builder = (BuildContext context) => const NavigationController();
                   break;
                 default:
-                  builder = dealPage(not_found.loadLibrary, (context) {
+                  builder = loadPage(not_found.loadLibrary, (context) {
                     return not_found.NotFoundPage();
                   });
               }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:universal_html/html.dart' as html;
+
+import '../widget/launch_url.dart';
 
 abstract class CustomScaffoldMessenger {
   static void showMessageSnackBar(BuildContext context, String message) {
@@ -35,7 +38,7 @@ abstract class CustomScaffoldMessenger {
           label: 'Report',
           textColor: Theme.of(context).colorScheme.onErrorContainer,
           onPressed: () {
-            // TODO: add email report function
+            CustomLaunchUrl.launch(context, 'mailto:admin@jhihyulin.live?subject=%5BWebsite%5D%20Error%20Report&body=%5BError%5D%3A%20$error%0D%0A%0D%0A%5BRoute%5D%3A%20${ModalRoute.of(context)?.settings.name}%0D%0A%0D%0A%5BTime%5D%3A%20${'${DateTime.now().toLocal()} ${DateTime.now().timeZoneName}'}%0D%0A%0D%0A%5BUserAgent%5D%3A%20${html.window.navigator.userAgent}');
           },
         ),
       ),

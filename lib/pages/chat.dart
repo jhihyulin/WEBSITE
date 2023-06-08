@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 
 import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
+import '../widget/linear_progress_indicator.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -143,15 +144,7 @@ class _ChatPageState extends State<ChatPage> {
                         physics: const BouncingScrollPhysics(),
                         child: _chat.isEmpty
                             ? const Center(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(16.0),
-                                  ),
-                                  child: LinearProgressIndicator(
-                                    minHeight: 20,
-                                    value: null,
-                                  ),
-                                ),
+                                child: CustomLinearProgressIndicator(),
                               )
                             : Column(
                                 mainAxisAlignment: MainAxisAlignment.start,

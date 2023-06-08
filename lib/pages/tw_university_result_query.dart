@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../widget/scaffold_messenger.dart';
+import '../widget/linear_progress_indicator.dart';
 
 String _id = '';
 
@@ -323,16 +324,7 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                   ),
                   Offstage(
                     offstage: !_loading,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                      child: LinearProgressIndicator(
-                        minHeight: 20,
-                        backgroundColor: Theme.of(context).splashColor,
-                        value: null,
-                      ),
-                    ),
+                    child: const CustomLinearProgressIndicator(),
                   ),
                 ],
               ),

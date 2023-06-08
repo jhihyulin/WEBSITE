@@ -34,6 +34,7 @@ import 'pages/privacy_policy.dart' deferred as privacy_policy;
 import 'pages/terms_of_service.dart' deferred as terms_of_service;
 import 'pages/chat.dart' deferred as chat;
 import 'pages/chat_ai.dart' deferred as chatai;
+import '../widget/linear_progress_indicator.dart';
 
 const websiteName = 'JHIHYU\'S WEBSITE';
 const desktopModeWidth = 700;
@@ -78,13 +79,7 @@ class _MyAppState extends State<MyApp> {
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 700),
                     padding: const EdgeInsets.all(20),
-                    child: const ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                      child: LinearProgressIndicator(
-                        minHeight: 20,
-                        value: null,
-                      ),
-                    ),
+                    child: const CustomLinearProgressIndicator(),
                   ),
                 ),
               );

@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
+import '../widget/linear_progress_indicator.dart';
 
 const String serverDomainVPN = 'vpn.jhihyulin.live';
 const String serverURLVPN1 = '/server_list';
@@ -251,15 +252,8 @@ class _VPNPageState extends State<VPNPage> {
                     offstage: !_loading && _selectedServerId == _defaultSelect,
                     child: Column(
                       children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                          child: LinearProgressIndicator(
-                            minHeight: 20,
-                            backgroundColor: Theme.of(context).splashColor,
-                            value: _loading ? null : _dataUsedPercentage / 100,
-                          ),
+                        CustomLinearProgressIndicator(
+                          value: _loading ? null : _dataUsedPercentage / 100,
                         ),
                       ],
                     ),

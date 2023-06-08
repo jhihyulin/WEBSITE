@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
+import '../widget/linear_progress_indicator.dart';
 
 const String sURLServerDomain = 's.jhihyulin.live';
 const String sURLServerURL1 = '/create';
@@ -132,18 +133,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                     ),
                     Offstage(
                       offstage: !_loading,
-                      child: Column(
+                      child: const Column(
                         children: [
-                          const SizedBox(
+                          SizedBox(
                             height: 20,
                           ),
-                          ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-                            child: LinearProgressIndicator(
-                              minHeight: 20,
-                              backgroundColor: Theme.of(context).splashColor,
-                            ),
-                          ),
+                          CustomLinearProgressIndicator(),
                         ],
                       ),
                     ),

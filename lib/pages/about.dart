@@ -7,6 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../widget/scaffold_messenger.dart';
 import '../widget/expansion_tile.dart';
+import '../widget/linear_progress_indicator.dart';
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
@@ -397,16 +398,7 @@ class _AboutPageState extends State<AboutPage> {
                       )
                     : Container(
                         padding: const EdgeInsets.all(10),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                          child: LinearProgressIndicator(
-                            minHeight: 20,
-                            backgroundColor: Theme.of(context).splashColor,
-                            value: null,
-                          ),
-                        ),
+                        child: const CustomLinearProgressIndicator(),
                       ),
                 const SizedBox(
                   height: 20,

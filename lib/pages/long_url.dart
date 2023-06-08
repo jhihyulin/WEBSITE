@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
 import '../widget/expansion_tile.dart';
+import '../widget/linear_progress_indicator.dart';
 
 const String lURLServerDomain = 'l.jhihyulin.live';
 const String lURLServerURL1 = '/create';
@@ -136,20 +137,12 @@ class _LongURLPageState extends State<LongURLPage> {
                     ),
                     Offstage(
                       offstage: !_loading,
-                      child: Column(
+                      child: const Column(
                         children: [
-                          const SizedBox(
+                          SizedBox(
                             height: 20,
                           ),
-                          ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(16.0),
-                            ),
-                            child: LinearProgressIndicator(
-                              minHeight: 20,
-                              backgroundColor: Theme.of(context).splashColor,
-                            ),
-                          ),
+                          CustomLinearProgressIndicator(),
                         ],
                       ),
                     ),

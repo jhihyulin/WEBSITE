@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 import '../widget/scaffold_messenger.dart';
+import '../widget/linear_progress_indicator.dart';
 
 const String reportEmail = 'admin@jhihyulin.live';
 const String contactDomain = 'api.jhihyulin.live';
@@ -171,15 +172,7 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                   Offstage(
                     offstage: !_loading,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                      child: LinearProgressIndicator(
-                        minHeight: 20,
-                        backgroundColor: Theme.of(context).splashColor,
-                      ),
-                    ),
+                    child: const CustomLinearProgressIndicator(),
                   ),
                   Offstage(
                     offstage: _loading,

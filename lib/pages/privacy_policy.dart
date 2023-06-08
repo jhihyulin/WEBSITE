@@ -5,6 +5,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widget/scaffold_messenger.dart';
+import '../widget/linear_progress_indicator.dart';
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({Key? key}) : super(key: key);
@@ -66,17 +67,8 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                     data: snapshot.data,
                   );
                 } else {
-                  return Center(
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                      child: LinearProgressIndicator(
-                        minHeight: 20,
-                        backgroundColor: Theme.of(context).splashColor,
-                        value: null,
-                      ),
-                    ),
+                  return const Center(
+                    child: CustomLinearProgressIndicator(),
                   );
                 }
               },

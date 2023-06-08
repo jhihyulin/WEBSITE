@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:icons_plus/icons_plus.dart';
 
 import '../widget/scaffold_messenger.dart';
+import '../widget/expansion_tile.dart';
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
@@ -167,9 +168,6 @@ class _AboutPageState extends State<AboutPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).copyWith(
-      dividerColor: Colors.transparent,
-    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('About'),
@@ -218,35 +216,32 @@ class _AboutPageState extends State<AboutPage> {
                                 title: Text("Name"),
                                 subtitle: Text("Jhih Yu"),
                               ),
-                              Theme(
-                                data: theme,
-                                child: Card(
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(16.0),
+                              Card(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16.0),
+                                  ),
+                                ),
+                                clipBehavior: Clip.antiAlias,
+                                child: CustomExpansionTile(
+                                  onExpansionChanged: (value) {
+                                    setState(() {
+                                      _isExpanded = value;
+                                    });
+                                  },
+                                  leading: const Icon(Icons.school),
+                                  title: const Text("School"),
+                                  subtitle: _isExpanded ? null : const Text("Zhonghe Senior High School"),
+                                  children: const [
+                                    ListTile(
+                                      title: Text("Zhonghe Senior High School"),
+                                      trailing: Text("2020 - 2023"),
                                     ),
-                                  ),
-                                  clipBehavior: Clip.antiAlias,
-                                  child: ExpansionTile(
-                                    onExpansionChanged: (value) {
-                                      setState(() {
-                                        _isExpanded = value;
-                                      });
-                                    },
-                                    leading: const Icon(Icons.school),
-                                    title: const Text("School"),
-                                    subtitle: _isExpanded ? null : const Text("Zhonghe Senior High School"),
-                                    children: const [
-                                      ListTile(
-                                        title: Text("Zhonghe Senior High School"),
-                                        trailing: Text("2020 - 2023"),
-                                      ),
-                                      ListTile(
-                                        title: Text("Tsz-Shiou Senior High School"),
-                                        trailing: Text("2017 - 2020"),
-                                      ),
-                                    ],
-                                  ),
+                                    ListTile(
+                                      title: Text("Tsz-Shiou Senior High School"),
+                                      trailing: Text("2017 - 2020"),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

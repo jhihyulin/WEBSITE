@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../widget/scaffold_messenger.dart';
+import '../widget/expansion_tile.dart';
 
 class SpinWheelPage extends StatefulWidget {
   const SpinWheelPage({Key? key}) : super(key: key);
@@ -149,9 +150,6 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).copyWith(
-      dividerColor: Colors.transparent,
-    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Spin Wheel'),
@@ -334,110 +332,107 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Theme(
-                                data: theme,
-                                child: Card(
-                                  clipBehavior: Clip.antiAlias,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(16.0),
-                                    ),
+                              Card(
+                                clipBehavior: Clip.antiAlias,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16.0),
                                   ),
-                                  child: ExpansionTile(
-                                    title: const Text('Generate Number'),
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Form(
-                                          key: _formKey2,
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  validator: (value) {
-                                                    if (value == null || value.isEmpty) {
-                                                      return 'Required';
-                                                    } else if (int.tryParse(value) == null) {
-                                                      return 'Only number';
-                                                    }
-                                                    return null;
-                                                  },
-                                                  controller: _controller2,
-                                                  keyboardType: TextInputType.number,
-                                                  decoration: InputDecoration(
-                                                    enabled: !_spinning,
-                                                    labelText: 'Min',
-                                                    hintText: 'Min',
-                                                    border: const OutlineInputBorder(
-                                                      borderRadius: BorderRadius.all(
-                                                        Radius.circular(16.0),
-                                                      ),
+                                ),
+                                child: CustomExpansionTile(
+                                  title: const Text('Generate Number'),
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Form(
+                                        key: _formKey2,
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 2,
+                                              child: TextFormField(
+                                                validator: (value) {
+                                                  if (value == null || value.isEmpty) {
+                                                    return 'Required';
+                                                  } else if (int.tryParse(value) == null) {
+                                                    return 'Only number';
+                                                  }
+                                                  return null;
+                                                },
+                                                controller: _controller2,
+                                                keyboardType: TextInputType.number,
+                                                decoration: InputDecoration(
+                                                  enabled: !_spinning,
+                                                  labelText: 'Min',
+                                                  hintText: 'Min',
+                                                  border: const OutlineInputBorder(
+                                                    borderRadius: BorderRadius.all(
+                                                      Radius.circular(16.0),
                                                     ),
                                                   ),
-                                                  onChanged: (value) => onChange(),
                                                 ),
+                                                onChanged: (value) => onChange(),
                                               ),
-                                              const SizedBox(width: 10),
-                                              Expanded(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  validator: (value) {
-                                                    if (value == null || value.isEmpty) {
-                                                      return 'Required';
-                                                    } else if (int.tryParse(value) == null) {
-                                                      return 'Only number';
-                                                    }
-                                                    return null;
-                                                  },
-                                                  controller: _controller3,
-                                                  keyboardType: TextInputType.number,
-                                                  decoration: InputDecoration(
-                                                    enabled: !_spinning,
-                                                    labelText: 'Max',
-                                                    hintText: 'Max',
-                                                    border: const OutlineInputBorder(
-                                                      borderRadius: BorderRadius.all(
-                                                        Radius.circular(16.0),
-                                                      ),
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Expanded(
+                                              flex: 2,
+                                              child: TextFormField(
+                                                validator: (value) {
+                                                  if (value == null || value.isEmpty) {
+                                                    return 'Required';
+                                                  } else if (int.tryParse(value) == null) {
+                                                    return 'Only number';
+                                                  }
+                                                  return null;
+                                                },
+                                                controller: _controller3,
+                                                keyboardType: TextInputType.number,
+                                                decoration: InputDecoration(
+                                                  enabled: !_spinning,
+                                                  labelText: 'Max',
+                                                  hintText: 'Max',
+                                                  border: const OutlineInputBorder(
+                                                    borderRadius: BorderRadius.all(
+                                                      Radius.circular(16.0),
                                                     ),
                                                   ),
-                                                  onChanged: (value) => onChange(),
                                                 ),
+                                                onChanged: (value) => onChange(),
                                               ),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Expanded(
-                                                flex: 1,
-                                                child: IconButton(
-                                                  tooltip: 'Add',
-                                                  onPressed: _spinning
-                                                      ? null
-                                                      : () {
-                                                          if (_formKey2.currentState!.validate()) {
-                                                            if (int.parse(_controller2.text) > int.parse(_controller3.text)) {
-                                                              CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Min must be less than Max');
-                                                              return;
-                                                            }
-                                                            var tL = [];
-                                                            for (int i = int.parse(_controller2.text); i <= int.parse(_controller3.text); i++) {
-                                                              tL.add(i.toString());
-                                                            }
-                                                            _controller.text = _controller.text == '' ? tL.join('\n') : '${_controller.text}\n${tL.join('\n')}';
-                                                            onChange();
-                                                            setState(() {});
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: IconButton(
+                                                tooltip: 'Add',
+                                                onPressed: _spinning
+                                                    ? null
+                                                    : () {
+                                                        if (_formKey2.currentState!.validate()) {
+                                                          if (int.parse(_controller2.text) > int.parse(_controller3.text)) {
+                                                            CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Min must be less than Max');
+                                                            return;
                                                           }
-                                                        },
-                                                  icon: const Icon(Icons.add),
-                                                ),
+                                                          var tL = [];
+                                                          for (int i = int.parse(_controller2.text); i <= int.parse(_controller3.text); i++) {
+                                                            tL.add(i.toString());
+                                                          }
+                                                          _controller.text = _controller.text == '' ? tL.join('\n') : '${_controller.text}\n${tL.join('\n')}';
+                                                          onChange();
+                                                          setState(() {});
+                                                        }
+                                                      },
+                                                icon: const Icon(Icons.add),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

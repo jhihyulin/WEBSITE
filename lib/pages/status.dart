@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widget/scaffold_messenger.dart';
+import '../widget/expansion_tile.dart';
 
 Set<Map<String, dynamic>> _status = {
   {
@@ -66,9 +67,6 @@ class _StatusPageState extends State<StatusPage> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).copyWith(
-      dividerColor: Colors.transparent,
-    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Status'),
@@ -95,45 +93,42 @@ class _StatusPageState extends State<StatusPage> {
                   child: Column(
                     children: [
                       for (var status in _status)
-                        Theme(
-                          data: theme,
-                          child: ExpansionTile(
-                            title: Text(status['name']),
-                            subtitle: Text(status['update']),
-                            leading: Icon(status['leading']),
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                child: ListTile(
-                                  subtitle: Wrap(
-                                    spacing: 10,
-                                    runSpacing: 10,
-                                    children: [
-                                      Chip(
-                                        label: Text(status['provider']),
-                                      ),
-                                      for (var item in status['status'].entries)
-                                        if (item.key != 'Main')
-                                          ElevatedButton(
-                                            onPressed: item.value == null
-                                                ? null
-                                                : () {
-                                                    _launchUrl(item.value);
-                                                  },
-                                            child: Text(item.key),
-                                          ),
-                                    ],
-                                  ),
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.open_in_new),
-                                    onPressed: () {
-                                      _launchUrl(status['url']);
-                                    },
-                                  ),
+                        CustomExpansionTile(
+                          title: Text(status['name']),
+                          subtitle: Text(status['update']),
+                          leading: Icon(status['leading']),
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: ListTile(
+                                subtitle: Wrap(
+                                  spacing: 10,
+                                  runSpacing: 10,
+                                  children: [
+                                    Chip(
+                                      label: Text(status['provider']),
+                                    ),
+                                    for (var item in status['status'].entries)
+                                      if (item.key != 'Main')
+                                        ElevatedButton(
+                                          onPressed: item.value == null
+                                              ? null
+                                              : () {
+                                                  _launchUrl(item.value);
+                                                },
+                                          child: Text(item.key),
+                                        ),
+                                  ],
+                                ),
+                                trailing: IconButton(
+                                  icon: const Icon(Icons.open_in_new),
+                                  onPressed: () {
+                                    _launchUrl(status['url']);
+                                  },
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                     ],
                   ),

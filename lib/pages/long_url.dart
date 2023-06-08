@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 
 import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
+import '../widget/expansion_tile.dart';
 
 const String lURLServerDomain = 'l.jhihyulin.live';
 const String lURLServerURL1 = '/create';
@@ -228,7 +229,7 @@ class _LongURLPageState extends State<LongURLPage> {
                                         physics: const BouncingScrollPhysics(),
                                         child: ListBody(
                                           children: [
-                                            ExpansionTile(
+                                            CustomExpansionTile(
                                               leading: const Icon(Icons.http),
                                               title: const Text('HTTP 414'),
                                               subtitle: const Text('Request-URI Too Large'),

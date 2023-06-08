@@ -20,11 +20,14 @@ abstract class CustomScaffoldMessenger {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Theme.of(context).colorScheme.errorContainer,
-        content: SelectionArea(
-          child: Text(
-            error,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onErrorContainer,
+        content: Align(
+          alignment: Alignment.centerLeft,
+          child: SelectionArea(
+            child: Text(
+              error,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onErrorContainer,
+              ),
             ),
           ),
         ),

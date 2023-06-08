@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 import '../widget/linear_progress_indicator.dart';

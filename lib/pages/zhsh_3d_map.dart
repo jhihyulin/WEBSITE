@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:universal_html/html.dart' as html;
 
+import 'package:universal_html/html.dart' as html;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 import 'package:flutter_gl/flutter_gl.dart';
 import 'package:three_dart/three3d/math/vector3.dart';
 import 'package:three_dart/three3d/three.dart' as three_dart;

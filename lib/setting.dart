@@ -269,6 +269,9 @@ class _SettingPageState extends State<SettingPage> {
                     Text(
                       'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                      ),
                     ),
                   ],
                 ),

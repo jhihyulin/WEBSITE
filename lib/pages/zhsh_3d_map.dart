@@ -1901,16 +1901,17 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
     return Row(
       children: [
         three_jsm.DomLikeListenable(
-            key: _globalKey,
-            builder: (BuildContext context) {
-              return SizedBox(
-                width: width,
-                height: height,
-                child: HtmlElementView(
-                  viewType: three3dRender.textureId!.toString(),
-                ),
-              );
-            }),
+          key: _globalKey,
+          builder: (BuildContext context) {
+            return SizedBox(
+              width: width,
+              height: height,
+              child: HtmlElementView(
+                viewType: three3dRender.textureId!.toString(),
+              ),
+            );
+          },
+        ),
         NotificationListener<ScrollNotification>(
           onNotification: _handleScrollNotification,
           child: SingleChildScrollView(
@@ -1939,13 +1940,16 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                 key: _globalKey,
                 builder: (BuildContext context) {
                   return SizedBox(
-                      width: width,
-                      height: height,
-                      child: Builder(builder: (BuildContext context) {
+                    width: width,
+                    height: height,
+                    child: Builder(
+                      builder: (BuildContext context) {
                         return HtmlElementView(
                           viewType: three3dRender.textureId!.toString(),
                         );
-                      }));
+                      },
+                    ),
+                  );
                 },
               ),
             ),
@@ -1995,9 +1999,17 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                           textEditingController.clear();
                         },
                       ),
-                      border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                      ),
                       errorText: _notFound ? _notFoundText : null,
-                      errorBorder: _notFound ? OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.error)) : null,
+                      errorBorder: _notFound
+                          ? OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                            )
+                          : null,
                     ),
                   );
                 },
@@ -2043,20 +2055,23 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                   children: [
                     Offstage(
                       offstage: _selectedLocation == '',
-                      child: ListTile(title: const Text('地點'), trailing: Text(_selectedLocationName)),
+                      child: ListTile(
+                        title: const Text('地點'),
+                        subtitle: Text(_selectedLocationName),
+                      ),
                     ),
                     Offstage(
                       offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
                       child: ListTile(
                         title: const Text('建築'),
-                        trailing: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+                        subtitle: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
                       ),
                     ),
                     Offstage(
                       offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
                       child: ListTile(
                         title: const Text('樓層'),
-                        trailing: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
+                        subtitle: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
                       ),
                     ),
                     Offstage(
@@ -2089,12 +2104,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
+                        fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
                       ),
                     ),
                   ],
@@ -2306,7 +2320,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
   }
 
   initRenderer() {
-    Map<String, dynamic> options = {'width': width, 'height': height, 'gl': three3dRender.gl, 'antialias': true, 'canvas': three3dRender.element};
+    Map<String, dynamic> options = {
+      'width': width,
+      'height': height,
+      'gl': three3dRender.gl,
+      'antialias': true,
+      'canvas': three3dRender.element,
+    };
     renderer = three.WebGLRenderer(options);
     renderer!.setPixelRatio(dpr);
     renderer!.setSize(width, height, false);

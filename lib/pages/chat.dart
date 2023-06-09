@@ -153,9 +153,7 @@ class _ChatPageState extends State<ChatPage> {
                                     if (_chat[i]['uid'] == (FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.uid : ''))
                                       Column(
                                         children: [
-                                          if (i == 0 ||
-                                              DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).day !=
-                                                  DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i - 1]['timestamp'].toString())).day)
+                                          if (i == 0 || DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).day != DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i - 1]['timestamp'].toString())).day)
                                             Text(
                                               DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).toString().substring(0, 10),
                                               style: TextStyle(
@@ -213,9 +211,7 @@ class _ChatPageState extends State<ChatPage> {
                                     else
                                       Column(
                                         children: [
-                                          if (i == 0 ||
-                                              DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).day !=
-                                                  DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i - 1]['timestamp'].toString())).day)
+                                          if (i == 0 || DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).day != DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i - 1]['timestamp'].toString())).day)
                                             Text(
                                               DateTime.fromMillisecondsSinceEpoch(int.parse(_chat[i]['timestamp'].toString())).toString().substring(0, 10),
                                               style: TextStyle(

@@ -91,8 +91,7 @@ class _SettingPageState extends State<SettingPage> {
                     ListTile(
                       leading: const Icon(Icons.color_lens),
                       title: const Text('Theme Color'),
-                      subtitle: Text(
-                          '#${themeColor.toString().replaceAll('Color(0xff', '').replaceAll('MaterialColor(primary value: ', '').replaceAll('ColorSwatch(primary value: ', '').replaceAll(')', '')}'),
+                      subtitle: Text('#${themeColor.toString().replaceAll('Color(0xff', '').replaceAll('MaterialColor(primary value: ', '').replaceAll('ColorSwatch(primary value: ', '').replaceAll(')', '')}'),
                       trailing: InkWell(
                         borderRadius: BorderRadius.circular(16),
                         child: Container(

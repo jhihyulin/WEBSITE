@@ -10,12 +10,14 @@ import 'package:http/http.dart' as http;
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
 
-String _id = '';
-
 class TWUniversityResultQueryPage extends StatefulWidget {
-  TWUniversityResultQueryPage({Key? key, String id = ''}) : super(key: key) {
-    _id = id;
-  }
+  const TWUniversityResultQueryPage({
+    Key? key,
+    this.id = '',
+  }) : super(key: key);
+
+  final String? id;
+
   @override
   State<TWUniversityResultQueryPage> createState() => _TWUniversityResultQueryPageState();
 }
@@ -28,12 +30,84 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
   bool _loaded = false;
 
   String _name = '';
+  String _id = '';
   Map<dynamic, dynamic> _stardata = {};
   Map<dynamic, dynamic> _udata = {};
   Map<dynamic, dynamic> _tudata = {};
 
   void shoeCopiedMessage() {
     CustomScaffoldMessenger.showMessageSnackBar(context, '已複製到剪貼簿');
+  }
+
+  void resetValue() {
+    setState(() {
+      _name = '';
+      _stardata = {};
+      _udata = {};
+      _tudata = {};
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.id!.isNotEmpty) {
+      setState(() {
+        inputIdController.text = widget.id!;
+        _id = widget.id!;
+      });
+      Timer(const Duration(milliseconds: 1), () {
+        search();
+      });
+    }
+  }
+
+  Future<Map<String, dynamic>> _query(String id) async {
+    String? token = await FirebaseAppCheck.instance.getToken();
+
+    String url = 'https://api.jhihyulin.live/TWUniversityResultQuery?id=$id';
+    http.Response response = await http.get(Uri.parse(url), headers: {
+      'Accept': 'application/json',
+      'X-Firebase-AppCheck': token!,
+    });
+
+    if (response.statusCode == HttpStatus.ok) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  void search() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _id = inputIdController.text;
+        _loading = true;
+        _loaded = false;
+      });
+      var data = _query(inputIdController.text);
+      data.then((value) {
+        var name = value['name'] ?? '';
+        var stardata = value['star'] ?? {};
+        var udata = value['u'] ?? {};
+        var tudata = value['tu'] ?? {};
+        setState(() {
+          _loading = false;
+          _loaded = true;
+          _name = name;
+          _stardata = stardata;
+          _udata = udata;
+          _tudata = tudata;
+        });
+      }).catchError((error) {
+        CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
+        setState(() {
+          _loading = false;
+          _loaded = false;
+        });
+        resetValue();
+      });
+    }
   }
 
   @override
@@ -333,73 +407,5 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
         ),
       ),
     );
-  }
-
-  void resetValue() {
-    setState(() {
-      _name = '';
-      _stardata = {};
-      _udata = {};
-      _tudata = {};
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if (_id != '') {
-      inputIdController.text = _id;
-      Timer(const Duration(milliseconds: 1), () {
-        search();
-      });
-    }
-  }
-
-  Future<Map<String, dynamic>> _query(String id) async {
-    String? token = await FirebaseAppCheck.instance.getToken();
-
-    String url = 'https://api.jhihyulin.live/TWUniversityResultQuery?id=$id';
-    http.Response response = await http.get(Uri.parse(url), headers: {
-      'Accept': 'application/json',
-      'X-Firebase-AppCheck': token!,
-    });
-
-    if (response.statusCode == HttpStatus.ok) {
-      return jsonDecode(response.body);
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
-
-  void search() {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        _id = inputIdController.text;
-        _loading = true;
-        _loaded = false;
-      });
-      var data = _query(inputIdController.text);
-      data.then((value) {
-        var name = value['name'] ?? '';
-        var stardata = value['star'] ?? {};
-        var udata = value['u'] ?? {};
-        var tudata = value['tu'] ?? {};
-        setState(() {
-          _loading = false;
-          _loaded = true;
-          _name = name;
-          _stardata = stardata;
-          _udata = udata;
-          _tudata = tudata;
-        });
-      }).catchError((error) {
-        CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
-        setState(() {
-          _loading = false;
-          _loaded = false;
-        });
-        resetValue();
-      });
-    }
   }
 }

@@ -50,7 +50,7 @@ class ToolPage extends StatelessWidget {
       'route': '/clock',
     },
     'zhsh3dmap': {
-      'title': 'ZHSH 3D Map',
+      'title': '中和高中3D校園地圖',
       'icon': Icons.map,
       'route': '/zhsh3dmap',
     },

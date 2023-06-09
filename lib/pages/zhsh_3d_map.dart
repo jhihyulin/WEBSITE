@@ -16,7 +16,7 @@ import '../widget/launch_url.dart';
 const int deskopModeWidth = 640;
 
 const Map settingData = {
-  'version': {'name': 'Ver2023.3.15'},
+  'version': {'name': 'Ver2023.6.9'},
   'general': {
     'devMode': {'openDuration': 5},
     'search': {
@@ -1854,7 +1854,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
       appBar: _fullScreen || _embededMode
           ? null
           : AppBar(
-              title: const Text('ZHSH 3D Map'),
+              title: const Text('中和高中3D校園地圖'),
             ),
       body: Stack(
         children: [
@@ -1893,7 +1893,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                   resetLayout();
                   resetBuilgingColor();
                 },
-                tooltip: 'reset location',
+                tooltip: '重設地點',
                 child: const Icon(Icons.home),
               ),
             )
@@ -2147,8 +2147,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
           offstage: _devMode == false,
           child: Column(
             children: [
-              const Text('Press 5 seconds to open'),
-              const Text('Short tap to close'),
+              const Text('常按5秒開啟本選單'),
+              const Text('輕觸一下關閉本選單'),
               ListTile(
                 title: const Text('全螢幕'),
                 trailing: Switch(
@@ -2212,7 +2212,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                 ),
               ),
               ListTile(
-                title: const Text('Embeded Link'),
+                title: const Text('嵌入模式'),
                 subtitle: const Text('https://jhihyulin.live/zhsh3dmap?embededMode=true'),
                 trailing: IconButton(
                   icon: const Icon(Icons.copy),

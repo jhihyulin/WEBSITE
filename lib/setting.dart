@@ -233,8 +233,11 @@ class _SettingPageState extends State<SettingPage> {
                         },
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      spacing: 10,
+                      runSpacing: 10,
                       children: [
                         ElevatedButton(
                           onPressed: () {

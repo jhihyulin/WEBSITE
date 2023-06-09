@@ -36,7 +36,7 @@ import '../pages/chat.dart' deferred as chat;
 import '../pages/chat_ai.dart' deferred as chatai;
 import '../pages/loading.dart';
 
-const websiteName = 'JHIHYU\'S WEBSITE';
+const websiteName = 'JhihYu\'s Website';
 const desktopModeWidth = 700;
 
 void main() async {

@@ -2109,7 +2109,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                       ),
                     ),
                     Text(
-                      'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                      'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,

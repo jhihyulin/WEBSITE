@@ -1681,12 +1681,13 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 };
 
-bool _embededMode = false;
-
 class ZHSH3DMapPage extends StatefulWidget {
-  ZHSH3DMapPage({Key? key, bool embededMode = false}) : super(key: key) {
-    _embededMode = embededMode;
-  }
+  const ZHSH3DMapPage({
+    Key? key,
+    this.embededMode = false,
+  }) : super(key: key);
+
+  final bool embededMode;
 
   @override
   State<ZHSH3DMapPage> createState() => _ZHSH3DMapPageState();
@@ -1701,6 +1702,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
   final bool _lightHelper = kDebugMode;
   final bool _groundHelper = false;
+
+  bool _embededMode = false;
 
   Timer? _navigatorTimer;
   Timer? _devModeTimer;
@@ -1774,6 +1777,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
   @override
   void initState() {
+    _embededMode = widget.embededMode;
     _hideFabAnimation = AnimationController(vsync: this, duration: kThemeAnimationDuration);
     _hideFabAnimation?.forward();
     _windowSizeTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {

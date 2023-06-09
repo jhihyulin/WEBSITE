@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../provider/theme.dart';
 import '../widget/expansion_tile.dart';
@@ -229,6 +230,20 @@ class _SettingPageState extends State<SettingPage> {
                         icon: const Icon(Icons.open_in_new),
                         onPressed: () {
                           CustomLaunchUrl.launch(context, 'mailto:JY@jhihyulin.live');
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.web),
+                      title: const Text('Version'),
+                      subtitle: FutureBuilder(
+                        future: PackageInfo.fromPlatform(),
+                        builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+                          if (snapshot.hasData) {
+                            return Text('${snapshot.data!.version}+${snapshot.data!.buildNumber}');
+                          } else {
+                            return const Text('Loading...');
+                          }
                         },
                       ),
                     ),

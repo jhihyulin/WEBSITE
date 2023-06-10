@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/scaffold_messenger.dart';
 import '../widget/launch_url.dart';
 import '../widget/text_form_field.dart';
+import '../widget/text_field.dart';
 
 class ChatAIPage extends StatefulWidget {
   const ChatAIPage({Key? key}) : super(key: key);
@@ -350,43 +351,34 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        TextField(
+                                        CustomTextField(
                                           keyboardType: TextInputType.multiline,
                                           minLines: 1,
                                           maxLines: 3,
                                           controller: systemMessageController,
-                                          decoration: InputDecoration(
-                                            labelText: 'System Message',
-                                            hintText: 'Enter some environment settings',
-                                            prefixIcon: const Icon(Icons.description),
-                                            suffixIcon: IconButton(
-                                                icon: const Icon(Icons.clear),
-                                                onPressed: () {
-                                                  systemMessageController.clear();
-                                                }),
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(16.0),
-                                            ),
-                                          ),
+                                          labelText: 'System Message',
+                                          hintText: 'Enter some environment settings',
+                                          prefixIcon: const Icon(Icons.description),
+                                          suffixIcon: IconButton(
+                                              icon: const Icon(Icons.clear),
+                                              onPressed: () {
+                                                systemMessageController.clear();
+                                              }),
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        TextField(
+                                        CustomTextField(
+                                          keyboardType: TextInputType.text,
                                           controller: tokenInputController,
-                                          decoration: InputDecoration(
-                                            labelText: 'OpenAI Token',
-                                            hintText: 'Enter your token',
-                                            prefixIcon: const Icon(Icons.key),
-                                            suffixIcon: IconButton(
-                                              icon: const Icon(Icons.clear),
-                                              onPressed: () {
-                                                tokenInputController.clear();
-                                              },
-                                            ),
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(16.0),
-                                            ),
+                                          labelText: 'OpenAI Token',
+                                          hintText: 'Enter your token',
+                                          prefixIcon: const Icon(Icons.key),
+                                          suffixIcon: IconButton(
+                                            icon: const Icon(Icons.clear),
+                                            onPressed: () {
+                                              tokenInputController.clear();
+                                            },
                                           ),
                                         ),
                                         const SizedBox(

@@ -13,6 +13,7 @@ import 'package:three_dart_jsm/three_dart_jsm.dart' as three_jsm;
 import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
 import '../widget/card.dart';
+import '../widget/text_field.dart';
 
 const int deskopModeWidth = 640;
 
@@ -2022,7 +2023,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
             children: [
               Autocomplete<String>(
                 fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
-                  return TextField(
+                  return CustomTextField(
                     controller: textEditingController,
                     focusNode: focusNode,
                     onSubmitted: (String value) {
@@ -2038,29 +2039,25 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                       }
                       onFieldSubmitted();
                     },
+                    keyboardType: TextInputType.text,
                     onEditingComplete: onFieldSubmitted,
-                    decoration: InputDecoration(
-                      labelText: '搜尋地點',
-                      hintText: '請輸入關鍵字',
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          textEditingController.clear();
-                        },
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      errorText: _notFound ? _notFoundText : null,
-                      errorBorder: _notFound
-                          ? OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Theme.of(context).colorScheme.error,
-                              ),
-                            )
-                          : null,
+                    labelText: '搜尋地點',
+                    hintText: '請輸入關鍵字',
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        textEditingController.clear();
+                      },
                     ),
+                    errorText: _notFound ? _notFoundText : null,
+                    errorBorder: _notFound
+                        ? OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                          )
+                        : null,
                   );
                 },
                 optionsBuilder: (TextEditingValue textEditingValue) {

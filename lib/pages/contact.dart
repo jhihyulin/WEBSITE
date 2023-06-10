@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
 import '../widget/text_form_field.dart';
+import '../widget/text_field.dart';
 
 const String reportEmail = 'admin@jhihyulin.live';
 const String contactDomain = 'api.jhihyulin.live';
@@ -101,33 +102,23 @@ class _ContactPageState extends State<ContactPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  TextField(
+                  CustomTextField(
                     controller: contactEmailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      hintText: 'example@domain.com',
-                      prefixIcon: const Icon(Icons.email),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                    ),
+                    labelText: 'Email',
+                    hintText: 'example@domain.com',
+                    prefixIcon: const Icon(Icons.email),
                     textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextField(
+                  CustomTextField(
                     controller: contactSignatureController,
                     keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      labelText: 'Signature',
-                      hintText: 'Type your signature here',
-                      prefixIcon: const Icon(Icons.draw),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                    ),
+                    labelText: 'Signature',
+                    hintText: 'Type your signature here',
+                    prefixIcon: const Icon(Icons.draw),
                     onSubmitted: (value) => {
                       _sendMessage(),
                     },

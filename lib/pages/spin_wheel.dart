@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../widget/scaffold_messenger.dart';
 import '../widget/expansion_tile.dart';
+import '../widget/card.dart';
 
 class SpinWheelPage extends StatefulWidget {
   const SpinWheelPage({Key? key}) : super(key: key);
@@ -172,10 +173,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                       padding: const EdgeInsets.all(10),
                       width: mathSquare() + mathPin(),
                       height: mathSquare(),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
+                      child: CustomCard(
                         child: Row(
                           children: [
                             SizedBox(
@@ -219,10 +217,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       width: mathActionArea(),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
+                      child: CustomCard(
                         child: Container(
                           padding: const EdgeInsets.all(10),
                           child: Column(
@@ -326,11 +321,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Card(
-                                clipBehavior: Clip.antiAlias,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
+                              CustomCard(
                                 child: CustomExpansionTile(
                                   title: const Text('Generate Number'),
                                   children: [

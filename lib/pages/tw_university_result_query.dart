@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/card.dart';
 
 class TWUniversityResultQueryPage extends StatefulWidget {
   const TWUniversityResultQueryPage({
@@ -166,10 +167,7 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                   ),
                   Offstage(
                     offstage: !_loaded,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
+                    child: CustomCard(
                       child: Container(
                         padding: const EdgeInsets.all(20),
                         child: Column(

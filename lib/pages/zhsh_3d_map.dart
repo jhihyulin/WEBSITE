@@ -12,6 +12,7 @@ import 'package:three_dart_jsm/three_dart_jsm.dart' as three_jsm;
 
 import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
+import '../widget/card.dart';
 
 const int deskopModeWidth = 640;
 
@@ -2014,7 +2015,9 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
   Widget _contentWidget() {
     return Column(
       children: [
-        Card(
+        CustomCard(
+          // do not cut label text
+          clipBehavior: Clip.none,
           child: Column(
             children: [
               Autocomplete<String>(

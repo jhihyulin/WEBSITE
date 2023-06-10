@@ -7,6 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
+import '../widget/card.dart';
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
@@ -176,10 +177,7 @@ class _AboutPageState extends State<AboutPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                CustomCard(
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     child: Wrap(
@@ -225,11 +223,7 @@ class _AboutPageState extends State<AboutPage> {
                                 title: Text("Name"),
                                 subtitle: Text("Jhih-Yu Lin"),
                               ),
-                              Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                clipBehavior: Clip.antiAlias,
+                              CustomCard(
                                 child: CustomExpansionTile(
                                   onExpansionChanged: (value) {
                                     setState(() {
@@ -298,10 +292,7 @@ class _AboutPageState extends State<AboutPage> {
                             SizedBox(
                               width: _isDesktop(context) ? 320 : double.infinity,
                               height: 160,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
+                              child: CustomCard(
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(16),
                                   onTap: () => CustomLaunchUrl.launch(context, key['link']),

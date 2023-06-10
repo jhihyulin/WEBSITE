@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widget/expansion_tile.dart';
 import '../widget/launch_url.dart';
+import '../widget/card.dart';
 
 Set<Map<String, dynamic>> _status = {
   {
@@ -76,11 +77,7 @@ class _StatusPageState extends State<StatusPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
+                CustomCard(
                   child: Column(
                     children: [
                       for (var status in _status)

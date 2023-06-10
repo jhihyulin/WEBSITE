@@ -12,6 +12,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import '../widget/expansion_tile.dart';
 import '../widget/launch_url.dart';
+import '../widget/card.dart';
 
 class QRGeneratorPage extends StatefulWidget {
   const QRGeneratorPage({super.key});
@@ -106,11 +107,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
+                CustomCard(
                   child: CustomExpansionTile(
                     title: const Text('Advanced'),
                     children: [

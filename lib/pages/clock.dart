@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 
+import '../widget/card.dart';
+
 class ClockPage extends StatefulWidget {
   const ClockPage({super.key});
 
@@ -83,11 +85,7 @@ class _ClockPageState extends State<ClockPage> {
                   SizedBox(
                     width: _mathBox(),
                     height: _mathBox(),
-                    child: Card(
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
+                    child: CustomCard(
                       child: InkWell(
                         onTap: () => changeHourMode(),
                         child: Stack(
@@ -139,11 +137,7 @@ class _ClockPageState extends State<ClockPage> {
                   SizedBox(
                     width: _mathBox(),
                     height: _mathBox(),
-                    child: Card(
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
+                    child: CustomCard(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: FittedBox(
@@ -165,11 +159,7 @@ class _ClockPageState extends State<ClockPage> {
                   SizedBox(
                     width: _mathBox(),
                     height: _mathBox(),
-                    child: Card(
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
+                    child: CustomCard(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: FittedBox(

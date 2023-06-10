@@ -362,6 +362,10 @@ class _NavigationControllerState extends State<NavigationController> {
                 child: child,
               );
             },
+            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+              debugPrint('Error: $exception');
+              return Text('😢\n$exception');
+            },
           ),
         ),
         title: const Text(websiteName),

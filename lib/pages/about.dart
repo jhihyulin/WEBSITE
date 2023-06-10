@@ -194,7 +194,7 @@ class _AboutPageState extends State<AboutPage> {
                           ),
                           clipBehavior: Clip.antiAlias,
                           child: Image.asset(
-                            'assets/images/salon.jpg',
+                            'assets/images/salon.png',
                             frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
                               if (wasSynchronouslyLoaded) {
                                 return child;

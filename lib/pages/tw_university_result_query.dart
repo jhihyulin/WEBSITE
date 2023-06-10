@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
 import '../widget/card.dart';
+import '../widget/text_form_field.dart';
 
 class TWUniversityResultQueryPage extends StatefulWidget {
   const TWUniversityResultQueryPage({
@@ -131,21 +132,16 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextFormField(
+                  CustomTextFormField(
                     controller: inputIdController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.numbers),
-                      labelText: '輸入學測應試號碼',
-                      hintText: '輸入學測應試號碼',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          inputIdController.clear();
-                        },
-                      ),
+                    prefixIcon: const Icon(Icons.numbers),
+                    labelText: '輸入學測應試號碼',
+                    hintText: '輸入學測應試號碼',
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        inputIdController.clear();
+                      },
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {

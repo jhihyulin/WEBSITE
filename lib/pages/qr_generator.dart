@@ -13,6 +13,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/launch_url.dart';
 import '../widget/card.dart';
+import '../widget/text_form_field.dart';
 
 class QRGeneratorPage extends StatefulWidget {
   const QRGeneratorPage({super.key});
@@ -80,22 +81,17 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextFormField(
+                CustomTextFormField(
                   controller: _textEditingController,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.description),
-                    labelText: 'Input Data',
-                    hintText: 'Enter data to generate QR code',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        _textEditingController.clear();
-                        _generate();
-                      },
-                    ),
+                  prefixIcon: const Icon(Icons.description),
+                  labelText: 'Input Data',
+                  hintText: 'Enter data to generate QR code',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      _textEditingController.clear();
+                      _generate();
+                    },
                   ),
                   keyboardType: TextInputType.multiline,
                   minLines: 1,

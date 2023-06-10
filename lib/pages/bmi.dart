@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widget/text_form_field.dart';
+
 class BMIPage extends StatefulWidget {
   const BMIPage({super.key});
 
@@ -81,32 +83,27 @@ class _BMIPageState extends State<BMIPage> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      TextFormField(
+                      CustomTextFormField(
                         controller: _heightController,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.height),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          labelText: 'Height',
-                          suffixIcon: ToggleButtons(
-                            borderRadius: BorderRadius.circular(16),
-                            isSelected: [_heightUnit == 'cm', _heightUnit == 'in'],
-                            onPressed: (index) {
-                              setState(() {
-                                if (index == 0) {
-                                  _heightUnit = 'cm';
-                                } else {
-                                  _heightUnit = 'in';
-                                }
-                              });
-                              caculateBMI();
-                            },
-                            children: const <Widget>[
-                              Text('cm'),
-                              Text('in'),
-                            ],
-                          ),
+                        prefixIcon: const Icon(Icons.height),
+                        labelText: 'Height',
+                        suffixIcon: ToggleButtons(
+                          borderRadius: BorderRadius.circular(16),
+                          isSelected: [_heightUnit == 'cm', _heightUnit == 'in'],
+                          onPressed: (index) {
+                            setState(() {
+                              if (index == 0) {
+                                _heightUnit = 'cm';
+                              } else {
+                                _heightUnit = 'in';
+                              }
+                            });
+                            caculateBMI();
+                          },
+                          children: const <Widget>[
+                            Text('cm'),
+                            Text('in'),
+                          ],
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
@@ -120,32 +117,27 @@ class _BMIPageState extends State<BMIPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      TextFormField(
+                      CustomTextFormField(
                         controller: _weightController,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.scale),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          labelText: 'Weight',
-                          suffixIcon: ToggleButtons(
-                            borderRadius: BorderRadius.circular(16),
-                            isSelected: [_weightUnit == 'kg', _weightUnit == 'lb'],
-                            onPressed: (index) {
-                              setState(() {
-                                if (index == 0) {
-                                  _weightUnit = 'kg';
-                                } else {
-                                  _weightUnit = 'lb';
-                                }
-                              });
-                              caculateBMI();
-                            },
-                            children: const <Widget>[
-                              Text('kg'),
-                              Text('lb'),
-                            ],
-                          ),
+                        prefixIcon: const Icon(Icons.scale),
+                        labelText: 'Weight',
+                        suffixIcon: ToggleButtons(
+                          borderRadius: BorderRadius.circular(16),
+                          isSelected: [_weightUnit == 'kg', _weightUnit == 'lb'],
+                          onPressed: (index) {
+                            setState(() {
+                              if (index == 0) {
+                                _weightUnit = 'kg';
+                              } else {
+                                _weightUnit = 'lb';
+                              }
+                            });
+                            caculateBMI();
+                          },
+                          children: const <Widget>[
+                            Text('kg'),
+                            Text('lb'),
+                          ],
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {

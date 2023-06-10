@@ -12,6 +12,7 @@ import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
+import '../widget/text_form_field.dart';
 
 const String serverDomainVPN = 'vpn.jhihyulin.live';
 const String serverURLVPN1 = '/server_list';
@@ -270,15 +271,10 @@ class _VPNPageState extends State<VPNPage> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        TextFormField(
+                        CustomTextFormField(
                           controller: _accessUrlController,
-                          decoration: InputDecoration(
-                            labelText: 'Access Key',
-                            prefixIcon: const Icon(Icons.key),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                          ),
+                          labelText: 'Access Key',
+                          prefixIcon: const Icon(Icons.key),
                           readOnly: true,
                         ),
                         const SizedBox(

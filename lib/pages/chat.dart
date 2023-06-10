@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/text_form_field.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -365,7 +366,7 @@ class _ChatPageState extends State<ChatPage> {
               child: Form(
                 key: _formKey,
                 child: FirebaseAuth.instance.currentUser != null
-                    ? TextFormField(
+                    ? CustomTextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter some message';
@@ -376,23 +377,16 @@ class _ChatPageState extends State<ChatPage> {
                         keyboardType: TextInputType.multiline,
                         minLines: 1,
                         maxLines: 4,
-                        scrollPhysics: const BouncingScrollPhysics(),
-                        //maxLength: 400,
-                        decoration: InputDecoration(
-                          labelText: 'Chat',
-                          hintText: 'Enter your message',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.send),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                sendChat(_inputController.text);
-                                _inputController.clear();
-                              }
-                            },
-                          ),
+                        labelText: 'Chat',
+                        hintText: 'Enter your message',
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.send),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              sendChat(_inputController.text);
+                              _inputController.clear();
+                            }
+                          },
                         ),
                         onChanged: (value) {
                           if (_inputController.text.isNotEmpty) {

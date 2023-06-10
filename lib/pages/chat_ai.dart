@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widget/scaffold_messenger.dart';
 import '../widget/launch_url.dart';
+import '../widget/text_form_field.dart';
 
 class ChatAIPage extends StatefulWidget {
   const ChatAIPage({Key? key}) : super(key: key);
@@ -457,7 +458,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                   Expanded(
                     child: Form(
                       key: _formKey,
-                      child: TextFormField(
+                      child: CustomTextFormField(
                         validator: (value) {
                           if (_token == null || _token!.isEmpty) {
                             return 'Please enter your token in setting';
@@ -471,20 +472,13 @@ class _ChatAIPageState extends State<ChatAIPage> {
                         keyboardType: TextInputType.multiline,
                         minLines: 1,
                         maxLines: 4,
-                        scrollPhysics: const BouncingScrollPhysics(),
-                        //maxLength: 400,
-                        decoration: InputDecoration(
-                          labelText: 'Chat AI',
-                          hintText: 'Enter your message',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.send),
-                            onPressed: () {
-                              chat(_inputController.text);
-                            },
-                          ),
+                        labelText: 'Chat AI',
+                        hintText: 'Enter your message',
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.send),
+                          onPressed: () {
+                            chat(_inputController.text);
+                          },
                         ),
                         onChanged: (value) {
                           _formKey.currentState!.validate();

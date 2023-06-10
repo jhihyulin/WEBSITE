@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widget/launch_url.dart';
+import '../widget/text_form_field.dart';
 
 class URLLauncherPage extends StatefulWidget {
   const URLLauncherPage({super.key});
@@ -33,7 +34,7 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
               children: [
                 Form(
                   key: _formKey,
-                  child: TextFormField(
+                  child: CustomTextFormField(
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Please enter a URL';
@@ -41,18 +42,13 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                       return null;
                     },
                     controller: inputURLController,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.link),
-                      labelText: 'Enter URL',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          inputURLController.clear();
-                        },
-                      ),
+                    prefixIcon: const Icon(Icons.link),
+                    labelText: 'Enter URL',
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        inputURLController.clear();
+                      },
                     ),
                     onFieldSubmitted: (value) {
                       if (_formKey.currentState!.validate()) {

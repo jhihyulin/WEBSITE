@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/text_form_field.dart';
 
 const String reportEmail = 'admin@jhihyulin.live';
 const String contactDomain = 'api.jhihyulin.live';
@@ -135,19 +136,14 @@ class _ContactPageState extends State<ContactPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
+                  CustomTextFormField(
                     controller: contactMessageController,
                     keyboardType: TextInputType.multiline,
                     minLines: 1,
                     maxLines: 10,
-                    decoration: InputDecoration(
-                      labelText: 'Message',
-                      hintText: 'Type your message here',
-                      prefixIcon: const Icon(Icons.comment),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                    ),
+                    labelText: 'Message',
+                    hintText: 'Type your message here',
+                    prefixIcon: const Icon(Icons.comment),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Message Is Required';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widget/text_form_field.dart';
+import '../widget/toggle_buttons.dart';
 
 class BMIPage extends StatefulWidget {
   const BMIPage({super.key});
@@ -87,8 +88,7 @@ class _BMIPageState extends State<BMIPage> {
                         controller: _heightController,
                         prefixIcon: const Icon(Icons.height),
                         labelText: 'Height',
-                        suffixIcon: ToggleButtons(
-                          borderRadius: BorderRadius.circular(16),
+                        suffixIcon: CustomToggleButtons(
                           isSelected: [_heightUnit == 'cm', _heightUnit == 'in'],
                           onPressed: (index) {
                             setState(() {
@@ -121,8 +121,7 @@ class _BMIPageState extends State<BMIPage> {
                         controller: _weightController,
                         prefixIcon: const Icon(Icons.scale),
                         labelText: 'Weight',
-                        suffixIcon: ToggleButtons(
-                          borderRadius: BorderRadius.circular(16),
+                        suffixIcon: CustomToggleButtons(
                           isSelected: [_weightUnit == 'kg', _weightUnit == 'lb'],
                           onPressed: (index) {
                             setState(() {

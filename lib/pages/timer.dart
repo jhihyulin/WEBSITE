@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../widget/card.dart';
+import '../widget/toggle_buttons.dart';
 
 class TimerPage extends StatefulWidget {
   const TimerPage({super.key});
@@ -352,8 +353,7 @@ class _TimerPageState extends State<TimerPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ToggleButtons(
-                      borderRadius: BorderRadius.circular(16),
+                    CustomToggleButtons(
                       isSelected: [
                         _mode == 'countdown',
                         _mode == 'stopwatch',

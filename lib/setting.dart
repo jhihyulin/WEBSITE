@@ -8,6 +8,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../provider/theme.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/launch_url.dart';
+import '../widget/toggle_buttons.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -65,8 +66,7 @@ class _SettingPageState extends State<SettingPage> {
                           : themeMode == 1
                               ? const Text('Light')
                               : const Text('Dark'),
-                      trailing: ToggleButtons(
-                        borderRadius: BorderRadius.circular(16),
+                      trailing: CustomToggleButtons(
                         isSelected: themeModeIsSelected,
                         onPressed: (int index) {
                           setState(() {

@@ -14,6 +14,7 @@ import '../widget/expansion_tile.dart';
 import '../widget/launch_url.dart';
 import '../widget/card.dart';
 import '../widget/text_form_field.dart';
+import '../widget/toggle_buttons.dart';
 
 class QRGeneratorPage extends StatefulWidget {
   const QRGeneratorPage({super.key});
@@ -469,8 +470,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                       ),
                       ListTile(
                         title: const Text('Module Shape'),
-                        trailing: ToggleButtons(
-                          borderRadius: BorderRadius.circular(16),
+                        trailing: CustomToggleButtons(
                           isSelected: [
                             _selectModuleShape == QrDataModuleShape.circle,
                             _selectModuleShape == QrDataModuleShape.square,

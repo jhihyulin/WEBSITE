@@ -91,7 +91,7 @@ Map<String, Map<String, Object>> socialMedia = {
   },
   'Snapchat': {
     'url': 'https://snapchat.com/add/jhihyul',
-    'icon': FontAwesome.square_snapchat,
+    'icon': FontAwesome.snapchat,
   },
   'Slack': {
     'url': 'https://jhihyulin.slack.com',

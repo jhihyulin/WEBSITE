@@ -64,6 +64,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
         dividerColor: Colors.transparent,
       ),
       child: ExpansionTile(
+        leading: widget.leading,
         title: widget.title,
         subtitle: widget.subtitle,
         onExpansionChanged: widget.onExpansionChanged,

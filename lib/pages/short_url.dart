@@ -53,7 +53,11 @@ class _ShortURLPageState extends State<ShortURLPage> {
       String uid = user.uid;
       String token = await user.getIdToken();
       await http
-          .post(sURLServerCreate, body: jsonEncode({'firebase_uid': uid, 'original_url': sURLURLController.text}), headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token})
+          .post(
+            sURLServerCreate,
+            body: jsonEncode({'firebase_uid': uid, 'original_url': sURLURLController.text}),
+            headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token},
+          )
           .then((value) => {
                 setState(() {
                   _surl = jsonDecode(value.body)['url'];
@@ -105,14 +109,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                     TextFormField(
                       controller: sURLURLController,
                       keyboardType: TextInputType.url,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'URL',
                         hintText: 'https://example.com',
-                        prefixIcon: Icon(Icons.link),
+                        prefixIcon: const Icon(Icons.link),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                       ),
                       validator: (value) {
@@ -151,13 +153,11 @@ class _ShortURLPageState extends State<ShortURLPage> {
                           ),
                           TextFormField(
                             controller: sURLsURLController,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               labelText: 'Short URL',
-                              prefixIcon: Icon(Icons.link),
+                              prefixIcon: const Icon(Icons.link),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16.0),
-                                ),
+                                borderRadius: BorderRadius.circular(16.0),
                               ),
                             ),
                             readOnly: true,

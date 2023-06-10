@@ -272,13 +272,11 @@ class _VPNPageState extends State<VPNPage> {
                         const SizedBox(height: 20),
                         TextFormField(
                           controller: _accessUrlController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Access Key',
-                            prefixIcon: Icon(Icons.key),
+                            prefixIcon: const Icon(Icons.key),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(16.0),
-                              ),
+                              borderRadius: BorderRadius.circular(16.0),
                             ),
                           ),
                           readOnly: true,

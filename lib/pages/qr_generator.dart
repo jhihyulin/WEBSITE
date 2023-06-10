@@ -108,10 +108,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                 ),
                 Card(
                   clipBehavior: Clip.antiAlias,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16.0),
-                    ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
                   child: CustomExpansionTile(
                     title: const Text('Advanced'),

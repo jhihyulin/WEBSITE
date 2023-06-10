@@ -363,10 +363,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                                 onPressed: () {
                                                   systemMessageController.clear();
                                                 }),
-                                            border: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(16.0),
-                                              ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(16.0),
                                             ),
                                           ),
                                         ),
@@ -385,10 +383,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                                 tokenInputController.clear();
                                               },
                                             ),
-                                            border: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(16.0),
-                                              ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(16.0),
                                             ),
                                           ),
                                         ),

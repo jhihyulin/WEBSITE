@@ -78,10 +78,8 @@ class _StatusPageState extends State<StatusPage> {
               children: [
                 Card(
                   clipBehavior: Clip.antiAlias,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16.0),
-                    ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
                   child: Column(
                     children: [

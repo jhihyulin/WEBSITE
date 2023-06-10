@@ -103,14 +103,12 @@ class _ContactPageState extends State<ContactPage> {
                   TextField(
                     controller: contactEmailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Email',
                       hintText: 'example@domain.com',
-                      prefixIcon: Icon(Icons.email),
+                      prefixIcon: const Icon(Icons.email),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0),
-                        ),
+                        borderRadius: BorderRadius.circular(16.0),
                       ),
                     ),
                     textInputAction: TextInputAction.next,
@@ -121,14 +119,12 @@ class _ContactPageState extends State<ContactPage> {
                   TextField(
                     controller: contactSignatureController,
                     keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Signature',
                       hintText: 'Type your signature here',
-                      prefixIcon: Icon(Icons.draw),
+                      prefixIcon: const Icon(Icons.draw),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0),
-                        ),
+                        borderRadius: BorderRadius.circular(16.0),
                       ),
                     ),
                     onSubmitted: (value) => {
@@ -144,14 +140,12 @@ class _ContactPageState extends State<ContactPage> {
                     keyboardType: TextInputType.multiline,
                     minLines: 1,
                     maxLines: 10,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Message',
                       hintText: 'Type your message here',
-                      prefixIcon: Icon(Icons.comment),
+                      prefixIcon: const Icon(Icons.comment),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0),
-                        ),
+                        borderRadius: BorderRadius.circular(16.0),
                       ),
                     ),
                     validator: (value) {

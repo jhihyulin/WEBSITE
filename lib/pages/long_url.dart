@@ -109,14 +109,12 @@ class _LongURLPageState extends State<LongURLPage> {
                     TextFormField(
                       controller: lURLURLController,
                       keyboardType: TextInputType.url,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'URL',
                         hintText: 'https://example.com',
-                        prefixIcon: Icon(Icons.link),
+                        prefixIcon: const Icon(Icons.link),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                       ),
                       validator: (value) {
@@ -157,13 +155,11 @@ class _LongURLPageState extends State<LongURLPage> {
                             controller: lURLlURLController,
                             minLines: 1,
                             maxLines: 20,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               labelText: 'Long URL',
-                              prefixIcon: Icon(Icons.link),
+                              prefixIcon: const Icon(Icons.link),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16.0),
-                                ),
+                                borderRadius: BorderRadius.circular(16.0),
                               ),
                             ),
                             readOnly: true,

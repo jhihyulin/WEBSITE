@@ -85,10 +85,8 @@ class _BMIPageState extends State<BMIPage> {
                         controller: _heightController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.height),
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(16.0),
-                            ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16.0),
                           ),
                           labelText: 'Height',
                           suffixIcon: ToggleButtons(
@@ -126,10 +124,8 @@ class _BMIPageState extends State<BMIPage> {
                         controller: _weightController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.scale),
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(16.0),
-                            ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16.0),
                           ),
                           labelText: 'Weight',
                           suffixIcon: ToggleButtons(

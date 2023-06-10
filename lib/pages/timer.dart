@@ -136,10 +136,8 @@ class _TimerPageState extends State<TimerPage> {
                       height: _mathBox() * 1.5,
                       child: Card(
                         clipBehavior: Clip.antiAlias,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -213,10 +211,8 @@ class _TimerPageState extends State<TimerPage> {
                       height: _mathBox() * 1.5,
                       child: Card(
                         clipBehavior: Clip.antiAlias,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -290,10 +286,8 @@ class _TimerPageState extends State<TimerPage> {
                       height: _mathBox() * 1.5,
                       child: Card(
                         clipBehavior: Clip.antiAlias,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

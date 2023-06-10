@@ -173,10 +173,8 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                       width: mathSquare() + mathPin(),
                       height: mathSquare(),
                       child: Card(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Row(
                           children: [
@@ -222,10 +220,8 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                       padding: const EdgeInsets.all(10),
                       width: mathActionArea(),
                       child: Card(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Container(
                           padding: const EdgeInsets.all(10),
@@ -319,10 +315,8 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                     labelText: 'Name List',
                                     hintText: 'Newline to split',
                                     prefixIcon: const Icon(Icons.text_fields),
-                                    border: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(16.0),
-                                      ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
                                   ),
                                   onChanged: (value) => onChange(),
@@ -334,10 +328,8 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                               ),
                               Card(
                                 clipBehavior: Clip.antiAlias,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(16.0),
-                                  ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
                                 ),
                                 child: CustomExpansionTile(
                                   title: const Text('Generate Number'),
@@ -365,10 +357,8 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                                   enabled: !_spinning,
                                                   labelText: 'Min',
                                                   hintText: 'Min',
-                                                  border: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                      Radius.circular(16.0),
-                                                    ),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(16.0),
                                                   ),
                                                 ),
                                                 onChanged: (value) => onChange(),
@@ -392,10 +382,8 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                                   enabled: !_spinning,
                                                   labelText: 'Max',
                                                   hintText: 'Max',
-                                                  border: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                      Radius.circular(16.0),
-                                                    ),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(16.0),
                                                   ),
                                                 ),
                                                 onChanged: (value) => onChange(),

@@ -187,7 +187,7 @@ class _AboutPageState extends State<AboutPage> {
                           alignment: Alignment.center,
                           constraints: const BoxConstraints(
                             maxWidth: 200,
-                            minHeight: 128,
+                            minHeight: 300,
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16.0),

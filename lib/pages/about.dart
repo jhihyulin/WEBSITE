@@ -205,7 +205,7 @@ class _AboutPageState extends State<AboutPage> {
                               const ListTile(
                                 leading: Icon(Icons.badge),
                                 title: Text("Name"),
-                                subtitle: Text("Jhih Yu"),
+                                subtitle: Text("Jhih-Yu Lin"),
                               ),
                               Card(
                                 shape: const RoundedRectangleBorder(

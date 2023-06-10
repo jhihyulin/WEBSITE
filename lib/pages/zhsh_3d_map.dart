@@ -33,7 +33,18 @@ const Map settingData = {
       'gateSlideDoor': 7, // open0 close10
     }
   },
-  'camera': {'x': -35, 'y': 5, 'z': 90, 'focusX': -10, 'focusY': 0, 'focusZ': 60, 'focusIncreaseX': 25, 'focusIncreaseY': 25, 'focusIncreaseZ': 25, 'focusLerp': 0.25},
+  'camera': {
+    'x': -35,
+    'y': 5,
+    'z': 90,
+    'focusX': -10,
+    'focusY': 0,
+    'focusZ': 60,
+    'focusIncreaseX': 25,
+    'focusIncreaseY': 25,
+    'focusIncreaseZ': 25,
+    'focusLerp': 0.25,
+  },
   'controls': {
     'enabled': true,
     'autoRotate': false,
@@ -74,7 +85,18 @@ const Map settingData = {
     'color': 0xa6a7a3,
     'focusColor': 0xaa0000,
     'focusOpacity': 0.5,
-    'name': {'build': '行政大樓==通達樓', 'build1': '行政大樓', 'build2': '通達樓', 'build3': '中和樓', 'build4': '至誠樓', 'build5': '謙融樓', 'build6': '圖書館', 'build7': '活動中心', 'build8': '游泳池', 'build9': '教師宿舍'}
+    'name': {
+      'build': '行政大樓==通達樓',
+      'build1': '行政大樓',
+      'build2': '通達樓',
+      'build3': '中和樓',
+      'build4': '至誠樓',
+      'build5': '謙融樓',
+      'build6': '圖書館',
+      'build7': '活動中心',
+      'build8': '游泳池',
+      'build9': '教師宿舍',
+    }
   },
   'object': {
     'set': {
@@ -148,7 +170,10 @@ const Map settingData = {
       'build1_1f_room1': {
         'name': '學務處',
         'description': '訓育組、社團活動組、衛生組、生輔組、教官',
-        'link': {'學務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs', '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military'},
+        'link': {
+          '學務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs',
+          '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military',
+        },
         'keyword': ['訓育組', '社團活動組', '衛生組', '生輔組', '教官']
       },
       'build1_1f_room2': {
@@ -159,32 +184,43 @@ const Map settingData = {
       'build1_1f_facility1': {
         'name': 'ATM自動櫃員機',
         'description': '中華郵政',
-        'keyword': ['中華郵政', '郵局', '提款機']
+        'keyword': ['中華郵政', '郵局', '提款機'],
       },
       'build1_2f_room1': {
         'name': '教務處',
         'description': '教學組、註冊組、試務組、實研組',
         'keyword': ['教學組', '註冊組', '試務組', '實研組'],
-        'link': {'教務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/teacheraffairs'}
+        'link': {
+          '教務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/teacheraffairs',
+        }
       },
       'build1_2f_room2': {
         'name': '輔導處',
-        'link': {'輔導處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/consultation'}
+        'link': {
+          '輔導處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/consultation',
+        }
       },
       'build1_3f_room1': {
         'name': '總務處 / 人事室',
         'description': '文書組、事務組、出納組',
         'keyword': ['文書組', '事務組', '出納組', '出納'],
-        'link': {'總務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs', '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel'}
+        'link': {
+          '總務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs',
+          '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel',
+        }
       },
       'build1_3f_room2': {
         'name': '校長室 / 秘書室',
-        'link': {'校長室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/principal'}
+        'link': {
+          '校長室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/principal',
+        }
       },
       'build1_3f_extend': {'name': '行政大樓3f露臺', 'searchable': false},
       'build1_3f_room3': {
         'name': '會計室',
-        'link': {'會計室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/acc'}
+        'link': {
+          '會計室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/acc',
+        }
       },
       'build1_2f_room4': {'name': '簡報室'},
       'build1_4f_room1': {
@@ -300,7 +336,9 @@ const Map settingData = {
       'build4_1f_aisle1': {'name': '至誠樓1F穿堂', 'searchable': false},
       'build4_1f_room3': {
         'name': '教官室',
-        'link': {'教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military'}
+        'link': {
+          '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military',
+        }
       },
       'build4_1f_room4': {'name': '健護教室'},
       'build4_1f_room5': {'name': '社團教室'},
@@ -402,6 +440,9 @@ const Map settingData = {
         'name': '圖書館辦公區',
         'description': '資訊媒體組',
         'keyword': ['資訊媒體組', '資訊組', '資訊'],
+        'link': {
+          '圖書館網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/library/%E9%A6%96%E9%A0%81',
+        }
       },
       'build6_1f_room5': {'name': 'TED講堂'},
       'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},
@@ -490,7 +531,9 @@ const Map settingData = {
         'keyword': ['百萬廁所'],
         'description': '民國89年以貳佰參拾玖萬伍仟元建成',
         'nameSearch': false,
-        'link': {'決標公告': 'https://web.pcc.gov.tw/tps/atm/AtmAwardWithoutSso/QueryAtmAwardDetail?pkAtmMain=MjM1NzU4'}
+        'link': {
+          '決標公告': 'https://web.pcc.gov.tw/tps/atm/AtmAwardWithoutSso/QueryAtmAwardDetail?pkAtmMain=MjM1NzU4',
+        }
       },
       'facility_electronic1': {'name': '電箱'},
       'facility_electronic1_###1': {'name': '電箱#1', 'searchable': false},

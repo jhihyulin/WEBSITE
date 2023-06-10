@@ -104,6 +104,7 @@ Map<String, Object> experience = {
   'Python': Image.asset('assets/images/python.png'),
   'FastAPI': Image.asset('assets/images/fastapi.png'),
   'JavaScript': Image.asset('assets/images/javascript.png'),
+  'Cloudflare': Image.asset('assets/images/cloudflare.png'),
   'HTML': Image.asset('assets/images/html.png'),
   'CSS': Image.asset('assets/images/css.png'),
   'Flutter': const FlutterLogo(),
@@ -190,9 +191,26 @@ class _AboutPageState extends State<AboutPage> {
                             maxWidth: 200,
                             minHeight: 128,
                           ),
-                          child: const CircleAvatar(
-                            radius: 50,
-                            backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: Image.asset(
+                            'assets/images/avatar.jpg',
+                            fit: BoxFit.fitWidth,
+                            frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
+                              if (wasSynchronouslyLoaded) {
+                                return child;
+                              }
+                              return AnimatedOpacity(
+                                opacity: frame == null ? 0 : 1,
+                                duration: const Duration(
+                                  seconds: 1,
+                                ),
+                                curve: Curves.easeOut,
+                                child: child,
+                              );
+                            },
                           ),
                         ),
                         Container(
@@ -208,10 +226,8 @@ class _AboutPageState extends State<AboutPage> {
                                 subtitle: Text("Jhih-Yu Lin"),
                               ),
                               Card(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(16.0),
-                                  ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
                                 ),
                                 clipBehavior: Clip.antiAlias,
                                 child: CustomExpansionTile(
@@ -226,11 +242,11 @@ class _AboutPageState extends State<AboutPage> {
                                   children: const [
                                     ListTile(
                                       title: Text("Zhonghe Senior High School"),
-                                      trailing: Text("2020 - 2023"),
+                                      subtitle: Text("2020 - 2023"),
                                     ),
                                     ListTile(
                                       title: Text("Tsz-Shiou Senior High School"),
-                                      trailing: Text("2017 - 2020"),
+                                      subtitle: Text("2017 - 2020"),
                                     ),
                                   ],
                                 ),

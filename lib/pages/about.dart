@@ -195,7 +195,6 @@ class _AboutPageState extends State<AboutPage> {
                           clipBehavior: Clip.antiAlias,
                           child: Image.asset(
                             'assets/images/avatar.jpg',
-                            fit: BoxFit.fitWidth,
                             frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
                               if (wasSynchronouslyLoaded) {
                                 return child;

@@ -36,6 +36,7 @@ import '../pages/chat.dart' deferred as chat;
 import '../pages/chat_ai.dart' deferred as chatai;
 import '../pages/loading.dart';
 import '../widget/image.dart';
+import '../widget/load_font.dart';
 
 const websiteName = 'JhihYu\'s Website';
 const desktopModeWidth = 700;
@@ -48,6 +49,8 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: '6LcPhjgkAAAAAAUtPybk3GHCkYZTxDd6w4kVOiQJ',
   );
+  // Load IanSui Font
+  await CustomLoadFont.loadFont('https://raw.githubusercontent.com/ButTaiwan/iansui/main/Iansui-Regular.ttf', 'IanSui');
   usePathUrlStrategy();
   runApp(const MyApp());
 }
@@ -93,7 +96,7 @@ class _MyAppState extends State<MyApp> {
             title: websiteName,
             theme: ThemeData(
               useMaterial3: true,
-              fontFamily: GoogleFonts.roboto().fontFamily,
+              fontFamily: 'IanSui',
               fontFamilyFallback: [
                 GoogleFonts.montserrat().fontFamily ?? '',
                 GoogleFonts.notoSans().fontFamily ?? '',
@@ -104,7 +107,7 @@ class _MyAppState extends State<MyApp> {
             ),
             darkTheme: ThemeData(
               useMaterial3: true,
-              fontFamily: GoogleFonts.roboto().fontFamily,
+              fontFamily: 'IanSui',
               fontFamilyFallback: [
                 GoogleFonts.montserrat().fontFamily ?? '',
                 GoogleFonts.notoSans().fontFamily ?? '',

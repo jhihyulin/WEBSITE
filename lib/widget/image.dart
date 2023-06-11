@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/scaffold_messenger.dart';
@@ -22,7 +23,11 @@ class _CustomImageState extends State<CustomImage> {
   @override
   Widget build(BuildContext context) {
     return Image.network(
-      widget.src,
+      widget.src.startsWith('assets/')
+          ? kDebugMode
+              ? widget.src
+              : 'https://raw.githubusercontent.com/jhihyulin/WEBSITE/main/${widget.src}'
+          : widget.src,
       height: widget.height,
       width: widget.width,
       frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {

@@ -195,7 +195,7 @@ class _AboutPageState extends State<AboutPage> {
                           ),
                           clipBehavior: Clip.antiAlias,
                           child: const CustomImage(
-                            src: '/assets/images/salon.png',
+                            src: 'assets/images/salon.png',
                           ),
                         ),
                         Container(

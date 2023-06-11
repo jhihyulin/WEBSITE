@@ -7,6 +7,8 @@ import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
 import 'package:firebase_ui_oauth_twitter/firebase_ui_oauth_twitter.dart';
 
+import '../widget/image.dart';
+
 String _redirectPage = '/profile';
 
 class SignInPage extends StatefulWidget {
@@ -81,7 +83,7 @@ class _SignInPageState extends State<SignInPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
         ),
-        child: Image.asset('assets/images/logo-512x512.png'),
+        child: const CustomImage(src: 'assets/images/logo-512x512.png'),
       ),
     );
     return Scaffold(

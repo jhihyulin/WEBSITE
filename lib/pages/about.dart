@@ -8,6 +8,7 @@ import '../widget/expansion_tile.dart';
 import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
 import '../widget/card.dart';
+import '../widget/image.dart';
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
@@ -101,28 +102,28 @@ Map<String, Map<String, Object>> socialMedia = {
 };
 
 Map<String, Object> experience = {
-  'Visual Studio Code': Image.asset('assets/images/vscode.png'),
-  'Python': Image.asset('assets/images/python.png'),
-  'FastAPI': Image.asset('assets/images/fastapi.png'),
-  'JavaScript': Image.asset('assets/images/javascript.png'),
-  'Cloudflare': Image.asset('assets/images/cloudflare.png'),
-  'HTML': Image.asset('assets/images/html.png'),
-  'CSS': Image.asset('assets/images/css.png'),
+  'Visual Studio Code': const CustomImage(src: 'assets/images/vscode.png'),
+  'Python': const CustomImage(src: 'assets/images/python.png'),
+  'FastAPI': const CustomImage(src: 'assets/images/fastapi.png'),
+  'JavaScript': const CustomImage(src: 'assets/images/javascript.png'),
+  'Cloudflare': const CustomImage(src: 'assets/images/cloudflare.png'),
+  'HTML': const CustomImage(src: 'assets/images/html.png'),
+  'CSS': const CustomImage(src: 'assets/images/css.png'),
   'Flutter': const FlutterLogo(),
-  'C++': Image.asset('assets/images/cpp.png'),
-  'C': Image.asset('assets/images/c.png'),
-  'Arduino': Image.asset('assets/images/arduino.png'),
-  'Fusion 360': Image.asset('assets/images/fusion360.png'),
-  'Inventor': Image.asset('assets/images/inventor.png'),
-  'AutoCAD': Image.asset('assets/images/autocad.png'),
-  'Blender': Image.asset('assets/images/blender.png'),
-  'Linux': Image.asset('assets/images/linux.png'),
-  'Ubuntu': Image.asset('assets/images/ubuntu.png'),
-  'Postman': Image.asset('assets/images/postman.png'),
-  'Git': Image.asset('assets/images/git.png'),
-  'Android Studio': Image.asset('assets/images/androidstudio.png'),
-  'Docker': Image.asset('assets/images/docker.png'),
-  'Solid Edge': Image.asset('assets/images/solidedge.png'),
+  'C++': const CustomImage(src: 'assets/images/cpp.png'),
+  'C': const CustomImage(src: 'assets/images/c.png'),
+  'Arduino': const CustomImage(src: 'assets/images/arduino.png'),
+  'Fusion 360': const CustomImage(src: 'assets/images/fusion360.png'),
+  'Inventor': const CustomImage(src: 'assets/images/inventor.png'),
+  'AutoCAD': const CustomImage(src: 'assets/images/autocad.png'),
+  'Blender': const CustomImage(src: 'assets/images/blender.png'),
+  'Linux': const CustomImage(src: 'assets/images/linux.png'),
+  'Ubuntu': const CustomImage(src: 'assets/images/ubuntu.png'),
+  'Postman': const CustomImage(src: 'assets/images/postman.png'),
+  'Git': const CustomImage(src: 'assets/images/git.png'),
+  'Android Studio': const CustomImage(src: 'assets/images/androidstudio.png'),
+  'Docker': const CustomImage(src: 'assets/images/docker.png'),
+  'Solid Edge': const CustomImage(src: 'assets/images/solidedge.png'),
 };
 
 class AboutPage extends StatefulWidget {
@@ -193,25 +194,8 @@ class _AboutPageState extends State<AboutPage> {
                             borderRadius: BorderRadius.circular(16.0),
                           ),
                           clipBehavior: Clip.antiAlias,
-                          child: Image.asset(
-                            'assets/images/salon.png',
-                            frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
-                              if (wasSynchronouslyLoaded) {
-                                return child;
-                              }
-                              return AnimatedOpacity(
-                                opacity: frame == null ? 0 : 1,
-                                duration: const Duration(
-                                  seconds: 1,
-                                ),
-                                curve: Curves.easeOut,
-                                child: child,
-                              );
-                            },
-                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                              debugPrint('Error: $exception');
-                              return Text('😢\n$exception');
-                            },
+                          child: const CustomImage(
+                            src: '/assets/images/salon.png',
                           ),
                         ),
                         Container(

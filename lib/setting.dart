@@ -9,6 +9,7 @@ import '../provider/theme.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/launch_url.dart';
 import '../widget/toggle_buttons.dart';
+import '../widget/image.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -172,8 +173,8 @@ class _SettingPageState extends State<SettingPage> {
                             borderRadius: BorderRadius.circular(16),
                             child: Container(
                               padding: const EdgeInsets.all(15),
-                              child: const Image(
-                                image: AssetImage('assets/images/BuiltWithFlutter.png'),
+                              child: const CustomImage(
+                                src: 'assets/images/BuiltWithFlutter.png',
                                 height: 30,
                               ),
                             ),
@@ -183,8 +184,8 @@ class _SettingPageState extends State<SettingPage> {
                           ),
                           InkWell(
                             borderRadius: BorderRadius.circular(16),
-                            child: const Image(
-                              image: AssetImage('assets/images/BuiltWithFirebaseLightRemoveBackground.png'),
+                            child: const CustomImage(
+                              src: 'assets/images/BuiltWithFirebaseLightRemoveBackground.png',
                               height: 60,
                             ),
                             onTap: () {

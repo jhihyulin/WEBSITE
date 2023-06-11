@@ -35,6 +35,7 @@ import '../pages/terms_of_service.dart' deferred as terms_of_service;
 import '../pages/chat.dart' deferred as chat;
 import '../pages/chat_ai.dart' deferred as chatai;
 import '../pages/loading.dart';
+import '../widget/image.dart';
 
 const websiteName = 'JhihYu\'s Website';
 const desktopModeWidth = 700;
@@ -347,25 +348,8 @@ class _NavigationControllerState extends State<NavigationController> {
       appBar: AppBar(
         leading: Container(
           padding: const EdgeInsets.all(5),
-          child: Image.asset(
-            'assets/images/logo-180x180.png',
-            frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
-              if (wasSynchronouslyLoaded) {
-                return child;
-              }
-              return AnimatedOpacity(
-                opacity: frame == null ? 0 : 1,
-                duration: const Duration(
-                  seconds: 1,
-                ),
-                curve: Curves.easeOut,
-                child: child,
-              );
-            },
-            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-              debugPrint('Error: $exception');
-              return Text('😢\n$exception');
-            },
+          child: const CustomImage(
+            src: 'assets/images/logo-180x180.png',
           ),
         ),
         title: const Text(websiteName),

@@ -12,11 +12,13 @@ import 'package:three_dart_jsm/three_dart_jsm.dart' as three_jsm;
 
 import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
+import '../widget/card.dart';
+import '../widget/text_field.dart';
 
 const int deskopModeWidth = 640;
 
 const Map settingData = {
-  'version': {'name': 'Ver2023.3.15'},
+  'version': {'name': 'Ver2023.6.9'},
   'general': {
     'devMode': {'openDuration': 5},
     'search': {
@@ -33,7 +35,18 @@ const Map settingData = {
       'gateSlideDoor': 7, // open0 close10
     }
   },
-  'camera': {'x': -35, 'y': 5, 'z': 90, 'focusX': -10, 'focusY': 0, 'focusZ': 60, 'focusIncreaseX': 25, 'focusIncreaseY': 25, 'focusIncreaseZ': 25, 'focusLerp': 0.25},
+  'camera': {
+    'x': -35,
+    'y': 5,
+    'z': 90,
+    'focusX': -10,
+    'focusY': 0,
+    'focusZ': 60,
+    'focusIncreaseX': 25,
+    'focusIncreaseY': 25,
+    'focusIncreaseZ': 25,
+    'focusLerp': 0.25,
+  },
   'controls': {
     'enabled': true,
     'autoRotate': false,
@@ -74,7 +87,18 @@ const Map settingData = {
     'color': 0xa6a7a3,
     'focusColor': 0xaa0000,
     'focusOpacity': 0.5,
-    'name': {'build': '行政大樓==通達樓', 'build1': '行政大樓', 'build2': '通達樓', 'build3': '中和樓', 'build4': '至誠樓', 'build5': '謙融樓', 'build6': '圖書館', 'build7': '活動中心', 'build8': '游泳池', 'build9': '教師宿舍'}
+    'name': {
+      'build': '行政大樓==通達樓',
+      'build1': '行政大樓',
+      'build2': '通達樓',
+      'build3': '中和樓',
+      'build4': '至誠樓',
+      'build5': '謙融樓',
+      'build6': '圖書館',
+      'build7': '活動中心',
+      'build8': '游泳池',
+      'build9': '教師宿舍',
+    }
   },
   'object': {
     'set': {
@@ -148,7 +172,10 @@ const Map settingData = {
       'build1_1f_room1': {
         'name': '學務處',
         'description': '訓育組、社團活動組、衛生組、生輔組、教官',
-        'link': {'學務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs', '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military'},
+        'link': {
+          '學務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs',
+          '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military',
+        },
         'keyword': ['訓育組', '社團活動組', '衛生組', '生輔組', '教官']
       },
       'build1_1f_room2': {
@@ -159,32 +186,43 @@ const Map settingData = {
       'build1_1f_facility1': {
         'name': 'ATM自動櫃員機',
         'description': '中華郵政',
-        'keyword': ['中華郵政', '郵局', '提款機']
+        'keyword': ['中華郵政', '郵局', '提款機'],
       },
       'build1_2f_room1': {
         'name': '教務處',
         'description': '教學組、註冊組、試務組、實研組',
         'keyword': ['教學組', '註冊組', '試務組', '實研組'],
-        'link': {'教務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/teacheraffairs'}
+        'link': {
+          '教務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/teacheraffairs',
+        }
       },
       'build1_2f_room2': {
         'name': '輔導處',
-        'link': {'輔導處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/consultation'}
+        'link': {
+          '輔導處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/consultation',
+        }
       },
       'build1_3f_room1': {
         'name': '總務處 / 人事室',
         'description': '文書組、事務組、出納組',
         'keyword': ['文書組', '事務組', '出納組', '出納'],
-        'link': {'總務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs', '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel'}
+        'link': {
+          '總務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs',
+          '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel',
+        }
       },
       'build1_3f_room2': {
         'name': '校長室 / 秘書室',
-        'link': {'校長室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/principal'}
+        'link': {
+          '校長室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/principal',
+        }
       },
       'build1_3f_extend': {'name': '行政大樓3f露臺', 'searchable': false},
       'build1_3f_room3': {
         'name': '會計室',
-        'link': {'會計室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/acc'}
+        'link': {
+          '會計室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/acc',
+        }
       },
       'build1_2f_room4': {'name': '簡報室'},
       'build1_4f_room1': {
@@ -233,9 +271,9 @@ const Map settingData = {
       'build3_base2': {'name': '中和樓基2', 'searchable': false},
       'build3_base3': {'name': '中和樓基3', 'searchable': false},
       'build3_b1_aisle1': {'name': '早餐店'},
-      'build3_b1_room1': {'name': '店A'}, // TODO: name
-      'build3_b1_room2': {'name': '店B'}, // TODO: name
-      'build3_b1_room3': {'name': '倒了的店', 'searchable': false},
+      'build3_b1_room1': {'name': '水餃店'},
+      'build3_b1_room2': {'name': '麵店'},
+      'build3_b1_room3': {'name': '自助餐'},
       'build3_b1_room4': {'name': '合作社'},
       'build3_b1_room5': {'name': '中和樓B1未知空間', 'searchable': false},
       'build3_1f_room1': {'name': '潛能教室'},
@@ -300,7 +338,9 @@ const Map settingData = {
       'build4_1f_aisle1': {'name': '至誠樓1F穿堂', 'searchable': false},
       'build4_1f_room3': {
         'name': '教官室',
-        'link': {'教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military'}
+        'link': {
+          '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military',
+        }
       },
       'build4_1f_room4': {'name': '健護教室'},
       'build4_1f_room5': {'name': '社團教室'},
@@ -402,6 +442,9 @@ const Map settingData = {
         'name': '圖書館辦公區',
         'description': '資訊媒體組',
         'keyword': ['資訊媒體組', '資訊組', '資訊'],
+        'link': {
+          '圖書館網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/library/%E9%A6%96%E9%A0%81',
+        }
       },
       'build6_1f_room5': {'name': 'TED講堂'},
       'build6_2f_toilet1': {'name': '圖書館閉架書庫區'},
@@ -490,7 +533,9 @@ const Map settingData = {
         'keyword': ['百萬廁所'],
         'description': '民國89年以貳佰參拾玖萬伍仟元建成',
         'nameSearch': false,
-        'link': {'決標公告': 'https://web.pcc.gov.tw/tps/atm/AtmAwardWithoutSso/QueryAtmAwardDetail?pkAtmMain=MjM1NzU4'}
+        'link': {
+          '決標公告': 'https://web.pcc.gov.tw/tps/atm/AtmAwardWithoutSso/QueryAtmAwardDetail?pkAtmMain=MjM1NzU4',
+        }
       },
       'facility_electronic1': {'name': '電箱'},
       'facility_electronic1_###1': {'name': '電箱#1', 'searchable': false},
@@ -1681,12 +1726,13 @@ const Map<String, Map<String, dynamic>> mapData = {
   },
 };
 
-bool _embededMode = false;
-
 class ZHSH3DMapPage extends StatefulWidget {
-  ZHSH3DMapPage({Key? key, bool embededMode = false}) : super(key: key) {
-    _embededMode = embededMode;
-  }
+  const ZHSH3DMapPage({
+    Key? key,
+    this.embededMode = false,
+  }) : super(key: key);
+
+  final bool embededMode;
 
   @override
   State<ZHSH3DMapPage> createState() => _ZHSH3DMapPageState();
@@ -1701,6 +1747,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
   final bool _lightHelper = kDebugMode;
   final bool _groundHelper = false;
+
+  bool _embededMode = false;
 
   Timer? _navigatorTimer;
   Timer? _devModeTimer;
@@ -1774,6 +1822,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
   @override
   void initState() {
+    _embededMode = widget.embededMode;
     _hideFabAnimation = AnimationController(vsync: this, duration: kThemeAnimationDuration);
     _hideFabAnimation?.forward();
     _windowSizeTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
@@ -1850,7 +1899,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
       appBar: _fullScreen || _embededMode
           ? null
           : AppBar(
-              title: const Text('ZHSH 3D Map'),
+              title: const Text('中和高中3D校園地圖'),
             ),
       body: Stack(
         children: [
@@ -1889,7 +1938,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                   resetLayout();
                   resetBuilgingColor();
                 },
-                tooltip: 'reset location',
+                tooltip: '重設地點',
                 child: const Icon(Icons.home),
               ),
             )
@@ -1901,16 +1950,17 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
     return Row(
       children: [
         three_jsm.DomLikeListenable(
-            key: _globalKey,
-            builder: (BuildContext context) {
-              return SizedBox(
-                width: width,
-                height: height,
-                child: HtmlElementView(
-                  viewType: three3dRender.textureId!.toString(),
-                ),
-              );
-            }),
+          key: _globalKey,
+          builder: (BuildContext context) {
+            return SizedBox(
+              width: width,
+              height: height,
+              child: HtmlElementView(
+                viewType: three3dRender.textureId!.toString(),
+              ),
+            );
+          },
+        ),
         NotificationListener<ScrollNotification>(
           onNotification: _handleScrollNotification,
           child: SingleChildScrollView(
@@ -1939,13 +1989,16 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                 key: _globalKey,
                 builder: (BuildContext context) {
                   return SizedBox(
-                      width: width,
-                      height: height,
-                      child: Builder(builder: (BuildContext context) {
+                    width: width,
+                    height: height,
+                    child: Builder(
+                      builder: (BuildContext context) {
                         return HtmlElementView(
                           viewType: three3dRender.textureId!.toString(),
                         );
-                      }));
+                      },
+                    ),
+                  );
                 },
               ),
             ),
@@ -1963,12 +2016,14 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
   Widget _contentWidget() {
     return Column(
       children: [
-        Card(
+        CustomCard(
+          // do not cut label text
+          clipBehavior: Clip.none,
           child: Column(
             children: [
               Autocomplete<String>(
                 fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
-                  return TextField(
+                  return CustomTextField(
                     controller: textEditingController,
                     focusNode: focusNode,
                     onSubmitted: (String value) {
@@ -1984,21 +2039,25 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                       }
                       onFieldSubmitted();
                     },
+                    keyboardType: TextInputType.text,
                     onEditingComplete: onFieldSubmitted,
-                    decoration: InputDecoration(
-                      labelText: '搜尋地點',
-                      hintText: '請輸入關鍵字',
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          textEditingController.clear();
-                        },
-                      ),
-                      border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                      errorText: _notFound ? _notFoundText : null,
-                      errorBorder: _notFound ? OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).colorScheme.error)) : null,
+                    labelText: '搜尋地點',
+                    hintText: '請輸入關鍵字',
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        textEditingController.clear();
+                      },
                     ),
+                    errorText: _notFound ? _notFoundText : null,
+                    errorBorder: _notFound
+                        ? OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
+                          )
+                        : null,
                   );
                 },
                 optionsBuilder: (TextEditingValue textEditingValue) {
@@ -2043,20 +2102,23 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                   children: [
                     Offstage(
                       offstage: _selectedLocation == '',
-                      child: ListTile(title: const Text('地點'), trailing: Text(_selectedLocationName)),
+                      child: ListTile(
+                        title: const Text('地點'),
+                        subtitle: Text(_selectedLocationName),
+                      ),
                     ),
                     Offstage(
                       offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
                       child: ListTile(
                         title: const Text('建築'),
-                        trailing: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+                        subtitle: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
                       ),
                     ),
                     Offstage(
                       offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
                       child: ListTile(
                         title: const Text('樓層'),
-                        trailing: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
+                        subtitle: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
                       ),
                     ),
                     Offstage(
@@ -2089,12 +2151,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                         ),
                       ),
                     ),
-                    const Text(
-                      'ALL RIGHTS RESERVED © 2023 JHIHYULIN.LIVE',
+                    Text(
+                      'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
+                        fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
                       ),
                     ),
                   ],
@@ -2129,8 +2190,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
           offstage: _devMode == false,
           child: Column(
             children: [
-              const Text('Press 5 seconds to open'),
-              const Text('Short tap to close'),
+              const Text('常按5秒開啟本選單'),
+              const Text('輕觸一下關閉本選單'),
               ListTile(
                 title: const Text('全螢幕'),
                 trailing: Switch(
@@ -2194,7 +2255,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                 ),
               ),
               ListTile(
-                title: const Text('Embeded Link'),
+                title: const Text('嵌入模式'),
                 subtitle: const Text('https://jhihyulin.live/zhsh3dmap?embededMode=true'),
                 trailing: IconButton(
                   icon: const Icon(Icons.copy),
@@ -2306,7 +2367,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
   }
 
   initRenderer() {
-    Map<String, dynamic> options = {'width': width, 'height': height, 'gl': three3dRender.gl, 'antialias': true, 'canvas': three3dRender.element};
+    Map<String, dynamic> options = {
+      'width': width,
+      'height': height,
+      'gl': three3dRender.gl,
+      'antialias': true,
+      'canvas': three3dRender.element,
+    };
     renderer = three.WebGLRenderer(options);
     renderer!.setPixelRatio(dpr);
     renderer!.setSize(width, height, false);

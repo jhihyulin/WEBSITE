@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widget/scaffold_messenger.dart';
 import '../widget/launch_url.dart';
+import '../widget/text_form_field.dart';
+import '../widget/text_field.dart';
 
 class ChatAIPage extends StatefulWidget {
   const ChatAIPage({Key? key}) : super(key: key);
@@ -349,47 +351,34 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        TextField(
+                                        CustomTextField(
                                           keyboardType: TextInputType.multiline,
                                           minLines: 1,
                                           maxLines: 3,
                                           controller: systemMessageController,
-                                          decoration: InputDecoration(
-                                            labelText: 'System Message',
-                                            hintText: 'Enter some environment settings',
-                                            prefixIcon: const Icon(Icons.description),
-                                            suffixIcon: IconButton(
-                                                icon: const Icon(Icons.clear),
-                                                onPressed: () {
-                                                  systemMessageController.clear();
-                                                }),
-                                            border: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(16.0),
-                                              ),
-                                            ),
-                                          ),
+                                          labelText: 'System Message',
+                                          hintText: 'Enter some environment settings',
+                                          prefixIcon: const Icon(Icons.description),
+                                          suffixIcon: IconButton(
+                                              icon: const Icon(Icons.clear),
+                                              onPressed: () {
+                                                systemMessageController.clear();
+                                              }),
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        TextField(
+                                        CustomTextField(
+                                          keyboardType: TextInputType.text,
                                           controller: tokenInputController,
-                                          decoration: InputDecoration(
-                                            labelText: 'OpenAI Token',
-                                            hintText: 'Enter your token',
-                                            prefixIcon: const Icon(Icons.key),
-                                            suffixIcon: IconButton(
-                                              icon: const Icon(Icons.clear),
-                                              onPressed: () {
-                                                tokenInputController.clear();
-                                              },
-                                            ),
-                                            border: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(16.0),
-                                              ),
-                                            ),
+                                          labelText: 'OpenAI Token',
+                                          hintText: 'Enter your token',
+                                          prefixIcon: const Icon(Icons.key),
+                                          suffixIcon: IconButton(
+                                            icon: const Icon(Icons.clear),
+                                            onPressed: () {
+                                              tokenInputController.clear();
+                                            },
                                           ),
                                         ),
                                         const SizedBox(
@@ -461,7 +450,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
                   Expanded(
                     child: Form(
                       key: _formKey,
-                      child: TextFormField(
+                      child: CustomTextFormField(
                         validator: (value) {
                           if (_token == null || _token!.isEmpty) {
                             return 'Please enter your token in setting';
@@ -475,20 +464,13 @@ class _ChatAIPageState extends State<ChatAIPage> {
                         keyboardType: TextInputType.multiline,
                         minLines: 1,
                         maxLines: 4,
-                        scrollPhysics: const BouncingScrollPhysics(),
-                        //maxLength: 400,
-                        decoration: InputDecoration(
-                          labelText: 'Chat AI',
-                          hintText: 'Enter your message',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.send),
-                            onPressed: () {
-                              chat(_inputController.text);
-                            },
-                          ),
+                        labelText: 'Chat AI',
+                        hintText: 'Enter your message',
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.send),
+                          onPressed: () {
+                            chat(_inputController.text);
+                          },
                         ),
                         onChanged: (value) {
                           _formKey.currentState!.validate();

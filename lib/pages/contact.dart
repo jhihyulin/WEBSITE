@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/text_form_field.dart';
+import '../widget/text_field.dart';
 
 const String reportEmail = 'admin@jhihyulin.live';
 const String contactDomain = 'api.jhihyulin.live';
@@ -100,37 +102,23 @@ class _ContactPageState extends State<ContactPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  TextField(
+                  CustomTextField(
                     controller: contactEmailController,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      hintText: 'example@domain.com',
-                      prefixIcon: Icon(Icons.email),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0),
-                        ),
-                      ),
-                    ),
+                    labelText: 'Email',
+                    hintText: 'example@domain.com',
+                    prefixIcon: const Icon(Icons.email),
                     textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextField(
+                  CustomTextField(
                     controller: contactSignatureController,
                     keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      labelText: 'Signature',
-                      hintText: 'Type your signature here',
-                      prefixIcon: Icon(Icons.draw),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0),
-                        ),
-                      ),
-                    ),
+                    labelText: 'Signature',
+                    hintText: 'Type your signature here',
+                    prefixIcon: const Icon(Icons.draw),
                     onSubmitted: (value) => {
                       _sendMessage(),
                     },
@@ -139,21 +127,14 @@ class _ContactPageState extends State<ContactPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
+                  CustomTextFormField(
                     controller: contactMessageController,
                     keyboardType: TextInputType.multiline,
                     minLines: 1,
                     maxLines: 10,
-                    decoration: const InputDecoration(
-                      labelText: 'Message',
-                      hintText: 'Type your message here',
-                      prefixIcon: Icon(Icons.comment),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0),
-                        ),
-                      ),
-                    ),
+                    labelText: 'Message',
+                    hintText: 'Type your message here',
+                    prefixIcon: const Icon(Icons.comment),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Message Is Required';

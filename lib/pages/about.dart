@@ -7,6 +7,8 @@ import 'package:icons_plus/icons_plus.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
+import '../widget/card.dart';
+import '../widget/image.dart';
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
@@ -91,7 +93,7 @@ Map<String, Map<String, Object>> socialMedia = {
   },
   'Snapchat': {
     'url': 'https://snapchat.com/add/jhihyul',
-    'icon': FontAwesome.square_snapchat,
+    'icon': FontAwesome.snapchat,
   },
   'Slack': {
     'url': 'https://jhihyulin.slack.com',
@@ -100,27 +102,28 @@ Map<String, Map<String, Object>> socialMedia = {
 };
 
 Map<String, Object> experience = {
-  'Visual Studio Code': Image.asset('assets/images/vscode.png'),
-  'Python': Image.asset('assets/images/python.png'),
-  'FastAPI': Image.asset('assets/images/fastapi.png'),
-  'JavaScript': Image.asset('assets/images/javascript.png'),
-  'HTML': Image.asset('assets/images/html.png'),
-  'CSS': Image.asset('assets/images/css.png'),
+  'Visual Studio Code': const CustomImage(src: 'assets/images/vscode.png'),
+  'Python': const CustomImage(src: 'assets/images/python.png'),
+  'FastAPI': const CustomImage(src: 'assets/images/fastapi.png'),
+  'JavaScript': const CustomImage(src: 'assets/images/javascript.png'),
+  'Cloudflare': const CustomImage(src: 'assets/images/cloudflare.png'),
+  'HTML': const CustomImage(src: 'assets/images/html.png'),
+  'CSS': const CustomImage(src: 'assets/images/css.png'),
   'Flutter': const FlutterLogo(),
-  'C++': Image.asset('assets/images/cpp.png'),
-  'C': Image.asset('assets/images/c.png'),
-  'Arduino': Image.asset('assets/images/arduino.png'),
-  'Fusion 360': Image.asset('assets/images/fusion360.png'),
-  'Inventor': Image.asset('assets/images/inventor.png'),
-  'AutoCAD': Image.asset('assets/images/autocad.png'),
-  'Blender': Image.asset('assets/images/blender.png'),
-  'Linux': Image.asset('assets/images/linux.png'),
-  'Ubuntu': Image.asset('assets/images/ubuntu.png'),
-  'Postman': Image.asset('assets/images/postman.png'),
-  'Git': Image.asset('assets/images/git.png'),
-  'Android Studio': Image.asset('assets/images/androidstudio.png'),
-  'Docker': Image.asset('assets/images/docker.png'),
-  'Solid Edge': Image.asset('assets/images/solidedge.png'),
+  'C++': const CustomImage(src: 'assets/images/cpp.png'),
+  'C': const CustomImage(src: 'assets/images/c.png'),
+  'Arduino': const CustomImage(src: 'assets/images/arduino.png'),
+  'Fusion 360': const CustomImage(src: 'assets/images/fusion360.png'),
+  'Inventor': const CustomImage(src: 'assets/images/inventor.png'),
+  'AutoCAD': const CustomImage(src: 'assets/images/autocad.png'),
+  'Blender': const CustomImage(src: 'assets/images/blender.png'),
+  'Linux': const CustomImage(src: 'assets/images/linux.png'),
+  'Ubuntu': const CustomImage(src: 'assets/images/ubuntu.png'),
+  'Postman': const CustomImage(src: 'assets/images/postman.png'),
+  'Git': const CustomImage(src: 'assets/images/git.png'),
+  'Android Studio': const CustomImage(src: 'assets/images/androidstudio.png'),
+  'Docker': const CustomImage(src: 'assets/images/docker.png'),
+  'Solid Edge': const CustomImage(src: 'assets/images/solidedge.png'),
 };
 
 class AboutPage extends StatefulWidget {
@@ -175,10 +178,7 @@ class _AboutPageState extends State<AboutPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                CustomCard(
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     child: Wrap(
@@ -188,11 +188,14 @@ class _AboutPageState extends State<AboutPage> {
                           alignment: Alignment.center,
                           constraints: const BoxConstraints(
                             maxWidth: 200,
-                            minHeight: 128,
+                            minHeight: 300,
                           ),
-                          child: const CircleAvatar(
-                            radius: 50,
-                            backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: const CustomImage(
+                            src: 'assets/images/salon.png',
                           ),
                         ),
                         Container(
@@ -205,15 +208,9 @@ class _AboutPageState extends State<AboutPage> {
                               const ListTile(
                                 leading: Icon(Icons.badge),
                                 title: Text("Name"),
-                                subtitle: Text("Jhih Yu"),
+                                subtitle: Text("Jhih-Yu Lin"),
                               ),
-                              Card(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(16.0),
-                                  ),
-                                ),
-                                clipBehavior: Clip.antiAlias,
+                              CustomCard(
                                 child: CustomExpansionTile(
                                   onExpansionChanged: (value) {
                                     setState(() {
@@ -226,11 +223,11 @@ class _AboutPageState extends State<AboutPage> {
                                   children: const [
                                     ListTile(
                                       title: Text("Zhonghe Senior High School"),
-                                      trailing: Text("2020 - 2023"),
+                                      subtitle: Text("2020 - 2023"),
                                     ),
                                     ListTile(
                                       title: Text("Tsz-Shiou Senior High School"),
-                                      trailing: Text("2017 - 2020"),
+                                      subtitle: Text("2017 - 2020"),
                                     ),
                                   ],
                                 ),
@@ -282,10 +279,7 @@ class _AboutPageState extends State<AboutPage> {
                             SizedBox(
                               width: _isDesktop(context) ? 320 : double.infinity,
                               height: 160,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
+                              child: CustomCard(
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(16),
                                   onTap: () => CustomLaunchUrl.launch(context, key['link']),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:universal_html/html.dart' as html;
 
 import '../widget/scaffold_messenger.dart';
+import '../widget/card.dart';
 
 class LoadFailedPage extends StatefulWidget {
   const LoadFailedPage({Key? key, required this.errorMessage}) : super(key: key);
@@ -46,12 +47,7 @@ class _LoadFailedPageState extends State<LoadFailedPage> {
               const SizedBox(
                 height: 20,
               ),
-              Card(
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16.0),
-                  ),
-                ),
+              CustomCard(
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   constraints: const BoxConstraints(

@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../provider/theme.dart';
 import '../widget/expansion_tile.dart';
 import '../widget/launch_url.dart';
+import '../widget/toggle_buttons.dart';
+import '../widget/image.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -16,7 +19,6 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  final int _year = DateTime.now().year;
   @override
   Widget build(BuildContext context) {
     int themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
@@ -65,8 +67,7 @@ class _SettingPageState extends State<SettingPage> {
                           : themeMode == 1
                               ? const Text('Light')
                               : const Text('Dark'),
-                      trailing: ToggleButtons(
-                        borderRadius: BorderRadius.circular(16),
+                      trailing: CustomToggleButtons(
                         isSelected: themeModeIsSelected,
                         onPressed: (int index) {
                           setState(() {
@@ -91,8 +92,7 @@ class _SettingPageState extends State<SettingPage> {
                     ListTile(
                       leading: const Icon(Icons.color_lens),
                       title: const Text('Theme Color'),
-                      subtitle: Text(
-                          '#${themeColor.toString().replaceAll('Color(0xff', '').replaceAll('MaterialColor(primary value: ', '').replaceAll('ColorSwatch(primary value: ', '').replaceAll(')', '')}'),
+                      subtitle: Text('#${themeColor.toString().replaceAll('Color(0xff', '').replaceAll('MaterialColor(primary value: ', '').replaceAll('ColorSwatch(primary value: ', '').replaceAll(')', '')}'),
                       trailing: InkWell(
                         borderRadius: BorderRadius.circular(16),
                         child: Container(
@@ -173,8 +173,8 @@ class _SettingPageState extends State<SettingPage> {
                             borderRadius: BorderRadius.circular(16),
                             child: Container(
                               padding: const EdgeInsets.all(15),
-                              child: const Image(
-                                image: AssetImage('assets/images/BuiltWithFlutter.png'),
+                              child: const CustomImage(
+                                src: 'assets/images/BuiltWithFlutter.png',
                                 height: 30,
                               ),
                             ),
@@ -184,8 +184,8 @@ class _SettingPageState extends State<SettingPage> {
                           ),
                           InkWell(
                             borderRadius: BorderRadius.circular(16),
-                            child: const Image(
-                              image: AssetImage('assets/images/BuiltWithFirebaseLightRemoveBackground.png'),
+                            child: const CustomImage(
+                              src: 'assets/images/BuiltWithFirebaseLightRemoveBackground.png',
                               height: 60,
                             ),
                             onTap: () {
@@ -233,8 +233,25 @@ class _SettingPageState extends State<SettingPage> {
                         },
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    ListTile(
+                      leading: const Icon(Icons.web),
+                      title: const Text('Version'),
+                      subtitle: FutureBuilder(
+                        future: PackageInfo.fromPlatform(),
+                        builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+                          if (snapshot.hasData) {
+                            return Text('${snapshot.data!.version}+${snapshot.data!.buildNumber}');
+                          } else {
+                            return const Text('Loading...');
+                          }
+                        },
+                      ),
+                    ),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      spacing: 10,
+                      runSpacing: 10,
                       children: [
                         ElevatedButton(
                           onPressed: () {
@@ -251,11 +268,10 @@ class _SettingPageState extends State<SettingPage> {
                       ],
                     ),
                     Text(
-                      'ALL RIGHTS RESERVED © $_year JHIHYULIN.LIVE',
+                      'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
+                      style: TextStyle(
+                        fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
                       ),
                     ),
                   ],

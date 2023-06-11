@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import '../pages/sign_in.dart';
 import '../widget/scaffold_messenger.dart';
 import '../widget/linear_progress_indicator.dart';
+import '../widget/text_form_field.dart';
 
 const String sURLServerDomain = 's.jhihyulin.live';
 const String sURLServerURL1 = '/create';
@@ -53,7 +54,11 @@ class _ShortURLPageState extends State<ShortURLPage> {
       String uid = user.uid;
       String token = await user.getIdToken();
       await http
-          .post(sURLServerCreate, body: jsonEncode({'firebase_uid': uid, 'original_url': sURLURLController.text}), headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token})
+          .post(
+            sURLServerCreate,
+            body: jsonEncode({'firebase_uid': uid, 'original_url': sURLURLController.text}),
+            headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token},
+          )
           .then((value) => {
                 setState(() {
                   _surl = jsonDecode(value.body)['url'];
@@ -102,19 +107,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    TextFormField(
+                    CustomTextFormField(
                       controller: sURLURLController,
                       keyboardType: TextInputType.url,
-                      decoration: const InputDecoration(
-                        labelText: 'URL',
-                        hintText: 'https://example.com',
-                        prefixIcon: Icon(Icons.link),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                        ),
-                      ),
+                      labelText: 'URL',
+                      hintText: 'https://example.com',
+                      prefixIcon: const Icon(Icons.link),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'URL is required';
@@ -149,17 +147,10 @@ class _ShortURLPageState extends State<ShortURLPage> {
                           const SizedBox(
                             height: 20,
                           ),
-                          TextFormField(
+                          CustomTextFormField(
                             controller: sURLsURLController,
-                            decoration: const InputDecoration(
-                              labelText: 'Short URL',
-                              prefixIcon: Icon(Icons.link),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16.0),
-                                ),
-                              ),
-                            ),
+                            labelText: 'Short URL',
+                            prefixIcon: const Icon(Icons.link),
                             readOnly: true,
                           ),
                         ],

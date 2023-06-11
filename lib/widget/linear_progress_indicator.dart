@@ -28,9 +28,7 @@ class _CustomLinearProgressIndicatorState extends State<CustomLinearProgressIndi
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: const BorderRadius.all(
-        Radius.circular(16.0),
-      ),
+      borderRadius: BorderRadius.circular(16.0),
       child: LinearProgressIndicator(
         key: widget.key,
         value: widget.value,

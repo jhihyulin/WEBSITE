@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../widget/card.dart';
+import '../widget/toggle_buttons.dart';
+
 class TimerPage extends StatefulWidget {
   const TimerPage({super.key});
 
@@ -134,13 +137,7 @@ class _TimerPageState extends State<TimerPage> {
                     SizedBox(
                       width: _mathBox(),
                       height: _mathBox() * 1.5,
-                      child: Card(
-                        clipBehavior: Clip.antiAlias,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                        ),
+                      child: CustomCard(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -211,13 +208,7 @@ class _TimerPageState extends State<TimerPage> {
                     SizedBox(
                       width: _mathBox(),
                       height: _mathBox() * 1.5,
-                      child: Card(
-                        clipBehavior: Clip.antiAlias,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                        ),
+                      child: CustomCard(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -288,13 +279,7 @@ class _TimerPageState extends State<TimerPage> {
                     SizedBox(
                       width: _mathBox(),
                       height: _mathBox() * 1.5,
-                      child: Card(
-                        clipBehavior: Clip.antiAlias,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                        ),
+                      child: CustomCard(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -368,8 +353,7 @@ class _TimerPageState extends State<TimerPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ToggleButtons(
-                      borderRadius: BorderRadius.circular(16),
+                    CustomToggleButtons(
                       isSelected: [
                         _mode == 'countdown',
                         _mode == 'stopwatch',

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../widget/scaffold_messenger.dart';
 import '../widget/expansion_tile.dart';
+import '../widget/card.dart';
+import '../widget/text_form_field.dart';
 
 class SpinWheelPage extends StatefulWidget {
   const SpinWheelPage({Key? key}) : super(key: key);
@@ -172,12 +174,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                       padding: const EdgeInsets.all(10),
                       width: mathSquare() + mathPin(),
                       height: mathSquare(),
-                      child: Card(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                        ),
+                      child: CustomCard(
                         child: Row(
                           children: [
                             SizedBox(
@@ -221,12 +218,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       width: mathActionArea(),
-                      child: Card(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                        ),
+                      child: CustomCard(
                         child: Container(
                           padding: const EdgeInsets.all(10),
                           child: Column(
@@ -293,7 +285,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                               ),
                               Form(
                                 key: _formKey,
-                                child: TextFormField(
+                                child: CustomTextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter some text';
@@ -304,27 +296,20 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                   keyboardType: TextInputType.multiline,
                                   maxLines: 10,
                                   minLines: 5,
-                                  decoration: InputDecoration(
-                                    suffix: IconButton(
-                                      onPressed: () {
-                                        _controller.clear();
-                                        _textList = [];
-                                        _spinedString = '';
-                                        _spined = false;
-                                        onChange();
-                                      },
-                                      icon: const Icon(Icons.clear),
-                                    ),
-                                    enabled: !_spinning,
-                                    labelText: 'Name List',
-                                    hintText: 'Newline to split',
-                                    prefixIcon: const Icon(Icons.text_fields),
-                                    border: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(16.0),
-                                      ),
-                                    ),
+                                  suffix: IconButton(
+                                    onPressed: () {
+                                      _controller.clear();
+                                      _textList = [];
+                                      _spinedString = '';
+                                      _spined = false;
+                                      onChange();
+                                    },
+                                    icon: const Icon(Icons.clear),
                                   ),
+                                  enabled: !_spinning,
+                                  labelText: 'Name List',
+                                  hintText: 'Newline to split',
+                                  prefixIcon: const Icon(Icons.text_fields),
                                   onChanged: (value) => onChange(),
                                 ),
                               ),
@@ -332,13 +317,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              Card(
-                                clipBehavior: Clip.antiAlias,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(16.0),
-                                  ),
-                                ),
+                              CustomCard(
                                 child: CustomExpansionTile(
                                   title: const Text('Generate Number'),
                                   children: [
@@ -350,7 +329,7 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                           children: [
                                             Expanded(
                                               flex: 2,
-                                              child: TextFormField(
+                                              child: CustomTextFormField(
                                                 validator: (value) {
                                                   if (value == null || value.isEmpty) {
                                                     return 'Required';
@@ -361,23 +340,16 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                                 },
                                                 controller: _controller2,
                                                 keyboardType: TextInputType.number,
-                                                decoration: InputDecoration(
-                                                  enabled: !_spinning,
-                                                  labelText: 'Min',
-                                                  hintText: 'Min',
-                                                  border: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                      Radius.circular(16.0),
-                                                    ),
-                                                  ),
-                                                ),
+                                                enabled: !_spinning,
+                                                labelText: 'Min',
+                                                hintText: 'Min',
                                                 onChanged: (value) => onChange(),
                                               ),
                                             ),
                                             const SizedBox(width: 10),
                                             Expanded(
                                               flex: 2,
-                                              child: TextFormField(
+                                              child: CustomTextFormField(
                                                 validator: (value) {
                                                   if (value == null || value.isEmpty) {
                                                     return 'Required';
@@ -388,16 +360,9 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                                 },
                                                 controller: _controller3,
                                                 keyboardType: TextInputType.number,
-                                                decoration: InputDecoration(
-                                                  enabled: !_spinning,
-                                                  labelText: 'Max',
-                                                  hintText: 'Max',
-                                                  border: const OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                      Radius.circular(16.0),
-                                                    ),
-                                                  ),
-                                                ),
+                                                enabled: !_spinning,
+                                                labelText: 'Max',
+                                                hintText: 'Max',
                                                 onChanged: (value) => onChange(),
                                               ),
                                             ),

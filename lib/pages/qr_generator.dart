@@ -12,6 +12,9 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import '../widget/expansion_tile.dart';
 import '../widget/launch_url.dart';
+import '../widget/card.dart';
+import '../widget/text_form_field.dart';
+import '../widget/toggle_buttons.dart';
 
 class QRGeneratorPage extends StatefulWidget {
   const QRGeneratorPage({super.key});
@@ -79,22 +82,17 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextFormField(
+                CustomTextFormField(
                   controller: _textEditingController,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.description),
-                    labelText: 'Input Data',
-                    hintText: 'Enter data to generate QR code',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        _textEditingController.clear();
-                        _generate();
-                      },
-                    ),
+                  prefixIcon: const Icon(Icons.description),
+                  labelText: 'Input Data',
+                  hintText: 'Enter data to generate QR code',
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      _textEditingController.clear();
+                      _generate();
+                    },
                   ),
                   keyboardType: TextInputType.multiline,
                   minLines: 1,
@@ -106,13 +104,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16.0),
-                    ),
-                  ),
+                CustomCard(
                   child: CustomExpansionTile(
                     title: const Text('Advanced'),
                     children: [
@@ -478,8 +470,7 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                       ),
                       ListTile(
                         title: const Text('Module Shape'),
-                        trailing: ToggleButtons(
-                          borderRadius: BorderRadius.circular(16),
+                        trailing: CustomToggleButtons(
                           isSelected: [
                             _selectModuleShape == QrDataModuleShape.circle,
                             _selectModuleShape == QrDataModuleShape.square,

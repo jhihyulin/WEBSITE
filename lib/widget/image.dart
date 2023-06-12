@@ -26,7 +26,7 @@ class _CustomImageState extends State<CustomImage> {
       widget.src.startsWith('assets/')
           ? kDebugMode
               ? widget.src
-              : 'https://raw.githubusercontent.com/jhihyulin/WEBSITE/main/${widget.src}'
+              : 'https://raw.githubusercontent.com/jhihyulin/WEBSITE/deploy/${widget.src}'
           : widget.src,
       height: widget.height,
       width: widget.width,

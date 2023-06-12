@@ -299,7 +299,7 @@ class _AboutPageState extends State<AboutPage> {
                                                   width: 10,
                                                 ),
                                                 Text(
-                                                  '${key['owner']}/${key['repo']}',
+                                                  '${key['repo']}',
                                                   style: TextStyle(
                                                     color: Theme.of(context).colorScheme.onBackground,
                                                   ),

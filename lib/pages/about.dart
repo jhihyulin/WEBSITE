@@ -184,18 +184,47 @@ class _AboutPageState extends State<AboutPage> {
                     child: Wrap(
                       alignment: WrapAlignment.center,
                       children: [
-                        Container(
-                          alignment: Alignment.center,
-                          constraints: const BoxConstraints(
-                            maxWidth: 200,
-                            minHeight: 300,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.0),
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          child: const CustomImage(
-                            src: 'assets/images/salon.png',
+                        InkWell(
+                          borderRadius: BorderRadius.circular(16.0),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    clipBehavior: Clip.antiAlias,
+                                    child: const CustomImage(
+                                      src: 'assets/images/salon.png',
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Close'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            constraints: const BoxConstraints(
+                              maxWidth: 200,
+                              minHeight: 300,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            clipBehavior: Clip.antiAlias,
+                            child: const CustomImage(
+                              src: 'assets/images/salon.png',
+                            ),
                           ),
                         ),
                         Container(

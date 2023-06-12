@@ -111,15 +111,13 @@ class _SettingPageState extends State<SettingPage> {
                                 title: const Text('Theme Color'),
                                 content: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(),
-                                  child: ColorPicker(
+                                  child: BlockPicker(
                                     pickerColor: themeColor,
                                     onColorChanged: (color) {
                                       setState(() {
                                         themeColor = color;
                                       });
                                     },
-                                    pickerAreaHeightPercent: 0.8,
-                                    enableAlpha: false,
                                   ),
                                 ),
                                 actions: [

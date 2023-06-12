@@ -359,17 +359,28 @@ class _NavigationControllerState extends State<NavigationController> {
         actions: [
           Container(
             padding: const EdgeInsets.all(5),
-            child: ElevatedButton.icon(
-              icon: _displayPhoto,
-              label: _dispayText,
-              onPressed: () {
-                if (FirebaseAuth.instance.currentUser == null) {
-                  Navigator.pushNamed(context, '/signin');
-                } else {
-                  Navigator.pushNamed(context, '/profile');
-                }
-              },
-            ),
+            child: MediaQuery.of(context).size.width < desktopModeWidth
+                ? IconButton(
+                    icon: _displayPhoto,
+                    onPressed: () {
+                      if (FirebaseAuth.instance.currentUser == null) {
+                        Navigator.pushNamed(context, '/signin');
+                      } else {
+                        Navigator.pushNamed(context, '/profile');
+                      }
+                    },
+                  )
+                : ElevatedButton.icon(
+                    icon: _displayPhoto,
+                    label: _dispayText,
+                    onPressed: () {
+                      if (FirebaseAuth.instance.currentUser == null) {
+                        Navigator.pushNamed(context, '/signin');
+                      } else {
+                        Navigator.pushNamed(context, '/profile');
+                      }
+                    },
+                  ),
           ),
         ],
       ),

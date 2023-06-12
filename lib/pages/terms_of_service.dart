@@ -41,7 +41,6 @@ class _TermsOfServicePageState extends State<TermsOfServicePage> {
             constraints: const BoxConstraints(
               maxWidth: 700,
             ),
-            padding: const EdgeInsets.all(10),
             child: FutureBuilder(
               future: _loadMarkdownData(),
               builder: (context, AsyncSnapshot snapshot) {
@@ -57,7 +56,10 @@ class _TermsOfServicePageState extends State<TermsOfServicePage> {
                   );
                 } else {
                   return const Center(
-                    child: CustomLinearProgressIndicator(),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: CustomLinearProgressIndicator(),
+                    ),
                   );
                 }
               },

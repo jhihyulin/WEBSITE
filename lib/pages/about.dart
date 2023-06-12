@@ -126,6 +126,26 @@ Map<String, Object> experience = {
   'Solid Edge': const CustomImage(src: 'assets/images/solidedge.png'),
 };
 
+Map<String, Map<String, String>> school = {
+  // 'University': {
+  //   'url': 'https://example.com',
+  //   'icon': 'assets/images/example.png',
+  //   'start': '2023',
+  // },
+  'Zhonghe Senior High School': {
+    'url': 'https://www.chshs.ntpc.edu.tw',
+    'icon': 'assets/images/chshs.png',
+    'start': '2020',
+    'end': '2023',
+  },
+  'Tsz-Shiou Senior High School': {
+    'url': 'https://www.tsshs.ntpc.edu.tw',
+    'icon': 'assets/images/tsshs.png',
+    'start': '2017',
+    'end': '2020',
+  },
+};
+
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
 
@@ -247,17 +267,27 @@ class _AboutPageState extends State<AboutPage> {
                                     });
                                   },
                                   leading: const Icon(Icons.school),
-                                  title: const Text("School"),
-                                  subtitle: _isExpanded ? null : const Text("Zhonghe Senior High School"),
-                                  children: const [
-                                    ListTile(
-                                      title: Text("Zhonghe Senior High School"),
-                                      subtitle: Text("2020 - 2023"),
-                                    ),
-                                    ListTile(
-                                      title: Text("Tsz-Shiou Senior High School"),
-                                      subtitle: Text("2017 - 2020"),
-                                    ),
+                                  title: const Text("Education"),
+                                  subtitle: _isExpanded ? null : Text(school.keys.first),
+                                  children: [
+                                    for (var key in school.keys)
+                                      ListTile(
+                                        leading: SizedBox(
+                                          width: 24,
+                                          height: 24,
+                                          child: CustomImage(
+                                            src: school[key]!['icon']!,
+                                          ),
+                                        ),
+                                        title: Text(key),
+                                        subtitle: Text(
+                                          '${school[key]!['start']} ~ ${school[key]!['end'] ?? ''}',
+                                          textAlign: TextAlign.right,
+                                        ),
+                                        onTap: () {
+                                          CustomLaunchUrl.launch(context, school[key]!['url']!);
+                                        },
+                                      ),
                                   ],
                                 ),
                               ),

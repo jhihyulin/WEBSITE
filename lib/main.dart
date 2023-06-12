@@ -360,17 +360,25 @@ class _NavigationControllerState extends State<NavigationController> {
           Container(
             padding: const EdgeInsets.all(5),
             child: MediaQuery.of(context).size.width < desktopModeWidth
-                ? IconButton(
-                    icon: _displayPhoto,
-                    tooltip: _dispayText.toString().replaceFirst('Text("', '').replaceFirst('")', ''),
-                    onPressed: () {
-                      if (FirebaseAuth.instance.currentUser == null) {
-                        Navigator.pushNamed(context, '/signin');
-                      } else {
-                        Navigator.pushNamed(context, '/profile');
-                      }
-                    },
-                  )
+                ? FirebaseAuth.instance.currentUser != null
+                    ? SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(100),
+                          child: _displayPhoto,
+                          onTap: () {
+                            Navigator.pushNamed(context, '/profile');
+                          },
+                        ),
+                      )
+                    : IconButton(
+                        icon: _displayPhoto,
+                        tooltip: 'Sign In',
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/signin');
+                        },
+                      )
                 : ElevatedButton.icon(
                     icon: _displayPhoto,
                     label: _dispayText,

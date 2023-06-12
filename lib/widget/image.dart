@@ -28,6 +28,7 @@ class _CustomImageState extends State<CustomImage> {
               ? widget.src
               : 'https://raw.githubusercontent.com/jhihyulin/WEBSITE/deploy/${widget.src}'
           : widget.src,
+      isAntiAlias: true,
       height: widget.height,
       width: widget.width,
       frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {

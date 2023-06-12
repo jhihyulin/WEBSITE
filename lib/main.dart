@@ -362,6 +362,7 @@ class _NavigationControllerState extends State<NavigationController> {
             child: MediaQuery.of(context).size.width < desktopModeWidth
                 ? IconButton(
                     icon: _displayPhoto,
+                    tooltip: _dispayText.toString().replaceFirst('Text("', '').replaceFirst('")', ''),
                     onPressed: () {
                       if (FirebaseAuth.instance.currentUser == null) {
                         Navigator.pushNamed(context, '/signin');

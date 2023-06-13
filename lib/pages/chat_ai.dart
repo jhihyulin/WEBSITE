@@ -112,7 +112,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
       temperature: _temperature,
     );
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
-      CustomScaffoldMessenger.showMessageSnackBar(context, 'Error: ${e.toString()}');
+      CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: ${e.toString()}');
       setState(() {
         _generating = false;
       });

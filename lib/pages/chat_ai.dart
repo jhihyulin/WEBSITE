@@ -25,6 +25,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
   final TextEditingController _inputController = TextEditingController();
   late OpenAI openAI;
   String? _token;
+  double _temperature = 0.5;
+  double _temporaryTemperature = 0.5;
   int _messageWidth() {
     if (MediaQuery.of(context).size.width < 700) {
       return MediaQuery.of(context).size.width.toInt() - 100;
@@ -32,6 +34,21 @@ class _ChatAIPageState extends State<ChatAIPage> {
       return 600;
     }
   }
+
+  List<String> _models = [
+    'gpt-3.5-turbo',
+    'gpt-3.5-turbo-0301',
+    'text-davinci-003',
+    'text-davinci-002',
+    'code-davinci-002',
+    'gpt-4',
+    'gpt-4-0314',
+    'gpt-4-32k',
+    'gpt-4-32k-0314',
+  ];
+  String _model = 'gpt-3.5-turbo';
+  String _temporaryModel = 'gpt-3.5-turbo';
+  int modelIndex = 0;
 
   String? _systemMessage;
   bool _generating = false;
@@ -44,6 +61,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
     openAI = OpenAI.instance.build(token: 'sk-', baseOption: HttpSetup(receiveTimeout: const Duration(minutes: 1)), enableLog: kDebugMode);
     getToken();
     getSystemMessage();
+    getTemperature();
+    getModel();
     initGeneralAnimation();
     super.initState();
   }
@@ -86,9 +105,14 @@ class _ChatAIPageState extends State<ChatAIPage> {
       }
     });
     debugPrint('_chatData: ${_chatData.toString()}');
-    final request = ChatCompleteText(messages: _chatData, maxToken: 400, model: ChatModel.gptTurbo);
+    final request = ChatCompleteText(
+      messages: _chatData,
+      maxToken: 400,
+      model: ChatModelFromValue(model: _model),
+      temperature: _temperature,
+    );
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
-      CustomScaffoldMessenger.showMessageSnackBar(context, 'Error: ${e.toString()}');
+      CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: ${e.toString()}');
       setState(() {
         _generating = false;
       });
@@ -147,6 +171,46 @@ class _ChatAIPageState extends State<ChatAIPage> {
         _systemMessage = systemMessage;
         _chatData.clear();
         _chatData.add({'role': 'system', 'content': _systemMessage!});
+      }
+    });
+  }
+
+  setTemperature(double temperature) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setDouble('temperature', temperature);
+    setState(() {
+      _temperature = temperature;
+      _temporaryTemperature = temperature;
+    });
+  }
+
+  getTemperature() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    double? temperature = prefs.getDouble('temperature');
+    setState(() {
+      if (temperature != null) {
+        _temperature = temperature;
+        _temporaryTemperature = temperature;
+      }
+    });
+  }
+
+  setModel(String model) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('model', model);
+    setState(() {
+      _model = model;
+      _temporaryModel = model;
+    });
+  }
+
+  getModel() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? model = prefs.getString('model');
+    setState(() {
+      if (model != null) {
+        _model = model;
+        _temporaryModel = model;
       }
     });
   }
@@ -384,6 +448,64 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         const SizedBox(
                                           height: 10,
                                         ),
+                                        InputDecorator(
+                                          decoration: InputDecoration(
+                                            labelText: 'Temperature',
+                                            prefixIcon: const Icon(Icons.thermostat),
+                                            labelStyle: TextStyle(
+                                              color: Theme.of(context).colorScheme.onSurface,
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(16.0),
+                                            ),
+                                          ),
+                                          child: Slider(
+                                            value: _temporaryTemperature,
+                                            min: 0,
+                                            max: 1,
+                                            divisions: 100,
+                                            label: _temporaryTemperature.toStringAsFixed(2),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _temporaryTemperature = value;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        InputDecorator(
+                                          decoration: InputDecoration(
+                                            labelText: 'Model',
+                                            prefixIcon: const Icon(Icons.model_training),
+                                            labelStyle: TextStyle(
+                                              color: Theme.of(context).colorScheme.onSurface,
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(16.0),
+                                            ),
+                                          ),
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton<String>(
+                                              value: _temporaryModel,
+                                              items: _models.map((e) {
+                                                return DropdownMenuItem<String>(
+                                                  value: e,
+                                                  child: Text(e),
+                                                );
+                                              }).toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _temporaryModel = value!;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
                                         SizedBox(
                                           width: double.infinity,
                                           child: Column(
@@ -430,6 +552,12 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         }
                                         if (_systemMessage != systemMessageController.text) {
                                           setSystemMessage(systemMessageController.text);
+                                        }
+                                        if (_temporaryTemperature != _temperature) {
+                                          setTemperature(_temporaryTemperature);
+                                        }
+                                        if (_temporaryModel != _model) {
+                                          setModel(_temporaryModel);
                                         }
                                         Navigator.pop(context);
                                       },

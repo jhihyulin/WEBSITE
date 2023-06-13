@@ -86,7 +86,11 @@ class _ChatAIPageState extends State<ChatAIPage> {
       }
     });
     debugPrint('_chatData: ${_chatData.toString()}');
-    final request = ChatCompleteText(messages: _chatData, maxToken: 400, model: ChatModel.gptTurbo);
+    final request = ChatCompleteText(
+      messages: _chatData,
+      maxToken: 400,
+      model: GptTurboChatModel(),
+    );
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
       CustomScaffoldMessenger.showMessageSnackBar(context, 'Error: ${e.toString()}');
       setState(() {

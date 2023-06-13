@@ -35,6 +35,21 @@ class _ChatAIPageState extends State<ChatAIPage> {
     }
   }
 
+  List<String> _models = [
+    'gpt-3.5-turbo',
+    'gpt-3.5-turbo-0301',
+    'text-davinci-003',
+    'text-davinci-002',
+    'code-davinci-002',
+    'gpt-4',
+    'gpt-4-0314',
+    'gpt-4-32k',
+    'gpt-4-32k-0314',
+  ];
+  String _model = 'gpt-3.5-turbo';
+  String _temporaryModel = 'gpt-3.5-turbo';
+  int modelIndex = 0;
+
   String? _systemMessage;
   bool _generating = false;
   String? _generatingMessage;
@@ -47,6 +62,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
     getToken();
     getSystemMessage();
     getTemperature();
+    getModel();
     initGeneralAnimation();
     super.initState();
   }
@@ -92,7 +108,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
     final request = ChatCompleteText(
       messages: _chatData,
       maxToken: 400,
-      model: GptTurboChatModel(),
+      model: ChatModelFromValue(model: _model),
       temperature: _temperature,
     );
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
@@ -175,6 +191,26 @@ class _ChatAIPageState extends State<ChatAIPage> {
       if (temperature != null) {
         _temperature = temperature;
         _temporaryTemperature = temperature;
+      }
+    });
+  }
+
+  setModel(String model) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('model', model);
+    setState(() {
+      _model = model;
+      _temporaryModel = model;
+    });
+  }
+
+  getModel() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? model = prefs.getString('model');
+    setState(() {
+      if (model != null) {
+        _model = model;
+        _temporaryModel = model;
       }
     });
   }
@@ -427,6 +463,34 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                             },
                                           ),
                                         ),
+                                        InputDecorator(
+                                          decoration: InputDecoration(
+                                            labelText: 'Model',
+                                            prefixIcon: const Icon(Icons.model_training),
+                                            labelStyle: TextStyle(
+                                              color: Theme.of(context).colorScheme.onSurface,
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(16.0),
+                                            ),
+                                          ),
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton<String>(
+                                              value: _temporaryModel,
+                                              items: _models.map((e) {
+                                                return DropdownMenuItem<String>(
+                                                  value: e,
+                                                  child: Text(e),
+                                                );
+                                              }).toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _temporaryModel = value!;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ),
                                         const SizedBox(
                                           height: 10,
                                         ),
@@ -479,6 +543,9 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         }
                                         if (_temporaryTemperature != _temperature) {
                                           setTemperature(_temporaryTemperature);
+                                        }
+                                        if (_temporaryModel != _model) {
+                                          setModel(_temporaryModel);
                                         }
                                         Navigator.pop(context);
                                       },

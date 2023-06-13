@@ -448,9 +448,18 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        ListTile(
-                                          title: const Text('Temperature'),
-                                          subtitle: Slider(
+                                        InputDecorator(
+                                          decoration: InputDecoration(
+                                            labelText: 'Temperature',
+                                            prefixIcon: const Icon(Icons.thermostat),
+                                            labelStyle: TextStyle(
+                                              color: Theme.of(context).colorScheme.onSurface,
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(16.0),
+                                            ),
+                                          ),
+                                          child: Slider(
                                             value: _temporaryTemperature,
                                             min: 0,
                                             max: 1,
@@ -462,6 +471,9 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                               });
                                             },
                                           ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
                                         ),
                                         InputDecorator(
                                           decoration: InputDecoration(

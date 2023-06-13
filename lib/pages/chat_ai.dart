@@ -25,6 +25,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
   final TextEditingController _inputController = TextEditingController();
   late OpenAI openAI;
   String? _token;
+  double _temperature = 0.5;
+  double _temporaryTemperature = 0.5;
   int _messageWidth() {
     if (MediaQuery.of(context).size.width < 700) {
       return MediaQuery.of(context).size.width.toInt() - 100;
@@ -44,6 +46,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
     openAI = OpenAI.instance.build(token: 'sk-', baseOption: HttpSetup(receiveTimeout: const Duration(minutes: 1)), enableLog: kDebugMode);
     getToken();
     getSystemMessage();
+    getTemperature();
     initGeneralAnimation();
     super.initState();
   }
@@ -90,6 +93,7 @@ class _ChatAIPageState extends State<ChatAIPage> {
       messages: _chatData,
       maxToken: 400,
       model: GptTurboChatModel(),
+      temperature: _temperature,
     );
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
       CustomScaffoldMessenger.showMessageSnackBar(context, 'Error: ${e.toString()}');
@@ -151,6 +155,26 @@ class _ChatAIPageState extends State<ChatAIPage> {
         _systemMessage = systemMessage;
         _chatData.clear();
         _chatData.add({'role': 'system', 'content': _systemMessage!});
+      }
+    });
+  }
+
+  setTemperature(double temperature) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setDouble('temperature', temperature);
+    setState(() {
+      _temperature = temperature;
+      _temporaryTemperature = temperature;
+    });
+  }
+
+  getTemperature() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    double? temperature = prefs.getDouble('temperature');
+    setState(() {
+      if (temperature != null) {
+        _temperature = temperature;
+        _temporaryTemperature = temperature;
       }
     });
   }
@@ -388,6 +412,24 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         const SizedBox(
                                           height: 10,
                                         ),
+                                        ListTile(
+                                          title: const Text('Temperature'),
+                                          subtitle: Slider(
+                                            value: _temporaryTemperature,
+                                            min: 0,
+                                            max: 1,
+                                            divisions: 100,
+                                            label: _temporaryTemperature.toStringAsFixed(2),
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _temporaryTemperature = value;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
                                         SizedBox(
                                           width: double.infinity,
                                           child: Column(
@@ -434,6 +476,9 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         }
                                         if (_systemMessage != systemMessageController.text) {
                                           setSystemMessage(systemMessageController.text);
+                                        }
+                                        if (_temporaryTemperature != _temperature) {
+                                          setTemperature(_temporaryTemperature);
                                         }
                                         Navigator.pop(context);
                                       },

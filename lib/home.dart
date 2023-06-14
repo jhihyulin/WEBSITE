@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-String text1 = 'Hi~\nWelcome to My Website\nI am a High School Student from Taiwan.';
+String text1 = 'Hi~\nWelcome to My Website\nI am a Student from Taiwan.';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

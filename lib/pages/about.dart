@@ -127,9 +127,10 @@ Map<String, Object> experience = {
 };
 
 Map<String, Map<String, String>> school = {
-  // 'University': {
-  //   'url': 'https://example.com',
-  //   'icon': 'assets/images/example.png',
+  // 'National Dong Hwa University': {
+  //   'part': 'Department of Physics',
+  //   'url': 'https://www.ndhu.edu.tw',
+  //   'icon': 'assets/images/ndhu.png',
   //   'start': '2023',
   // },
   'Zhonghe Senior High School': {
@@ -139,6 +140,7 @@ Map<String, Map<String, String>> school = {
     'end': '2023',
   },
   'Tsz-Shiou Senior High School': {
+    'part': 'Junior High Department',
     'url': 'https://www.tsshs.ntpc.edu.tw',
     'icon': 'assets/images/tsshs.png',
     'start': '2017',
@@ -280,9 +282,21 @@ class _AboutPageState extends State<AboutPage> {
                                           ),
                                         ),
                                         title: Text(key),
-                                        subtitle: Text(
-                                          '${school[key]!['start']} ~ ${school[key]!['end'] ?? ''}',
-                                          textAlign: TextAlign.right,
+                                        subtitle: Column(
+                                          children: [
+                                            if (school[key]!['part'] != null)
+                                              SizedBox(
+                                                width: double.infinity,
+                                                child: Text(school[key]!['part']!),
+                                              ),
+                                            SizedBox(
+                                              width: double.infinity,
+                                              child: Text(
+                                                '${school[key]!['start']} ~ ${school[key]!['end'] ?? ''}',
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         onTap: () {
                                           CustomLaunchUrl.launch(context, school[key]!['url']!);

@@ -34,7 +34,7 @@ abstract class CustomScaffoldMessenger {
         showCloseIcon: true,
         closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
         behavior: SnackBarBehavior.floating,
-        width: MediaQuery.of(context).size.width > 700 ? 700 : null,
+        width: MediaQuery.of(context).size.width > 700 ? 400 : null,
         duration: const Duration(
           seconds: 10,
         ),

@@ -8,11 +8,10 @@ abstract class CustomScaffoldMessenger {
   static void showMessageSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-        ),
+        content: Text(message),
         showCloseIcon: true,
         behavior: SnackBarBehavior.floating,
+        width: MediaQuery.of(context).size.width > 700 ? 400 : null,
       ),
     );
   }
@@ -35,6 +34,7 @@ abstract class CustomScaffoldMessenger {
         showCloseIcon: true,
         closeIconColor: Theme.of(context).colorScheme.onErrorContainer,
         behavior: SnackBarBehavior.floating,
+        width: MediaQuery.of(context).size.width > 700 ? 700 : null,
         duration: const Duration(
           seconds: 10,
         ),

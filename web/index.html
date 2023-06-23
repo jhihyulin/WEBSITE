@@ -77,23 +77,33 @@
 
     @media (prefers-color-scheme: light) {
       body {
-        background: #DEE1E6;
+        background: #FFFFFF;
+        color: #202124;
+      }
+
+      a {
+        color: #1A73E8;
       }
 
       .loader {
-        border-color: #DEE1E6;
+        border-color: #FFFFFF;
         border-left-color: #202124;
       }
     }
 
     @media (prefers-color-scheme: dark) {
       body {
-        background: #202124;
+        background: #292A2D;
+        color: #E8EAED;
+      }
+
+      a {
+        color: #8AB4F8;
       }
 
       .loader {
-        border-color: #202124;
-        border-left-color: #DEE1E6;
+        border-color: #292A2D;
+        border-left-color: #E8EAED;
       }
     }
 
@@ -121,9 +131,13 @@
 
 <body>
   <div class="loading">
-    <div class="loader"></div>
+    <noscript>
+      <p>使用本網站必須啟用JavaScript，否則所有功能無法使用。</p>
+      <a href="https://www.enable-javascript.com/">如何在您的瀏覽器中啟用JavaScript</a>
+    </noscript>
   </div>
   <script>
+    document.getElementsByClassName('loading')[0].innerHTML = '<div class="loader"></div>';
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({

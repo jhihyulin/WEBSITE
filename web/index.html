@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" translate="no">
+<html lang="zh-TW">
 
 <head>
   <!--
@@ -131,13 +131,17 @@
 
 <body>
   <div class="loading">
+    <script>
+      document.getElementsByClassName('loading')[0].innerHTML = '<div class="loader"></div>';
+    </script>
     <noscript>
-      <p>使用本網站必須啟用JavaScript，否則所有功能無法使用。</p>
+      <p>本網站使用Flutter框架開發，建立於Dart語言之上。</p>
+      <p>經構建後轉譯成JavaScript，並由Canvas Kit渲染。</p>
+      <p>因此，使用本網站必須啟用JavaScript，否則所有功能無法使用。</p>
       <a href="https://www.enable-javascript.com/">如何在您的瀏覽器中啟用JavaScript</a>
     </noscript>
   </div>
   <script>
-    document.getElementsByClassName('loading')[0].innerHTML = '<div class="loader"></div>';
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({

@@ -108,6 +108,7 @@ class _SettingPageState extends State<SettingPage> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
+                                icon: const Icon(Icons.color_lens),
                                 title: const Text('Theme Color'),
                                 content: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(),
@@ -130,12 +131,6 @@ class _SettingPageState extends State<SettingPage> {
                                       });
                                     },
                                     child: const Text('Reset'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Cancel'),
                                   ),
                                   TextButton(
                                     onPressed: () {

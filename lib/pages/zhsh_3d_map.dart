@@ -18,7 +18,7 @@ import '../widget/text_field.dart';
 const int deskopModeWidth = 640;
 
 const Map settingData = {
-  'version': {'name': 'Ver2023.6.9'},
+  'version': {'name': 'Ver2023.6.27'},
   'general': {
     'devMode': {'openDuration': 5},
     'search': {
@@ -176,7 +176,7 @@ const Map settingData = {
           '學務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs',
           '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military',
         },
-        'keyword': ['訓育組', '社團活動組', '衛生組', '生輔組', '教官']
+        'keyword': ['訓育組', '訓育', '社團活動組', '社團活動', '社團', '衛生組', '衛生', '生輔組', '生輔', '教官'],
       },
       'build1_1f_room2': {
         'name': '健康中心',
@@ -191,7 +191,7 @@ const Map settingData = {
       'build1_2f_room1': {
         'name': '教務處',
         'description': '教學組、註冊組、試務組、實研組',
-        'keyword': ['教學組', '註冊組', '試務組', '實研組'],
+        'keyword': ['教學組', '教學', '註冊組', '註冊', '試務組', '試務', '實研組', '實研'],
         'link': {
           '教務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/teacheraffairs',
         }
@@ -205,7 +205,7 @@ const Map settingData = {
       'build1_3f_room1': {
         'name': '總務處 / 人事室',
         'description': '文書組、事務組、出納組',
-        'keyword': ['文書組', '事務組', '出納組', '出納'],
+        'keyword': ['文書組', '文書', '事務組', '事務', '出納組', '出納'],
         'link': {
           '總務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs',
           '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel',
@@ -256,7 +256,7 @@ const Map settingData = {
       'build2_base1': {'name': '通達樓基1', 'searchable': false},
       'build2_1f_room1': {'name': '中型會議室'},
       'build2_2f_room1': {'name': '生物實驗室1'},
-      'build2_3f_room1': {'name': '化學實驗室2'},
+      'build2_3f_room1': {'name': '化學實驗室1'},
       'build2_4f_room1': {'name': '物理實驗室1'},
       'build2_5f_room1': {'name': '烹飪教室'},
       'build2_1f_toilet1': {'name': '通達樓1F廁所', 'searchable': false},
@@ -1814,8 +1814,12 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
   int _fps = 0;
 
-  static const String _notFoundText = '找不到地點';
+  String _notFoundText = '找不到地點';
   bool _notFound = false;
+
+  final TextEditingController _searchController = TextEditingController();
+  List _searchResult = [];
+  bool _searchSelected = false;
 
   Vector3 _cameraPosition = Vector3(0, 0, 0);
   Vector3 _cameraTarget = Vector3(0, 0, 0);
@@ -2021,144 +2025,181 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
           clipBehavior: Clip.none,
           child: Column(
             children: [
-              Autocomplete<String>(
-                fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
-                  return CustomTextField(
-                    controller: textEditingController,
-                    focusNode: focusNode,
-                    onSubmitted: (String value) {
-                      var search = searchRecommend(value, true);
-                      if (search == 'NotFound') {
-                        setState(() {
-                          _notFound = true;
-                        });
-                      } else {
-                        setState(() {
-                          _notFound = false;
-                        });
-                      }
-                      onFieldSubmitted();
-                    },
-                    keyboardType: TextInputType.text,
-                    onEditingComplete: onFieldSubmitted,
-                    labelText: '搜尋地點',
-                    hintText: '請輸入關鍵字',
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        textEditingController.clear();
-                      },
-                    ),
-                    errorText: _notFound ? _notFoundText : null,
-                    errorBorder: _notFound
-                        ? OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                          )
-                        : null,
-                  );
-                },
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text == '') {
+              CustomTextField(
+                controller: _searchController,
+                onChanged: (String value) {
+                  if (_notFound && value.isNotEmpty) {
                     setState(() {
                       _notFound = false;
                     });
-                    return const Iterable<String>.empty();
                   }
-                  var search = searchRecommend(textEditingValue.text, false);
-                  if (search == 'NA') {
-                    setState(() {
-                      _notFound = false;
-                    });
-                    return const Iterable<String>.empty();
-                  } else if (search == 'NotFound') {
+                },
+                onSubmitted: (String value) {
+                  if (value.isEmpty) {
+                    return;
+                  }
+                  var search = searchRecommend(value);
+                  if (search == 'NotFound') {
                     setState(() {
                       _notFound = true;
+                      _notFoundText = '找不到地點';
                     });
-                    return const Iterable<String>.empty();
+                  } else if (search == 'Empty') {
+                    setState(() {
+                      _notFound = true;
+                      _notFoundText = '請輸入關鍵字';
+                    });
                   } else {
                     setState(() {
                       _notFound = false;
                     });
-                    return search;
                   }
+                  onFieldSubmitted(search);
                 },
-                onSelected: (String selection) {
-                  if (kDebugMode) {
-                    print('You just selected Display Name: $selection');
-                  }
-                  var id = search(selection);
-                  if (settingData['controls']['searchFocus'] == true) {
-                    focus(id);
-                  }
-                  // focus(id);
+                keyboardType: TextInputType.text,
+                onEditingComplete: () {
+                  onFieldSubmitted(_searchController.text);
                 },
+                labelText: '搜尋地點',
+                hintText: '請輸入關鍵字',
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    onFieldSubmitted(_searchController.text);
+                  },
+                ),
+                errorText: _notFound ? _notFoundText : null,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    Offstage(
-                      offstage: _selectedLocation == '',
-                      child: ListTile(
-                        title: const Text('地點'),
-                        subtitle: Text(_selectedLocationName),
-                      ),
+              Text(
+                'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                ),
+              ),
+            ],
+          ),
+        ),
+        CustomCard(
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            children: [
+              Offstage(
+                offstage: _notFound == true || _searchSelected == true,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height / 3,
+                  ),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        if (_searchResult.isNotEmpty)
+                          for (String i in _searchResult)
+                            ListTile(
+                              title: Text(i),
+                              subtitle: settingData['object']['set'][dNameToName[i]]['description'] != null
+                                  ? Text(
+                                      settingData['object']['set'][dNameToName[i]]['description'],
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    )
+                                  : null,
+                              onTap: () {
+                                if (kDebugMode) {
+                                  print('You just selected Display Name: $i');
+                                }
+                                var id = search(i);
+                                if (settingData['controls']['searchFocus'] == true) {
+                                  focus(id);
+                                }
+                                setState(() {
+                                  _searchSelected = true;
+                                });
+                              },
+                            ),
+                      ],
                     ),
-                    Offstage(
-                      offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
-                      child: ListTile(
-                        title: const Text('建築'),
-                        subtitle: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+                  ),
+                ),
+              ),
+              Offstage(
+                offstage: _searchSelected == false,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    Offstage(
-                      offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
-                      child: ListTile(
-                        title: const Text('樓層'),
-                        subtitle: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
+                      ListTile(
+                        leading: IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            setState(() {
+                              _searchSelected = false;
+                            });
+                            _navigatorTimer?.cancel();
+                            resetCamera();
+                            resetLayout();
+                            resetBuilgingColor();
+                          },
+                        ),
+                        title: const Text('返回'),
                       ),
-                    ),
-                    Offstage(
-                      offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
-                      child: ListTile(
-                        title: const Text('詳細資訊'),
-                        subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
-                      ),
-                    ),
-                    Offstage(
-                      offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
-                          children: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null
-                              ? const []
-                              : [
-                                  for (var link in settingData['object']['set'][_selectedLocation]['link'].keys)
-                                    ElevatedButton(
-                                      onPressed: settingData['object']['set'][_selectedLocation]['link'][link].isEmpty
-                                          ? null
-                                          : () {
-                                              CustomLaunchUrl.launch(context, settingData['object']['set'][_selectedLocation]['link'][link]);
-                                            },
-                                      child: Text(link),
-                                    ),
-                                ],
+                      Offstage(
+                        offstage: _selectedLocation == '',
+                        child: ListTile(
+                          title: const Text('地點'),
+                          subtitle: Text(_selectedLocationName),
                         ),
                       ),
-                    ),
-                    Text(
-                      'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                      Offstage(
+                        offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
+                        child: ListTile(
+                          title: const Text('建築'),
+                          subtitle: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+                        ),
                       ),
-                    ),
-                  ],
+                      Offstage(
+                        offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
+                        child: ListTile(
+                          title: const Text('樓層'),
+                          subtitle: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
+                        ),
+                      ),
+                      Offstage(
+                        offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
+                        child: ListTile(
+                          title: const Text('詳細資訊'),
+                          subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
+                        ),
+                      ),
+                      Offstage(
+                        offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null,
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null
+                                ? const []
+                                : [
+                                    for (var link in settingData['object']['set'][_selectedLocation]['link'].keys)
+                                      ElevatedButton(
+                                        onPressed: settingData['object']['set'][_selectedLocation]['link'][link].isEmpty
+                                            ? null
+                                            : () {
+                                                CustomLaunchUrl.launch(context, settingData['object']['set'][_selectedLocation]['link'][link]);
+                                              },
+                                        child: Text(link),
+                                      ),
+                                  ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -2303,13 +2344,48 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
     });
   }
 
-  dynamic searchRecommend(String arg, bool editcomplete) {
-    if (RegExp(r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9').hasMatch(arg)) {
-      return 'NA';
+  void onFieldSubmitted(String value) {
+    resetLayout();
+    var search = searchRecommend(value);
+    if (search == 'NotFound') {
+      setState(() {
+        _notFound = true;
+        _notFoundText = '找不到地點';
+        _searchResult = [];
+        _searchSelected = false;
+      });
+    } else if (search == 'Empty') {
+      setState(() {
+        _notFound = true;
+        _notFoundText = '請輸入關鍵字';
+      });
+    } else {
+      setState(() {
+        _notFound = false;
+        _searchResult = search;
+        _searchSelected = false;
+      });
+      debugPrint('searchResult: $_searchResult');
     }
+  }
+
+  void onSelected(String selection) {
+    if (kDebugMode) {
+      print('You just selected Display Name: $selection');
+    }
+    var id = search(selection);
+    if (settingData['controls']['searchFocus'] == true) {
+      focus(id);
+    }
+  }
+
+  dynamic searchRecommend(String arg) {
+    // if (RegExp(r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9').hasMatch(arg)) {
+    //   return 'NA';
+    // }
     var result = <String>[];
     if (arg == '') {
-      return 'NA';
+      return 'Empty';
     }
     for (var i in settingData['object']['set'].keys) {
       if (settingData['object']['set'][i]['name'] == null) {
@@ -2344,12 +2420,11 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
         }
       }
     }
+    result.sort();
     if (result.isNotEmpty) {
       return result;
-    } else if (editcomplete) {
-      return 'NotFound';
-    } else if (RegExp(r'[\u4E00-\u9FA5]').hasMatch(arg)) {
-      return 'NA';
+      // } else if (RegExp(r'[\u4E00-\u9FA5]').hasMatch(arg)) {
+      //   return 'NA';
     } else {
       return 'NotFound';
     }
@@ -2627,6 +2702,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
     setState(() {
       _selectedLocation = '';
       _selectedLocationName = '';
+      _searchSelected = false;
     });
   }
 

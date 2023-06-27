@@ -176,7 +176,7 @@ const Map settingData = {
           '學務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/studentaffairs',
           '教官室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/military',
         },
-        'keyword': ['訓育組', '社團活動組', '衛生組', '生輔組', '教官']
+        'keyword': ['訓育組', '訓育', '社團活動組', '社團活動', '社團', '衛生組', '衛生', '生輔組', '生輔', '教官'],
       },
       'build1_1f_room2': {
         'name': '健康中心',
@@ -191,7 +191,7 @@ const Map settingData = {
       'build1_2f_room1': {
         'name': '教務處',
         'description': '教學組、註冊組、試務組、實研組',
-        'keyword': ['教學組', '註冊組', '試務組', '實研組'],
+        'keyword': ['教學組', '教學', '註冊組', '註冊', '試務組', '試務', '實研組', '實研'],
         'link': {
           '教務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/teacheraffairs',
         }
@@ -205,7 +205,7 @@ const Map settingData = {
       'build1_3f_room1': {
         'name': '總務處 / 人事室',
         'description': '文書組、事務組、出納組',
-        'keyword': ['文書組', '事務組', '出納組', '出納'],
+        'keyword': ['文書組', '文書', '事務組', '事務', '出納組', '出納'],
         'link': {
           '總務處網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/generalaffairs',
           '人事室網站': 'https://sites.google.com/mail2.chshs.ntpc.edu.tw/personnel',

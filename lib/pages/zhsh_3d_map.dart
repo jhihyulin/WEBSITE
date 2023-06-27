@@ -2072,8 +2072,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
           ),
         ),
         CustomCard(
-          // do not cut label text
-          clipBehavior: Clip.none,
+          clipBehavior: Clip.antiAlias,
           child: Column(
             children: [
               Offstage(
@@ -2090,8 +2089,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                           for (String i in _searchResult)
                             ListTile(
                               title: Text(i),
-                              // TODO: add subtitle
-                              // subtitle: Text(''),
+                              subtitle: settingData['object']['set'][dNameToName[i]]['description'] != null
+                                  ? Text(
+                                      settingData['object']['set'][dNameToName[i]]['description'],
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    )
+                                  : null,
                               onTap: () {
                                 if (kDebugMode) {
                                   print('You just selected Display Name: $i');

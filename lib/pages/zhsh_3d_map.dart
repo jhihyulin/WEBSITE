@@ -18,7 +18,7 @@ import '../widget/text_field.dart';
 const int deskopModeWidth = 640;
 
 const Map settingData = {
-  'version': {'name': 'Ver2023.6.9'},
+  'version': {'name': 'Ver2023.6.27'},
   'general': {
     'devMode': {'openDuration': 5},
     'search': {
@@ -256,7 +256,7 @@ const Map settingData = {
       'build2_base1': {'name': '通達樓基1', 'searchable': false},
       'build2_1f_room1': {'name': '中型會議室'},
       'build2_2f_room1': {'name': '生物實驗室1'},
-      'build2_3f_room1': {'name': '化學實驗室2'},
+      'build2_3f_room1': {'name': '化學實驗室1'},
       'build2_4f_room1': {'name': '物理實驗室1'},
       'build2_5f_room1': {'name': '烹飪教室'},
       'build2_1f_toilet1': {'name': '通達樓1F廁所', 'searchable': false},

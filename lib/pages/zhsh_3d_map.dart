@@ -2405,6 +2405,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
         }
       }
     }
+    result.sort();
     if (result.isNotEmpty) {
       return result;
     } else if (editcomplete) {

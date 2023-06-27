@@ -15,8 +15,8 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.onSubmitted,
     this.onEditingComplete,
+    this.onChanged,
     this.errorText,
-    this.errorBorder,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -31,8 +31,8 @@ class CustomTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final Function(String)? onSubmitted;
   final Function()? onEditingComplete;
+  final Function(String)? onChanged;
   final String? errorText;
-  final OutlineInputBorder? errorBorder;
 
   @override
   State<CustomTextField> createState() => _TextFieldState();
@@ -50,6 +50,7 @@ class _TextFieldState extends State<CustomTextField> {
       focusNode: widget.focusNode,
       onSubmitted: widget.onSubmitted,
       onEditingComplete: widget.onEditingComplete,
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         hintText: widget.hintText,
         labelText: widget.labelText,
@@ -59,7 +60,12 @@ class _TextFieldState extends State<CustomTextField> {
           borderRadius: BorderRadius.circular(16.0),
         ),
         errorText: widget.errorText,
-        errorBorder: widget.errorBorder,
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.error,
+          ),
+        ),
       ),
     );
   }

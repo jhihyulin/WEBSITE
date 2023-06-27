@@ -1814,7 +1814,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
   int _fps = 0;
 
-  static const String _notFoundText = '找不到地點';
+  String _notFoundText = '找不到地點';
   bool _notFound = false;
 
   final TextEditingController _searchController = TextEditingController();
@@ -2027,11 +2027,27 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
             children: [
               CustomTextField(
                 controller: _searchController,
+                onChanged: (String value) {
+                  if (_notFound && value.isNotEmpty) {
+                    setState(() {
+                      _notFound = false;
+                    });
+                  }
+                },
                 onSubmitted: (String value) {
-                  var search = searchRecommend(value, true);
+                  if (value.isEmpty) {
+                    return;
+                  }
+                  var search = searchRecommend(value);
                   if (search == 'NotFound') {
                     setState(() {
                       _notFound = true;
+                      _notFoundText = '找不到地點';
+                    });
+                  } else if (search == 'Empty') {
+                    setState(() {
+                      _notFound = true;
+                      _notFoundText = '請輸入關鍵字';
                     });
                   } else {
                     setState(() {
@@ -2053,13 +2069,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                   },
                 ),
                 errorText: _notFound ? _notFoundText : null,
-                errorBorder: _notFound
-                    ? OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.error,
-                        ),
-                      )
-                    : null,
               ),
               Text(
                 'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
@@ -2337,12 +2346,18 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
 
   void onFieldSubmitted(String value) {
     resetLayout();
-    var search = searchRecommend(value, true);
+    var search = searchRecommend(value);
     if (search == 'NotFound') {
       setState(() {
         _notFound = true;
+        _notFoundText = '找不到地點';
         _searchResult = [];
         _searchSelected = false;
+      });
+    } else if (search == 'Empty') {
+      setState(() {
+        _notFound = true;
+        _notFoundText = '請輸入關鍵字';
       });
     } else {
       setState(() {
@@ -2364,13 +2379,13 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
     }
   }
 
-  dynamic searchRecommend(String arg, bool editcomplete) {
-    if (RegExp(r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9').hasMatch(arg)) {
-      return 'NA';
-    }
+  dynamic searchRecommend(String arg) {
+    // if (RegExp(r'[\u3105-\u3129]|\u02CA|\u02C7|\u02CB|\u02D9').hasMatch(arg)) {
+    //   return 'NA';
+    // }
     var result = <String>[];
     if (arg == '') {
-      return 'NA';
+      return 'Empty';
     }
     for (var i in settingData['object']['set'].keys) {
       if (settingData['object']['set'][i]['name'] == null) {
@@ -2408,10 +2423,8 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
     result.sort();
     if (result.isNotEmpty) {
       return result;
-    } else if (editcomplete) {
-      return 'NotFound';
-    } else if (RegExp(r'[\u4E00-\u9FA5]').hasMatch(arg)) {
-      return 'NA';
+      // } else if (RegExp(r'[\u4E00-\u9FA5]').hasMatch(arg)) {
+      //   return 'NA';
     } else {
       return 'NotFound';
     }

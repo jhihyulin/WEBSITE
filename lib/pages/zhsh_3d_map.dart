@@ -2114,13 +2114,16 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                   ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    Offstage(
-                      offstage: _searchSelected == false,
-                      child: ListTile(
+              Offstage(
+                offstage: _searchSelected == false,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ListTile(
                         leading: IconButton(
                           icon: const Icon(Icons.arrow_back),
                           onPressed: () {
@@ -2135,59 +2138,59 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                         ),
                         title: const Text('返回'),
                       ),
-                    ),
-                    Offstage(
-                      offstage: _selectedLocation == '',
-                      child: ListTile(
-                        title: const Text('地點'),
-                        subtitle: Text(_selectedLocationName),
-                      ),
-                    ),
-                    Offstage(
-                      offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
-                      child: ListTile(
-                        title: const Text('建築'),
-                        subtitle: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
-                      ),
-                    ),
-                    Offstage(
-                      offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
-                      child: ListTile(
-                        title: const Text('樓層'),
-                        subtitle: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
-                      ),
-                    ),
-                    Offstage(
-                      offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
-                      child: ListTile(
-                        title: const Text('詳細資訊'),
-                        subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
-                      ),
-                    ),
-                    Offstage(
-                      offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: Wrap(
-                          spacing: 10,
-                          runSpacing: 10,
-                          children: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null
-                              ? const []
-                              : [
-                                  for (var link in settingData['object']['set'][_selectedLocation]['link'].keys)
-                                    ElevatedButton(
-                                      onPressed: settingData['object']['set'][_selectedLocation]['link'][link].isEmpty
-                                          ? null
-                                          : () {
-                                              CustomLaunchUrl.launch(context, settingData['object']['set'][_selectedLocation]['link'][link]);
-                                            },
-                                      child: Text(link),
-                                    ),
-                                ],
+                      Offstage(
+                        offstage: _selectedLocation == '',
+                        child: ListTile(
+                          title: const Text('地點'),
+                          subtitle: Text(_selectedLocationName),
                         ),
                       ),
-                    ),
-                  ],
+                      Offstage(
+                        offstage: _selectedLocation == '' || mapData[_selectedLocation]!['build'] == null || settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] == null,
+                        child: ListTile(
+                          title: const Text('建築'),
+                          subtitle: Text('${_selectedLocation == '' ? '' : settingData['buildings']!['name'][mapData[_selectedLocation]!['build']] ?? 'None'}'),
+                        ),
+                      ),
+                      Offstage(
+                        offstage: _selectedLocation == '' || mapData[_selectedLocation]!['floor'] == null,
+                        child: ListTile(
+                          title: const Text('樓層'),
+                          subtitle: Text('${_selectedLocation == '' ? '' : mapData[_selectedLocation]!['floor'] ?? 'None'}'.replaceAll('-', 'B')),
+                        ),
+                      ),
+                      Offstage(
+                        offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['description'] == null,
+                        child: ListTile(
+                          title: const Text('詳細資訊'),
+                          subtitle: Text('${_selectedLocation == '' ? '' : settingData['object']['set'][_selectedLocation]['description']}'),
+                        ),
+                      ),
+                      Offstage(
+                        offstage: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null,
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          child: Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: _selectedLocation == '' || settingData['object']['set'][_selectedLocation]['link'] == null
+                                ? const []
+                                : [
+                                    for (var link in settingData['object']['set'][_selectedLocation]['link'].keys)
+                                      ElevatedButton(
+                                        onPressed: settingData['object']['set'][_selectedLocation]['link'][link].isEmpty
+                                            ? null
+                                            : () {
+                                                CustomLaunchUrl.launch(context, settingData['object']['set'][_selectedLocation]['link'][link]);
+                                              },
+                                        child: Text(link),
+                                      ),
+                                  ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -2685,6 +2688,7 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
     setState(() {
       _selectedLocation = '';
       _selectedLocationName = '';
+      _searchSelected = false;
     });
   }
 

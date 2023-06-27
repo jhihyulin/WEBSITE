@@ -1817,6 +1817,10 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
   static const String _notFoundText = '找不到地點';
   bool _notFound = false;
 
+  final TextEditingController _searchController = TextEditingController();
+  List _searchResult = [];
+  bool _searchSelected = false;
+
   Vector3 _cameraPosition = Vector3(0, 0, 0);
   Vector3 _cameraTarget = Vector3(0, 0, 0);
 
@@ -2021,85 +2025,113 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
           clipBehavior: Clip.none,
           child: Column(
             children: [
-              Autocomplete<String>(
-                fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
-                  return CustomTextField(
-                    controller: textEditingController,
-                    focusNode: focusNode,
-                    onSubmitted: (String value) {
-                      var search = searchRecommend(value, true);
-                      if (search == 'NotFound') {
-                        setState(() {
-                          _notFound = true;
-                        });
-                      } else {
-                        setState(() {
-                          _notFound = false;
-                        });
-                      }
-                      onFieldSubmitted();
-                    },
-                    keyboardType: TextInputType.text,
-                    onEditingComplete: onFieldSubmitted,
-                    labelText: '搜尋地點',
-                    hintText: '請輸入關鍵字',
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        textEditingController.clear();
-                      },
-                    ),
-                    errorText: _notFound ? _notFoundText : null,
-                    errorBorder: _notFound
-                        ? OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                          )
-                        : null,
-                  );
-                },
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text == '') {
-                    setState(() {
-                      _notFound = false;
-                    });
-                    return const Iterable<String>.empty();
-                  }
-                  var search = searchRecommend(textEditingValue.text, false);
-                  if (search == 'NA') {
-                    setState(() {
-                      _notFound = false;
-                    });
-                    return const Iterable<String>.empty();
-                  } else if (search == 'NotFound') {
+              CustomTextField(
+                controller: _searchController,
+                onSubmitted: (String value) {
+                  var search = searchRecommend(value, true);
+                  if (search == 'NotFound') {
                     setState(() {
                       _notFound = true;
                     });
-                    return const Iterable<String>.empty();
                   } else {
                     setState(() {
                       _notFound = false;
                     });
-                    return search;
                   }
+                  onFieldSubmitted(search);
                 },
-                onSelected: (String selection) {
-                  if (kDebugMode) {
-                    print('You just selected Display Name: $selection');
-                  }
-                  var id = search(selection);
-                  if (settingData['controls']['searchFocus'] == true) {
-                    focus(id);
-                  }
-                  // focus(id);
+                keyboardType: TextInputType.text,
+                onEditingComplete: () {
+                  onFieldSubmitted(_searchController.text);
                 },
+                labelText: '搜尋地點',
+                hintText: '請輸入關鍵字',
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    onFieldSubmitted(_searchController.text);
+                  },
+                ),
+                errorText: _notFound ? _notFoundText : null,
+                errorBorder: _notFound
+                    ? OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                      )
+                    : null,
+              ),
+              Text(
+                'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                ),
+              ),
+            ],
+          ),
+        ),
+        CustomCard(
+          // do not cut label text
+          clipBehavior: Clip.none,
+          child: Column(
+            children: [
+              Offstage(
+                offstage: _notFound == true || _searchSelected == true,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height / 3,
+                  ),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        if (_searchResult.isNotEmpty)
+                          for (String i in _searchResult)
+                            ListTile(
+                              title: Text(i),
+                              // TODO: add subtitle
+                              // subtitle: Text(''),
+                              onTap: () {
+                                if (kDebugMode) {
+                                  print('You just selected Display Name: $i');
+                                }
+                                var id = search(i);
+                                if (settingData['controls']['searchFocus'] == true) {
+                                  focus(id);
+                                }
+                                setState(() {
+                                  _searchSelected = true;
+                                });
+                              },
+                            ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
+                    Offstage(
+                      offstage: _searchSelected == false,
+                      child: ListTile(
+                        leading: IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            setState(() {
+                              _searchSelected = false;
+                            });
+                            _navigatorTimer?.cancel();
+                            resetCamera();
+                            resetLayout();
+                            resetBuilgingColor();
+                          },
+                        ),
+                        title: const Text('返回'),
+                      ),
+                    ),
                     Offstage(
                       offstage: _selectedLocation == '',
                       child: ListTile(
@@ -2149,13 +2181,6 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
                                     ),
                                 ],
                         ),
-                      ),
-                    ),
-                    Text(
-                      'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
                       ),
                     ),
                   ],
@@ -2301,6 +2326,35 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
       _cameraPosition = cameraPosition;
       _cameraTarget = cameraTarget;
     });
+  }
+
+  void onFieldSubmitted(String value) {
+    resetLayout();
+    var search = searchRecommend(value, true);
+    if (search == 'NotFound') {
+      setState(() {
+        _notFound = true;
+        _searchResult = [];
+        _searchSelected = false;
+      });
+    } else {
+      setState(() {
+        _notFound = false;
+        _searchResult = search;
+        _searchSelected = false;
+      });
+      debugPrint('searchResult: $_searchResult');
+    }
+  }
+
+  void onSelected(String selection) {
+    if (kDebugMode) {
+      print('You just selected Display Name: $selection');
+    }
+    var id = search(selection);
+    if (settingData['controls']['searchFocus'] == true) {
+      focus(id);
+    }
   }
 
   dynamic searchRecommend(String arg, bool editcomplete) {

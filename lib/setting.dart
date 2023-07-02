@@ -19,6 +19,39 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  final Map<Color, String> _colors = {
+    Colors.red: 'Red',
+    Colors.pink: 'Pink',
+    Colors.purple: 'Purple',
+    Colors.deepPurple: 'Deep Purple',
+    Colors.indigo: 'Indigo',
+    Colors.blue: 'Blue',
+    Colors.lightBlue: 'Light Blue',
+    Colors.cyan: 'Cyan',
+    Colors.teal: 'Teal',
+    Colors.green: 'Green',
+    Colors.lightGreen: 'Light Green',
+    Colors.lime: 'Lime',
+    Colors.yellow: 'Yellow',
+    Colors.amber: 'Amber',
+    Colors.orange: 'Orange',
+    Colors.deepOrange: 'Deep Orange',
+    Colors.brown: 'Brown',
+    Colors.grey: 'Grey',
+    Colors.blueGrey: 'Blue Grey',
+  };
+  String colorString(Color color) {
+    String colorHashCode(Color color) {
+      return color.toString().replaceAll('Color(0xff', '').replaceAll('MaterialColor(primary value: ', '').replaceAll('ColorSwatch(primary value: ', '').replaceAll(')', '');
+    }
+    for (MapEntry<Color, String> entry in _colors.entries) {
+      if (colorHashCode(entry.key) == colorHashCode(color)) {
+        return entry.value;
+      }
+    }
+    return colorHashCode(color);
+  }
+
   @override
   Widget build(BuildContext context) {
     int themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
@@ -92,7 +125,7 @@ class _SettingPageState extends State<SettingPage> {
                     ListTile(
                       leading: const Icon(Icons.color_lens),
                       title: const Text('Theme Color'),
-                      subtitle: Text('#${themeColor.toString().replaceAll('Color(0xff', '').replaceAll('MaterialColor(primary value: ', '').replaceAll('ColorSwatch(primary value: ', '').replaceAll(')', '')}'),
+                      subtitle: Text(colorString(themeColor)),
                       trailing: InkWell(
                         borderRadius: BorderRadius.circular(16),
                         child: Container(
@@ -113,6 +146,7 @@ class _SettingPageState extends State<SettingPage> {
                                 content: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(),
                                   child: BlockPicker(
+                                    availableColors: _colors.keys.toList(),
                                     pickerColor: themeColor,
                                     onColorChanged: (color) {
                                       setState(() {

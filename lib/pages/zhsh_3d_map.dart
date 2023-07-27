@@ -419,7 +419,7 @@ const Map settingData = {
       'build5_4f_aisle2': {'name': '謙融樓4F側郎', 'searchable': false},
       'build5_5f_room1': {
         'name': '星象館',
-        'keyword': ['天文館', '望遠鏡']
+        'keyword': ['天文', '天文館', '天文臺', '天文台', '望遠鏡']
       },
       'build5_5f_room1_###1': {'name': '星象館上層', 'searchable': false},
       'build5_5f_room1_###2': {'name': '星象館頂部半球體', 'searchable': false},

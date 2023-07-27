@@ -2085,6 +2085,23 @@ class _ZHSH3DMapPageState extends State<ZHSH3DMapPage> with TickerProviderStateM
           child: Column(
             children: [
               Offstage(
+                offstage: _searchSelected == true || _searchResult.isEmpty,
+                child: const Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ListTile(
+                      leading: IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: null,
+                      ),
+                      title: Text('搜尋結果'),
+                    ),
+                  ]
+                ),
+              ),
+              Offstage(
                 offstage: _notFound == true || _searchSelected == true,
                 child: Container(
                   constraints: BoxConstraints(

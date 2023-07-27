@@ -58,7 +58,10 @@ class _ChatAIPageState extends State<ChatAIPage> {
   @override
   initState() {
     _chatData = <Map<String, String>>[];
-    openAI = OpenAI.instance.build(token: 'sk-', baseOption: HttpSetup(receiveTimeout: const Duration(minutes: 1)), enableLog: kDebugMode);
+    openAI = OpenAI.instance.build(
+        token: 'sk-',
+        baseOption: HttpSetup(receiveTimeout: const Duration(minutes: 1)),
+        enableLog: kDebugMode);
     getToken();
     getSystemMessage();
     getTemperature();
@@ -112,14 +115,18 @@ class _ChatAIPageState extends State<ChatAIPage> {
       temperature: _temperature,
     );
     final raw = await openAI.onChatCompletion(request: request).catchError((e) {
-      CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: ${e.toString()}');
+      CustomScaffoldMessenger.showErrorMessageSnackBar(
+          context, 'Error: ${e.toString()}');
       setState(() {
         _generating = false;
       });
       return null;
     });
     setState(() {
-      _chatData.add({'role': raw!.choices[0].message!.role, 'content': raw.choices[0].message!.content});
+      _chatData.add({
+        'role': raw!.choices[0].message!.role,
+        'content': raw.choices[0].message!.content
+      });
       _generating = false;
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
@@ -271,13 +278,16 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                   bottom: 5,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Text(
                                   i['content']!,
                                   style: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSecondary,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
                                   ),
                                 ),
                               ),
@@ -304,7 +314,9 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                   child: Text(
                                     i['content']!,
                                     style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onPrimary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
                                     ),
                                   ),
                                 ),
@@ -317,7 +329,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                       text: i['content']!,
                                     ),
                                   );
-                                  CustomScaffoldMessenger.showMessageSnackBar(context, '已複製到剪貼簿');
+                                  CustomScaffoldMessenger.showMessageSnackBar(
+                                      context, '已複製到剪貼簿');
                                 },
                               ),
                             ],
@@ -340,7 +353,9 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                     child: Text(
                                       i['content']!,
                                       style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onBackground,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground,
                                       ),
                                     ),
                                   ),
@@ -363,13 +378,16 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                     right: 50,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
                                     _generatingMessage ?? '',
                                     style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onPrimary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -404,8 +422,11 @@ class _ChatAIPageState extends State<ChatAIPage> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            final TextEditingController tokenInputController = TextEditingController(text: _token);
-                            final TextEditingController systemMessageController = TextEditingController(text: _systemMessage);
+                            final TextEditingController tokenInputController =
+                                TextEditingController(text: _token);
+                            final TextEditingController
+                                systemMessageController =
+                                TextEditingController(text: _systemMessage);
                             return StatefulBuilder(
                               builder: (context, setState) {
                                 return AlertDialog(
@@ -421,8 +442,10 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                           maxLines: 3,
                                           controller: systemMessageController,
                                           labelText: 'System Message',
-                                          hintText: 'Enter some environment settings',
-                                          prefixIcon: const Icon(Icons.description),
+                                          hintText:
+                                              'Enter some environment settings',
+                                          prefixIcon:
+                                              const Icon(Icons.description),
                                           suffixIcon: IconButton(
                                               icon: const Icon(Icons.clear),
                                               onPressed: () {
@@ -451,12 +474,16 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         InputDecorator(
                                           decoration: InputDecoration(
                                             labelText: 'Temperature',
-                                            prefixIcon: const Icon(Icons.thermostat),
+                                            prefixIcon:
+                                                const Icon(Icons.thermostat),
                                             labelStyle: TextStyle(
-                                              color: Theme.of(context).colorScheme.onSurface,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
                                             ),
                                             border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(16.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
                                             ),
                                           ),
                                           child: Slider(
@@ -464,7 +491,8 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                             min: 0,
                                             max: 1,
                                             divisions: 100,
-                                            label: _temporaryTemperature.toStringAsFixed(2),
+                                            label: _temporaryTemperature
+                                                .toStringAsFixed(2),
                                             onChanged: (value) {
                                               setState(() {
                                                 _temporaryTemperature = value;
@@ -478,12 +506,16 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         InputDecorator(
                                           decoration: InputDecoration(
                                             labelText: 'Model',
-                                            prefixIcon: const Icon(Icons.model_training),
+                                            prefixIcon: const Icon(
+                                                Icons.model_training),
                                             labelStyle: TextStyle(
-                                              color: Theme.of(context).colorScheme.onSurface,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface,
                                             ),
                                             border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(16.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
                                             ),
                                           ),
                                           child: DropdownButtonHideUnderline(
@@ -509,18 +541,27 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                         SizedBox(
                                           width: double.infinity,
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Where to get token?',
-                                                style: TextStyle(fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize!),
+                                                style: TextStyle(
+                                                    fontSize: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge!
+                                                        .fontSize!),
                                               ),
                                               ElevatedButton.icon(
-                                                icon: const Icon(Icons.open_in_new),
+                                                icon: const Icon(
+                                                    Icons.open_in_new),
                                                 onPressed: () {
-                                                  CustomLaunchUrl.launch(context, 'https://platform.openai.com/account/api-keys');
+                                                  CustomLaunchUrl.launch(
+                                                      context,
+                                                      'https://platform.openai.com/account/api-keys');
                                                 },
-                                                label: const Text('OpenAI Website'),
+                                                label: const Text(
+                                                    'OpenAI Website'),
                                               ),
                                               const SizedBox(
                                                 height: 10,
@@ -528,10 +569,14 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                               Text(
                                                 'Where will the token be saved?',
                                                 style: TextStyle(
-                                                  fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize!,
+                                                  fontSize: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge!
+                                                      .fontSize!,
                                                 ),
                                               ),
-                                              const Text('The token will be saved in your browser\'s cookie.'),
+                                              const Text(
+                                                  'The token will be saved in your browser\'s cookie.'),
                                             ],
                                           ),
                                         ),
@@ -547,13 +592,17 @@ class _ChatAIPageState extends State<ChatAIPage> {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        if (_token != tokenInputController.text) {
+                                        if (_token !=
+                                            tokenInputController.text) {
                                           setToken(tokenInputController.text);
                                         }
-                                        if (_systemMessage != systemMessageController.text) {
-                                          setSystemMessage(systemMessageController.text);
+                                        if (_systemMessage !=
+                                            systemMessageController.text) {
+                                          setSystemMessage(
+                                              systemMessageController.text);
                                         }
-                                        if (_temporaryTemperature != _temperature) {
+                                        if (_temporaryTemperature !=
+                                            _temperature) {
                                           setTemperature(_temporaryTemperature);
                                         }
                                         if (_temporaryModel != _model) {

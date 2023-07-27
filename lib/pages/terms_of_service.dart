@@ -14,7 +14,8 @@ class TermsOfServicePage extends StatefulWidget {
 
 class _TermsOfServicePageState extends State<TermsOfServicePage> {
   _loadMarkdownData() async {
-    var url = 'https://raw.githubusercontent.com/jhihyulin/WEBSITE/main/terms_of_service.md';
+    var url =
+        'https://raw.githubusercontent.com/jhihyulin/WEBSITE/main/terms_of_service.md';
     var client = http.Client();
     var request = http.Request('GET', Uri.parse(url));
     var response = await client.send(request);
@@ -36,7 +37,8 @@ class _TermsOfServicePageState extends State<TermsOfServicePage> {
         physics: const BouncingScrollPhysics(),
         child: Center(
           child: Container(
-            height: MediaQuery.of(context).size.height - AppBar().preferredSize.height,
+            height: MediaQuery.of(context).size.height -
+                AppBar().preferredSize.height,
             width: MediaQuery.of(context).size.width,
             constraints: const BoxConstraints(
               maxWidth: 700,

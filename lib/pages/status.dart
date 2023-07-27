@@ -19,7 +19,8 @@ Set<Map<String, dynamic>> _status = {
       'Japan Osaka #3': 'https://stats.uptimerobot.com/plWPBU9LQz/794105153',
       'Long URL': 'https://stats.uptimerobot.com/plWPBU9LQz/793129221',
       'Short URL': 'https://stats.uptimerobot.com/plWPBU9LQz/793129225',
-      'VPN Service Manager': 'https://stats.uptimerobot.com/plWPBU9LQz/793144839',
+      'VPN Service Manager':
+          'https://stats.uptimerobot.com/plWPBU9LQz/793144839',
     },
   },
   {
@@ -72,7 +73,10 @@ class _StatusPageState extends State<StatusPage> {
             padding: const EdgeInsets.all(20),
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +106,8 @@ class _StatusPageState extends State<StatusPage> {
                                           onPressed: item.value == null
                                               ? null
                                               : () {
-                                                  CustomLaunchUrl.launch(context, item.value);
+                                                  CustomLaunchUrl.launch(
+                                                      context, item.value);
                                                 },
                                           child: Text(item.key),
                                         ),
@@ -111,7 +116,8 @@ class _StatusPageState extends State<StatusPage> {
                                 trailing: IconButton(
                                   icon: const Icon(Icons.open_in_new),
                                   onPressed: () {
-                                    CustomLaunchUrl.launch(context, status['url']);
+                                    CustomLaunchUrl.launch(
+                                        context, status['url']);
                                   },
                                 ),
                               ),

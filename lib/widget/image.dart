@@ -31,7 +31,8 @@ class _CustomImageState extends State<CustomImage> {
       isAntiAlias: true,
       height: widget.height,
       width: widget.width,
-      frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
+      frameBuilder: (BuildContext context, Widget child, int? frame,
+          bool wasSynchronouslyLoaded) {
         if (wasSynchronouslyLoaded) {
           return child;
         }
@@ -44,18 +45,24 @@ class _CustomImageState extends State<CustomImage> {
           child: child,
         );
       },
-      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+      loadingBuilder: (BuildContext context, Widget child,
+          ImageChunkEvent? loadingProgress) {
         if (loadingProgress == null) {
           return child;
         }
         return Center(
           child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes! : null,
+            value: loadingProgress.expectedTotalBytes != null
+                ? loadingProgress.cumulativeBytesLoaded /
+                    loadingProgress.expectedTotalBytes!
+                : null,
           ),
         );
       },
-      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-        CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Image Loading Failed.\nException: $exception');
+      errorBuilder:
+          (BuildContext context, Object exception, StackTrace? stackTrace) {
+        CustomScaffoldMessenger.showErrorMessageSnackBar(
+            context, 'Error: Image Loading Failed.\nException: $exception');
         debugPrint('Error: Image Loading Failed.\nException: $exception');
         return Text('😢\n$exception');
       },

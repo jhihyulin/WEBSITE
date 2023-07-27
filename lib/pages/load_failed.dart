@@ -6,7 +6,8 @@ import '../widget/scaffold_messenger.dart';
 import '../widget/card.dart';
 
 class LoadFailedPage extends StatefulWidget {
-  const LoadFailedPage({Key? key, required this.errorMessage}) : super(key: key);
+  const LoadFailedPage({Key? key, required this.errorMessage})
+      : super(key: key);
   final String errorMessage;
 
   @override
@@ -35,7 +36,10 @@ class _LoadFailedPageState extends State<LoadFailedPage> {
           padding: const EdgeInsets.all(20),
           constraints: BoxConstraints(
             maxWidth: 700,
-            minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+            minHeight: MediaQuery.of(context).size.height -
+                AppBar().preferredSize.height -
+                MediaQuery.of(context).padding.top -
+                MediaQuery.of(context).padding.bottom,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +85,8 @@ class _LoadFailedPageState extends State<LoadFailedPage> {
                       Clipboard.setData(
                         ClipboardData(text: errorMessage),
                       );
-                      CustomScaffoldMessenger.showMessageSnackBar(context, 'Copied to clipboard.');
+                      CustomScaffoldMessenger.showMessageSnackBar(
+                          context, 'Copied to clipboard.');
                     },
                   ),
                   ElevatedButton.icon(

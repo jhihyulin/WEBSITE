@@ -164,7 +164,8 @@ class _AboutPageState extends State<AboutPage> {
   bool _ghLoaded = false;
 
   getGitHubPinnedRepo() async {
-    var uri = Uri.parse('https://gh-pinned-repos.egoist.dev/?username=jhihyulin');
+    var uri =
+        Uri.parse('https://gh-pinned-repos.egoist.dev/?username=jhihyulin');
     http.get(uri).then((response) {
       var data = jsonDecode(response.body);
       setState(() {
@@ -195,7 +196,10 @@ class _AboutPageState extends State<AboutPage> {
             padding: const EdgeInsets.all(20),
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -270,7 +274,9 @@ class _AboutPageState extends State<AboutPage> {
                                   },
                                   leading: const Icon(Icons.school),
                                   title: const Text("Education"),
-                                  subtitle: _isExpanded ? null : Text(school.keys.first),
+                                  subtitle: _isExpanded
+                                      ? null
+                                      : Text(school.keys.first),
                                   children: [
                                     for (var key in school.keys)
                                       ListTile(
@@ -287,7 +293,8 @@ class _AboutPageState extends State<AboutPage> {
                                             if (school[key]!['part'] != null)
                                               SizedBox(
                                                 width: double.infinity,
-                                                child: Text(school[key]!['part']!),
+                                                child:
+                                                    Text(school[key]!['part']!),
                                               ),
                                             SizedBox(
                                               width: double.infinity,
@@ -299,7 +306,8 @@ class _AboutPageState extends State<AboutPage> {
                                           ],
                                         ),
                                         onTap: () {
-                                          CustomLaunchUrl.launch(context, school[key]!['url']!);
+                                          CustomLaunchUrl.launch(
+                                              context, school[key]!['url']!);
                                         },
                                       ),
                                   ],
@@ -350,20 +358,25 @@ class _AboutPageState extends State<AboutPage> {
                         children: [
                           for (var key in _pinnedData)
                             SizedBox(
-                              width: _isDesktop(context) ? 320 : double.infinity,
+                              width:
+                                  _isDesktop(context) ? 320 : double.infinity,
                               height: 160,
                               child: CustomCard(
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(16),
-                                  onTap: () => CustomLaunchUrl.launch(context, key['link']),
+                                  onTap: () => CustomLaunchUrl.launch(
+                                      context, key['link']),
                                   child: Container(
                                     padding: const EdgeInsets.all(20),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Row(
                                               children: [
@@ -374,7 +387,9 @@ class _AboutPageState extends State<AboutPage> {
                                                 Text(
                                                   '${key['repo']}',
                                                   style: TextStyle(
-                                                    color: Theme.of(context).colorScheme.onBackground,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onBackground,
                                                   ),
                                                   maxLines: 1,
                                                 ),
@@ -384,15 +399,23 @@ class _AboutPageState extends State<AboutPage> {
                                               height: 10,
                                             ),
                                             Offstage(
-                                              offstage: key['description'] == null,
+                                              offstage:
+                                                  key['description'] == null,
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                    utf8.decode(key['description'].toString().codeUnits),
+                                                    utf8.decode(
+                                                        key['description']
+                                                            .toString()
+                                                            .codeUnits),
                                                     maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                      color: Theme.of(context).colorScheme.onBackground.withOpacity(0.6),
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .onBackground
+                                                          .withOpacity(0.6),
                                                     ),
                                                   ),
                                                   const SizedBox(
@@ -404,10 +427,12 @@ class _AboutPageState extends State<AboutPage> {
                                           ],
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 const Icon(Icons.star_border),
                                                 Text(' ${key['stars']}'),
@@ -421,25 +446,41 @@ class _AboutPageState extends State<AboutPage> {
                                             Row(
                                               children: [
                                                 Offstage(
-                                                  offstage: key['languageColor'] == null,
+                                                  offstage:
+                                                      key['languageColor'] ==
+                                                          null,
                                                   child: Container(
                                                     width: 10,
                                                     height: 10,
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
-                                                      color: key['languageColor'] == null ? Colors.transparent : Color(int.parse(key['languageColor'].toString().substring(1), radix: 16) + 0xFF000000),
+                                                      color: key['languageColor'] ==
+                                                              null
+                                                          ? Colors.transparent
+                                                          : Color(int.parse(
+                                                                  key['languageColor']
+                                                                      .toString()
+                                                                      .substring(
+                                                                          1),
+                                                                  radix: 16) +
+                                                              0xFF000000),
                                                     ),
                                                   ),
                                                 ),
                                                 Offstage(
-                                                  offstage: key['language'] == null || key['languageColor'] == null,
+                                                  offstage: key['language'] ==
+                                                          null ||
+                                                      key['languageColor'] ==
+                                                          null,
                                                   child: const SizedBox(
                                                     width: 5,
                                                   ),
                                                 ),
                                                 Offstage(
-                                                  offstage: key['language'] == null,
-                                                  child: Text(key['language'] ?? 'null'),
+                                                  offstage:
+                                                      key['language'] == null,
+                                                  child: Text(key['language'] ??
+                                                      'null'),
                                                 ),
                                               ],
                                             ),
@@ -473,13 +514,17 @@ class _AboutPageState extends State<AboutPage> {
                       for (var key in socialMedia.keys)
                         _isDesktop(context)
                             ? ElevatedButton.icon(
-                                onPressed: () => CustomLaunchUrl.launch(context, socialMedia[key]!['url'] as String),
-                                icon: Icon(socialMedia[key]!['icon'] as IconData),
+                                onPressed: () => CustomLaunchUrl.launch(context,
+                                    socialMedia[key]!['url'] as String),
+                                icon:
+                                    Icon(socialMedia[key]!['icon'] as IconData),
                                 label: Text(key),
                               )
                             : IconButton(
-                                onPressed: () => CustomLaunchUrl.launch(context, socialMedia[key]!['url'] as String),
-                                icon: Icon(socialMedia[key]!['icon'] as IconData),
+                                onPressed: () => CustomLaunchUrl.launch(context,
+                                    socialMedia[key]!['url'] as String),
+                                icon:
+                                    Icon(socialMedia[key]!['icon'] as IconData),
                                 tooltip: key,
                               ),
                     ],

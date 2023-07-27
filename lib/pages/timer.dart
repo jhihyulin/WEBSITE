@@ -25,7 +25,9 @@ class _TimerPageState extends State<TimerPage> {
   int _lastTimeForMilliSeconds = 0;
 
   double _mathBox() {
-    return MediaQuery.of(context).size.width > 700 ? 700 * .3 : MediaQuery.of(context).size.width * .3;
+    return MediaQuery.of(context).size.width > 700
+        ? 700 * .3
+        : MediaQuery.of(context).size.width * .3;
   }
 
   void _startTimer(String mode) {
@@ -34,16 +36,23 @@ class _TimerPageState extends State<TimerPage> {
     });
     if (mode == 'countdown') {
       setState(() {
-        _targetTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch + _counterHours * 3600000 + _counterMinutes * 60000 + (_counterSeconds * 1000).floor();
-        _lastTimeForMilliSeconds = _targetTimeForMilliSeconds - DateTime.now().millisecondsSinceEpoch;
+        _targetTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch +
+            _counterHours * 3600000 +
+            _counterMinutes * 60000 +
+            (_counterSeconds * 1000).floor();
+        _lastTimeForMilliSeconds =
+            _targetTimeForMilliSeconds - DateTime.now().millisecondsSinceEpoch;
       });
       _timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
         if (_lastTimeForMilliSeconds > 0) {
           setState(() {
-            _lastTimeForMilliSeconds = _targetTimeForMilliSeconds - DateTime.now().millisecondsSinceEpoch;
+            _lastTimeForMilliSeconds = _targetTimeForMilliSeconds -
+                DateTime.now().millisecondsSinceEpoch;
             _counterHours = (_lastTimeForMilliSeconds / 3600000).floor();
-            _counterMinutes = ((_lastTimeForMilliSeconds % 3600000) / 60000).floor();
-            _counterSeconds = (((_lastTimeForMilliSeconds % 3600000) % 60000) / 1000);
+            _counterMinutes =
+                ((_lastTimeForMilliSeconds % 3600000) / 60000).floor();
+            _counterSeconds =
+                (((_lastTimeForMilliSeconds % 3600000) % 60000) / 1000);
           });
         } else {
           setState(() {
@@ -60,15 +69,22 @@ class _TimerPageState extends State<TimerPage> {
       });
     } else if (mode == 'stopwatch') {
       setState(() {
-        _targetTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch - _counterHours * 3600000 - _counterMinutes * 60000 - (_counterSeconds * 1000).floor();
-        _lastTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch - _targetTimeForMilliSeconds;
+        _targetTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch -
+            _counterHours * 3600000 -
+            _counterMinutes * 60000 -
+            (_counterSeconds * 1000).floor();
+        _lastTimeForMilliSeconds =
+            DateTime.now().millisecondsSinceEpoch - _targetTimeForMilliSeconds;
       });
       _timer = Timer.periodic(const Duration(milliseconds: 1), (timer) {
         setState(() {
-          _lastTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch - _targetTimeForMilliSeconds;
+          _lastTimeForMilliSeconds = DateTime.now().millisecondsSinceEpoch -
+              _targetTimeForMilliSeconds;
           _counterHours = (_lastTimeForMilliSeconds / 3600000).floor();
-          _counterMinutes = ((_lastTimeForMilliSeconds % 3600000) / 60000).floor();
-          _counterSeconds = (((_lastTimeForMilliSeconds % 3600000) % 60000) / 1000);
+          _counterMinutes =
+              ((_lastTimeForMilliSeconds % 3600000) / 60000).floor();
+          _counterSeconds =
+              (((_lastTimeForMilliSeconds % 3600000) % 60000) / 1000);
         });
       });
     }
@@ -126,7 +142,10 @@ class _TimerPageState extends State<TimerPage> {
           child: Container(
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -165,9 +184,14 @@ class _TimerPageState extends State<TimerPage> {
                                 child: FittedBox(
                                   child: RichText(
                                     text: TextSpan(
-                                      text: _counterHours.toString().toString().padLeft(2, '0'),
+                                      text: _counterHours
+                                          .toString()
+                                          .toString()
+                                          .padLeft(2, '0'),
                                       style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onBackground,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground,
                                       ),
                                       children: const <TextSpan>[
                                         TextSpan(
@@ -188,12 +212,16 @@ class _TimerPageState extends State<TimerPage> {
                                 width: double.infinity,
                                 height: _mathBox() * 0.25,
                                 child: TextButton(
-                                  onPressed: _isRunning || _mode != 'countdown' || _counterHours == 0
+                                  onPressed: _isRunning ||
+                                          _mode != 'countdown' ||
+                                          _counterHours == 0
                                       ? null
                                       : () {
                                           setState(() {
                                             if (_counterHours > 0) {
-                                              _counterHours = _counterHours < 1 ? 0 : _counterHours - 1;
+                                              _counterHours = _counterHours < 1
+                                                  ? 0
+                                                  : _counterHours - 1;
                                             }
                                           });
                                         },
@@ -236,9 +264,13 @@ class _TimerPageState extends State<TimerPage> {
                                 child: FittedBox(
                                   child: RichText(
                                     text: TextSpan(
-                                      text: _counterMinutes.toString().padLeft(2, '0'),
+                                      text: _counterMinutes
+                                          .toString()
+                                          .padLeft(2, '0'),
                                       style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onBackground,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground,
                                       ),
                                       children: const <TextSpan>[
                                         TextSpan(
@@ -259,12 +291,17 @@ class _TimerPageState extends State<TimerPage> {
                                 width: double.infinity,
                                 height: _mathBox() * 0.25,
                                 child: TextButton(
-                                  onPressed: _isRunning || _mode != 'countdown' || _counterMinutes == 0
+                                  onPressed: _isRunning ||
+                                          _mode != 'countdown' ||
+                                          _counterMinutes == 0
                                       ? null
                                       : () {
                                           setState(() {
                                             if (_counterMinutes > 0) {
-                                              _counterMinutes = _counterMinutes < 1 ? 0 : _counterMinutes - 1;
+                                              _counterMinutes =
+                                                  _counterMinutes < 1
+                                                      ? 0
+                                                      : _counterMinutes - 1;
                                             }
                                           });
                                         },
@@ -307,9 +344,13 @@ class _TimerPageState extends State<TimerPage> {
                                 child: FittedBox(
                                   child: RichText(
                                     text: TextSpan(
-                                      text: _counterSeconds.toStringAsFixed(2).padLeft(5, '0'),
+                                      text: _counterSeconds
+                                          .toStringAsFixed(2)
+                                          .padLeft(5, '0'),
                                       style: TextStyle(
-                                        color: Theme.of(context).colorScheme.onBackground,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground,
                                       ),
                                       children: const <TextSpan>[
                                         TextSpan(
@@ -328,12 +369,17 @@ class _TimerPageState extends State<TimerPage> {
                                 width: double.infinity,
                                 height: _mathBox() * 0.25,
                                 child: TextButton(
-                                  onPressed: _isRunning || _mode != 'countdown' || _counterSeconds == 0
+                                  onPressed: _isRunning ||
+                                          _mode != 'countdown' ||
+                                          _counterSeconds == 0
                                       ? null
                                       : () {
                                           setState(() {
                                             if (_counterSeconds > 0) {
-                                              _counterSeconds = _counterSeconds < 1 ? 0 : _counterSeconds - 1;
+                                              _counterSeconds =
+                                                  _counterSeconds < 1
+                                                      ? 0
+                                                      : _counterSeconds - 1;
                                             }
                                           });
                                         },
@@ -384,7 +430,11 @@ class _TimerPageState extends State<TimerPage> {
                     IconButton(
                       icon: const Icon(Icons.replay),
                       tooltip: 'Reset',
-                      onPressed: _counterSeconds != 0 || _counterMinutes != 0 || _counterHours != 0 ? _resetTimer : null,
+                      onPressed: _counterSeconds != 0 ||
+                              _counterMinutes != 0 ||
+                              _counterHours != 0
+                          ? _resetTimer
+                          : null,
                     ),
                   ],
                 ),
@@ -400,7 +450,10 @@ class _TimerPageState extends State<TimerPage> {
                     ElevatedButton.icon(
                       icon: Icon(_isRunning ? Icons.pause : Icons.play_arrow),
                       label: Text(_isRunning ? 'Pause' : 'Start'),
-                      onPressed: _counterHours == 0 && _counterMinutes == 0 && _counterSeconds == 0 && _mode == 'countdown'
+                      onPressed: _counterHours == 0 &&
+                              _counterMinutes == 0 &&
+                              _counterSeconds == 0 &&
+                              _mode == 'countdown'
                           ? null
                           : _isRunning
                               ? _pauseTimer

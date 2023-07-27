@@ -27,7 +27,10 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
             padding: const EdgeInsets.all(20),
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +55,8 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                     ),
                     onFieldSubmitted: (value) {
                       if (_formKey.currentState!.validate()) {
-                        CustomLaunchUrl.launch(context, inputURLController.text);
+                        CustomLaunchUrl.launch(
+                            context, inputURLController.text);
                       }
                     },
                   ),
@@ -70,7 +74,8 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                       label: const Text('Launch URL'),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          CustomLaunchUrl.launch(context, inputURLController.text);
+                          CustomLaunchUrl.launch(
+                              context, inputURLController.text);
                         }
                       },
                     ),
@@ -91,7 +96,8 @@ class _URLLauncherPageState extends State<URLLauncherPage> {
                                   physics: BouncingScrollPhysics(),
                                   child: Column(
                                     children: [
-                                      Text('Enter a URL and click Launch URL button to open the URL in the browser or your device\'s default app for the URL.'),
+                                      Text(
+                                          'Enter a URL and click Launch URL button to open the URL in the browser or your device\'s default app for the URL.'),
                                     ],
                                   ),
                                 ),

@@ -16,7 +16,11 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           constraints: BoxConstraints(
             //maxWidth: 700,
-            minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - (MediaQuery.of(context).size.width > 700 ? 0 : 80), //NavigationBar Height
+            minHeight: MediaQuery.of(context).size.height -
+                AppBar().preferredSize.height -
+                (MediaQuery.of(context).size.width > 700
+                    ? 0
+                    : 80), //NavigationBar Height
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +38,8 @@ class HomePage extends StatelessWidget {
                       speed: const Duration(milliseconds: 200),
                       textStyle: TextStyle(
                         // fontFamily: GoogleFonts.firaCode().fontFamily,
-                        fontSize: Theme.of(context).textTheme.displayLarge?.fontSize,
+                        fontSize:
+                            Theme.of(context).textTheme.displayLarge?.fontSize,
                       ),
                       cursor: '|',
                     ),
@@ -44,7 +49,8 @@ class HomePage extends StatelessWidget {
                       speed: const Duration(milliseconds: 50),
                       textStyle: TextStyle(
                         fontFamily: GoogleFonts.firaCode().fontFamily,
-                        fontSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+                        fontSize:
+                            Theme.of(context).textTheme.displaySmall?.fontSize,
                       ),
                       cursor: '|',
                     ),

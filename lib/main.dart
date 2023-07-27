@@ -28,7 +28,8 @@ import '../pages/qr_generator.dart' deferred as qr_generator;
 import '../pages/clock.dart' deferred as clock;
 import '../pages/zhsh_3d_map.dart' deferred as zhsh_3d_map;
 import '../pages/not_found.dart' deferred as not_found;
-import '../pages/tw_university_result_query.dart' deferred as tw_university_result_query;
+import '../pages/tw_university_result_query.dart'
+    deferred as tw_university_result_query;
 import '../pages/spin_wheel.dart' deferred as spin_wheel;
 import '../pages/privacy_policy.dart' deferred as privacy_policy;
 import '../pages/terms_of_service.dart' deferred as terms_of_service;
@@ -50,7 +51,9 @@ void main() async {
     webRecaptchaSiteKey: '6LcPhjgkAAAAAAUtPybk3GHCkYZTxDd6w4kVOiQJ',
   );
   // Load IanSui Font
-  await CustomLoadFont.loadFont('https://raw.githubusercontent.com/ButTaiwan/iansui/main/Iansui-Regular.ttf', 'IanSui');
+  await CustomLoadFont.loadFont(
+      'https://raw.githubusercontent.com/ButTaiwan/iansui/main/Iansui-Regular.ttf',
+      'IanSui');
   usePathUrlStrategy();
   runApp(const MyApp());
 }
@@ -63,7 +66,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget Function(BuildContext) loadPage(Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
+  Widget Function(BuildContext) loadPage(
+      Future<void> Function() loadLibrary, Widget Function(BuildContext) page) {
     return (BuildContext context) => FutureBuilder(
           future: loadLibrary(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -229,14 +233,18 @@ class _MyAppState extends State<MyApp> {
                   break;
                 case '/twuniversityresultquery':
                   if (parameters != null) {
-                    builder = loadPage(tw_university_result_query.loadLibrary, (context) {
-                      return tw_university_result_query.TWUniversityResultQueryPage(
+                    builder = loadPage(tw_university_result_query.loadLibrary,
+                        (context) {
+                      return tw_university_result_query
+                          .TWUniversityResultQueryPage(
                         id: parameters!['id'] ?? '',
                       );
                     });
                   } else {
-                    builder = loadPage(tw_university_result_query.loadLibrary, (context) {
-                      return tw_university_result_query.TWUniversityResultQueryPage();
+                    builder = loadPage(tw_university_result_query.loadLibrary,
+                        (context) {
+                      return tw_university_result_query
+                          .TWUniversityResultQueryPage();
                     });
                   }
                   break;
@@ -266,7 +274,8 @@ class _MyAppState extends State<MyApp> {
                   });
                   break;
                 case '/':
-                  builder = (BuildContext context) => const NavigationController();
+                  builder =
+                      (BuildContext context) => const NavigationController();
                   break;
                 default:
                   builder = loadPage(not_found.loadLibrary, (context) {
@@ -444,20 +453,27 @@ class _NavigationControllerState extends State<NavigationController> {
             ),
       bottomNavigationBar: MediaQuery.of(context).size.width < desktopModeWidth
           ? NavigationBar(
-              labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+              labelBehavior:
+                  NavigationDestinationLabelBehavior.onlyShowSelected,
               selectedIndex: _currentIndex,
               onDestinationSelected: _onItemClick,
               destinations: <Widget>[
                 NavigationDestination(
-                  icon: _currentIndex == 0 ? const Icon(Icons.home) : const Icon(Icons.home_outlined),
+                  icon: _currentIndex == 0
+                      ? const Icon(Icons.home)
+                      : const Icon(Icons.home_outlined),
                   label: 'Home',
                 ),
                 NavigationDestination(
-                  icon: _currentIndex == 1 ? const Icon(Icons.build) : const Icon(Icons.build_outlined),
+                  icon: _currentIndex == 1
+                      ? const Icon(Icons.build)
+                      : const Icon(Icons.build_outlined),
                   label: 'Tool',
                 ),
                 NavigationDestination(
-                  icon: _currentIndex == 2 ? const Icon(Icons.settings) : const Icon(Icons.settings_outlined),
+                  icon: _currentIndex == 2
+                      ? const Icon(Icons.settings)
+                      : const Icon(Icons.settings_outlined),
                   label: 'Setting',
                 ),
               ],

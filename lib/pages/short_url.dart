@@ -52,12 +52,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
       FirebaseAuth auth = FirebaseAuth.instance;
       User user = auth.currentUser!;
       String uid = user.uid;
-      String token = await user.getIdToken();
+      String? token = await user.getIdToken();
       await http
           .post(
             sURLServerCreate,
             body: jsonEncode({'firebase_uid': uid, 'original_url': sURLURLController.text}),
-            headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token},
+            headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token ?? ''},
           )
           .then((value) => {
                 setState(() {

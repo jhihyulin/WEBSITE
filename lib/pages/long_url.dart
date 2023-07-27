@@ -57,9 +57,9 @@ class _LongURLPageState extends State<LongURLPage> {
       FirebaseAuth auth = FirebaseAuth.instance;
       User user = auth.currentUser!;
       String uid = user.uid;
-      String token = await user.getIdToken();
+      String? token = await user.getIdToken();
       await http
-          .post(lURLServerCreate, body: jsonEncode({'firebase_uid': uid, 'original_url': lURLURLController.text}), headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token})
+          .post(lURLServerCreate, body: jsonEncode({'firebase_uid': uid, 'original_url': lURLURLController.text}), headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token ?? ''})
           .then((value) => {
                 setState(() {
                   _lurl = jsonDecode(value.body)['url'];

@@ -109,7 +109,7 @@ class _VPNPageState extends State<VPNPage> {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user = auth.currentUser!;
     String uid = user.uid;
-    String token = await user.getIdToken();
+    String? token = await user.getIdToken();
     // print(uid);
     // print(token);
     // print(serverId);

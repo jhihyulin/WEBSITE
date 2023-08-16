@@ -23,8 +23,8 @@ Map<String, Map<String, Object>> socialMedia = {
     'url': 'https://gitlab.com/jhihyulin',
     'icon': FontAwesome.gitlab,
   },
-  'Twitter': {
-    'url': 'https://twitter.com/jhih_yu_lin',
+  'X': {
+    'url': 'https://x.com/jhih_yu_lin',
     'icon': FontAwesome.twitter,
   },
   'Facebook': {

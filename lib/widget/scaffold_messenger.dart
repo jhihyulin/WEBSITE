@@ -44,7 +44,8 @@ abstract class CustomScaffoldMessenger {
           onPressed: () async {
             PackageInfo packageInfo = await PackageInfo.fromPlatform();
             if (context.mounted) {
-              CustomLaunchUrl.launch(context, 'mailto:admin@jhihyulin.live?subject=%5BWebsite%5D%20Error%20Report&body=%5BError%5D%3A%20$error%0D%0A%0D%0A%5BRoute%5D%3A%20${ModalRoute.of(context)?.settings.name}%0D%0A%0D%0A%5BTime%5D%3A%20${'${DateTime.now().toLocal()} ${DateTime.now().timeZoneName}'}%0D%0A%0D%0A%5BUserAgent%5D%3A%20${html.window.navigator.userAgent}%0D%0A%0D%0A%5BVersion%5D%3A%20${packageInfo.version}+${packageInfo.buildNumber}');
+              CustomLaunchUrl.launch(context,
+                  'mailto:admin@jhihyulin.live?subject=%5BWebsite%5D%20Error%20Report&body=%5BError%5D%3A%20$error%0D%0A%0D%0A%5BRoute%5D%3A%20${ModalRoute.of(context)?.settings.name}%0D%0A%0D%0A%5BTime%5D%3A%20${'${DateTime.now().toLocal()} ${DateTime.now().timeZoneName}'}%0D%0A%0D%0A%5BUserAgent%5D%3A%20${html.window.navigator.userAgent}%0D%0A%0D%0A%5BVersion%5D%3A%20${packageInfo.version}+${packageInfo.buildNumber}');
             }
           },
         ),

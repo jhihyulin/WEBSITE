@@ -21,10 +21,12 @@ class CustomLinearProgressIndicator extends StatefulWidget {
   final String? semanticsValue;
 
   @override
-  State<CustomLinearProgressIndicator> createState() => _CustomLinearProgressIndicatorState();
+  State<CustomLinearProgressIndicator> createState() =>
+      _CustomLinearProgressIndicatorState();
 }
 
-class _CustomLinearProgressIndicatorState extends State<CustomLinearProgressIndicator> {
+class _CustomLinearProgressIndicatorState
+    extends State<CustomLinearProgressIndicator> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(

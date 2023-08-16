@@ -23,7 +23,7 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   provider: ^6.0.5
   qr_flutter: ^4.0.0
-  image_picker: ^0.8.6+1
+  image_picker: ^1.0.1
   three_dart: ^0.0.16
   three_dart_jsm: ^0.0.10
   flutter_gl: ^0.0.21
@@ -51,3 +51,6 @@ flutter:
   - family: SocialIcons
     fonts:
       - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
+  - family:  MyIcons
+    fonts:
+      - asset: assets/fonts/MyIcons.ttf

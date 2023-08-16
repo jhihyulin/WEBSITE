@@ -109,14 +109,18 @@ class _VPNPageState extends State<VPNPage> {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user = auth.currentUser!;
     String uid = user.uid;
-    String token = await user.getIdToken();
+    String? token = await user.getIdToken();
     // print(uid);
     // print(token);
     // print(serverId);
-    await http.post(getToken, body: jsonEncode({'firebase_uid': uid, 'token': token, 'server_id': serverId}), headers: {'Content-Type': 'application/json'}).then((value) {
+    await http.post(getToken,
+        body: jsonEncode(
+            {'firebase_uid': uid, 'token': token, 'server_id': serverId}),
+        headers: {'Content-Type': 'application/json'}).then((value) {
       var data = jsonDecode(value.body);
       setState(() {
-        _accessUrlController.text = data['access_url'] + '#' + data['display_name'];
+        _accessUrlController.text =
+            data['access_url'] + '#' + data['display_name'];
         _accessUrl = data['access_url'] + '#' + data['display_name'];
         _dataUsedPercentage = data['data_used_percentage'];
         _useBytesLimitVisualization = data['use_bytes_limit_visualization'];
@@ -159,25 +163,32 @@ class _VPNPageState extends State<VPNPage> {
     }
     switch (os) {
       case 'android':
-        CustomLaunchUrl.launch(context, 'https://play.google.com/store/apps/details?id=org.outline.android.client');
+        CustomLaunchUrl.launch(context,
+            'https://play.google.com/store/apps/details?id=org.outline.android.client');
         break;
       case 'ios':
-        CustomLaunchUrl.launch(context, 'https://apps.apple.com/app/outline-vpn/id1356177741');
+        CustomLaunchUrl.launch(
+            context, 'https://apps.apple.com/app/outline-vpn/id1356177741');
         break;
       case 'mac':
-        CustomLaunchUrl.launch(context, 'https://itunes.apple.com/app/outline-vpn-client/id1356178125');
+        CustomLaunchUrl.launch(context,
+            'https://itunes.apple.com/app/outline-vpn-client/id1356178125');
         break;
       case 'windows':
-        CustomLaunchUrl.launch(context, 'https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe');
+        CustomLaunchUrl.launch(context,
+            'https://s3.amazonaws.com/outline-releases/client/windows/stable/Outline-Client.exe');
         break;
       case 'chromeos':
-        CustomLaunchUrl.launch(context, 'https://play.google.com/store/apps/details?id=org.outline.android.client');
+        CustomLaunchUrl.launch(context,
+            'https://play.google.com/store/apps/details?id=org.outline.android.client');
         break;
       case 'linux':
-        CustomLaunchUrl.launch(context, 'https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage');
+        CustomLaunchUrl.launch(context,
+            'https://s3.amazonaws.com/outline-releases/client/linux/stable/Outline-Client.AppImage');
         break;
       case 'unknown':
-        CustomLaunchUrl.launch(context, 'https://getoutline.org/zh-TW/get-started/#step-3');
+        CustomLaunchUrl.launch(
+            context, 'https://getoutline.org/zh-TW/get-started/#step-3');
         break;
     }
   }
@@ -198,7 +209,10 @@ class _VPNPageState extends State<VPNPage> {
               padding: const EdgeInsets.all(20),
               constraints: BoxConstraints(
                 maxWidth: 700,
-                minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+                minHeight: MediaQuery.of(context).size.height -
+                    AppBar().preferredSize.height -
+                    MediaQuery.of(context).padding.top -
+                    MediaQuery.of(context).padding.bottom,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -260,7 +274,8 @@ class _VPNPageState extends State<VPNPage> {
                     ),
                   ),
                   Offstage(
-                    offstage: _selectedServerId == _defaultSelect || !_getResponse,
+                    offstage:
+                        _selectedServerId == _defaultSelect || !_getResponse,
                     child: Column(
                       children: [
                         Row(
@@ -295,11 +310,16 @@ class _VPNPageState extends State<VPNPage> {
                             TextButton(
                               child: const Icon(Icons.copy),
                               onPressed: () async {
-                                await Clipboard.setData(ClipboardData(text: _accessUrl)).then((value) {
-                                  CustomScaffoldMessenger.showMessageSnackBar(context, 'Copied to clipboard');
+                                await Clipboard.setData(
+                                        ClipboardData(text: _accessUrl))
+                                    .then((value) {
+                                  CustomScaffoldMessenger.showMessageSnackBar(
+                                      context, 'Copied to clipboard');
                                 }).catchError(
                                   (error) {
-                                    CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
+                                    CustomScaffoldMessenger
+                                        .showErrorMessageSnackBar(
+                                            context, error.toString());
                                   },
                                 );
                               },
@@ -311,32 +331,40 @@ class _VPNPageState extends State<VPNPage> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      title: const Text('How to use Outline VPN?'),
+                                      title:
+                                          const Text('How to use Outline VPN?'),
                                       content: Container(
                                         constraints: const BoxConstraints(
                                           maxWidth: 700,
                                           minWidth: 700,
                                         ),
                                         child: SingleChildScrollView(
-                                          physics: const BouncingScrollPhysics(),
+                                          physics:
+                                              const BouncingScrollPhysics(),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text.rich(
                                                 TextSpan(
                                                   children: [
                                                     const TextSpan(
-                                                      text: '1. If you don\'t have Outline APP on your device, click ',
+                                                      text:
+                                                          '1. If you don\'t have Outline APP on your device, click ',
                                                     ),
                                                     TextSpan(
                                                       style: TextStyle(
-                                                        color: Theme.of(context).colorScheme.primary,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary,
                                                       ),
-                                                      text: 'Install Outline VPN APP',
-                                                      recognizer: TapGestureRecognizer()
-                                                        ..onTap = () {
-                                                          _installOutlineVPN();
-                                                        },
+                                                      text:
+                                                          'Install Outline VPN APP',
+                                                      recognizer:
+                                                          TapGestureRecognizer()
+                                                            ..onTap = () {
+                                                              _installOutlineVPN();
+                                                            },
                                                     ),
                                                     const TextSpan(
                                                       text: ' to install it.',
@@ -344,11 +372,16 @@ class _VPNPageState extends State<VPNPage> {
                                                   ],
                                                 ),
                                               ),
-                                              const Text('2. Turn back to this page and click "Add To APP"'),
-                                              const Text('3. Will open Outline VPN APP, click "ADD SERVER"'),
-                                              const Text('4. Access key will save in Outline APP'),
-                                              const Text('5. Click "CONNECT" to connect to VPN server'),
-                                              const Text('* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
+                                              const Text(
+                                                  '2. Turn back to this page and click "Add To APP"'),
+                                              const Text(
+                                                  '3. Will open Outline VPN APP, click "ADD SERVER"'),
+                                              const Text(
+                                                  '4. Access key will save in Outline APP'),
+                                              const Text(
+                                                  '5. Click "CONNECT" to connect to VPN server'),
+                                              const Text(
+                                                  '* If you are first time to use Outline APP, will need to allow Outline APP to access your device.'),
                                             ],
                                           ),
                                         ),

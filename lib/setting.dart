@@ -19,6 +19,45 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+  final Map<Color, String> _colors = {
+    Colors.red: 'Red',
+    Colors.pink: 'Pink',
+    Colors.purple: 'Purple',
+    Colors.deepPurple: 'Deep Purple',
+    Colors.indigo: 'Indigo',
+    Colors.blue: 'Blue',
+    Colors.lightBlue: 'Light Blue',
+    Colors.cyan: 'Cyan',
+    Colors.teal: 'Teal',
+    Colors.green: 'Green',
+    Colors.lightGreen: 'Light Green',
+    Colors.lime: 'Lime',
+    Colors.yellow: 'Yellow',
+    Colors.amber: 'Amber',
+    Colors.orange: 'Orange',
+    Colors.deepOrange: 'Deep Orange',
+    Colors.brown: 'Brown',
+    Colors.grey: 'Grey',
+    Colors.blueGrey: 'Blue Grey',
+  };
+  String colorString(Color color) {
+    String colorHashCode(Color color) {
+      return color
+          .toString()
+          .replaceAll('Color(0xff', '')
+          .replaceAll('MaterialColor(primary value: ', '')
+          .replaceAll('ColorSwatch(primary value: ', '')
+          .replaceAll(')', '');
+    }
+
+    for (MapEntry<Color, String> entry in _colors.entries) {
+      if (colorHashCode(entry.key) == colorHashCode(color)) {
+        return entry.value;
+      }
+    }
+    return colorHashCode(color);
+  }
+
   @override
   Widget build(BuildContext context) {
     int themeMode = Provider.of<ThemeProvider>(context, listen: true).themeMode;
@@ -28,7 +67,8 @@ class _SettingPageState extends State<SettingPage> {
       }
       return false;
     });
-    Color themeColor = Provider.of<ThemeProvider>(context, listen: true).themeColor;
+    Color themeColor =
+        Provider.of<ThemeProvider>(context, listen: true).themeColor;
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User? user = auth.currentUser;
     return SingleChildScrollView(
@@ -37,7 +77,11 @@ class _SettingPageState extends State<SettingPage> {
         child: Container(
           constraints: BoxConstraints(
             maxWidth: 700,
-            minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - (MediaQuery.of(context).size.width > 700 ? 0 : 80), //NavigationBar Height
+            minHeight: MediaQuery.of(context).size.height -
+                AppBar().preferredSize.height -
+                (MediaQuery.of(context).size.width > 700
+                    ? 0
+                    : 80), //NavigationBar Height
           ),
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -51,9 +95,17 @@ class _SettingPageState extends State<SettingPage> {
                   title: const Text('General'),
                   children: [
                     ListTile(
-                      leading: user != null ? const Icon(Icons.sync) : const Icon(Icons.sync_disabled),
-                      title: user != null ? const Text('Logged in') : const Text('Logged out'),
-                      subtitle: user != null ? const Text('Settings will sync to your account, and take effect on all devices immediately.') : const Text('Login to sync settings to your account.'),
+                      leading: user != null
+                          ? const Icon(Icons.sync)
+                          : const Icon(Icons.sync_disabled),
+                      title: user != null
+                          ? const Text('Logged in')
+                          : const Text('Logged out'),
+                      subtitle: user != null
+                          ? const Text(
+                              'Settings will sync to your account, and take effect on all devices immediately.')
+                          : const Text(
+                              'Login to sync settings to your account.'),
                     ),
                     ListTile(
                       leading: themeMode == 0
@@ -71,7 +123,9 @@ class _SettingPageState extends State<SettingPage> {
                         isSelected: themeModeIsSelected,
                         onPressed: (int index) {
                           setState(() {
-                            for (int buttonIndex = 0; buttonIndex < themeModeIsSelected.length; buttonIndex++) {
+                            for (int buttonIndex = 0;
+                                buttonIndex < themeModeIsSelected.length;
+                                buttonIndex++) {
                               if (buttonIndex == index) {
                                 themeModeIsSelected[buttonIndex] = true;
                                 themeMode = buttonIndex;
@@ -79,7 +133,8 @@ class _SettingPageState extends State<SettingPage> {
                                 themeModeIsSelected[buttonIndex] = false;
                               }
                             }
-                            Provider.of<ThemeProvider>(context, listen: false).setThemeMode(themeMode);
+                            Provider.of<ThemeProvider>(context, listen: false)
+                                .setThemeMode(themeMode);
                           });
                         },
                         children: const [
@@ -92,7 +147,7 @@ class _SettingPageState extends State<SettingPage> {
                     ListTile(
                       leading: const Icon(Icons.color_lens),
                       title: const Text('Theme Color'),
-                      subtitle: Text('#${themeColor.toString().replaceAll('Color(0xff', '').replaceAll('MaterialColor(primary value: ', '').replaceAll('ColorSwatch(primary value: ', '').replaceAll(')', '')}'),
+                      subtitle: Text(colorString(themeColor)),
                       trailing: InkWell(
                         borderRadius: BorderRadius.circular(16),
                         child: Container(
@@ -113,6 +168,7 @@ class _SettingPageState extends State<SettingPage> {
                                 content: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(),
                                   child: BlockPicker(
+                                    availableColors: _colors.keys.toList(),
                                     pickerColor: themeColor,
                                     onColorChanged: (color) {
                                       setState(() {
@@ -125,8 +181,13 @@ class _SettingPageState extends State<SettingPage> {
                                   TextButton(
                                     onPressed: () {
                                       setState(() {
-                                        themeColor = Provider.of<ThemeProvider>(context, listen: false).defaultThemeColor;
-                                        Provider.of<ThemeProvider>(context, listen: false).setThemeColor(themeColor);
+                                        themeColor = Provider.of<ThemeProvider>(
+                                                context,
+                                                listen: false)
+                                            .defaultThemeColor;
+                                        Provider.of<ThemeProvider>(context,
+                                                listen: false)
+                                            .setThemeColor(themeColor);
                                         Navigator.of(context).pop();
                                       });
                                     },
@@ -134,7 +195,9 @@ class _SettingPageState extends State<SettingPage> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Provider.of<ThemeProvider>(context, listen: false).setThemeColor(themeColor);
+                                      Provider.of<ThemeProvider>(context,
+                                              listen: false)
+                                          .setThemeColor(themeColor);
                                       Navigator.of(context).pop();
                                     },
                                     child: const Text('OK'),
@@ -172,17 +235,20 @@ class _SettingPageState extends State<SettingPage> {
                               ),
                             ),
                             onTap: () {
-                              CustomLaunchUrl.launch(context, 'https://flutter.dev');
+                              CustomLaunchUrl.launch(
+                                  context, 'https://flutter.dev');
                             },
                           ),
                           InkWell(
                             borderRadius: BorderRadius.circular(16),
                             child: const CustomImage(
-                              src: 'assets/images/BuiltWithFirebaseLightRemoveBackground.png',
+                              src:
+                                  'assets/images/BuiltWithFirebaseLightRemoveBackground.png',
                               height: 60,
                             ),
                             onTap: () {
-                              CustomLaunchUrl.launch(context, 'https://firebase.google.com');
+                              CustomLaunchUrl.launch(
+                                  context, 'https://firebase.google.com');
                             },
                           ),
                         ],
@@ -195,7 +261,8 @@ class _SettingPageState extends State<SettingPage> {
                       trailing: IconButton(
                         icon: const Icon(Icons.open_in_new),
                         onPressed: () {
-                          CustomLaunchUrl.launch(context, 'https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE');
+                          CustomLaunchUrl.launch(context,
+                              'https://github.com/jhihyulin/WEBSITE/blob/main/LICENSE');
                         },
                       ),
                     ),
@@ -206,7 +273,8 @@ class _SettingPageState extends State<SettingPage> {
                       trailing: IconButton(
                         icon: const Icon(Icons.open_in_new),
                         onPressed: () {
-                          CustomLaunchUrl.launch(context, 'https://github.com/jhihyulin/WEBSITE');
+                          CustomLaunchUrl.launch(
+                              context, 'https://github.com/jhihyulin/WEBSITE');
                         },
                       ),
                     ),
@@ -222,7 +290,8 @@ class _SettingPageState extends State<SettingPage> {
                       trailing: IconButton(
                         icon: const Icon(Icons.open_in_new),
                         onPressed: () {
-                          CustomLaunchUrl.launch(context, 'mailto:JY@jhihyulin.live');
+                          CustomLaunchUrl.launch(
+                              context, 'mailto:JY@jhihyulin.live');
                         },
                       ),
                     ),
@@ -231,9 +300,11 @@ class _SettingPageState extends State<SettingPage> {
                       title: const Text('Version'),
                       subtitle: FutureBuilder(
                         future: PackageInfo.fromPlatform(),
-                        builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+                        builder: (BuildContext context,
+                            AsyncSnapshot<PackageInfo> snapshot) {
                           if (snapshot.hasData) {
-                            return Text('${snapshot.data!.version}+${snapshot.data!.buildNumber}');
+                            return Text(
+                                '${snapshot.data!.version}+${snapshot.data!.buildNumber}');
                           } else {
                             return const Text('Loading...');
                           }
@@ -264,7 +335,8 @@ class _SettingPageState extends State<SettingPage> {
                       'ALL RIGHTS RESERVED © ${DateTime.now().year} JHIHYULIN.LIVE',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                        fontSize:
+                            Theme.of(context).textTheme.bodySmall?.fontSize,
                       ),
                     ),
                   ],

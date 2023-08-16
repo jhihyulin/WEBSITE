@@ -52,12 +52,16 @@ class _ShortURLPageState extends State<ShortURLPage> {
       FirebaseAuth auth = FirebaseAuth.instance;
       User user = auth.currentUser!;
       String uid = user.uid;
-      String token = await user.getIdToken();
+      String? token = await user.getIdToken();
       await http
           .post(
             sURLServerCreate,
-            body: jsonEncode({'firebase_uid': uid, 'original_url': sURLURLController.text}),
-            headers: {'Content-Type': 'application/json', 'X-Firebase-AppCheck': token},
+            body: jsonEncode(
+                {'firebase_uid': uid, 'original_url': sURLURLController.text}),
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Firebase-AppCheck': token ?? ''
+            },
           )
           .then((value) => {
                 setState(() {
@@ -72,7 +76,8 @@ class _ShortURLPageState extends State<ShortURLPage> {
                   _loading = false;
                   _loaded = false;
                 }),
-                CustomScaffoldMessenger.showErrorMessageSnackBar(context, error),
+                CustomScaffoldMessenger.showErrorMessageSnackBar(
+                    context, error),
               });
     } else {
       setState(() {
@@ -100,7 +105,10 @@ class _ShortURLPageState extends State<ShortURLPage> {
               padding: const EdgeInsets.all(20),
               constraints: BoxConstraints(
                 maxWidth: 700,
-                minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+                minHeight: MediaQuery.of(context).size.height -
+                    AppBar().preferredSize.height -
+                    MediaQuery.of(context).padding.top -
+                    MediaQuery.of(context).padding.bottom,
               ),
               child: Form(
                 key: _sURLFormKey,
@@ -168,8 +176,12 @@ class _ShortURLPageState extends State<ShortURLPage> {
                           offstage: _loading,
                           child: ElevatedButton.icon(
                             onPressed: _createURL,
-                            label: _loaded ? const Text('Recreate') : const Text('Create Short URL'),
-                            icon: _loaded ? const Icon(Icons.refresh) : const Icon(Icons.add),
+                            label: _loaded
+                                ? const Text('Recreate')
+                                : const Text('Create Short URL'),
+                            icon: _loaded
+                                ? const Icon(Icons.refresh)
+                                : const Icon(Icons.add),
                           ),
                         ),
                         Offstage(
@@ -185,12 +197,16 @@ class _ShortURLPageState extends State<ShortURLPage> {
                               )
                                   .then(
                                     (value) => {
-                                      CustomScaffoldMessenger.showMessageSnackBar(context, 'Copied to clipboard'),
+                                      CustomScaffoldMessenger
+                                          .showMessageSnackBar(
+                                              context, 'Copied to clipboard'),
                                     },
                                   )
                                   .catchError(
                                     (error) => {
-                                      CustomScaffoldMessenger.showErrorMessageSnackBar(context, error),
+                                      CustomScaffoldMessenger
+                                          .showErrorMessageSnackBar(
+                                              context, error),
                                     },
                                   );
                             },

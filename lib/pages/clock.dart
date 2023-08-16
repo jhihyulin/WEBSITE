@@ -115,7 +115,9 @@ class _ClockPageState extends State<ClockPage> {
                                             : 'PM'
                                         : '',
                                     style: TextStyle(
-                                      color: Theme.of(context).colorScheme.onBackground,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
                                     ),
                                   ),
                                 ),
@@ -178,7 +180,9 @@ class _ClockPageState extends State<ClockPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          html.document.fullscreenElement == null ? html.document.documentElement!.requestFullscreen() : html.document.exitFullscreen();
+          html.document.fullscreenElement == null
+              ? html.document.documentElement!.requestFullscreen()
+              : html.document.exitFullscreen();
           html.document.fullscreenElement == null
               ? setState(() {
                   _fullscreen = true;

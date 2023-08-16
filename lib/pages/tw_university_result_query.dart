@@ -21,10 +21,12 @@ class TWUniversityResultQueryPage extends StatefulWidget {
   final String? id;
 
   @override
-  State<TWUniversityResultQueryPage> createState() => _TWUniversityResultQueryPageState();
+  State<TWUniversityResultQueryPage> createState() =>
+      _TWUniversityResultQueryPageState();
 }
 
-class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPage> {
+class _TWUniversityResultQueryPageState
+    extends State<TWUniversityResultQueryPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController inputIdController = TextEditingController();
 
@@ -102,7 +104,8 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
           _tudata = tudata;
         });
       }).catchError((error) {
-        CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
+        CustomScaffoldMessenger.showErrorMessageSnackBar(
+            context, error.toString());
         setState(() {
           _loading = false;
           _loaded = false;
@@ -125,7 +128,10 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
             padding: const EdgeInsets.all(20),
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: Form(
               key: _formKey,
@@ -180,7 +186,8 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                   onPressed: () {
                                     Clipboard.setData(
                                       ClipboardData(
-                                        text: utf8.decode(_name.toString().codeUnits),
+                                        text: utf8
+                                            .decode(_name.toString().codeUnits),
                                       ),
                                     );
                                   },
@@ -201,7 +208,11 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                   icon: const Icon(Icons.copy),
                                   onPressed: () {
                                     var data = ['繁星推薦招生錄取'];
-                                    data = data + [for (var key in _stardata.keys) '$key: ${utf8.decode(_stardata[key].toString().codeUnits)}'];
+                                    data = data +
+                                        [
+                                          for (var key in _stardata.keys)
+                                            '$key: ${utf8.decode(_stardata[key].toString().codeUnits)}'
+                                        ];
                                     Clipboard.setData(
                                       ClipboardData(
                                         text: data.join('\n'),
@@ -232,7 +243,11 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                   icon: const Icon(Icons.copy),
                                   onPressed: () {
                                     var data = ['大學申請入學第一階段篩選'];
-                                    data = data + [for (var key in _udata.keys) '$key: ${utf8.decode(_udata[key].toString().codeUnits)}'];
+                                    data = data +
+                                        [
+                                          for (var key in _udata.keys)
+                                            '$key: ${utf8.decode(_udata[key].toString().codeUnits)}'
+                                        ];
                                     Clipboard.setData(
                                       ClipboardData(
                                         text: data.join('\n'),
@@ -263,7 +278,11 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                   icon: const Icon(Icons.copy),
                                   onPressed: () {
                                     var data = ['科技校院日間部四年制申請入學聯合招生第一階段篩選'];
-                                    data = data + [for (var key in _tudata.keys) '$key: ${utf8.decode(_tudata[key].toString().codeUnits)}'];
+                                    data = data +
+                                        [
+                                          for (var key in _tudata.keys)
+                                            '$key: ${utf8.decode(_tudata[key].toString().codeUnits)}'
+                                        ];
                                     Clipboard.setData(
                                       ClipboardData(
                                         text: data.join(
@@ -286,7 +305,10 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                               ),
                             ),
                             Offstage(
-                              offstage: _name != '' || _stardata.isNotEmpty || _udata.isNotEmpty || _tudata.isNotEmpty,
+                              offstage: _name != '' ||
+                                  _stardata.isNotEmpty ||
+                                  _udata.isNotEmpty ||
+                                  _tudata.isNotEmpty,
                               child: ListTile(
                                 leading: const Icon(Icons.error),
                                 trailing: IconButton(
@@ -300,7 +322,8 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                                           title: const Text('查無資料'),
                                           content: const Column(
                                             mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text('可能有以下幾點原因:'),
                                               Text('1. 輸入錯誤'),
@@ -348,25 +371,51 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                       runSpacing: 10,
                       children: [
                         ElevatedButton.icon(
-                          icon: _loaded ? const Icon(Icons.refresh) : const Icon(Icons.search),
-                          label: _loaded ? const Text('重新查詢') : const Text('查詢'),
+                          icon: _loaded
+                              ? const Icon(Icons.refresh)
+                              : const Icon(Icons.search),
+                          label:
+                              _loaded ? const Text('重新查詢') : const Text('查詢'),
                           onPressed: () {
                             search();
                           },
                         ),
                         Offstage(
-                          offstage: !_loaded || _stardata.isEmpty && _udata.isEmpty && _tudata.isEmpty,
+                          offstage: !_loaded ||
+                              _stardata.isEmpty &&
+                                  _udata.isEmpty &&
+                                  _tudata.isEmpty,
                           child: TextButton(
                             child: const Icon(Icons.copy),
                             onPressed: () {
                               Clipboard.setData(
                                 ClipboardData(
                                   text: [
-                                    _name == '' ? false : '姓名: ${utf8.decode(_name.toString().codeUnits)}',
-                                    _stardata.isEmpty ? false : '繁星推薦:\n${[for (var key in _stardata.keys) '$key: ${utf8.decode(_stardata[key].toString().codeUnits)}'].join('\n')}',
-                                    _udata.isEmpty ? false : '大學申請入學第一階段篩選:\n${[for (var key in _udata.keys) '$key: ${utf8.decode(_udata[key].toString().codeUnits)}'].join('\n')}',
-                                    _tudata.isEmpty ? false : '科技校院日間部四年制申請入學聯合招生第一階段篩選:\n${[for (var key in _tudata.keys) '$key: ${utf8.decode(_tudata[key].toString().codeUnits)}'].join('\n')}',
-                                  ].join('\n').replaceAll('\nfalse', '').replaceAll('false\n', ''),
+                                    _name == ''
+                                        ? false
+                                        : '姓名: ${utf8.decode(_name.toString().codeUnits)}',
+                                    _stardata.isEmpty
+                                        ? false
+                                        : '繁星推薦:\n${[
+                                            for (var key in _stardata.keys)
+                                              '$key: ${utf8.decode(_stardata[key].toString().codeUnits)}'
+                                          ].join('\n')}',
+                                    _udata.isEmpty
+                                        ? false
+                                        : '大學申請入學第一階段篩選:\n${[
+                                            for (var key in _udata.keys)
+                                              '$key: ${utf8.decode(_udata[key].toString().codeUnits)}'
+                                          ].join('\n')}',
+                                    _tudata.isEmpty
+                                        ? false
+                                        : '科技校院日間部四年制申請入學聯合招生第一階段篩選:\n${[
+                                            for (var key in _tudata.keys)
+                                              '$key: ${utf8.decode(_tudata[key].toString().codeUnits)}'
+                                          ].join('\n')}',
+                                  ]
+                                      .join('\n')
+                                      .replaceAll('\nfalse', '')
+                                      .replaceAll('false\n', ''),
                                 ),
                               );
                               shoeCopiedMessage();
@@ -379,7 +428,9 @@ class _TWUniversityResultQueryPageState extends State<TWUniversityResultQueryPag
                             child: const Icon(Icons.send),
                             onPressed: () {
                               Clipboard.setData(
-                                ClipboardData(text: 'https://jhihyulin.live/TWUniversityResultQuery?id=$_id'),
+                                ClipboardData(
+                                    text:
+                                        'https://jhihyulin.live/TWUniversityResultQuery?id=$_id'),
                               );
                               shoeCopiedMessage();
                             },

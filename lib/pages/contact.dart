@@ -26,8 +26,10 @@ class ContactPage extends StatefulWidget {
 
 class _ContactPageState extends State<ContactPage> {
   final TextEditingController contactEmailController = TextEditingController();
-  final TextEditingController contactMessageController = TextEditingController();
-  final TextEditingController contactSignatureController = TextEditingController();
+  final TextEditingController contactMessageController =
+      TextEditingController();
+  final TextEditingController contactSignatureController =
+      TextEditingController();
   final _messageformKey = GlobalKey<FormState>();
   bool _loading = false;
 
@@ -67,18 +69,21 @@ class _ContactPageState extends State<ContactPage> {
         setState(() {
           _loading = false;
         });
-        CustomScaffoldMessenger.showMessageSnackBar(context, 'Message Sent Seccessfully.');
+        CustomScaffoldMessenger.showMessageSnackBar(
+            context, 'Message Sent Seccessfully.');
       }).catchError((error) {
         setState(() {
           _loading = false;
         });
-        CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
+        CustomScaffoldMessenger.showErrorMessageSnackBar(
+            context, error.toString());
       });
     }).catchError((error) {
       setState(() {
         _loading = false;
       });
-      CustomScaffoldMessenger.showErrorMessageSnackBar(context, error.toString());
+      CustomScaffoldMessenger.showErrorMessageSnackBar(
+          context, error.toString());
     });
   }
 
@@ -95,7 +100,10 @@ class _ContactPageState extends State<ContactPage> {
             padding: const EdgeInsets.all(20),
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: Form(
               key: _messageformKey,

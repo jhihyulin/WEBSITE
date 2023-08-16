@@ -17,7 +17,8 @@ class ThemeProvider with ChangeNotifier {
       if (user != null) {
         _user = user;
         // receive Firestore realtime data
-        final docRef = FirebaseFirestore.instance.collection('user').doc(_user!.uid);
+        final docRef =
+            FirebaseFirestore.instance.collection('user').doc(_user!.uid);
         docRef.snapshots().listen((event) {
           if (kDebugMode) {
             print('Remote Firestore Data Changed');
@@ -47,7 +48,8 @@ class ThemeProvider with ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     int? cookieThemeColor = prefs.getInt('themeColor');
     int? cookieThemeMode = prefs.getInt('themeMode');
-    _themeColor = Color(firebaseThemeColor ?? cookieThemeColor ?? dThemeColor.value);
+    _themeColor =
+        Color(firebaseThemeColor ?? cookieThemeColor ?? dThemeColor.value);
     _themeMode = firebaseThemeMode ?? cookieThemeMode ?? dThemeMode;
     notifyListeners();
   }

@@ -54,12 +54,15 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
 
   void _createImageFromRenderKey() async {
     var renderKey = globalKey;
-    final RenderRepaintBoundary boundary = renderKey.currentContext?.findRenderObject()! as RenderRepaintBoundary;
+    final RenderRepaintBoundary boundary =
+        renderKey.currentContext?.findRenderObject()! as RenderRepaintBoundary;
     final ui.Image image = await boundary.toImage(pixelRatio: 3);
     final ByteData? byteData = await image.toByteData(
       format: ui.ImageByteFormat.png,
     );
-    final anchor = html.AnchorElement(href: 'data:image/png;base64,${base64Encode(byteData!.buffer.asUint8List())}');
+    final anchor = html.AnchorElement(
+        href:
+            'data:image/png;base64,${base64Encode(byteData!.buffer.asUint8List())}');
     anchor.download = 'QRCode.png';
     anchor.click();
   }
@@ -77,7 +80,10 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
             padding: const EdgeInsets.all(20),
             constraints: BoxConstraints(
               maxWidth: 700,
-              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -127,7 +133,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                           minWidth: 700,
                                         ),
                                         child: SingleChildScrollView(
-                                          physics: const BouncingScrollPhysics(),
+                                          physics:
+                                              const BouncingScrollPhysics(),
                                           child: Text.rich(
                                             TextSpan(
                                               children: [
@@ -137,13 +144,19 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                                 ),
                                                 TextSpan(
                                                   style: TextStyle(
-                                                    color: Theme.of(context).colorScheme.primary,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
                                                   ),
-                                                  text: 'https://www.qrcode.com/en/about/version.html',
-                                                  recognizer: TapGestureRecognizer()
-                                                    ..onTap = () {
-                                                      CustomLaunchUrl.launch(context, 'https://www.qrcode.com/en/about/version.html');
-                                                    },
+                                                  text:
+                                                      'https://www.qrcode.com/en/about/version.html',
+                                                  recognizer:
+                                                      TapGestureRecognizer()
+                                                        ..onTap = () {
+                                                          CustomLaunchUrl.launch(
+                                                              context,
+                                                              'https://www.qrcode.com/en/about/version.html');
+                                                        },
                                                 ),
                                               ],
                                             ),
@@ -315,7 +328,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                       ),
                       ListTile(
                         title: const Text('Gapless'),
-                        subtitle: const Text('Adds an extra pixel in size to prevent gaps'),
+                        subtitle: const Text(
+                            'Adds an extra pixel in size to prevent gaps'),
                         trailing: Switch(
                           value: _gapless,
                           onChanged: (value) {
@@ -389,7 +403,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                 icon: const Icon(Icons.refresh),
                                 onPressed: () {
                                   setState(() {
-                                    _embeddedImageSize = const QrEmbeddedImageStyle(
+                                    _embeddedImageSize =
+                                        const QrEmbeddedImageStyle(
                                       size: Size(30, 30),
                                     );
                                     _generate();
@@ -398,23 +413,33 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                               ),
                               IconButton(
                                 icon: const Icon(Icons.remove),
-                                onPressed: _embeddedImageSize.size != const Size(0, 0)
-                                    ? () {
-                                        setState(() {
-                                          _embeddedImageSize = (_embeddedImageSize.size != const Size(0, 0)
-                                              ? QrEmbeddedImageStyle(
-                                                  size: Size(
-                                                    _embeddedImageSize.size!.width - 1,
-                                                    _embeddedImageSize.size!.height - 1,
-                                                  ),
-                                                )
-                                              : null)!;
-                                          _generate();
-                                        });
-                                      }
-                                    : null,
+                                onPressed:
+                                    _embeddedImageSize.size != const Size(0, 0)
+                                        ? () {
+                                            setState(() {
+                                              _embeddedImageSize =
+                                                  (_embeddedImageSize.size !=
+                                                          const Size(0, 0)
+                                                      ? QrEmbeddedImageStyle(
+                                                          size: Size(
+                                                            _embeddedImageSize
+                                                                    .size!
+                                                                    .width -
+                                                                1,
+                                                            _embeddedImageSize
+                                                                    .size!
+                                                                    .height -
+                                                                1,
+                                                          ),
+                                                        )
+                                                      : null)!;
+                                              _generate();
+                                            });
+                                          }
+                                        : null,
                               ),
-                              Text('${_embeddedImageSize.size!.width.toInt()}x${_embeddedImageSize.size!.height.toInt()}'),
+                              Text(
+                                  '${_embeddedImageSize.size!.width.toInt()}x${_embeddedImageSize.size!.height.toInt()}'),
                               IconButton(
                                 icon: const Icon(Icons.add),
                                 onPressed: () {
@@ -458,7 +483,8 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                                   );
                                   if (pickedFile != null) {
                                     setState(() {
-                                      _embeddedImage = NetworkImage(pickedFile.path);
+                                      _embeddedImage =
+                                          NetworkImage(pickedFile.path);
                                       _generate();
                                     });
                                   }
@@ -477,7 +503,9 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                           ],
                           onPressed: (index) {
                             setState(() {
-                              _selectModuleShape = index == 0 ? QrDataModuleShape.circle : QrDataModuleShape.square;
+                              _selectModuleShape = index == 0
+                                  ? QrDataModuleShape.circle
+                                  : QrDataModuleShape.square;
                               _generate();
                             });
                           },
@@ -511,8 +539,12 @@ class _QRGeneratorPageState extends State<QRGeneratorPage> {
                         color: _foregroundColor,
                       ),
                       padding: EdgeInsets.all(_padding.toDouble()),
-                      embeddedImage: _useEmbeddedImage ? _embeddedImage ?? const AssetImage('assets/images/logo-512x512.png') : null,
-                      embeddedImageStyle: _useEmbeddedImage ? _embeddedImageSize : null,
+                      embeddedImage: _useEmbeddedImage
+                          ? _embeddedImage ??
+                              const AssetImage('assets/images/logo-512x512.png')
+                          : null,
+                      embeddedImageStyle:
+                          _useEmbeddedImage ? _embeddedImageSize : null,
                       errorStateBuilder: (cxt, err) {
                         return Center(
                           child: Text(

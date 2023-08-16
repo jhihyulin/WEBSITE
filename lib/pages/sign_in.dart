@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider, PhoneAuthProvider;
+import 'package:firebase_auth/firebase_auth.dart'
+    hide EmailAuthProvider, PhoneAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
@@ -23,7 +24,8 @@ class _SignInPageState extends State<SignInPage> {
   void _uploaduserinfo() {
     FirebaseAuth.instance.currentUser!.reload();
     User user = FirebaseAuth.instance.currentUser!;
-    DocumentReference<Map<String, dynamic>> ref = FirebaseFirestore.instance.collection('user').doc(user.uid);
+    DocumentReference<Map<String, dynamic>> ref =
+        FirebaseFirestore.instance.collection('user').doc(user.uid);
     List providerData = [];
     for (UserInfo userInfo in user.providerData) {
       providerData.add({
@@ -45,12 +47,17 @@ class _SignInPageState extends State<SignInPage> {
           'phoneNumber': user.phoneNumber,
           'isAnonymous': user.isAnonymous,
           'isEmailVerified': user.emailVerified,
-          'lastSignInTime': user.metadata.lastSignInTime?.millisecondsSinceEpoch,
+          'lastSignInTime':
+              user.metadata.lastSignInTime?.millisecondsSinceEpoch,
           'providerData': providerData,
         })
         .then((value) => {debugPrint('User Data Updated')})
         .catchError((error) => {
-              if (kDebugMode) {debugPrint('Failed to update user data, will try to create: $error')},
+              if (kDebugMode)
+                {
+                  debugPrint(
+                      'Failed to update user data, will try to create: $error')
+                },
               ref
                   .set({
                     'email': user.email,
@@ -61,13 +68,19 @@ class _SignInPageState extends State<SignInPage> {
                     'phoneNumber': user.phoneNumber,
                     'isAnonymous': user.isAnonymous,
                     'isEmailVerified': user.emailVerified,
-                    'creationTime': user.metadata.creationTime?.millisecondsSinceEpoch,
-                    'lastSignInTime': user.metadata.lastSignInTime?.microsecondsSinceEpoch,
+                    'creationTime':
+                        user.metadata.creationTime?.millisecondsSinceEpoch,
+                    'lastSignInTime':
+                        user.metadata.lastSignInTime?.microsecondsSinceEpoch,
                     'providerData': providerData,
                   })
                   .then((value) => {debugPrint('User Data Created')})
                   .catchError((error) => {
-                        if (kDebugMode) {debugPrint('Failed to set and update user data: $error')}
+                        if (kDebugMode)
+                          {
+                            debugPrint(
+                                'Failed to set and update user data: $error')
+                          }
                       })
             });
   }
@@ -88,7 +101,9 @@ class _SignInPageState extends State<SignInPage> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: _redirectPage == '/profile' ? const Text('Sign In') : const Text('Sign In to Continue'),
+        title: _redirectPage == '/profile'
+            ? const Text('Sign In')
+            : const Text('Sign In to Continue'),
       ),
       body: SignInScreen(
         showAuthActionSwitch: false,
@@ -104,7 +119,8 @@ class _SignInPageState extends State<SignInPage> {
         providers: [
           // EmailAuthProvider(),
           GoogleProvider(
-            clientId: '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com',
+            clientId:
+                '897798864282-t574p0gmq20jeu9u04cbt8270k1vk4cc.apps.googleusercontent.com',
           ),
           TwitterProvider(
             apiKey: 'ItobTrCpFOOvmSc6zufiMLxds',

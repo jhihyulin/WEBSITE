@@ -64,8 +64,13 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
     _spinTimer?.cancel();
     var currentRotateSpeed = _rotateSpeed.toDouble();
     _spinTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
-      var needToRotateAngle = allNeedToRotateAngle - (originalSpinNumber - spinNumber) * 360 - _rotate;
-      currentRotateSpeed = sqrt((needToRotateAngle / 360) < 0.0001 ? 0.0001 : (needToRotateAngle / 360)) * _rotateSpeed;
+      var needToRotateAngle = allNeedToRotateAngle -
+          (originalSpinNumber - spinNumber) * 360 -
+          _rotate;
+      currentRotateSpeed = sqrt((needToRotateAngle / 360) < 0.0001
+              ? 0.0001
+              : (needToRotateAngle / 360)) *
+          _rotateSpeed;
       if (_rotate >= 360) {
         setState(() {
           _rotate = 0;
@@ -161,7 +166,10 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
         child: Center(
           child: Container(
             constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+              minHeight: MediaQuery.of(context).size.height -
+                  AppBar().preferredSize.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -181,12 +189,15 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                               width: mathSquare() - 20,
                               height: mathSquare() - 20,
                               child: Container(
-                                padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 10, 0, 10),
                                 child: Center(
                                   child: RotationTransition(
-                                    turns: AlwaysStoppedAnimation(-_rotate / 360),
+                                    turns:
+                                        AlwaysStoppedAnimation(-_rotate / 360),
                                     child: CustomPaint(
-                                      size: Size(mathSquare() - 60, mathSquare() - 60),
+                                      size: Size(
+                                          mathSquare() - 60, mathSquare() - 60),
                                       painter: MyPainter(
                                         context: context,
                                         textList: _textList,
@@ -201,7 +212,8 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                               height: mathPin() - 20,
                               child: Center(
                                 child: Container(
-                                  padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 10, 10, 10),
                                   child: CustomPaint(
                                     size: Size(mathPin() - 30, mathPin() - 40),
                                     painter: PinPainter(
@@ -243,9 +255,12 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                           : () {
                                               spin();
                                             },
-                                      icon: _spinning ? const Icon(Icons.stop) : const Icon(Icons.play_arrow),
+                                      icon: _spinning
+                                          ? const Icon(Icons.stop)
+                                          : const Icon(Icons.play_arrow),
                                       iconSize: 64,
-                                      color: _spinning ? Colors.red : Colors.green,
+                                      color:
+                                          _spinning ? Colors.red : Colors.green,
                                       tooltip: _spinning
                                           ? 'Stop'
                                           : _spined
@@ -331,19 +346,24 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                               flex: 2,
                                               child: CustomTextFormField(
                                                 validator: (value) {
-                                                  if (value == null || value.isEmpty) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
                                                     return 'Required';
-                                                  } else if (int.tryParse(value) == null) {
+                                                  } else if (int.tryParse(
+                                                          value) ==
+                                                      null) {
                                                     return 'Only number';
                                                   }
                                                   return null;
                                                 },
                                                 controller: _controller2,
-                                                keyboardType: TextInputType.number,
+                                                keyboardType:
+                                                    TextInputType.number,
                                                 enabled: !_spinning,
                                                 labelText: 'Min',
                                                 hintText: 'Min',
-                                                onChanged: (value) => onChange(),
+                                                onChanged: (value) =>
+                                                    onChange(),
                                               ),
                                             ),
                                             const SizedBox(width: 10),
@@ -351,19 +371,24 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                               flex: 2,
                                               child: CustomTextFormField(
                                                 validator: (value) {
-                                                  if (value == null || value.isEmpty) {
+                                                  if (value == null ||
+                                                      value.isEmpty) {
                                                     return 'Required';
-                                                  } else if (int.tryParse(value) == null) {
+                                                  } else if (int.tryParse(
+                                                          value) ==
+                                                      null) {
                                                     return 'Only number';
                                                   }
                                                   return null;
                                                 },
                                                 controller: _controller3,
-                                                keyboardType: TextInputType.number,
+                                                keyboardType:
+                                                    TextInputType.number,
                                                 enabled: !_spinning,
                                                 labelText: 'Max',
                                                 hintText: 'Max',
-                                                onChanged: (value) => onChange(),
+                                                onChanged: (value) =>
+                                                    onChange(),
                                               ),
                                             ),
                                             const SizedBox(
@@ -376,16 +401,39 @@ class _SpinWheelPageState extends State<SpinWheelPage> {
                                                 onPressed: _spinning
                                                     ? null
                                                     : () {
-                                                        if (_formKey2.currentState!.validate()) {
-                                                          if (int.parse(_controller2.text) > int.parse(_controller3.text)) {
-                                                            CustomScaffoldMessenger.showErrorMessageSnackBar(context, 'Error: Min must be less than Max');
+                                                        if (_formKey2
+                                                            .currentState!
+                                                            .validate()) {
+                                                          if (int.parse(
+                                                                  _controller2
+                                                                      .text) >
+                                                              int.parse(
+                                                                  _controller3
+                                                                      .text)) {
+                                                            CustomScaffoldMessenger
+                                                                .showErrorMessageSnackBar(
+                                                                    context,
+                                                                    'Error: Min must be less than Max');
                                                             return;
                                                           }
                                                           var tL = [];
-                                                          for (int i = int.parse(_controller2.text); i <= int.parse(_controller3.text); i++) {
-                                                            tL.add(i.toString());
+                                                          for (int i = int.parse(
+                                                                  _controller2
+                                                                      .text);
+                                                              i <=
+                                                                  int.parse(
+                                                                      _controller3
+                                                                          .text);
+                                                              i++) {
+                                                            tL.add(
+                                                                i.toString());
                                                           }
-                                                          _controller.text = _controller.text == '' ? tL.join('\n') : '${_controller.text}\n${tL.join('\n')}';
+                                                          _controller
+                                                              .text = _controller
+                                                                      .text ==
+                                                                  ''
+                                                              ? tL.join('\n')
+                                                              : '${_controller.text}\n${tL.join('\n')}';
                                                           onChange();
                                                           setState(() {});
                                                         }
@@ -503,7 +551,10 @@ class MyPainter extends CustomPainter {
             ? 0
             : (2 / textList.length * size.width) > size.width / 2
                 ? size.width / 2 * 1 / textList[i].length * 0.8
-                : (2 / textList.length * size.width) * 1 / textList[i].length * 0.8;
+                : (2 / textList.length * size.width) *
+                    1 /
+                    textList[i].length *
+                    0.8;
         // text
         canvas.save();
         canvas.rotate(angle + aAngle / 2);
@@ -521,7 +572,8 @@ class MyPainter extends CustomPainter {
         textPainter.layout();
         textPainter.paint(
           canvas,
-          center.translate(-textPainter.width - 10, -size.height / 2 - textPainter.height / 2),
+          center.translate(-textPainter.width - 10,
+              -size.height / 2 - textPainter.height / 2),
         );
         canvas.restore();
       }

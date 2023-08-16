@@ -9,6 +9,7 @@ import '../widget/linear_progress_indicator.dart';
 import '../widget/launch_url.dart';
 import '../widget/card.dart';
 import '../widget/image.dart';
+import '../widget/my_icons.dart';
 
 Map<String, Map<String, Object>> socialMedia = {
   'GitHub': {
@@ -25,7 +26,11 @@ Map<String, Map<String, Object>> socialMedia = {
   },
   'X': {
     'url': 'https://x.com/jhih_yu_lin',
-    'icon': FontAwesome.twitter,
+    'icon': MyIcons.x,
+    // FontAwesome released 6.4.2, but flutter_icons_plus is still 6.3.0
+    // so I download from https://fontawesome.com/icons/x-twitter
+    // https://site-assets.fontawesome.com/releases/v6.4.2/svgs/brands/x-twitter.svg
+    // and generate .ttf file on fluttericon.com
   },
   'Facebook': {
     'url': 'https://facebook.com/jhihyu0414',

@@ -51,3 +51,6 @@ flutter:
   - family: SocialIcons
     fonts:
       - asset: packages/firebase_ui_auth/fonts/SocialIcons.ttf
+  - family:  MyIcons
+    fonts:
+      - asset: assets/fonts/MyIcons.ttf

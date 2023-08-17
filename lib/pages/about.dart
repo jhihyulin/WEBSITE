@@ -132,12 +132,12 @@ Map<String, Object> experience = {
 };
 
 Map<String, Map<String, String>> school = {
-  'National Dong Hwa University': {
-    'part': 'Department of Physics',
-    'url': 'https://www.ndhu.edu.tw',
-    'icon': 'assets/images/ndhu.png',
-    'start': '2023',
-  },
+  // 'National Dong Hwa University': {
+  //   'part': 'Department of Physics',
+  //   'url': 'https://www.ndhu.edu.tw',
+  //   'icon': 'assets/images/ndhu.png',
+  //   'start': '2023',
+  // },
   'Zhonghe Senior High School': {
     'url': 'https://www.chshs.ntpc.edu.tw',
     'icon': 'assets/images/chshs.png',
